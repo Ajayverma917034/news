@@ -5,6 +5,6 @@ export const AdvertisementRoutes = express.Router();
 
 
 AdvertisementRoutes.post("/create-advertisement", createAdvertisement)
-AdvertisementRoutes.put("/update-advertisement", updateAdvertisement)
 AdvertisementRoutes.get("/get-advertisement", getAdvertisement)
+AdvertisementRoutes.put("/update-advertisement", updateAdvertisement)
 AdvertisementRoutes.delete("/delete-advertisement", deleteAdvertisement)

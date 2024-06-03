@@ -16,7 +16,7 @@ const NewsVideo = ({ data, title }) => {
           <div className="md:w-[50%] w-full h-auto relative">
             <img
               className="w-full h-full"
-              src={`https://img.youtube.com/vi/${data[0].videoLinkId}/mqdefault.jpg`}
+              src={`https://img.youtube.com/vi/${data[0]?.videoLinkId}/mqdefault.jpg`}
             />
             <div className="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-5"></div>
             <div className="absolute inset-0 flex justify-center items-center">

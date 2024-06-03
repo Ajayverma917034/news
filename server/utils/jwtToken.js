@@ -9,7 +9,7 @@ export const sendToken = async (user, statusCode, res) => {
 
         const options = {
             httpOnly: true,
-            secure: true,
+            secure: false,
         }
 
         const accessOptions = {
