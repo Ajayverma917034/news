@@ -6,8 +6,8 @@ import NewsSection from "../components/common/news-section/news.section.componen
 import { CiLocationOn } from "react-icons/ci";
 import adsimgright1 from "../assets/adsimgright1.png";
 import adsimgright2 from "../assets/adsimgright2.png";
-import Heading from "../components/common/Heading";
-import SubNewsCard from "../components/common/news-section/SubNewsCard";
+import SideNews from "./advertisement/related-news/SideNews";
+import StateBar from "../components/common/StateBar";
 const StateNews = () => {
   const { state } = useParams();
   const navItems = findDistrict(state);
@@ -29,35 +29,13 @@ const StateNews = () => {
   useEffect(() => {
     fetchStateNews();
   }, [state]);
-  console.log(news && news[0]);
+  // console.log(news && news[0]);
   return (
     <>
       <div className="flex spacing mt-8">
         <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto  gap-5 ">
           <div className="flex flex-col flex-wrap  md:col-span-4 overflow-hidden">
-            <div className="bg-[#262626] flex">
-              <p
-                className="p-3 flex items-center justify-center text-white bg-blue min-w-fit"
-                style={{
-                  clipPath:
-                    "polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%, 0% 50%)",
-                }}
-              >
-                <span className="text-2xl mt-2"></span>
-                {findHindi(state)}
-              </p>
-              <div className="flex gap-x-5 overflow-x-auto no-scrollbar">
-                {navItems.map((item, index) => (
-                  <NavLink
-                    key={index}
-                    to={`/${state}/${item.english}`}
-                    className="p-3 text-white mt-1 flex items-center justify-center"
-                  >
-                    {item.hindi}
-                  </NavLink>
-                ))}
-              </div>
-            </div>
+            <StateBar state={state} navItems={navItems} />
             <NewsSection data={news && news[0]} title={dataSequence?.state} />
             {news &&
               news.slice(1).map((news, index) => {
@@ -87,17 +65,7 @@ const StateNews = () => {
                 />
               </div>
             </div>
-            <div className=" flex-col gap-y-3 py-3 px-5 shadow-light-shadow rounded-md  hidden lg:flex ">
-              <Heading title={"यह भी पढ़े"} />
-              <div className="flex lg:flex-col gap-y-4 gap-5">
-                <SubNewsCard />
-                <SubNewsCard />
-                <SubNewsCard />
-                <SubNewsCard />
-                <SubNewsCard />
-                <SubNewsCard />
-              </div>
-            </div>
+            <SideNews title="read also" />
           </div>
         </div>
       </div>

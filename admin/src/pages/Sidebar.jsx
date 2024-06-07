@@ -1,76 +1,166 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { FaHome, FaUser, FaCog, FaBars } from "react-icons/fa";
-import { IoCreateOutline } from "react-icons/io5";
-import { Outlet } from "react-router-dom";
+import React, { useEffect, useRef, useState } from "react";
+import { Link, Outlet } from "react-router-dom";
 import { TbVideoPlus } from "react-icons/tb";
+import { MdNewspaper } from "react-icons/md";
+import { IoNewspaper } from "react-icons/io5";
+import { MdOutlineVideoSettings } from "react-icons/md";
+import { FaHome, FaUser, FaCog, FaBars } from "react-icons/fa";
+import { RiAdvertisementLine } from "react-icons/ri";
+import { lookInSession } from "../common/session";
 
-const Sidebar = ({ toggleSidebar }) => {
-  const [open, setOpen] = useState(true);
+const SideBar = () => {
+  let page = location.pathname.split("/")[2];
+  let [pageState, setPageState] = useState(("-", ""));
+  let [showSideNav, setShowSideNav] = useState(false);
+  let sidebarRef = useRef();
+
+  const changePageState = (e) => {
+    let { offsetWidth, offsetLeft } = e.target;
+    // You can modify activeTabLine if needed, or remove it
+    // activeTabLine.current.style.width = offsetWidth + "px";
+    // activeTabLine.current.style.left = offsetLeft + "px";
+
+    if (
+      e.target === sidebarRef.current ||
+      e.target.closest(".sidebar-toggle")
+    ) {
+      // Clicking on the sidebar or its toggle button, don't close it
+      return;
+    }
+
+    setShowSideNav(false);
+  };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (showSideNav && !event.target.closest(".sidebar")) {
+        setShowSideNav(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [showSideNav]);
+
+  useEffect(() => {
+    setShowSideNav(false);
+    // pageStateTap.current.click(); // If needed
+  }, [pageState]);
+
+  const sessionData = JSON.parse(lookInSession("user"));
+  const user = sessionData?.user;
   return (
     <>
-      <section className="relative flex gap-10 py-0 m-0 ">
-        <div
-          className={`bg-white h-[calc(100vh-125px)] ${
-            open ? "w-64" : "w-20"
-          } transition-width duration-300 sticky top-[123px] left-0 shadow-dark-shadow overflow-y-auto`}
-        >
-          <div className="flex items-center justify-between h-16 p-4 text-gray">
-            <span className={`${open ? "block" : "hidden"} font-bold text-xl`}>
-              Admin
-            </span>
-            <button onClick={() => setOpen(!open)} className="block">
+      <section className="relative flex py-0 m-0 max-md:flex-col bg-white">
+        {/* Overlay */}
+        {showSideNav && (
+          <div
+            className="fixed inset-0 bg-black bg-opacity-50 z-[100]"
+            onClick={() => setShowSideNav(false)}
+          ></div>
+        )}
+
+        <div className="sticky top-[72px] z-[150]">
+          <div className="relative md:hidden bg-white py-1 border-b border-grey flex flex-nowrap overflow-x-auto pl-5">
+            <button
+              className="p-1 capitalize sidebar-toggle"
+              onClick={() => setShowSideNav(!showSideNav)}
+            >
               <FaBars />
             </button>
+            <button className="p-1 capitalize sidebar-toggle">
+              {pageState}
+            </button>
+            {/* Remove the <hr> if not needed */}
+            {/* <hr className="absolute bottom-0 duration-500" /> */}
           </div>
-          <nav className="flex flex-col items-start p-4 space-y-4">
+
+          <div
+            ref={sidebarRef}
+            className={
+              "min-w-[200px] pt-3 px-5 !h-[calc(100vh-106px)] max-md:pb-4 md:min-h-[calc(100vh-107px)] bg-white md:bg-white md:h-cover md:sticky top-[90px] overflow-y-auto z-[150] md:border-gray-light md:border-r absolute max-md:top-[33px] max-md:px-16 max-md:-ml-7 duration-500 sidebar" +
+              (!showSideNav
+                ? " max-md:opacity-0 max-md:pointer-events-none"
+                : "")
+            }
+          >
             <Link
-              className="flex items-center text-gray hover:bg-red hover:text-white p-2 rounded w-full"
+              className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
               to="/"
+              onClick={() => setShowSideNav(false)}
             >
               <FaHome size={24} />
-              <span className={`${open ? "block" : "hidden"} ml-4`}>Home</span>
+              <span>Home</span>
             </Link>
             <Link
-              className="flex items-center text-gray hover:bg-red hover:text-white p-2 rounded w-full"
+              className="flex items-center  gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
               to="/profile"
+              onClick={() => setShowSideNav(false)}
             >
               <FaUser size={24} />
-              <span className={`${open ? "block" : "hidden"} ml-4`}>
-                Profile
-              </span>
+              <span>Profile</span>
             </Link>
             <Link
-              className="flex items-center text-gray hover:bg-red hover:text-white p-2 rounded w-full"
+              className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
               to="/settings"
+              onClick={() => setShowSideNav(false)}
             >
               <FaCog size={24} />
-              <span className={`${open ? "block" : "hidden"} ml-4`}>
-                Settings
-              </span>
+              <span>Settings</span>
             </Link>
-            <hr className="text-gray w-full" />
+            <hr className="text-gray w-full py-2 mt-3" />
+            {user?.role === "admin" && (
+              <Link
+                className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
+                to="/dashboard/all-ads"
+                onClick={() => setShowSideNav(false)}
+              >
+                <RiAdvertisementLine size={25} />
+                <span>Ads</span>
+              </Link>
+            )}
             <Link
-              className="flex items-center text-gray hover:bg-red hover:text-white p-2 rounded w-full"
+              className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
               to="/dashboard/create-news"
+              onClick={() => setShowSideNav(false)}
             >
-              <IoCreateOutline size={25} />
-              <span className={`${open ? "block" : "hidden"} ml-4 mt-1`}>
-                Create News
-              </span>
+              <IoNewspaper size={25} />
+              <span>Create News</span>
             </Link>
+            {user?.role === "admin" && (
+              <Link
+                className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
+                to="/dashboard/create-videos"
+                onClick={() => setShowSideNav(false)}
+              >
+                <TbVideoPlus size={25} />
+                <span>Create YtVideo</span>
+              </Link>
+            )}
             <Link
-              className="flex items-center text-gray hover:bg-red hover:text-white p-2 rounded w-full"
-              to="/dashboard/create-videos"
+              className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
+              to="/dashboard/all-news-data"
+              onClick={() => setShowSideNav(false)}
             >
-              <TbVideoPlus size={25} />
-              <span className={`${open ? "block" : "hidden"} ml-4 `}>
-                Create YtVideo
-              </span>
+              <MdNewspaper size={25} />
+              <span>All-News</span>
             </Link>
-          </nav>
+            {user?.role === "admin" && (
+              <Link
+                className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
+                to="/dashboard/all-videos-data"
+                onClick={() => setShowSideNav(false)}
+              >
+                <MdOutlineVideoSettings size={25} />
+                <span>All-Videos</span>
+              </Link>
+            )}
+          </div>
         </div>
-        <div className="max-md: mt-5 w-full">
+        <div className="w-full">
           <Outlet />
         </div>
       </section>
@@ -78,4 +168,4 @@ const Sidebar = ({ toggleSidebar }) => {
   );
 };
 
-export default Sidebar;
+export default SideBar;

@@ -26,7 +26,7 @@ const VideoPage = () => {
   const fetchNews = () => {
     axios
       .post(import.meta.env.VITE_SERVER_DOMAIN + "/get-youtube-news", {
-        news_id,
+        video_id: news_id,
       })
       .then(async ({ data: { news } }) => {
         // console.log(news)

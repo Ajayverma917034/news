@@ -66,7 +66,7 @@ const PublishForm = () => {
     if (e.keyCode === 13 || e.keyCode === 188) {
       e.preventDefault();
       let tag = e.target.value;
-      if (tags.length < tagLimit) {
+      if (tags?.length < tagLimit) {
         if (!tags.includes(tag) && tag.length) {
           setBlog({ ...blog, tags: [...tags, tag] });
         }
@@ -90,11 +90,11 @@ const PublishForm = () => {
     if (!title.length) {
       return toast.error("Write News Title befor publising");
     }
-    if (!des.length || des.length > charLength)
+    if (!des || des.length > charLength)
       return toast.error(
         `Write a description about your news within ${charLength} characters to publish`
       );
-    if (!tags.length || tags.length > 10) {
+    if (!tags || tags.length > 10) {
       return toast.error(
         `Write some tags about news within ${tagLimit} tag limit to publish`
       );
@@ -107,7 +107,7 @@ const PublishForm = () => {
       banner,
       description: des,
       content,
-      categories: tags,
+      tags,
       state,
       district,
       location,
@@ -137,7 +137,7 @@ const PublishForm = () => {
       });
   };
   return (
-    <section className="w-full min-h-screen grid grid-cols-1 md:grid-cols-5 lg:gap-4 pr-4">
+    <section className="w-full min-h-screen grid grid-cols-1 md:grid-cols-5 lg:gap-4 p-5 md:p-10 ">
       <button
         className="w-12 h-12 absolute right-[5vw] z-10 top-[6%] lg:top-[2%]"
         onClick={handleClose}
@@ -177,7 +177,7 @@ const PublishForm = () => {
           }}
         ></textarea>
         <p className="mt-1 text-dark-grey text-sm text-right">
-          {charLength - des.length} characters left
+          {charLength - des?.length} characters left
         </p>
 
         <p className="text-dark-grey mb-2 mt-9">
@@ -196,7 +196,7 @@ const PublishForm = () => {
             })}
         </div>
         <p className="mt-1 pt-1 mb-4 text-dark-grey text-right ">
-          {tagLimit - tags.length} Tags left
+          {tagLimit - tags?.length} Tags left
         </p>
 
         <div className="grid w-full grid-cols-1 md:grid-cols-2 gap-3">

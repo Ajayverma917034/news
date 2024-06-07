@@ -34,7 +34,7 @@ const newsSchema = new mongoose.Schema({
         type: String,
         // required: true,
     },
-    categories: {
+    tags: {
         type: [String],
         // required: true,
     },

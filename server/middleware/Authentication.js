@@ -5,9 +5,9 @@ import jwt from 'jsonwebtoken';
 
 export const isAuthenticated = tryCatch(async (req, res, next) => {
     try {
-        console.log(req)
+        // console.log(req)
         const accessToken = req.cookies?.accessToken || req.headers['authorization']?.split(' ')[1];
-        console.log(req.cookies)
+        // console.log(req.cookies)
 
         if (!accessToken || Object.getPrototypeOf(accessToken) === null) {
             return next(new ErrorHandler(401, 'Unauthorized request'));

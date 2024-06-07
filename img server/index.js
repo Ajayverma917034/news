@@ -54,7 +54,7 @@ app.get('/', (req, res) => {
 app.get('/image/:filename', async (req, res) => {
     try {
         const { filename } = req.params;
-        console.log(filename);
+        // console.log(filename);
         const filePath = path.join(__dirname, 'public/images', filename)
         if (fs.existsSync(filePath)) {
             res.sendFile(filePath);

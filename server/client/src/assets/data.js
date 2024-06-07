@@ -1,4 +1,4 @@
-const stateDistricts = {
+export const stateDistricts = {
     "uttar pradesh": [
         { hindi: 'सोनभद्र', english: 'sonbhadra' },
         { hindi: 'चंदौली', english: 'chandauli' },

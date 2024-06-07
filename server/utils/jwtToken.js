@@ -18,7 +18,7 @@ export const sendToken = async (user, statusCode, res) => {
         }
         const refreshOptions = {
             ...options,
-            maxAge: process.env.REFRESH_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
+            maxAge: process.env.REFRESH_COOKIE_EXPIRES * 60 * 1000
         }
         res.cookie('refreshToken', refreshToken, refreshOptions);
         res.cookie('accessToken', accessToken, accessOptions);
@@ -28,7 +28,7 @@ export const sendToken = async (user, statusCode, res) => {
             profile: user.profile,
             role: user.role,
         }
-        return res.status(statusCode).json({ success: true, userData, accessToken, refreshToken })
+        return res.status(statusCode).json({ success: true, user: userData, accessToken, refreshToken })
     } catch (error) {
         return res.status(500).json({ success: false, message: error.message })
     }

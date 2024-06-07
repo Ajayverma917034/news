@@ -33,20 +33,20 @@ export const createUser = tryCatch(async (req, res, next) => {
 })
 
 export const login = tryCatch(async (req, res, next) => {
-    const { email, password} = req.body;
-    if(!email || !password){
+    const { email, password } = req.body;
+    if (!email || !password) {
         return res.status(400).json({ success: false, message: "Please provide all details" })
     }
 
-    var user = await User.findOne({email: email}).select('+password');
-    if(!user){
-        user = await User.findOne({username: email}).select('+password');
+    var user = await User.findOne({ email: email }).select('+password');
+    if (!user) {
+        user = await User.findOne({ username: email }).select('+password');
         // console.log(user)
     }
     if (!user) {
         return res.status(400).json({ success: false, message: "Invalid credentials" })
     }
-    
+
     const isPassowrdMatch = await user.comparePassword(password);
 
     if (!isPassowrdMatch) {
@@ -60,3 +60,21 @@ export const getUser = tryCatch(async (req, res, next) => {
     const user = req.user;
     res.status(200).json({ success: true, user })
 })
+
+
+export const logOut = tryCatch(async (req, res, next) => {
+    res.cookie("accessToken", null, {
+        expires: new Date(Date.now()),
+        httpOnly: true,
+    });
+    res.cookie("refreshToken", null, {
+        expires: new Date(Date.now()),
+        httpOnly: true,
+    });
+    res.status(200).json({ success: true, message: "Logged Out" });
+});
+// const user = await User.findById(userId).select('_id name profile email role createdAt');
+// export const getUserInfo = tryCatch(async (req, res, next) => {
+//     const userId = req.user._id;
+//     res.status(200).json({ success: true, user });
+//   })

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import httpClient from "../../api/httpClient";
+import { TrendingNewsSkeleton } from "../../skeleton/HomeSkeleton";
 const BreakingNews = () => {
   const [breakingNews, setBreakingNews] = useState(null);
   const fetchBreakingNews = async () => {
     httpClient
       .get("/breaking-news")
       .then(({ data }) => {
-        console.log(data);
+        // console.log(data);
         setBreakingNews(data.breakingNews);
       })
       .catch((err) => {
@@ -26,7 +27,7 @@ const BreakingNews = () => {
       </div>
       <marquee className=" rounded-l-full bg-white w-full py-1.5 px-4 font-lg lg:text-sm sm:text-xs">
         <div className="flex gap-96">
-          {breakingNews &&
+          {breakingNews ? (
             breakingNews.map((news, index) => (
               <Link
                 to={`/news/${news.news_id}`}
@@ -35,7 +36,10 @@ const BreakingNews = () => {
               >
                 {news.title}
               </Link>
-            ))}
+            ))
+          ) : (
+            <TrendingNewsSkeleton />
+          )}
         </div>
       </marquee>
     </div>

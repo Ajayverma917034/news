@@ -20,7 +20,7 @@ const ytNewsSchema = new mongoose.Schema({
             default: 0
         }
     },
-    category: {
+    tags: {
         type: [String],
         default: []
     },

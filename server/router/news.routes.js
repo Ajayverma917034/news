@@ -1,5 +1,5 @@
 import express from 'express';
-import { adminNews, createNews, deleteNews, fetchDataStateWise, fetchRelatedNews, findNewsSectionTypeNews, findStateNews, getBreakingNews, getHomeNews, getNews, getNewsCount, getNewses } from '../controller/news.controller.js';
+import { adminNews, createNews, deleteNews, fetchDataStateWise, fetchRelatedNews, findNewsSectionTypeNews, findStateNews, getBreakingNews, getHomeNews, getMyNews, getMyNewsCount, getNews, getNewsCount, getNewses } from '../controller/news.controller.js';
 import { authorizeroles, isAuthenticated } from '../middleware/Authentication.js';
 
 const newsRouter = express.Router();
@@ -18,5 +18,8 @@ newsRouter.get("/fetch-all-state-news", findStateNews)
 newsRouter.post('/fetch-sidebar-news', findNewsSectionTypeNews)
 
 newsRouter.get('/breaking-news', getBreakingNews)
+
+newsRouter.post('/get-my-news', isAuthenticated, authorizeroles("reporter"), getMyNews)
+newsRouter.post('/get-my-news-count', isAuthenticated, authorizeroles("reporter"), getMyNewsCount)
 
 export default newsRouter;

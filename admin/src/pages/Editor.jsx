@@ -64,15 +64,7 @@ const Editor = () => {
         setTextEditor,
       }}
     >
-      {refreshToken === null || undefined ? (
-        <Navigate to="/signin" />
-      ) : loading ? (
-        <Loader />
-      ) : editorState === "editor" ? (
-        <BlogEditor />
-      ) : (
-        <PublishForm />
-      )}
+      {editorState === "editor" ? <PublishForm /> : <PublishForm />}
     </EditorContext.Provider>
   );
 };

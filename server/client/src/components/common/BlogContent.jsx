@@ -3,7 +3,7 @@ const Img = ({ url, caption }) => {
     <div>
       <img src={url} alt="Img" />{" "}
       {caption.length ? (
-        <p className="w-full text-center my-3 md:mb-12 text-base text-dark-grey">
+        <p className="w-full text-center my-1 md:mb-12 text-base text-dark-grey font-anekdevanagari">
           {caption}
         </p>
       ) : (
@@ -14,10 +14,14 @@ const Img = ({ url, caption }) => {
 };
 const Quote = ({ quote, caption }) => {
   return (
-    <div className="bg-purple/10 p-3 pl-5 border-l-4 border-purple">
-      <p className="text-xl leading-10 md:text-2xl">{quote}</p>
+    <div className="bg-purple/10 p-3 pl-5 border-l-4 border-purple font-anekdevanagari">
+      <p className="text-xl leading-10 md:text-2xl font-anekdevanagari">
+        {quote}
+      </p>
       {caption.length ? (
-        <p className="w-full text-purple text-base">{caption}</p>
+        <p className="w-full text-purple text-base font-anekdevanagari">
+          {caption}
+        </p>
       ) : (
         ""
       )}
@@ -33,7 +37,7 @@ const List = ({ style, items }) => {
         return (
           <li
             key={i}
-            className="my-4"
+            className="my-1 font-anekdevanagari"
             dangerouslySetInnerHTML={{ __html: item }}
           ></li>
         );
@@ -47,7 +51,7 @@ const BlogContent = ({ block }) => {
     return (
       <p
         dangerouslySetInnerHTML={{ __html: data.text }}
-        className="text-lg font-devNagri opacity-[0.9]"
+        className="md:text-[18px] font-anekdevanagari opacity-[0.9]"
       ></p>
     );
   }
@@ -55,14 +59,14 @@ const BlogContent = ({ block }) => {
     if (data.level === 3) {
       return (
         <h3
-          className="text-2xl font-bold font-devNagri"
+          className="text-2xl font-bold font-anekdevanagari"
           dangerouslySetInnerHTML={{ __html: data.text }}
         ></h3>
       );
     }
     return (
       <h2
-        className="text-3xl font-bold"
+        className="text-3xl font-bold font-anekdevanagari"
         dangerouslySetInnerHTML={{ __html: data.text }}
       ></h2>
     );

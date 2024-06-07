@@ -1,5 +1,6 @@
 import axios from "axios";
 import { handleRefreshToken } from "./refreshToken";
+import { logOut } from "./loadUser";
 
 axios.defaults.baseURL = import.meta.env.VITE_SERVER_DOMAIN;
 axios.defaults.withCredentials = true;
@@ -25,6 +26,8 @@ axios.interceptors.response.use(
       originalRequest.url.includes("refresh-token")
     ) {
       // console.log("IN stop");
+      console.log("error here");
+      await logOut();
       return Promise.reject(error);
     } else if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
@@ -43,6 +46,8 @@ axios.interceptors.response.use(
         originalRequest.headers["Authorization"] = `Bearer ${accessToken}`;
         return axios(originalRequest);
       } catch (refreshError) {
+        await logOut();
+
         return Promise.reject(refreshError);
       }
     }

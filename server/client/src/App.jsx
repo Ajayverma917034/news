@@ -14,21 +14,26 @@ import BreakingNews from "./components/common/BreakingNews";
 import "./App.css";
 import Footer from "./pages/Footer";
 import VideoPage from "./components/common/singlepage/VideoPage";
+import { Toaster } from "react-hot-toast";
 const App = () => {
   return (
     <BrowserRouter>
       {/* <HeadNav /> */}
       <Navbar />
       <Slider />
+      <Toaster />
       <BreakingNews />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/sonbhadra" element={<MoreNews />} />
         <Route path="/state" element={<StateNewsUnknown />} />
         {/* Routes for all know route    */}
-        <Route path="/country" element={<StateNewsUnknown />} />
-        <Route path="/world" element={<StateNewsUnknown />} />
-        <Route path="/crime" element={<StateNewsUnknown />} />
+        <Route path="/country" element={<MoreNews />} />
+        <Route path="/world" element={<MoreNews />} />
+        <Route path="/crime" element={<MoreNews />} />
+        <Route path="/ipl" element={<MoreNews />} />
+        <Route path="/sports" element={<MoreNews />} /> 
+        <Route path="/religion" element={<MoreNews />} />
         {/* ... add here  */}
 
         <Route path="/:state" element={<StateNews />} />

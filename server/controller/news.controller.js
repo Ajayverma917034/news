@@ -8,11 +8,14 @@ import ErrorHandler from "../utils/errorHandler.js";
 
 export const createNews = tryCatch((req, res, next) => {
     try {
+        console.log(req)
+        console.log(req.body)
+        console.log(req.file)
         let authorId = req.user._id;
-        let { id, title, description, content, state, district, location, news_section_type, banner, categories, breaking_news, draft } = req.body;
+        let { id, title, description, content, state, district, location, news_section_type, banner, tags, breaking_news, draft } = req.body;
 
 
-        if (!title.length) {
+        if (!title?.length) {
             return res.status(403).json({ error: `You must provide a title to ${draft === true ? "Publish" : "Save"} a news` })
         }
         if (!draft) {
@@ -38,11 +41,11 @@ export const createNews = tryCatch((req, res, next) => {
                 return res.status(403).json({ error: 'You must provide a location for the news' })
             }
 
-            // Check if category is provided and not empty
-            // if (!categories || categories.length === 0) {
-            //     return res.status(403).json({ error: 'You must provide categories for the news' })
+            // Check if tags is provided and not empty
+            // if (!tags || tags.length === 0) {
+            //     return res.status(403).json({ error: 'You must provide tags for the news' })
             // }
-            // Check if category is provided and not empty
+            // Check if tags is provided and not empty
             // if (!news_section_type || news_section_type.length === 0) {
             //     return res.status(403).json({ error: 'You must provide news_section_type for the news' })
             // }
@@ -61,15 +64,15 @@ export const createNews = tryCatch((req, res, next) => {
 
         let news_id = id || title.replace(/[^a-zA-Z0-9]/g, ' ').replace(/\s+/g, "-")
 
-        // categories = categories.map(category => category.trim().toLowerCase());
+        // tags = tags.map(tags => tags.trim().toLowerCase());
         if (id) {
-            News.findOneAndUpdate({ news_id }, { title, description, content, state, district, location, banner, categories, breaking_news, news_section_type, draft: draft ? draft : false }).then(news => {
+            News.findOneAndUpdate({ news_id }, { title, description, content, state, district, location, banner, tags, breaking_news, news_section_type, draft: draft ? draft : false }).then(news => {
                 return res.status(200).json({ id: news.news_id, message: 'update Successfully' })
             })
         }
         else {
             let news = new News({
-                title, description, content, state, district, location, categories, banner, news_section_type, breaking_news, draft: Boolean(draft), news_id, author: authorId
+                title, description, content, state, district, location, tags, banner, news_section_type, breaking_news, draft: Boolean(draft), news_id, author: authorId
             })
 
             news.save().then(news => {
@@ -105,7 +108,7 @@ export const getHomeNews = tryCatch(async (req, res, next) => {
             let query = {};
             query.news_section_type = { $in: entity };
 
-            const news = await News.find(query).limit(5).sort({ createdAt: -1 }).select('news_id title state district location category createdAt banner -_id').exec();
+            const news = await News.find(query).limit(5).sort({ createdAt: -1 }).select('news_id title state district location tags createdAt banner -_id').exec();
 
             let pushData = {
                 title: entity,
@@ -124,13 +127,13 @@ export const getHomeNews = tryCatch(async (req, res, next) => {
 
 
 export const getNewses = tryCatch((req, res, next) => {
-    let { page, limit, state, district, location, category, breaking_news, draft, news_section_type } = req.body;
+    let { page, limit, state, district, location, tags, breaking_news, draft, news_section_type } = req.body;
     let query = {};
 
     if (state) query.state = state;
     if (district) query.district = district;
     if (location) query.location = location;
-    if (category) query.category = category;
+    if (tags) query.tags = tags;
     if (breaking_news) query.breaking_news = breaking_news;
     if (draft) query.draft = draft;
     if (news_section_type && news_section_type.length) {
@@ -147,14 +150,14 @@ export const getNewses = tryCatch((req, res, next) => {
         .skip(limit * (page - 1))
         .limit(limit)
         .populate("author", "username profile")
-        .select('news_id title description content tags state district location category breaking_news draft createdAt -_id')
+        .select('news_id title description content tags state district banner location tags breaking_news draft createdAt -_id')
         .then(news => {
             if (!news.length) {
                 News.find().sort({ "activity.total_reads": -1, "createdAt": -1 })
                     .skip(limit * (page - 1))
                     .limit(limit)
                     .populate("author", "username profile")
-                    .select('news_id title description content tags state district location category breaking_news draft createdAt -_id')
+                    .select('news_id title description content tags state banner district location tags breaking_news draft createdAt -_id')
                     .then(news => {
                         return res.status(200).json(news)
                     }).catch(err => {
@@ -175,7 +178,7 @@ export const getNews = tryCatch(async (req, res, next) => {
 
     let incrementVal = mode !== 'edit' ? 1 : 0;
     News.findOneAndUpdate({ news_id }, { $inc: { "activity.total_reads": incrementVal, "activity.total_today_count": incrementVal } })
-        .select('news_id title description content tags state district location categories breaking_news draft createdAt -_id')
+        .select('news_id title description content tags state district banner location tags breaking_news draft createdAt -_id')
         .then(news => {
             // console.log(news)
             if (news.draft && !draft) {
@@ -189,13 +192,13 @@ export const getNews = tryCatch(async (req, res, next) => {
 })
 
 export const getNewsCount = tryCatch(async (req, res, next) => {
-    let { state, district, location, category, breaking_news, draft } = req.body;
+    let { state, district, location, tags, breaking_news, draft } = req.body;
     let query = {};
 
     if (state) query.state = state;
     if (district) query.district = district;
     if (location) query.location = location;
-    if (category) query.category = category;
+    if (tags) query.tags = tags;
     if (breaking_news) query.breaking_news = breaking_news;
     if (draft) query.draft = draft;
 
@@ -240,7 +243,7 @@ export const adminNews = tryCatch(async (req, res, next) => {
         .skip(skipDocs)
         .limit(maxLimit)
         .sort({ createdAt: -1 })
-        .select('news_id title description content tags state district location categories breaking_news draft createdAt -_id')
+        .select('news_id title description content tags state district location tags breaking_news draft createdAt -_id')
         .then((news) => {
             return res.status(200).json(news)
         })
@@ -250,7 +253,7 @@ export const adminNews = tryCatch(async (req, res, next) => {
 })
 
 export const fetchRelatedNews = tryCatch(async (req, res, next) => {
-    let { state, district, location, categories, news_id } = req.body;
+    let { state, district, location, tags, news_id } = req.body;
 
     let query = { $or: [] };
 
@@ -267,9 +270,9 @@ export const fetchRelatedNews = tryCatch(async (req, res, next) => {
         location = location.trim().toLowerCase();
         query.$or.push({ location: location });
     }
-    if (categories && categories.length) {
-        categories = categories.map(cat => cat.trim().toLowerCase());
-        query.categories = { $in: categories }; // Works with $or internally if categories are in an array
+    if (tags && tags.length) {
+        tags = tags.map(cat => cat.trim().toLowerCase());
+        query.tags = { $in: tags }; // Works with $or internally if tags are in an array
     }
 
     // Check if $or array is empty, if so, remove it from the query
@@ -285,13 +288,13 @@ export const fetchRelatedNews = tryCatch(async (req, res, next) => {
     News.find(query)
         .limit(4)
         .sort({ "activity.total_reads": -1, "createdAt": -1 })
-        .select('news_id title tags state district location categories draft createdAt -_id')
+        .select('news_id title tags state district banner location tags draft createdAt -_id')
         .then(news => {
             if (news.length === 0) {
                 News.find()
                     .limit(4)
                     .sort({ "activity.total_reads": -1, "createdAt": -1 })
-                    .select('news_id title tags state district location categories draft createdAt -_id')
+                    .select('news_id title tags state district banner location tags draft createdAt -_id')
                     .then(news => {
                         return res.status(200).json(news)
                     }).catch(err => {
@@ -300,7 +303,7 @@ export const fetchRelatedNews = tryCatch(async (req, res, next) => {
             }
             else {
 
-                return res.status(200).json({ success: true, news });
+                return res.status(200).json(news);
             }
         }).catch(err => {
             return next(new ErrorHandler(500, err.message));
@@ -313,7 +316,7 @@ export const findNewsSectionTypeNews = tryCatch(async (req, res, next) => {
     let { news_section_type, limit } = req.body;
 
     // Set the number of items to fetch from the database
-    const fetchLimit = 10; // Always fetch 10 items
+    const fetchLimit = limit || 10; // Always fetch 10 items
 
     let query = {};
 
@@ -366,7 +369,7 @@ export const fetchDataStateWise = tryCatch(async (req, res, next) => {
         return res.status(200).json({ success: true, data: promises, dataSequence: { state: state, districts: [] } });
     }
     for (let district of districts.districts) {
-        const districtNews = await News.find({ district: district.district }).limit(5).sort({ createdAt: -1 }).select('news_id title state district location category createdAt banner -_id').exec();
+        const districtNews = await News.find({ district: district.district }).limit(5).sort({ createdAt: -1 }).select('news_id title state district location tags createdAt banner -_id').exec();
         promises.push(districtNews);
     }
     const dataSequence = {
@@ -388,7 +391,7 @@ export const findStateNews = tryCatch(async (req, res, next) => {
         const stateNews = await News.find({ state: state.state })
             .sort({ createdAt: -1 })
             .limit(5)
-            .select('news_id title state district location category createdAt banner -_id')
+            .select('news_id title state district location tags createdAt banner -_id')
             .exec();
         promises.push({ state: state.state, data: stateNews });
     }
@@ -397,9 +400,31 @@ export const findStateNews = tryCatch(async (req, res, next) => {
 })
 
 export const getBreakingNews = tryCatch(async (req, res, next) => {
-    const breakingNews = await News.find({ breaking_news: true }).limit(5).sort({ createdAt: -1 }).select('news_id title description state district location category createdAt banner -_id').exec();
+    const breakingNews = await News.find({ breaking_news: true }).limit(5).sort({ createdAt: -1 }).select('news_id title description state district location tags createdAt banner -_id').exec();
 
     return res.status(200).json({ success: true, breakingNews })
 })
 
 
+
+export const getMyNews = tryCatch(async (req, res, next) => {
+    let { limit, page, tags, state, district, location, draft } = req.body;
+    const authorId = req.user._id;
+    limit = limit ? parseInt(limit) : 10;
+    page = page ? parseInt(page) : 1;
+    const news = await News.find({ author: authorId }).sort({ createdAt: -1 }).skip(limit * (page - 1)).limit(limit).select('news_id title createdAt activity banner -_id').exec();
+    return res.status(200).json({ success: true, news })
+})
+
+export const getMyNewsCount = tryCatch(async (req, res, next) => {
+    const { tags, state, district, location, draft } = req.body;
+    const authorId = req.user._id;
+    let query = {}
+    if (tags) query.tags = tags;
+    if (state) query.state = state;
+    if (district) query.district = district;
+    if (location) query.location = location;
+    if (draft) query.draft = draft;
+    const count = await News.countDocuments({ author: authorId, ...query }).exec();
+    return res.status(200).json({ totalDocs: count })
+})
