@@ -36,7 +36,7 @@ const YoutubeVideo = () => {
   // Extract the user_id from the URL parameters
   const searchParams = new URLSearchParams(location.search);
   const video_id = searchParams.get("video_id");
-  console.log(video_id);
+  // console.log(video_id);
 
   let [ytData, setYtData] = useState(ytVideoStructure);
 

@@ -2,7 +2,7 @@ export const uploadImage = async (image) => {
     try {
         const formData = new FormData();
         formData.append("file", image);
-        console.log(image)
+        // console.log(image)
         const res = await fetch(
             `${import.meta.env.VITE_IMAGE_SERVER_DOMAIN}/upload`,
             {

@@ -54,7 +54,7 @@ const SinglePage = () => {
             news_id: prevNewsId,
           })
           .then(({ data }) => {
-            console.log(data);
+            // console.log(data);
             setRelatedNews(data);
             // console.log(data);
           })

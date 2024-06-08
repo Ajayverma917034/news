@@ -8,9 +8,7 @@ import ErrorHandler from "../utils/errorHandler.js";
 
 export const createNews = tryCatch((req, res, next) => {
     try {
-        console.log(req)
-        console.log(req.body)
-        console.log(req.file)
+
         let authorId = req.user._id;
         let { id, title, description, content, state, district, location, news_section_type, banner, tags, breaking_news, draft } = req.body;
 

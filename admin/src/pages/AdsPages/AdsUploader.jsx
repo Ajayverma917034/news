@@ -16,7 +16,7 @@ const AdsUploader = ({ setShowAdd, showAdd }) => {
   const query = useQuery();
   const add_id = query.get("add_id");
 
-  console.log(add_id);
+  // console.log(add_id);
   const handleImage = (e) => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
@@ -66,7 +66,7 @@ const AdsUploader = ({ setShowAdd, showAdd }) => {
       }
 
       const formData = new FormData();
-      console.log(image);
+      // console.log(image);
 
       formData.append("banner", image);
       formData.append("link", link); // Ensure 'link' is correctly appended
@@ -94,7 +94,7 @@ const AdsUploader = ({ setShowAdd, showAdd }) => {
   const fetchAdd = async () => {
     try {
       const { data } = await httpClient.get(`/get-advertisement/${add_id}`);
-      console.log(data);
+      // console.log(data);
       setBanner(data.data.banner.url);
       if (data.data.link) {
         setIsLink(true);

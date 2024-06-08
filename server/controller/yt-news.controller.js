@@ -183,6 +183,5 @@ export const getMyNewsCountYt = tryCatch(async (req, res, next) => {
     if (location) query.location = location;
     if (draft) query.draft = draft;
     const count = await YtNews.countDocuments(query).exec();
-    console.log(count)
     return res.status(200).json({ totalDocs: count })
 })

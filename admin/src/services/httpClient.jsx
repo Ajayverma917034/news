@@ -26,7 +26,7 @@ axios.interceptors.response.use(
       originalRequest.url.includes("refresh-token")
     ) {
       // console.log("IN stop");
-      console.log("error here");
+      // console.log("error here");
       await logOut();
       return Promise.reject(error);
     } else if (error.response.status === 401 && !originalRequest._retry) {

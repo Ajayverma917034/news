@@ -33,7 +33,7 @@ const PublishForm = () => {
     blog,
   } = useContext(EditorContext);
 
-  console.log(blog);
+  // console.log(blog);
   // let {userAuth: {access_token}} = useContext(UserContext)
   let {
     userAuth: { refreshToken },
@@ -132,7 +132,7 @@ const PublishForm = () => {
       .catch(({ response }) => {
         e.target.classList.remove("disable");
         toast.dismiss(loadingToast);
-        console.log(response.data.message);
+        // console.log(response.data.message);
         return toast.error(response.data.message);
       });
   };
