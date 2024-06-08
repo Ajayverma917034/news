@@ -11,7 +11,9 @@ import districtAndStateRouter from './router/districAndState.routes.js'
 import DashboardNewsRoutes from './router/dashboard.news.routes.js'
 import path from 'path'
 import YtRouter from './router/yt-news.routes.js'
+import fileUploader from 'express-fileupload';
 import { AdvertisementRoutes } from './router/advertisement.routes.js';
+import cloudinary from 'cloudinary'
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -23,9 +25,17 @@ process.on("uncaughtException", (err) => {
     process.exit(1)
 })
 
-const app = express()
+// cloudinary connect
 dotenv.config()
-
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+const app = express()
+app.use(fileUploader({
+    useTempFiles: true,
+}))
 // cors
 app.use(cors({
     origin: [process.env.FRONTEND_URL, process.env.ADMIN_URL],

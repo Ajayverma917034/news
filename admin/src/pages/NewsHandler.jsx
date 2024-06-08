@@ -4,6 +4,7 @@ import httpClient from "../services/httpClient";
 import { filterPaginationData } from "../common/filterPaginationData";
 import { handleImageError } from "../common/imageError";
 import { useNavigate } from "react-router-dom";
+import { formatDate } from "../common/date";
 const categories = [
   "उत्तर प्रदेश",
   "मध्यप्रदेश",
@@ -71,7 +72,7 @@ const NewsHandler = () => {
         </select>
       </div>
       {/* <p className="mb-4">{newsItems.length} Item Found</p> */}
-      <div className="space-y-4 h-[calc(100vh-230px)] overflow-auto">
+      <div className="space-y-4 h-[calc(100vh-247px)] overflow-auto">
         {news ? (
           news?.results?.length ? (
             news?.results?.map((item, index) => (
@@ -94,25 +95,27 @@ const NewsHandler = () => {
                     </h3>
                     <div className="flex justify-start gap-8">
                       <p className="text-lg text-gray">
-                        <span className="font-semibold">Created On:</span>{" "}
-                        {item.createdAt}
+                        <span className="font-semibold text-black">
+                          Created On:
+                        </span>{" "}
+                        {formatDate(item.createdAt)}
                       </p>
                       <p className="text-lg text-gray">
-                        <span className="font-semibold">Read:</span>{" "}
+                        <span className="font-semibold text-black">Read:</span>{" "}
                         {item.activity.total_reads}
                       </p>
                     </div>
                   </div>
                   <div className="flex gap-4 mt-2">
                     <button
-                      className="bg-blue text-white py-[2px]  px-2 rounded-lg text-[12px]"
+                      className="bg-blue text-white px-3 py-1 rounded-lg text-base"
                       onClick={() =>
                         navigate(`/dashboard/create-news/${item?.news_id}`)
                       }
                     >
                       Edit
                     </button>
-                    <button className="bg-red text-white py-[2px]  px-2 rounded-lg text-[12px] ">
+                    <button className="bg-red text-white px-3 py-1 rounded-lg text-base">
                       Delete
                     </button>
                   </div>

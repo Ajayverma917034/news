@@ -4,7 +4,12 @@ const advertisementSchema = new mongoose.Schema({
     banner: {
         url: {
             type: String,
-        }
+            default: ''
+        },
+        public_id: {
+            type: String,
+            default: ''
+        },
     },
     link: {
         type: String,
@@ -12,7 +17,8 @@ const advertisementSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ['top', 'side', 'detail']
+        enum: ['rectangle', 'square'],
+        default: 'rectangle'
     }
 }, {
     timestamps: true

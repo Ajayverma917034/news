@@ -3,11 +3,13 @@ const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
-
+const dotenv = require('dotenv');
 const app = express();
 
 app.use(express.json());
 app.use(cors());
+
+dotenv.config();
 
 // for storage images 
 
@@ -36,9 +38,8 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.post('/upload', upload.single('file'), async (req, res) => {
 
     try {
-
         const imageName = req.file.filename;
-        res.status(200).json({ url: `http://localhost:8000/image/${imageName}` })
+        res.status(200).json({ url: `${process.env.URL}/image/${imageName}` })
     } catch (error) {
         res.status(500).json({ error: error.message })
     }

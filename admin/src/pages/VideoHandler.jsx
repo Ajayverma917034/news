@@ -4,6 +4,7 @@ import { filterPaginationData } from "../common/filterPaginationData";
 import httpClient from "../services/httpClient";
 import { handleImageError } from "../common/imageError";
 import { useNavigate } from "react-router-dom";
+import { formatDate } from "../common/date";
 
 const categories = [
   "उत्तर प्रदेश",
@@ -47,7 +48,7 @@ const VideoHandler = () => {
     fetchNews({ page: 1 });
   }, []);
   return (
-    <div className="mx-auto p-4 md:px-10">
+    <div className="mx-auto max-md:mt-3 p-4 md:px-10">
       <div className="flex justify-between items-center gap-4 mb-4 ">
         <div className="border-2  rounded-lg w-60 flex  justify-center items-center">
           <input
@@ -71,19 +72,19 @@ const VideoHandler = () => {
         </select>
       </div>
       {/* <p className="mb-4">{newsItems.length} Item Found</p> */}
-      <div className="space-y-4 h-[calc(100vh-230px)] overflow-auto">
+      <div className="space-y-4 h-[calc(100vh-247px)] overflow-auto">
         {news ? (
           news?.results?.length ? (
             news?.results?.map((item, index) => (
               <div
                 key={index}
-                className="grid sm:grid-cols-7 lg:grid-cols-6 gap-3 items-center  p-4 rounded shadow-dark-shadow"
+                className="grid sm:grid-cols-7 lg:grid-cols-6 gap-3 items-center p-2 md:p-4 rounded shadow-dark-shadow"
               >
                 <div className=" sm:col-span-2 lg:col-span-1">
                   <img
                     src={`https://img.youtube.com/vi/${item?.videoLinkId}/mqdefault.jpg`}
                     alt="news"
-                    className="w-22 h-20 "
+                    className="w-full h-36 md:w-22 md:h-24"
                     onError={handleImageError}
                   />
                 </div>
@@ -92,20 +93,22 @@ const VideoHandler = () => {
                     <h3 className="font-medium text-xl line-clamp-1">
                       {item.title}
                     </h3>
-                    <div className="flex justify-start gap-8">
+                    <div className="flex justify-start gap-x-2 md:gap-8 max-md:flex-col">
                       <p className="text-lg text-gray">
-                        <span className="font-semibold">Created On:</span>{" "}
-                        {item.createdAt}
+                        <span className="font-semibold text-black">
+                          Created On:
+                        </span>{" "}
+                        {formatDate(item.createdAt)}
                       </p>
                       <p className="text-lg text-gray">
-                        <span className="font-semibold">Read:</span>{" "}
+                        <span className="font-semibold text-black">Read:</span>{" "}
                         {item.activity.total_reads}
                       </p>
                     </div>
                   </div>
                   <div className="flex gap-4 mt-2">
                     <button
-                      className="bg-blue text-white py-[2px]  px-2 rounded-lg text-[12px]"
+                      className="bg-blue text-white px-3 py-1 rounded-lg text-base"
                       onClick={() =>
                         navigate(
                           `/dashboard/create-videos?video_id=${item?.news_id}`
@@ -114,7 +117,7 @@ const VideoHandler = () => {
                     >
                       Edit
                     </button>
-                    <button className="bg-red text-white py-[2px]  px-2 rounded-lg text-[12px] ">
+                    <button className="bg-red text-white px-3 py-1 rounded-lg text-base">
                       Delete
                     </button>
                   </div>

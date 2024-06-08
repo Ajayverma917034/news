@@ -81,7 +81,7 @@ const SideBar = () => {
           <div
             ref={sidebarRef}
             className={
-              "min-w-[200px] pt-3 px-5 !h-[calc(100vh-106px)] max-md:pb-4 md:min-h-[calc(100vh-107px)] bg-white md:bg-white md:h-cover md:sticky top-[90px] overflow-y-auto z-[150] md:border-gray-light md:border-r absolute max-md:top-[33px] max-md:px-16 max-md:-ml-7 duration-500 sidebar" +
+              "min-w-[200px] pt-3 px-5 !h-[calc(100vh-107px)] max-md:pb-4 md:min-h-[calc(100vh-107px)] bg-white md:bg-white md:h-cover md:sticky top-[90px] overflow-y-auto z-[150] md:border-gray-light md:border-r absolute max-md:top-[33px] max-md:px-16 max-md:-ml-7 duration-500 sidebar" +
               (!showSideNav
                 ? " max-md:opacity-0 max-md:pointer-events-none"
                 : "")
@@ -95,7 +95,7 @@ const SideBar = () => {
               <FaHome size={24} />
               <span>Home</span>
             </Link>
-            <Link
+            {/* <Link
               className="flex items-center  gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
               to="/profile"
               onClick={() => setShowSideNav(false)}
@@ -110,7 +110,7 @@ const SideBar = () => {
             >
               <FaCog size={24} />
               <span>Settings</span>
-            </Link>
+            </Link> */}
             <hr className="text-gray w-full py-2 mt-3" />
             {user?.role === "admin" && (
               <Link
