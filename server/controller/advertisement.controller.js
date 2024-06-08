@@ -2,7 +2,6 @@ import tryCatch from '../utils/asyncFunction.js'
 import Advertisement from "../model/advertisement.mode.js";
 import ErrorHandler from '../utils/errorHandler.js';
 import axios from 'axios'
-import FormData from 'form-data'
 import cloudinary from 'cloudinary'
 
 export const createAdvertisement = tryCatch(async (req, res, next) => {
