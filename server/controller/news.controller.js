@@ -56,9 +56,9 @@ export const createNews = tryCatch((req, res, next) => {
             }
 
             // Check if tags is provided and not empty
-            if (!tags || tags.length === 0) {
-                return res.status(403).json({ error: 'You must provide tags for the news' })
-            }
+            // if (!tags || tags.length === 0) {
+            //     return res.status(403).json({ error: 'You must provide tags for the news' })
+            // }
             // Check if tags is provided and not empty
             if (!news_section_type || news_section_type.length === 0) {
                 return res.status(403).json({ error: 'You must provide news_section_type for the news' })
