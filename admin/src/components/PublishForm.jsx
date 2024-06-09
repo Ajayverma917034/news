@@ -125,9 +125,7 @@ const PublishForm = () => {
         e.target.classList.remove("disable");
         toast.dismiss(loadingToast);
         toast.success("Published successfully");
-        setTimeout(() => {
-          navigate("/dashboard");
-        }, 5000);
+        navigate("/dashboard");
       })
       .catch(({ response }) => {
         e.target.classList.remove("disable");
@@ -205,13 +203,13 @@ const PublishForm = () => {
             <select
               name="state"
               id="state"
-              className="block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue focus:border-blue sm:text-sm"
+              className="input-box mb-5 pl-4 capitalize"
               onChange={(e) => setBlog({ ...blog, state: e.target.value })}
             >
               <option value="">Select State</option>
               {states.map((state, i) => (
                 <option key={i} value={state.english} className=" capitalize">
-                  {state.english}
+                  {state.hindi}
                 </option>
               ))}
             </select>
@@ -221,13 +219,13 @@ const PublishForm = () => {
             <select
               name="district"
               id="district"
-              className="block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-blue focus:border-blue sm:text-sm"
+              className="input-box mb-5 pl-4 capitalize"
               onChange={(e) => setBlog({ ...blog, district: e.target.value })}
             >
               <option value="">Select State</option>
-              {findDistrict("uttar pradesh").map((state, i) => (
+              {findDistrict(state).map((state, i) => (
                 <option key={i} value={state.english} className=" capitalize">
-                  {state.english}
+                  {state.hindi}
                 </option>
               ))}
             </select>
@@ -263,7 +261,7 @@ const PublishForm = () => {
             name="news-section"
             id="news-section"
             onChange={handleSectionChange}
-            className="block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            className="input-box mb-5 pl-4 capitalize"
           >
             <option value="sport">Sport</option>
             <option value="politics">Politics</option>

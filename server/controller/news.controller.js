@@ -1,10 +1,26 @@
-import District from "../model/district.model.js";
 import News from "../model/news.models.js";
 import State from "../model/state.model.js";
 import User from "../model/user.model.js";
 import tryCatch from "../utils/asyncFunction.js";
 import ErrorHandler from "../utils/errorHandler.js";
 
+
+function generateNanoId(length = 5) {
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        result += Math.floor(Math.random() * 10); // Generates a random digit between 0 and 9
+    }
+    return result;
+}
+
+// Function to format the current date as YYYYMMDD
+function getCurrentDate() {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}${month}${day}`;
+}
 
 export const createNews = tryCatch((req, res, next) => {
     try {
@@ -20,9 +36,9 @@ export const createNews = tryCatch((req, res, next) => {
             if (!description.length) {
                 return next(new ErrorHandler(403, 'You must provide some descrtiption for the news'))
             }
-            // if (!content) {
-            //     return res.status(403).json({ error: 'You must provide some content for the news' })
-            // }
+            if (!content) {
+                return res.status(403).json({ error: 'You must provide some content for the news' })
+            }
 
             // Check if state is provided and not empty
             if (!state || state.trim() === '') {
@@ -40,13 +56,13 @@ export const createNews = tryCatch((req, res, next) => {
             }
 
             // Check if tags is provided and not empty
-            // if (!tags || tags.length === 0) {
-            //     return res.status(403).json({ error: 'You must provide tags for the news' })
-            // }
+            if (!tags || tags.length === 0) {
+                return res.status(403).json({ error: 'You must provide tags for the news' })
+            }
             // Check if tags is provided and not empty
-            // if (!news_section_type || news_section_type.length === 0) {
-            //     return res.status(403).json({ error: 'You must provide news_section_type for the news' })
-            // }
+            if (!news_section_type || news_section_type.length === 0) {
+                return res.status(403).json({ error: 'You must provide news_section_type for the news' })
+            }
 
             // Check if breaking_news is provided and is boolean
             if (breaking_news === undefined || typeof breaking_news !== 'boolean') {
@@ -60,7 +76,8 @@ export const createNews = tryCatch((req, res, next) => {
 
         // tags = tags.map(tag => tag.trim().toLowerCase());
 
-        let news_id = id || title.replace(/[^a-zA-Z0-9]/g, ' ').replace(/\s+/g, "-")
+        let news_id = id || title.replace(/[^a-zA-Z0-9]/g, ' ').replace(/\s+/g, "-");
+        news_id += '-' + getCurrentDate() + '-' + generateNanoId();
 
         // tags = tags.map(tags => tags.trim().toLowerCase());
         if (id) {
@@ -321,6 +338,7 @@ export const findNewsSectionTypeNews = tryCatch(async (req, res, next) => {
     if (news_section_type && news_section_type.length) {
         news_section_type = news_section_type.map(type => type.trim().toLowerCase());
         query.news_section_type = { $in: news_section_type };
+        console.log(query)
     }
     try {
         // Fetch the news items from the database

@@ -2,6 +2,22 @@ import YtNews from "../model/yt-news.models.js";
 import tryCatch from "../utils/asyncFunction.js";
 import ErrorHandler from "../utils/errorHandler.js";
 
+function generateNanoId(length = 5) {
+    let result = '';
+    for (let i = 0; i < length; i++) {
+        result += Math.floor(Math.random() * 10); // Generates a random digit between 0 and 9
+    }
+    return result;
+}
+
+// Function to format the current date as YYYYMMDD
+function getCurrentDate() {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}${month}${day}`;
+}
 export const createYtNews = tryCatch(async (req, res, next) => {
     let { title, id, description, tags, location, state, district, videoLinkId, draft } = req.body;
 
@@ -29,7 +45,8 @@ export const createYtNews = tryCatch(async (req, res, next) => {
         }
     }
 
-    let news_id = id || title.replace(/[^a-zA-Z0-9]/g, ' ').replace(/\s+/g, "-").trim()
+    let news_id = id || title.replace(/[^a-zA-Z0-9]/g, ' ').replace(/\s+/g, "-");
+    news_id += '-' + getCurrentDate() + '-' + generateNanoId();
 
     if (id) {
         YtNews.findOneAndUpdate({ news_id }, { title, description, tags, location, state, district, videoLinkId, draft: draft ? draft : false }).then(news => {
