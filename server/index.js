@@ -38,12 +38,12 @@ app.use(fileUploader({
 }))
 // cors
 app.use(cors({
-    origin: [process.env.FRONTEND_URL, process.env.ADMIN_URL],
+    origin: [process.env.FRONTEND_URL, process.env.ADMIN_URL, process.env.FRONTEND_URL_PROD],
     credentials: true
 }))
 
 
-const allowedOrigins = [process.env.FRONTEND_URL, process.env.ADMIN_URL];
+const allowedOrigins = [process.env.FRONTEND_URL, process.env.ADMIN_URL, process.env.FRONTEND_URL_PROD];
 
 app.use((req, res, next) => {
     const origin = req.headers.origin;
