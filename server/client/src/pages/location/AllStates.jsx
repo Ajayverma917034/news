@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./MenuBar.css";
 import { FaSearch, FaTimes } from "react-icons/fa";
-import { stateDistricts } from "../../assets/data";
+import { findHindi, stateDistricts } from "../../assets/data";
 import { Link } from "react-router-dom";
 
 const AllState = ({ isMenuOpen, setIsMenuOpen }) => {
@@ -90,29 +90,32 @@ const AllState = ({ isMenuOpen, setIsMenuOpen }) => {
         </div>
         <ul>
           {filteredStates.map((state, index) => (
-            <li key={index}>
-              <div onClick={() => toggleSubmenu(state)}>{state}</div>
+            <li key={index} className="capitalize">
+              <div onClick={() => toggleSubmenu(state)}>{findHindi(state)}</div>
               {stateDistricts[state] && (
                 <ul
                   className={`submenu ${
                     openState === state ? "submenu-open" : ""
                   }`}
                 >
-                  {stateDistricts[state].map((district, idx) => (
-                    <li key={idx}>
-                      <Link
-                        to={`/${state}/${district.english}`}
-                        className={
-                          activeLink === `${state}-${district.english}`
-                            ? "active"
-                            : ""
-                        }
-                        onClick={() => setIsMenuOpen(false)}
-                      >
-                        {district.hindi}
-                      </Link>
-                    </li>
-                  ))}
+                  {stateDistricts[state].map((district, idx) => {
+                    return (
+                      <li key={idx}>
+                        <Link
+                          to={`/${state}/${district.english}`}
+                          className={
+                            activeLink ===
+                            `${state}-${district.english} capitalize`
+                              ? "active"
+                              : ""
+                          }
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          {district.hindi}
+                        </Link>
+                      </li>
+                    );
+                  })}
                 </ul>
               )}
             </li>

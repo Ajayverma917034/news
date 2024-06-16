@@ -1,31 +1,30 @@
 import React, { useEffect, useState } from "react";
+import MorePageCard from "../../components/common/news-section/morepage.news.card";
+import Heading from "../../components/common/Heading";
+import Image from "../../assets/img1.png";
+import CustomeAndGoogleAdd from "../advertisement/CustomeAndGoogleAdd";
+import SideNews from "../advertisement/related-news/SideNews";
 import { Link, useLocation, useParams } from "react-router-dom";
+import { findHindi } from "../../assets/data";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import useInfiniteScroll from "../common/useInfiniteScroll";
-import Heading from "../components/common/Heading";
-import MorePageCard from "../components/common/news-section/morepage.news.card";
-import CustomeAndGoogleAdd from "./advertisement/CustomeAndGoogleAdd";
-import { findHindi } from "../assets/data";
-import { handleImageError } from "../common/errorImg";
-import SideNews from "./advertisement/related-news/SideNews";
+import useInfiniteScroll from "../../common/useInfiniteScroll";
+import { handleImageError } from "../../common/errorImg";
 
-const DistrictNews = () => {
+const StateNewsWithoutCategory = () => {
   const [data, setData] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
   const stateName = useParams();
   const params = useLocation();
-  let title = params.pathname.slice(1);
-  title = title.split("%20").join(" ");
-  // console.log
+  const title = params.pathname.slice(1);
 
   const fetchNews = async (page) => {
     axios
-      .post("/get-news-query", {
+      .post("/fetch-state-news-without-districts", {
         limit: 10,
-        district: stateName.district,
+        state: stateName.district,
         page,
       })
       .then(({ data }) => {
@@ -105,4 +104,4 @@ const DistrictNews = () => {
   );
 };
 
-export default DistrictNews;
+export default StateNewsWithoutCategory;

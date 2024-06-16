@@ -16,6 +16,7 @@ import { loadUser } from "./services/loadUser";
 import NewsHandler from "./pages/NewsHandler";
 import VideoHandler from "./pages/VideoHandler";
 import Ads from "./pages/AdsPages/Ads";
+import "./App.css";
 
 export const UserContext = createContext({});
 

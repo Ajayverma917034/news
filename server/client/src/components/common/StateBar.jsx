@@ -30,8 +30,7 @@ const StateBar = ({ state, navItems }) => {
       <p
         className="p-3 flex items-center justify-center text-white bg-blue min-w-fit"
         style={{
-          clipPath:
-            "polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%, 0% 50%)",
+          clipPath: "polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%, 0% 50%)",
         }}
       >
         <span className="text-2xl mt-2"></span>
@@ -45,7 +44,7 @@ const StateBar = ({ state, navItems }) => {
           <NavLink
             key={index}
             to={`/${state}/${item.english}`}
-            className="p-3 text-white mt-1 flex items-center justify-center"
+            className="p-3 text-white mt-1 flex items-center justify-center min-w-fit"
           >
             {item.hindi}
           </NavLink>

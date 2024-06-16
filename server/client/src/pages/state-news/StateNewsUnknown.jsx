@@ -1,15 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { findHindi, states } from "../../assets/data";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import httpClient from "../../api/httpClient";
 import NewsSection from "../../components/common/news-section/news.section.component";
 import CustomeAndGoogleAdd from "../advertisement/CustomeAndGoogleAdd";
 import SideNews from "../advertisement/related-news/SideNews";
+import { findHindi, stateDistricts } from "../../assets/data";
 
 const StateNewsUnknown = () => {
-  const navItems = states;
-  const [news, setNews] = useState(null);
+  const [filteredStates, setFilteredStates] = useState(
+    Object.keys(stateDistricts)
+  );
 
+  const [news, setNews] = useState(null);
+  const navigate = useNavigate();
   const fetchStateNews = async () => {
     httpClient
       .get("/fetch-all-state-news")
@@ -19,6 +22,13 @@ const StateNewsUnknown = () => {
       .catch((err) => {
         console.log(err);
       });
+  };
+  const handleNavigate = (state) => {
+    if (state === "uttar pradesh") {
+      navigate("/uttar-pradesh");
+    } else {
+      navigate(`/${state}`);
+    }
   };
 
   useEffect(() => {
@@ -39,18 +49,18 @@ const StateNewsUnknown = () => {
                     "polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%, 0% 50%)",
                 }}
               >
-                <span className="text-2xl mt-2"></span>
+                <span className="text-2xl"></span>
                 {findHindi("state")}
               </p>
               <div className="flex gap-x-5 overflow-x-auto no-scrollbar">
-                {navItems.map((item, index) => (
-                  <NavLink
+                {filteredStates.map((item, index) => (
+                  <button
                     key={index}
-                    to={`/${item.english}`}
+                    onClick={() => handleNavigate(item)}
                     className="p-3 text-white mt-1 flex items-center justify-center min-w-fit"
                   >
-                    {item.hindi}
-                  </NavLink>
+                    {findHindi(item)}
+                  </button>
                 ))}
               </div>
             </div>

@@ -64,7 +64,7 @@ const Editor = () => {
         setTextEditor,
       }}
     >
-      {editorState === "editor" ? <BlogEditor /> : <PublishForm />}
+      {editorState === "editor" ? <PublishForm /> : <BlogEditor />}
     </EditorContext.Provider>
   );
 };

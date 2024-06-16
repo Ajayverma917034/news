@@ -6,9 +6,9 @@ import Tag from "./Tags.jsx";
 import { EditorContext } from "../pages/Editor.jsx";
 import { UserContext } from "../App.jsx";
 import lightBanner from "../assets/news banner.png";
-import { findDistrict, states } from "../common/data.js";
 import Section from "./NewsSection.jsx";
 import { IoMdClose } from "react-icons/io";
+import { stateDistricts } from "../common/data.js";
 
 const PublishForm = () => {
   const charLength = 200;
@@ -134,6 +134,11 @@ const PublishForm = () => {
         return toast.error(response.data.message);
       });
   };
+
+  const states = Object.keys(stateDistricts).map((state) => ({
+    english: state,
+  }));
+
   return (
     <section className="w-full min-h-screen grid grid-cols-1 md:grid-cols-5 lg:gap-4 p-5 md:p-10 ">
       <button
@@ -162,7 +167,7 @@ const PublishForm = () => {
             onChange={handleBlogTitleChange}
           /> */}
 
-        <p className="text-dark-grey mb-2 mt-9">
+        <p className="text-dark-grey mb-2 mt-9 required-text">
           Short description about your news
         </p>
         <textarea
@@ -178,7 +183,7 @@ const PublishForm = () => {
           {charLength - des?.length} characters left
         </p>
 
-        <p className="text-dark-grey mb-2 mt-9">
+        <p className="text-dark-grey mb-2 mt-9 required-text">
           Topics - ( Helps in searching and ranking your news post )
         </p>
         <div className="relative input-box pl-2 py-2 pb-4">
@@ -207,11 +212,17 @@ const PublishForm = () => {
               onChange={(e) => setBlog({ ...blog, state: e.target.value })}
             >
               <option value="">Select State</option>
-              {states.map((state, i) => (
-                <option key={i} value={state.english} className=" capitalize">
-                  {state.hindi}
-                </option>
-              ))}
+              {/* {stateDistricts &&
+                stateDistricts.map((state, i) => {
+                  console.log(state);
+                  return (
+                    <option
+                      key={i}
+                      value={state}
+                      className=" capitalize"
+                    ></option>
+                  );
+                })} */}
             </select>
           </div>
           <div className="">
@@ -223,17 +234,21 @@ const PublishForm = () => {
               onChange={(e) => setBlog({ ...blog, district: e.target.value })}
             >
               <option value="">Select State</option>
-              {findDistrict(state).map((state, i) => (
-                <option key={i} value={state.english} className=" capitalize">
-                  {state.hindi}
-                </option>
-              ))}
+              {states.map((state, i) => {
+                return (
+                  <option key={i} value={state.english} className=" capitalize">
+                    {state.english}
+                  </option>
+                );
+              })}
             </select>
           </div>
         </div>
         <div className="grid w-full grid-cols-1 md:grid-cols-2 gap-3">
           <div className="">
-            <p className=" mb-2 mt-9">Enter the location of news</p>
+            <p className=" mb-2 mt-9 required-text">
+              Enter the location of news
+            </p>
             <input
               type="text"
               placeholder="News Location"
@@ -253,7 +268,7 @@ const PublishForm = () => {
             />
           </div>
         </div>
-        <p className="text-dark-grey mb-2 mt-9">
+        <p className="text-dark-grey mb-2 mt-9 required-text">
           News Section - ( Choose the news sections )
         </p>
         <div className="relative input-box pl-2 py-2 pb-4">

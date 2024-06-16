@@ -9,7 +9,9 @@ import adsimgright2 from "../assets/adsimgright2.png";
 import SideNews from "./advertisement/related-news/SideNews";
 import StateBar from "../components/common/StateBar";
 const StateNews = () => {
-  const { state } = useParams();
+  let state = useLocation();
+  state = state.pathname.split("/")[1];
+  state = state.toLowerCase().split("-").join(" ");
   const navItems = findDistrict(state);
   const [news, setNews] = useState(null);
   const [dataSequence, setDataSequence] = useState(null);
@@ -36,14 +38,16 @@ const StateNews = () => {
         <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto  gap-5 ">
           <div className="flex flex-col flex-wrap  md:col-span-4 overflow-hidden">
             <StateBar state={state} navItems={navItems} />
+
             <NewsSection data={news && news[0]} title={dataSequence?.state} />
             {news &&
+              news.length > 1 &&
               news.slice(1).map((news, index) => {
                 // console.log(news)
                 return (
                   <NewsSection
                     data={news}
-                    title={dataSequence?.districts[index]?.district}
+                    title={dataSequence?.districts[index]}
                     key={index}
                   />
                 );

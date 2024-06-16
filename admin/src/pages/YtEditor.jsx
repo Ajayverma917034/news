@@ -212,13 +212,7 @@ const YoutubeVideo = () => {
               <option value="" disabled>
                 Select State
               </option>
-              {states.map((state, i) => {
-                return (
-                  <option key={i} value={state.english} className=" capitalize">
-                    {state.english}
-                  </option>
-                );
-              })}
+              
             </select>
           </div>
           <div>

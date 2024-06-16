@@ -129,7 +129,8 @@ export const getHomeNews = tryCatch(async (req, res, next) => {
                 title: entity,
                 data: news
             }
-            promises.push(pushData);
+            if (news.length > 0)
+                promises.push(pushData);
 
         }
         res.status(200).json({ success: true, data: promises });
@@ -338,7 +339,6 @@ export const findNewsSectionTypeNews = tryCatch(async (req, res, next) => {
     if (news_section_type && news_section_type.length) {
         news_section_type = news_section_type.map(type => type.trim().toLowerCase());
         query.news_section_type = { $in: news_section_type };
-        console.log(query)
     }
     try {
         // Fetch the news items from the database
@@ -375,27 +375,65 @@ export const findNewsSectionTypeNews = tryCatch(async (req, res, next) => {
 export const fetchDataStateWise = tryCatch(async (req, res, next) => {
     const { state } = req.body;
     let promises = [];
+    const data =
+        [
+            'sonbhadra',
+            'chandauli',
+            'mirzapur',
+            'varanasi',
+            'gajipur',
+            'shahjhapur',
+            'prayagraj',
+            'deoria',
+            'bareilly',
+            'lakhimpur kheri',
+            'pilibhit',
+        ]
 
+
+
+    if (state !== 'uttar pradesh') {
+        return res.status(404).json({ success: false, message: "State not found" })
+    }
     const stateNews = await News.find({ state }).limit(5).sort({ "activity.total_reads": -1, createdAt: -1 }).populate("author", "username profile -_id").select('news_id title tags banner state district location createdAt -_id').exec();
 
     promises.push(stateNews);
 
-    let districts = await State.findOne({ state }).populate("districts", "district -_id").select("districts -_id").exec();
-    if (districts === null) {
-        return res.status(200).json({ success: true, data: promises, dataSequence: { state: state, districts: [] } });
-    }
-    for (let district of districts.districts) {
-        const districtNews = await News.find({ district: district.district }).limit(5).sort({ createdAt: -1 }).select('news_id title state district location tags createdAt banner -_id').exec();
+    // let districts = await State.findOne({ state }).populate("districts", "district -_id").select("districts -_id").exec();
+    // if (districts === null) {
+    //     return res.status(200).json({ success: true, data: promises, dataSequence: { state: state, districts: [] } });
+    // }
+    for (let district of data) {
+        const districtNews = await News.find({ district: district }).limit(5).sort({ createdAt: -1 }).select('news_id title state district location tags createdAt banner -_id').exec();
         promises.push(districtNews);
     }
     const dataSequence = {
         state: state,
-        districts: districts.districts
+        districts: data
     }
     return res.status(200).json({ success: true, data: promises, dataSequence });
 
 })
 
+export const findStateDataWithOutDistrict = tryCatch(async (req, res, next) => {
+    let { state, limit, page } = req.body;
+    limit = limit ? parseInt(limit) : 5;
+    page = page ? parseInt(page) : 1;
+
+    News.find({ state })
+        .sort({ "activity.total_reads": -1, "createdAt": -1 })
+        .skip(limit * (page - 1))
+        .limit(limit)
+        .select('news_id title description location banner createdAt -_id')
+        .then(news => {
+            return res.status(200).json(news)
+        }
+        ).catch(err => {
+            console.log(err)
+            return next(new ErrorHandler(500, err.message))
+        })
+
+})
 export const findStateNews = tryCatch(async (req, res, next) => {
     let promises = [];
     let states = await State.find().select('state -_id').exec();

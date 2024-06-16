@@ -38,7 +38,7 @@ const HomePage = () => {
   }, []);
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [])
+  }, []);
   return (
     <>
       <HomeRightBar data={homeNews.slice(0, 2)} ytData={ytNews} />

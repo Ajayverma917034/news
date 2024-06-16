@@ -6,66 +6,28 @@ export const stateDistricts = {
         { hindi: 'वाराणसी', english: 'varanasi' },
         { hindi: 'गाजीपुर', english: 'gajipur' },
         { hindi: 'शाहजहांपुर', english: 'shahjhapur' },
-        { hindi: 'प्रयागराज', english: 'prayagraj' }
+        { hindi: 'प्रयागराज', english: 'prayagraj' },
+        { hindi: 'देवरिया', english: 'deoria' },
+        { hindi: 'बरेली', english: 'bareilly' },
+        { english: 'lakhimpur kheri', hindi: 'लखीमपुर खीरी' },
+        { english: 'pilibhit', hindi: 'पीलीभीत' },
     ],
-    "maharashtra": [
-        { hindi: 'मुंबई', english: 'mumbai' },
-        { hindi: 'पुणे', english: 'pune' },
-        { hindi: 'नागपुर', english: 'nagpur' },
-        { hindi: 'नाशिक', english: 'nashik' },
-        { hindi: 'ठाणे', english: 'thane' },
-        { hindi: 'औरंगाबाद', english: 'aurangabad' },
-        { hindi: 'सोलापुर', english: 'solapur' }
-    ],
-    "gujarat": [
-        { hindi: 'अहमदाबाद', english: 'ahmedabad' },
-        { hindi: 'सूरत', english: 'surat' },
-        { hindi: 'वडोदरा', english: 'vadodara' },
-        { hindi: 'राजकोट', english: 'rajkot' },
-        { hindi: 'भावनगर', english: 'bhavnagar' },
-        { hindi: 'जामनगर', english: 'jamnagar' },
-        { hindi: 'गांधीनगर', english: 'gandhinagar' }
-    ],
-    "rajasthan": [
-        { hindi: 'जयपुर', english: 'jaipur' },
-        { hindi: 'जोधपुर', english: 'jodhpur' },
-        { hindi: 'कोटा', english: 'kota' },
-        { hindi: 'उदयपुर', english: 'udaipur' },
-        { hindi: 'बीकानेर', english: 'bikaner' },
-        { hindi: 'अजमेर', english: 'ajmer' },
-        { hindi: 'अलवर', english: 'alwar' }
-    ],
-    "karnataka": [
-        { hindi: 'बेंगलुरु', english: 'bengaluru' },
-        { hindi: 'मैसूर', english: 'mysuru' },
-        { hindi: 'हुबली-धारवाड़', english: 'hubli-dharwad' },
-        { hindi: 'मंगलुरु', english: 'mangaluru' },
-        { hindi: 'बेलगावी', english: 'belagavi' },
-        { hindi: 'कलबुर्गी', english: 'kalaburagi' },
-        { hindi: 'शिवमोग्गा', english: 'shivamogga' }
-    ],
-    "delhi": [
-        { hindi: 'नई दिल्ली', english: 'new delhi' },
-        { hindi: 'उत्तर पूर्वी दिल्ली', english: 'north east delhi' },
-        { hindi: 'उत्तर पश्चिमी दिल्ली', english: 'north west delhi' },
-        { hindi: 'पूर्वी दिल्ली', english: 'east delhi' },
-        { hindi: 'दक्षिण पूर्वी दिल्ली', english: 'south east delhi' },
-        { hindi: 'दक्षिण पश्चिमी दिल्ली', english: 'south west delhi' },
-        { hindi: 'पश्चिमी दिल्ली', english: 'west delhi' }
+    "uttrakhand": [
+
     ],
     "bihar": [
-        { hindi: 'पटना', english: 'patna' },
-        { hindi: 'गया', english: 'gaya' },
-        { hindi: 'मुजफ्फरपुर', english: 'muzaffarpur' },
-        { hindi: 'भागलपुर', english: 'bhagalpur' },
-        { hindi: 'दरभंगा', english: 'darbhanga' },
-        { hindi: 'आरा', english: 'ara' },
-        { hindi: 'बक्सर', english: 'buxar' }
+
     ],
-    "goa": [
-        { hindi: 'उत्तर गोवा', english: 'north goa' },
-        { hindi: 'दक्षिण गोवा', english: 'south goa' }
-    ]
+    "jharkhand": [
+
+    ],
+    "madhyapradesh": [
+        { english: 'singrauli', hindi: 'सिंगरौली' },
+    ],
+    "chhatisgarh": [
+
+    ],
+
 };
 
 

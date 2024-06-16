@@ -1,0 +1,4 @@
+.required-text::after {
+    content: " *";
+    color: red;
+}
