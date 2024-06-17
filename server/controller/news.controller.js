@@ -29,6 +29,7 @@ export const createNews = tryCatch((req, res, next) => {
         let { id, title, description, content, state, district, location, news_section_type, banner, tags, breaking_news, draft } = req.body;
 
 
+
         if (!title?.length) {
             return res.status(403).json({ error: `You must provide a title to ${draft === true ? "Publish" : "Save"} a news` })
         }
@@ -81,7 +82,7 @@ export const createNews = tryCatch((req, res, next) => {
 
         // tags = tags.map(tags => tags.trim().toLowerCase());
         if (id) {
-            News.findOneAndUpdate({ news_id }, { title, description, content, state, district, location, banner, tags, breaking_news, news_section_type, draft: draft ? draft : false }, { timestamps: false, new: true }).then(news => {
+            News.findOneAndUpdate({ news_id: id }, { title, description, content, state, district, location, banner, tags, breaking_news, news_section_type, draft: draft ? draft : false }).then(news => {
                 return res.status(200).json({ id: news.news_id, message: 'update Successfully' })
             })
         }

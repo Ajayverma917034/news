@@ -15,7 +15,7 @@ const blogStructure = {
   state: "",
   district: "",
   location: "",
-  sections: [],
+  news_section_type: [],
   breaking_news: false,
   author: { personal_info: {} },
 };

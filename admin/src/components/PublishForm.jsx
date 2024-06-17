@@ -5,7 +5,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import Tag from "./Tags.jsx";
 import { EditorContext } from "../pages/Editor.jsx";
 import { UserContext } from "../App.jsx";
-import lightBanner from "../assets/news banner.png";
 import Section from "./NewsSection.jsx";
 import { IoMdClose } from "react-icons/io";
 import { IoIosAddCircle } from "react-icons/io";
@@ -16,7 +15,7 @@ const PublishForm = () => {
   const charLength = 200;
   const tagLimit = 10;
   const navigate = useNavigate();
-  const { blog_id } = useParams();
+  const { news_id } = useParams();
   let {
     blog: {
       banner,
@@ -83,7 +82,6 @@ const PublishForm = () => {
 
   const handleSectionChange = (e) => {
     const newSection = e.target.value;
-    console.log(newSection);
     setBlog({ ...blog, news_section_type: [...news_section_type, newSection] });
   };
 
@@ -120,10 +118,11 @@ const PublishForm = () => {
       draft: false,
     };
     e.target.classList.add("disable");
+
     axios
       .post(import.meta.env.VITE_SERVER_DOMAIN + "/create-news", {
         ...blogObj,
-        id: blog_id,
+        id: news_id,
       })
       .then(() => {
         e.target.classList.remove("disable");
