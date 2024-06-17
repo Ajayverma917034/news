@@ -43,7 +43,7 @@ const NewsSection = ({ data, title }) => {
                 to={`news/${data[0]?.news_id}`}
                 className="flex md:flex-row flex-col justify-between w-full "
               >
-                <div className="md:w-[50%] w-full h-auto max-h-[16rem] border-2">
+                <div className="md:w-[50%] w-full h-auto max-h-[16rem]">
                   <img
                     className="w-full h-full"
                     src={data[0]?.banner}
