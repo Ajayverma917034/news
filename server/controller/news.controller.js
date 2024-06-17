@@ -183,22 +183,22 @@ export const getNewses = tryCatch((req, res, next) => {
         .populate("author", "username profile")
         .select('news_id title description content tags state district banner location tags breaking_news draft createdAt -_id')
         .then(news => {
-            if (!news.length) {
-                News.find().sort({ "activity.total_reads": -1, "createdAt": -1 })
-                    .skip(limit * (page - 1))
-                    .limit(limit)
-                    .populate("author", "username profile")
-                    .select('news_id title description content tags state banner district location tags breaking_news draft createdAt -_id')
-                    .then(news => {
-                        return res.status(200).json(news)
-                    }).catch(err => {
-                        return next(new ErrorHandler(500, err.message))
-                    })
-            }
-            else {
+            // if (!news.length) {
+            //     News.find().sort({ "activity.total_reads": -1, "createdAt": -1 })
+            //         .skip(limit * (page - 1))
+            //         .limit(limit)
+            //         .populate("author", "username profile")
+            //         .select('news_id title description content tags state banner district location tags breaking_news draft createdAt -_id')
+            //         .then(news => {
+            return res.status(200).json(news)
+            //         }).catch(err => {
+            //             return next(new ErrorHandler(500, err.message))
+            //         })
+            // }
+            // else {
 
-                return res.status(200).json(news)
-            }
+            //     return res.status(200).json(news)
+            // }
         }).catch(err => {
             return next(new ErrorHandler(500, err.message))
         })
@@ -321,21 +321,21 @@ export const fetchRelatedNews = tryCatch(async (req, res, next) => {
         .sort({ "activity.total_reads": -1, "createdAt": -1 })
         .select('news_id title tags state district banner location tags draft createdAt -_id')
         .then(news => {
-            if (news.length === 0) {
-                News.find()
-                    .limit(4)
-                    .sort({ "activity.total_reads": -1, "createdAt": -1 })
-                    .select('news_id title tags state district banner location tags draft createdAt -_id')
-                    .then(news => {
-                        return res.status(200).json(news)
-                    }).catch(err => {
-                        return next(new ErrorHandler(500, err.message))
-                    })
-            }
-            else {
+            // if (news.length === 0) {
+            //     News.find()
+            //         .limit(4)
+            //         .sort({ "activity.total_reads": -1, "createdAt": -1 })
+            //         .select('news_id title tags state district banner location tags draft createdAt -_id')
+            //         .then(news => {
+            //         }).catch(err => {
+            //             return next(new ErrorHandler(500, err.message))
+            //         })
+            // }
+            // else {
 
-                return res.status(200).json(news);
-            }
+            //     return res.status(200).json(news);
+            // }
+            return res.status(200).json(news)
         }).catch(err => {
             return next(new ErrorHandler(500, err.message));
         });
@@ -366,21 +366,21 @@ export const findNewsSectionTypeNews = tryCatch(async (req, res, next) => {
         let selectedNews = shuffled.slice(0, 5);
 
         // Return the randomly selected results
-        if (selectedNews.length === 0) {
-            News.find().sort({ "activity.total_reads": -1, "createdAt": -1 })
-                .limit(limit)
-                .populate("author", "username profile")
-                .select('news_id title banner -_id')
-                .then(news => {
-                    return res.status(200).json({ news })
-                }).catch(err => {
-                    return next(new ErrorHandler(500, err.message))
-                })
-        }
-        else {
+        return res.status(200).json({ news })
+        // if (selectedNews.length === 0) {
+        //     News.find().sort({ "activity.total_reads": -1, "createdAt": -1 })
+        //         .limit(limit)
+        //         .populate("author", "username profile")
+        //         .select('news_id title banner -_id')
+        //         .then(news => {
+        //         }).catch(err => {
+        //             return next(new ErrorHandler(500, err.message))
+        //         })
+        // }
+        // else {
 
-            res.status(200).json({ news: selectedNews });
-        }
+        //     res.status(200).json({ news: selectedNews });
+        // }
     } catch (err) {
         // Handle potential errors
         next(new ErrorHandler(500, err.message));

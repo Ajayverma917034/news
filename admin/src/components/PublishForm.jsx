@@ -357,7 +357,7 @@ const PublishForm = () => {
                 return (
                   <option
                     key={i}
-                    value={category.hindi}
+                    value={category.english}
                     className=" capitalize"
                   >
                     {category.hindi}
