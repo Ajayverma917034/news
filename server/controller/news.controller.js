@@ -81,7 +81,7 @@ export const createNews = tryCatch((req, res, next) => {
 
         // tags = tags.map(tags => tags.trim().toLowerCase());
         if (id) {
-            News.findOneAndUpdate({ news_id }, { title, description, content, state, district, location, banner, tags, breaking_news, news_section_type, draft: draft ? draft : false }).then(news => {
+            News.findOneAndUpdate({ news_id }, { title, description, content, state, district, location, banner, tags, breaking_news, news_section_type, draft: draft ? draft : false }, { timestamps: false, new: true }).then(news => {
                 return res.status(200).json({ id: news.news_id, message: 'update Successfully' })
             })
         }
@@ -208,7 +208,7 @@ export const getNews = tryCatch(async (req, res, next) => {
 
     let incrementVal = mode !== 'edit' ? 1 : 0;
     News.findOneAndUpdate({ news_id }, { $inc: { "activity.total_reads": incrementVal, "activity.total_today_count": incrementVal } })
-        .select('news_id title description content tags state district banner location tags breaking_news draft createdAt -_id')
+        .select('news_id title description content tags state district banner location news_section_type tags breaking_news draft createdAt -_id')
         .then(news => {
             // console.log(news)
             if (news.draft && !draft) {

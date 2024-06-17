@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import lightBanner from "../assets/news banner.png";
-
 import { toast } from "react-hot-toast";
 import EditorJS from "@editorjs/editorjs";
 import { tools } from "./Tools.jsx";
@@ -9,14 +8,15 @@ import axios from "axios";
 import { UserContext } from "../App.jsx";
 import { EditorContext } from "../pages/Editor.jsx";
 import { uploadImage } from "../common/imageUploader.js";
-const BlogEditor = () => {
+
+const BlogEditor = ({ blogContent }) => {
   const navigate = useNavigate();
   let { blog_id } = useParams();
+  const [contentData, setContentData] = useState(null);
 
-  //   let { theme } = useContext(ThemeContext);
   let {
     blog,
-    blog: { title, banner, content, des },
+    blog: { title, banner, content, description },
     setBlog,
     textEditor,
     setTextEditor,
@@ -24,17 +24,36 @@ const BlogEditor = () => {
   } = useContext(EditorContext);
 
   useEffect(() => {
-    if (!textEditor.isReady) {
-      setTextEditor(
-        new EditorJS({
+    const initializeEditor = async () => {
+      console.log(textEditor);
+      if (!textEditor.isReady) {
+        console.log("Editor is not ready");
+        console.log(blogContent);
+
+        const newEditor = new EditorJS({
           holderId: "textEditor",
           data: Array.isArray(content) ? content[0] : content,
           tools: tools,
           placeholder: "Let's write an awesome news",
-        })
-      );
-    }
+        });
+
+        await newEditor.isReady;
+        setTextEditor(newEditor);
+        console.log("Editor is ready");
+      }
+    };
+
+    initializeEditor();
+
+    // Cleanup function to avoid memory leaks
+    return () => {
+      // if (textEditor !== null) {
+      //   textEditor.destroy();
+      //   setTextEditor(null);
+      // }
+    };
   }, [blog]);
+
   const handleChangeBanner = (e) => {
     if (e.target.files[0]) {
       let ladingTast = toast.loading("Uploading...");
@@ -51,26 +70,25 @@ const BlogEditor = () => {
         });
     }
   };
+
   const handleTitleKeyDown = (e) => {
-    // for enter key
     if (e.keyCode === 13) e.preventDefault();
   };
+
   const handleTitleChange = (e) => {
     let input = e.target;
     input.style.height = "auto";
     input.style.height = input.scrollHeight + "px";
     setBlog({ ...blog, title: input.value });
   };
+
   const handleError = (e) => {
     let img = e.target;
     img.src = lightBanner;
   };
+
   const handlePublishEvent = () => {
-    // if (!banner.length) {
-    //   return toast.error("Upload a news banner to publish it");
-    // }
-    // if (!title.length) return toast.error("Write news title to publis it");
-    if (textEditor.isReady) {
+    if (textEditor && textEditor.isReady) {
       textEditor
         .save()
         .then((data) => {
@@ -86,6 +104,7 @@ const BlogEditor = () => {
         });
     }
   };
+
   const handleSaveDraft = (e) => {
     if (e.target.className.includes("disable")) {
       return;
@@ -96,12 +115,13 @@ const BlogEditor = () => {
 
     let loadingToast = toast.loading("Saving Draft...");
     e.target.classList.add("disable");
-    if (textEditor.isReady) {
+
+    if (textEditor && textEditor.isReady) {
       textEditor.save().then((content) => {
         let blogObj = {
           title,
           banner,
-          des,
+          description,
           content,
           draft: true,
         };
@@ -126,6 +146,7 @@ const BlogEditor = () => {
       });
     }
   };
+
   return (
     <>
       <div className="p-5 md:p-10">
@@ -173,7 +194,7 @@ const BlogEditor = () => {
               onChange={handleTitleChange}
             ></textarea>
             <hr className="w-full opacity-10 my-5" />
-            <div id="textEditor" className=" font-anekdevanagari"></div>
+            <div id="textEditor" className="font-anekdevanagari"></div>
           </div>
         </section>
       </div>

@@ -4,20 +4,20 @@ import { IoMdClose } from "react-icons/io";
 
 const Section = ({ tag, tagIndex }) => {
   let {
-    blog: { sections },
+    blog: { news_section_type },
     setBlog,
     blog,
   } = useContext(EditorContext);
   const handleDeleteTag = () => {
-    sections = sections.filter((t) => t !== tag);
-    setBlog({ ...blog, sections });
+    news_section_type = news_section_type.filter((t) => t !== tag);
+    setBlog({ ...blog, news_section_type });
   };
   const handleTagEdit = (e) => {
     if (e.keyCode === 13 || e.keyCode === 188) {
       e.preventDefault();
       let currentTag = e.target.innerText;
-      sections[tagIndex] = currentTag;
-      setBlog({ ...blog, sections });
+      news_section_type[tagIndex] = currentTag;
+      setBlog({ ...blog, news_section_type });
       e.target.setAttribute("contentEditable", false);
     }
   };
@@ -38,7 +38,7 @@ const Section = ({ tag, tagIndex }) => {
         onClick={handleDeleteTag}
         className="mt-[2px] rounded-full absolute right-3 top-1/2 -translate-y-1/2"
       >
-        <IoMdClose size={20} className="text-sm pointer-events-none"/>
+        <IoMdClose size={20} className="text-sm pointer-events-none" />
       </button>
     </div>
   );

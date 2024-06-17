@@ -9,7 +9,7 @@ import lightBanner from "../assets/news banner.png";
 import Section from "./NewsSection.jsx";
 import { IoMdClose } from "react-icons/io";
 import { IoIosAddCircle } from "react-icons/io";
-import { stateDistricts } from "../common/data.js";
+import { findHindi, stateDistricts } from "../common/data.js";
 import { CategoryData } from "../assets/CategoryData.js";
 
 const PublishForm = () => {
@@ -22,13 +22,12 @@ const PublishForm = () => {
       banner,
       title,
       tags,
-      des,
+      description,
       content,
       state,
       district,
       location,
-      sections,
-
+      news_section_type,
       breaking_news,
     },
     setEditorState,
@@ -84,8 +83,8 @@ const PublishForm = () => {
 
   const handleSectionChange = (e) => {
     const newSection = e.target.value;
-
-    setBlog({ ...blog, sections: [...sections, newSection] });
+    console.log(newSection);
+    setBlog({ ...blog, news_section_type: [...news_section_type, newSection] });
   };
 
   const handlePublish = (e) => {
@@ -95,7 +94,7 @@ const PublishForm = () => {
     if (!title.length) {
       return toast.error("Write News Title befor publising");
     }
-    if (!des || des.length > charLength)
+    if (!description || description.length > charLength)
       return toast.error(
         `Write a description about your news within ${charLength} characters to publish`
       );
@@ -110,13 +109,13 @@ const PublishForm = () => {
     let blogObj = {
       title,
       banner,
-      description: des,
+      description,
       content,
       tags,
       state,
       district,
       location,
-      news_section_type: sections,
+      news_section_type,
       breaking_news,
       draft: false,
     };
@@ -175,7 +174,7 @@ const PublishForm = () => {
         <h1 className="text-4xl font-medium mt-2 leading-tight line-clamp-2">
           {title}
         </h1>
-        <p className="line-clamp-3 text-xl leading-7 mt-4">{des}</p>
+        <p className="line-clamp-3 text-xl leading-7 mt-4">{description}</p>
       </div>
       <div className="border-grey lg:border-1 lg:pl-4 col-span-1 md:col-span-3">
         {/* <p className="text-dark-grey mb-2 mt-9">News Title</p>
@@ -192,15 +191,15 @@ const PublishForm = () => {
         </p>
         <textarea
           maxLength={charLength}
-          defaultValue={des}
+          defaultValue={description}
           className="h-40 resize-none leading-7 input-box pl-4"
-          onChange={(e) => setBlog({ ...blog, des: e.target.value })}
+          onChange={(e) => setBlog({ ...blog, description: e.target.value })}
           onKeyDown={(e) => {
             if (e.keyCode === 13) e.preventDefault();
           }}
         ></textarea>
         <p className="mt-1 text-dark-grey text-sm text-right">
-          {charLength - des?.length} characters left
+          {charLength - description?.length} characters left
         </p>
 
         <p className="text-dark-grey mb-2 mt-9 required-text">
@@ -240,39 +239,46 @@ const PublishForm = () => {
             <select
               name="state"
               id="state"
+              value={state}
               className="input-box mb-5 pl-4 capitalize"
               onChange={(e) => setBlog({ ...blog, state: e.target.value })}
             >
-              <option value="">Select State</option>
-              {/* {stateDistricts &&
-                stateDistricts.map((state, i) => {
-                  console.log(state);
-                  return (
-                    <option
-                      key={i}
-                      value={state}
-                      className=" capitalize"
-                    ></option>
-                  );
-                })} */}
+              <option value="" defaultValue={state}>
+                Select State
+              </option>
+              {states.map((state, i) => {
+                return (
+                  <option key={i} value={state.english} className=" capitalize">
+                    {findHindi(state.english)}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <div className="">
             <p className=" mb-2 mt-9">Choose District</p>
             <select
               name="district"
+              value={district}
               id="district"
               className="input-box mb-5 pl-4 capitalize"
               onChange={(e) => setBlog({ ...blog, district: e.target.value })}
             >
-              <option value="">Select State</option>
-              {states.map((state, i) => {
-                return (
-                  <option key={i} value={state.english} className=" capitalize">
-                    {state.english}
-                  </option>
-                );
-              })}
+              <option value="" defaultValue={state}>
+                Select State
+              </option>
+              {stateDistricts[state] &&
+                stateDistricts[state].map((district, i) => {
+                  return (
+                    <option
+                      key={i}
+                      value={district.english}
+                      className=" capitalize"
+                    >
+                      {district.hindi}
+                    </option>
+                  );
+                })}
             </select>
           </div>
         </div>
@@ -284,6 +290,7 @@ const PublishForm = () => {
             <input
               type="text"
               placeholder="News Location"
+              value={location}
               className="input-box pl-4"
               onChange={(e) => setBlog({ ...blog, location: e.target.value })}
             />
@@ -346,6 +353,7 @@ const PublishForm = () => {
               onChange={handleSectionChange}
               className="input-box mb-5 pl-4 capitalize"
             >
+              <option value="">Select News Section</option>
               {CategoryData.map((category, i) => {
                 return (
                   <option
@@ -362,8 +370,8 @@ const PublishForm = () => {
 
           {/* Add more options as needed */}
 
-          {sections &&
-            sections.map((tag, i) => {
+          {news_section_type &&
+            news_section_type.map((tag, i) => {
               return <Section key={i} tagIndex={i} tag={tag} />;
             })}
         </div>

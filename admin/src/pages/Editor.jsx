@@ -11,7 +11,7 @@ const blogStructure = {
   banner: "",
   content: [],
   tags: [],
-  des: "",
+  desription: "",
   state: "",
   district: "",
   location: "",
@@ -49,7 +49,7 @@ const Editor = () => {
         setLoading(false);
         console.log(err);
       });
-  }, []);
+  }, [news_id]);
 
   return (
     <EditorContext.Provider
@@ -62,7 +62,11 @@ const Editor = () => {
         setTextEditor,
       }}
     >
-      {editorState === "editor" ? <BlogEditor /> : <PublishForm />}
+      {editorState === "editor" ? (
+        <BlogEditor blogContent={blog.content} />
+      ) : (
+        <PublishForm />
+      )}
     </EditorContext.Provider>
   );
 };
