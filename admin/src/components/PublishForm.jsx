@@ -272,7 +272,7 @@ const PublishForm = () => {
                     <option
                       key={i}
                       value={district.english}
-                      className=" capitalize"
+                      className="capitalize"
                     >
                       {district.hindi}
                     </option>
@@ -306,10 +306,7 @@ const PublishForm = () => {
                   className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
                 />
               </div>
-              <p className=" mb-[5px]  sm:text-[14px] ">
-                {" "}
-                Add to Breaking News
-              </p>
+              <p className=" mb-[5px] sm:text-[14px] "> Add to Breaking News</p>
             </div>
             {/* <div className="flex items-center gap-2">
               <div>

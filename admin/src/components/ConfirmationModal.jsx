@@ -6,10 +6,10 @@ const ConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
   return (
     <div className="fixed inset-0 flex items-center justify-center z-[1002] bg-black bg-opacity-50">
       <div className="bg-white rounded-lg shadow-lg p-6 max-w-sm w-full">
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex justify-between items-center">
           <h3 className="!text-4xl font-semibold">Are you sure?</h3>
           <button
-            className="text-gray hover:text-green-600 text-[30px]"
+            className="text-gray hover:text-red text-[30px]"
             onClick={onClose}
           >
             &times;

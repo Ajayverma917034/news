@@ -1,6 +1,6 @@
 // src/CategoryRead.js
-import React from 'react';
-import { IoEye } from 'react-icons/io5';
+import React from "react";
+import { IoEye } from "react-icons/io5";
 
 const categories = [
   { name: "उत्तर प्रदेश", views: 25000 },
@@ -21,14 +21,19 @@ const categories = [
 const CategoryRead = () => {
   return (
     <div className="max-w-4xl mx-auto py-2">
-      <h2 className="text-4xl font-semibold mb-4 border-b-2 ">Category wise Total Read</h2>
+      <h2 className="text-4xl font-semibold mb-4 border-b-2 ">
+        Category wise Total Read
+      </h2>
       <div className="grid grid-cols-2 gap-4">
         {categories.map((category, index) => (
-          <div key={index} className="flex justify-between items-center p-4 rounded shadow gap-2">
+          <div
+            key={index}
+            className="flex justify-between items-center p-4 rounded shadow gap-2"
+          >
             <span>{category.name}</span>
-            <div className='flex flex-col justify-center items-center'>
-                <span>{category.views.toLocaleString()}</span>
-                <IoEye />
+            <div className="flex flex-col justify-center items-center">
+              <span>{category.views.toLocaleString()}</span>
+              <IoEye />
             </div>
           </div>
         ))}

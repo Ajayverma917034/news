@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
-import { filterPaginationData } from "../common/filterPaginationData";
-import httpClient from "../services/httpClient";
-import { handleImageError } from "../common/imageError";
-import { useNavigate } from "react-router-dom";
-import { formatDate } from "../common/date";
-import ConfirmationModal from "../components/ConfirmationModal";
+import { Link, useNavigate } from "react-router-dom";
+import { filterPaginationData } from "../../common/filterPaginationData";
+import httpClient from "../../services/httpClient";
+import { formatDate } from "../../common/date";
+import { handleImageError } from "../../common/imageError";
+import ConfirmationModal from "../../components/ConfirmationModal";
 import toast from "react-hot-toast";
 
 const categories = [
@@ -23,23 +23,23 @@ const categories = [
   "धर्म",
 ];
 
-const VideoHandler = () => {
+const AdminNewsHandler = () => {
   const navigate = useNavigate();
-  const [news, setNews] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const itemsPerPage = 6;
+  const [news, setNews] = useState(null);
   const [id, setId] = useState(null);
 
   const fetchNews = ({ page = 1 }) => {
     httpClient
-      .post(`get-my-news-yt`, { page, limit: itemsPerPage })
+      .post(`admin/get-all-news`, { page, limit: itemsPerPage })
       .then(async ({ data }) => {
         let formatData = await filterPaginationData({
           state: news,
-          data: data.news,
+          data: data,
           page,
-          countRoute: "/get-my-news-count-yt",
+          countRoute: "/get-admin-news-count",
         });
         setNews(formatData);
       })
@@ -52,13 +52,12 @@ const VideoHandler = () => {
     try {
       if (!id) return;
       let loadingToast = toast.loading("Deleting...");
-      const { data } = await httpClient.delete(`/admin/delete-news-yt/${id}`);
+      const { data } = await httpClient.delete(`/admin/delete-news/${id}`);
       setIsModalOpen(false);
       toast.dismiss(loadingToast);
       toast.success("News Deleted Successfully");
       fetchNews({ page: 1 });
     } catch (err) {
-      toast.dismiss(loadingToast);
       console.log(err);
       toast.error("Failed to delete news");
       setIsModalOpen(false);
@@ -68,16 +67,17 @@ const VideoHandler = () => {
   useEffect(() => {
     fetchNews({ page: 1 });
   }, []);
+
   return (
-    <div className="mx-auto max-md:mt-3 p-4 md:px-10">
+    <div className="mx-auto p-4 md:px-10">
       <div className="flex justify-between items-center gap-4 mb-4 ">
-        <div className="border-2 rounded-lg w-48 md:w-60 flex  justify-center items-center">
+        <div className="border-2  rounded-lg w-60 flex  justify-center items-center">
           <input
             type="text"
-            placeholder="Search Video"
-            className="border-none outline-none p-1 rounded-lg"
+            placeholder="Search News"
+            className="border-none outline-none p-1"
           />
-          <BsSearch size={25} />
+          <BsSearch />
         </div>
 
         <select
@@ -99,13 +99,13 @@ const VideoHandler = () => {
             news?.results?.map((item, index) => (
               <div
                 key={index}
-                className="grid sm:grid-cols-7 lg:grid-cols-6 gap-3 items-center p-2 md:p-4 rounded shadow-dark-shadow"
+                className="grid sm:grid-cols-7 lg:grid-cols-6 gap-3 items-center  p-4 rounded shadow-dark-shadow"
               >
                 <div className=" sm:col-span-2 lg:col-span-1">
                   <img
-                    src={`https://img.youtube.com/vi/${item?.videoLinkId}/mqdefault.jpg`}
+                    src={item?.banner}
                     alt="news"
-                    className="w-full h-36 md:w-22 md:h-24"
+                    className="w-22 h-20"
                     onError={handleImageError}
                   />
                 </div>
@@ -114,7 +114,7 @@ const VideoHandler = () => {
                     <h3 className="font-medium text-xl line-clamp-1">
                       {item.title}
                     </h3>
-                    <div className="flex justify-start gap-x-2 md:gap-8 max-md:flex-col">
+                    <div className="flex justify-start gap-8">
                       <p className="text-lg text-gray">
                         <span className="font-semibold text-black">
                           Created On:
@@ -123,21 +123,27 @@ const VideoHandler = () => {
                       </p>
                       <p className="text-lg text-gray">
                         <span className="font-semibold text-black">Read:</span>{" "}
-                        {item.activity.total_reads}
+                        {item.activity?.total_reads}
+                      </p>
+                      <p className="text-lg text-gray">
+                        <span className="font-semibold text-black">
+                          Reporter
+                        </span>
+                        <Link className="text-blue border-b border-blue ml-2">
+                          @{item?.author?.username}
+                        </Link>
                       </p>
                     </div>
                   </div>
                   <div className="flex gap-4 mt-2">
-                    <button
+                    {/* <button
                       className="bg-blue text-white px-3 py-1 rounded-lg text-base"
                       onClick={() =>
-                        navigate(
-                          `/dashboard/create-videos?video_id=${item?.news_id}`
-                        )
+                        navigate(`/dashboard/create-news/${item?.news_id}`)
                       }
                     >
                       Edit
-                    </button>
+                    </button> */}
                     <button
                       className="bg-red text-white px-3 py-1 rounded-lg text-base"
                       onClick={() => {
@@ -194,4 +200,4 @@ const VideoHandler = () => {
   );
 };
 
-export default VideoHandler;
+export default AdminNewsHandler;

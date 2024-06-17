@@ -27,7 +27,7 @@ axios.interceptors.response.use(
     ) {
       // console.log("IN stop");
       // console.log("error here");
-      await logOut();
+      // await logOut();
       return Promise.reject(error);
     } else if (error.response.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
@@ -46,7 +46,7 @@ axios.interceptors.response.use(
         originalRequest.headers["Authorization"] = `Bearer ${accessToken}`;
         return axios(originalRequest);
       } catch (refreshError) {
-        await logOut();
+        // await logOut();a
 
         return Promise.reject(refreshError);
       }

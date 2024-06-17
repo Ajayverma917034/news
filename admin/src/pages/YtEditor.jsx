@@ -33,6 +33,7 @@ const YoutubeVideo = () => {
   const location = useLocation();
   const [loading, setLoading] = useState(false);
 
+  console.log("hello");
   // Extract the user_id from the URL parameters
   const searchParams = new URLSearchParams(location.search);
   const video_id = searchParams.get("video_id");
@@ -212,7 +213,6 @@ const YoutubeVideo = () => {
               <option value="" disabled>
                 Select State
               </option>
-              
             </select>
           </div>
           <div>

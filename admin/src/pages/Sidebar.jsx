@@ -63,7 +63,7 @@ const SideBar = () => {
           ></div>
         )}
 
-        <div className="sticky top-[72px] z-[150]">
+        <div className="sticky top-[49px] z-[150]">
           <div className="relative md:hidden bg-white py-1 border-b border-grey flex flex-nowrap overflow-x-auto pl-5">
             <button
               className="p-1 capitalize sidebar-toggle"
@@ -81,7 +81,7 @@ const SideBar = () => {
           <div
             ref={sidebarRef}
             className={
-              "min-w-[200px] pt-3 px-5 !h-[calc(100vh-107px)] max-md:pb-4 md:min-h-[calc(100vh-107px)] bg-white md:bg-white md:h-cover md:sticky top-[90px] overflow-y-auto z-[150] md:border-gray-light md:border-r absolute max-md:top-[33px] max-md:px-16 max-md:-ml-7 duration-500 sidebar" +
+              "min-w-[200px] pt-3 px-5 !h-[calc(100vh-82px)] max-md:pb-4 md:min-h-[calc(100vh-107px)] bg-white md:bg-white md:h-cover md:sticky top-[90px] overflow-y-auto z-[150] md:border-gray-light md:border-r absolute max-md:top-[33px] max-md:px-16 max-md:-ml-7 duration-500 sidebar" +
               (!showSideNav
                 ? " max-md:opacity-0 max-md:pointer-events-none"
                 : "")
@@ -112,6 +112,16 @@ const SideBar = () => {
               <span>Settings</span>
             </Link> */}
             <hr className="text-gray w-full py-2 mt-3" />
+            {/* {user?.role === "admin" && (
+              <Link
+                className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
+                to="/dashboard/all-ads"
+                onClick={() => setShowSideNav(false)}
+              >
+                <RiAdvertisementLine size={25} />
+                <span>Ads</span>
+              </Link>
+            )} */}
             {user?.role === "admin" && (
               <Link
                 className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
@@ -122,14 +132,16 @@ const SideBar = () => {
                 <span>Ads</span>
               </Link>
             )}
-            <Link
-              className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
-              to="/dashboard/create-news"
-              onClick={() => setShowSideNav(false)}
-            >
-              <IoNewspaper size={25} />
-              <span>Create News</span>
-            </Link>
+            {user?.role === "reporter" && (
+              <Link
+                className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
+                to="/dashboard/create-news"
+                onClick={() => setShowSideNav(false)}
+              >
+                <IoNewspaper size={25} />
+                <span>Create News</span>
+              </Link>
+            )}
             {user?.role === "admin" && (
               <Link
                 className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
@@ -140,14 +152,27 @@ const SideBar = () => {
                 <span>Create YtVideo</span>
               </Link>
             )}
-            <Link
-              className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
-              to="/dashboard/all-news-data"
-              onClick={() => setShowSideNav(false)}
-            >
-              <MdNewspaper size={25} />
-              <span>All-News</span>
-            </Link>
+
+            {user?.role === "roporter" && (
+              <Link
+                className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
+                to="/dashboard/all-news-data"
+                onClick={() => setShowSideNav(false)}
+              >
+                <MdNewspaper size={25} />
+                <span>All-News</span>
+              </Link>
+            )}
+            {user?.role === "admin" && (
+              <Link
+                className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
+                to="/dashboard/all-admin-news-data"
+                onClick={() => setShowSideNav(false)}
+              >
+                <MdOutlineVideoSettings size={25} />
+                <span>All-News</span>
+              </Link>
+            )}
             {user?.role === "admin" && (
               <Link
                 className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"

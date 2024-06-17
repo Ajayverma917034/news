@@ -14,6 +14,7 @@ import YtRouter from './router/yt-news.routes.js'
 import fileUploader from 'express-fileupload';
 import { AdvertisementRoutes } from './router/advertisement.routes.js';
 import cloudinary from 'cloudinary'
+import adminRoutes from './router/admin.routes.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -70,6 +71,7 @@ app.use('/api/v1', districtAndStateRouter)
 app.use('/api/v1', DashboardNewsRoutes)
 app.use('/api/v1', YtRouter)
 app.use('/api/v1', AdvertisementRoutes)
+app.use('/api/v1', adminRoutes)
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "./client/dist/index.html"));

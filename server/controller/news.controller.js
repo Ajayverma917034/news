@@ -62,9 +62,7 @@ export const createNews = tryCatch((req, res, next) => {
             // }
             // Check if tags is provided and not empty
             if (!news_section_type || news_section_type.length === 0) {
-                for (let i = 0; i < news_section_type.length; i++) {
-                    news_section_type[i] = news_section_type[i].trim().toLowerCase();
-                }
+
                 return res.status(403).json({ error: 'You must provide news_section_type for the news' })
             }
 
@@ -76,6 +74,9 @@ export const createNews = tryCatch((req, res, next) => {
             location = location.trim().toLowerCase();
             state = state.trim().toLowerCase();
             district = district.trim().toLowerCase();
+            for (let i = 0; i < news_section_type.length; i++) {
+                news_section_type[i] = news_section_type[i].trim().toLowerCase();
+            }
         }
 
         // tags = tags.map(tag => tag.trim().toLowerCase());

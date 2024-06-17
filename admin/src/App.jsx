@@ -5,7 +5,6 @@ import Das from "./dashboard/Das";
 import NewsList from "./components/common/news/NewsList";
 import Navbar from "./pages/Navbar";
 import Home from "./pages/Home";
-import SignIn from "./pages/SignIn";
 import { Toaster } from "react-hot-toast";
 import Sidebar from "./pages/Sidebar";
 import Editor from "./pages/Editor";
@@ -17,6 +16,8 @@ import NewsHandler from "./pages/NewsHandler";
 import VideoHandler from "./pages/VideoHandler";
 import Ads from "./pages/AdsPages/Ads";
 import "./App.css";
+import AdminNewsHandler from "./pages/admin/AdminNewsHandler";
+import SignIn from "./pages/SignIn";
 
 export const UserContext = createContext({});
 
@@ -63,6 +64,10 @@ const App = () => {
             <Route
               path="all-videos-data"
               element={<ProtectedRoute component={VideoHandler} />}
+            />
+            <Route
+              path="all-admin-news-data"
+              element={<ProtectedRoute component={AdminNewsHandler} />}
             />
             <Route
               path="all-ads"

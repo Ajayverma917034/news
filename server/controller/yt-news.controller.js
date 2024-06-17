@@ -145,9 +145,10 @@ export const getYtNewsCount = tryCatch(async (req, res, next) => {
 })
 
 export const deleteYtNews = tryCatch(async (req, res, next) => {
-    let { news_id } = req.body;
+    let { id } = req.params;
 
-    YtNews.findOneAndDelete({ news_id })
+
+    YtNews.findOneAndDelete({ news_id: id })
         .then((news) => {
             return res.status(200).json({ success: true, message: 'Deleted Successfully' })
         })
