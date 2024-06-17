@@ -25,11 +25,7 @@ const BlogEditor = ({ blogContent }) => {
 
   useEffect(() => {
     const initializeEditor = async () => {
-      console.log(textEditor);
       if (!textEditor.isReady) {
-        console.log("Editor is not ready");
-        console.log(blogContent);
-
         const newEditor = new EditorJS({
           holderId: "textEditor",
           data: Array.isArray(content) ? content[0] : content,
@@ -39,7 +35,6 @@ const BlogEditor = ({ blogContent }) => {
 
         await newEditor.isReady;
         setTextEditor(newEditor);
-        console.log("Editor is ready");
       }
     };
 
@@ -88,21 +83,21 @@ const BlogEditor = ({ blogContent }) => {
   };
 
   const handlePublishEvent = () => {
-    if (textEditor && textEditor.isReady) {
-      textEditor
-        .save()
-        .then((data) => {
-          if (data.blocks.length) {
-            setBlog({ ...blog, content: data });
-            setEditorState("publish");
-          } else {
-            return toast.error("Write Something in your news to publish it");
-          }
-        })
-        .catch((err) => {
-          toast.error(err);
-        });
-    }
+    setEditorState("publish");
+    // if (textEditor && textEditor.isReady) {
+    //   textEditor
+    //     .save()
+    //     .then((data) => {
+    //       if (data.blocks.length) {
+    //         setBlog({ ...blog, content: data });
+    //       } else {
+    //         return toast.error("Write Something in your news to publish it");
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       toast.error(err);
+    //     });
+    // }
   };
 
   const handleSaveDraft = (e) => {
