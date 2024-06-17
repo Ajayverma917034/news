@@ -6,6 +6,8 @@ import NewsVideoCard from "./news.video.card.section.component";
 import { FaYoutube } from "react-icons/fa";
 import adsmiddleimg from "../../../assets/adsmiddleimg.png";
 import { YtCollectionSkeleton } from "../../../skeleton/HomeSkeleton";
+import { Link } from "react-router-dom";
+import { formatDate } from "../../../common/date";
 
 const NewsVideo = ({ data, title }) => {
   return (
@@ -15,7 +17,10 @@ const NewsVideo = ({ data, title }) => {
           <div className="flex w-full flex-col flex-wrap gap-6 mt-5">
             <Heading title={title} />
             {/* Main Section  */}
-            <div className="flex md:flex-row flex-col justify-between w-full ">
+            <Link
+              to={`/video/${data[0]?.news_id}`}
+              className="flex md:flex-row flex-col justify-between w-full "
+            >
               <div className="md:w-[50%] w-full h-auto relative">
                 <img
                   className="w-full h-full"
@@ -27,14 +32,16 @@ const NewsVideo = ({ data, title }) => {
                 </div>
               </div>
               <div className="md:w-[45%] w-full ">
-                <p className="date-lg">Wed, 01 May 2024 04:35 PM</p>
+                <p className="date-lg">{formatDate(data[0]?.createdAt)}</p>
                 <h1 className="news-title-lg">{data[0]?.title}</h1>
                 <div className="flex items-center">
                   <CiLocationOn className="location-lg" />
-                  <p className="location-title-lg pt-1 px-3">नई दिल्ली</p>
+                  <p className="location-title-lg pt-1 px-3">
+                    {data[0]?.location}
+                  </p>
                 </div>
               </div>
-            </div>
+            </Link>
 
             <div className="flex flex-col">
               {

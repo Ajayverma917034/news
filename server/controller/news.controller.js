@@ -114,14 +114,28 @@ export const createNews = tryCatch((req, res, next) => {
 export const getHomeNews = tryCatch(async (req, res, next) => {
     try {
         // let { data } = req.body;
-        const data = ['big news', 'world news', 'uttar pradesh', 'crime', 'education']
+        const data = [
+            "Big News",
+            "Technology",
+            "Politics",
+            "Country",
+            "World",
+            "Crime",
+            "Cricket",
+            "Sports",
+            "Religion",
+            "Entertainment",
+            "Health",
+            "Carrier",
+            "Astrology",
+        ]
 
         let promises = [];
 
         // Loop through each entity in the data array
         for (let entity of data) {
             let query = {};
-            query.news_section_type = { $in: entity };
+            query.news_section_type = { $in: entity.toLocaleLowerCase() };
 
             const news = await News.find(query).limit(5).sort({ createdAt: -1 }).select('news_id title state district location tags createdAt banner -_id').exec();
 
@@ -436,18 +450,26 @@ export const findStateDataWithOutDistrict = tryCatch(async (req, res, next) => {
 })
 export const findStateNews = tryCatch(async (req, res, next) => {
     let promises = [];
-    let states = await State.find().select('state -_id').exec();
+    // let states = await State.find().select('state -_id').exec();
 
-    if (states === null) {
-        return res.status(200).json({ success: true, data: { state: [] } });
-    }
+    let states = [
+        'uttar pradesh',
+        'madhya pradesh',
+        'bihar',
+        'jharkhand',
+        'chhattisgarh',
+        'uttrakhand',
+    ]
+    // if (states === null) {
+    //     return res.status(200).json({ success: true, data: { state: [] } });
+    // }
     for (let state of states) {
-        const stateNews = await News.find({ state: state.state })
+        const stateNews = await News.find({ state: state })
             .sort({ createdAt: -1 })
             .limit(5)
             .select('news_id title state district location tags createdAt banner -_id')
             .exec();
-        promises.push({ state: state.state, data: stateNews });
+        promises.push({ state: state, data: stateNews });
     }
 
     return res.status(200).json({ success: true, data: promises });
