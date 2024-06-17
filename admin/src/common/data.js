@@ -99,7 +99,23 @@ const engToHindi = {
 
     'goa': 'गोवा',
     'north goa': 'उत्तर गोवा',
-    'south goa': 'दक्षिण गोवा'
+    'south goa': 'दक्षिण गोवा',
+
+    // categorydata
+    'Big News': 'बड़ी खबर',
+    'Technology': 'टैकनोलजी',
+    'Politics': 'राजनीति',
+    'Country': 'देश',
+    'World': 'विदेश',
+    'Crime': 'क्राइम',
+    'Cricket': 'क्रिकेट',
+    'Religion': 'धर्म',
+    'Entertainment': 'मनोरंजन',
+    'Health': 'स्वास्थ्य',
+    'Carrier': 'करियर',
+    'Astrology': 'राशिफल',
+    'Sports': 'खेल कूद',
+
 };
 
 

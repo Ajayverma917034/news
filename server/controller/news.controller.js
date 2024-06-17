@@ -41,14 +41,14 @@ export const createNews = tryCatch((req, res, next) => {
             }
 
             // Check if state is provided and not empty
-            if (!state || state.trim() === '') {
-                return res.status(403).json({ error: 'You must provide a state for the news' })
-            }
+            // if (!state || state.trim() === '') {
+            //     return res.status(403).json({ error: 'You must provide a state for the news' })
+            // }
 
-            // Check if district is provided and not empty
-            if (!district || district.trim() === '') {
-                return res.status(403).json({ error: 'You must provide a district for the news' })
-            }
+            // // Check if district is provided and not empty
+            // if (!district || district.trim() === '') {
+            //     return res.status(403).json({ error: 'You must provide a district for the news' })
+            // }
 
             // Check if location is provided and not empty
             if (!location || location.trim() === '') {

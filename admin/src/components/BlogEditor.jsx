@@ -12,32 +12,20 @@ import { uploadImage } from "../common/imageUploader.js";
 const BlogEditor = () => {
   const navigate = useNavigate();
   let { blog_id } = useParams();
-  let {
-    userAuth: { refreshToken },
-  } = useContext(UserContext);
 
   //   let { theme } = useContext(ThemeContext);
   let {
     blog,
-    blog: {
-      title,
-      banner,
-      content,
-      tags,
-      des,
-      state,
-      district,
-      location,
-      news_section_type,
-      breaking_news,
-    },
+    blog: { title, banner, content, des },
     setBlog,
     textEditor,
     setTextEditor,
     setEditorState,
   } = useContext(EditorContext);
-
+  console.log(blog);
   useEffect(() => {
+    console.log(blog);
+    console.log(textEditor.isReady);
     if (!textEditor.isReady) {
       setTextEditor(
         new EditorJS({
@@ -48,7 +36,7 @@ const BlogEditor = () => {
         })
       );
     }
-  }, []);
+  }, [blog]);
   const handleChangeBanner = (e) => {
     if (e.target.files[0]) {
       let ladingTast = toast.loading("Uploading...");
@@ -148,10 +136,13 @@ const BlogEditor = () => {
             {title?.length ? title : "New News"}
           </p>
           <div className="flex gap-4 ml-auto">
-            <button className="btn-dark py-2 " onClick={handlePublishEvent}>
+            <button className="btn-dark py-1" onClick={handlePublishEvent}>
               Publish
             </button>
-            <button className="btn-light py-2" onClick={handleSaveDraft}>
+            <button
+              className="btn-light py-1 bg-red text-white"
+              onClick={handleSaveDraft}
+            >
               Save Draft
             </button>
           </div>

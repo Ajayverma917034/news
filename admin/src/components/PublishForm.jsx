@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Toaster, toast } from "react-hot-toast";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
@@ -8,7 +8,9 @@ import { UserContext } from "../App.jsx";
 import lightBanner from "../assets/news banner.png";
 import Section from "./NewsSection.jsx";
 import { IoMdClose } from "react-icons/io";
+import { IoIosAddCircle } from "react-icons/io";
 import { stateDistricts } from "../common/data.js";
+import { CategoryData } from "../assets/CategoryData.js";
 
 const PublishForm = () => {
   const charLength = 200;
@@ -26,12 +28,15 @@ const PublishForm = () => {
       district,
       location,
       sections,
+
       breaking_news,
     },
     setEditorState,
     setBlog,
     blog,
   } = useContext(EditorContext);
+
+  const [tagdata, setTagData] = useState("");
 
   // console.log(blog);
   // let {userAuth: {access_token}} = useContext(UserContext)
@@ -73,7 +78,7 @@ const PublishForm = () => {
       } else {
         toast.error(`You can add max ${tagLimit} tags`);
       }
-      e.target.value = "";
+      setTagData("");
     }
   };
 
@@ -96,7 +101,7 @@ const PublishForm = () => {
       );
     if (!tags || tags.length > 10) {
       return toast.error(
-        `Write some tags about news within ${tagLimit} tag limit to publish`
+        ` Write some tags about news within ${tagLimit} tag limit to publish`
       );
     }
 
@@ -138,6 +143,21 @@ const PublishForm = () => {
   const states = Object.keys(stateDistricts).map((state) => ({
     english: state,
   }));
+  const handleTag = () => {
+    // e.preventDefault();
+    let tag = tagdata;
+    // let tag = e.target.value;
+    setTagData(tag);
+    if (tags?.length < tagLimit) {
+      if (!tags.includes(tag) && tag.length) {
+        setBlog({ ...blog, tags: [...tags, tag] });
+      }
+    } else {
+      toast.error(`You can add max ${tagLimit} tags`);
+    }
+    setTagData("");
+    // e.target.value = "";
+  };
 
   return (
     <section className="w-full min-h-screen grid grid-cols-1 md:grid-cols-5 lg:gap-4 p-5 md:p-10 ">
@@ -186,13 +206,25 @@ const PublishForm = () => {
         <p className="text-dark-grey mb-2 mt-9 required-text">
           Topics - ( Helps in searching and ranking your news post )
         </p>
-        <div className="relative input-box pl-2 py-2 pb-4">
-          <input
-            type="text"
-            placeholder="Topics"
-            onKeyDown={handleKeyDown}
-            className="sticky input-box bg-white top-0 lef0 pl-4 mb-3 focus:bg-white"
-          />
+        <div className="relative  input-box pl-2 py-2 pb-4">
+          <div className="flex items-center">
+            <input
+              type="text"
+              value={tagdata}
+              placeholder="Topics"
+              onKeyDown={handleKeyDown}
+              onChange={(e) => {
+                setTagData(e.target.value);
+              }}
+              className="sticky input-box bg-white top-0 lef0 pl-4  focus:bg-white"
+            />
+            <button className="ml-2" onClick={handleTag}>
+              <IoIosAddCircle
+                size={25}
+                className="text-dark-grey pointer-events-none"
+              />
+            </button>
+          </div>
           {tags &&
             tags.map((tag, i) => {
               return <Tag key={i} tagIndex={i} tag={tag} />;
@@ -256,35 +288,80 @@ const PublishForm = () => {
               onChange={(e) => setBlog({ ...blog, location: e.target.value })}
             />
           </div>
-          <div className="">
-            <p className=" mb-2 mt-9">Do you want to add it in Breaking News</p>
-            <input
-              type="checkbox"
-              checked={breaking_news}
-              onChange={(e) =>
-                setBlog({ ...blog, breaking_news: e.target.checked })
-              }
-              className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-            />
+          <div className="mt-10 flex flex-col ml-2 ">
+            <div className="flex  items-center gap-2 mt-4">
+              <div>
+                <input
+                  type="checkbox"
+                  checked={breaking_news}
+                  onChange={(e) =>
+                    setBlog({ ...blog, breaking_news: e.target.checked })
+                  }
+                  className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                />
+              </div>
+              <p className=" mb-[5px]  sm:text-[14px] ">
+                {" "}
+                Add to Breaking News
+              </p>
+            </div>
+            {/* <div className="flex items-center gap-2">
+              <div>
+                <input
+                  type="checkbox"
+                  checked={breaking_news}
+                  onChange={(e) =>
+                    setBlog({ ...blog, breaking_news: e.target.checked })
+                  }
+                  className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                />
+              </div>
+              <p className=" mb-[5px] sm:text-[14px] ">
+                Add to Read also section
+              </p>
+            </div>
+            <div className="flex  items-center gap-2">
+              <div>
+                <input
+                  type="checkbox"
+                  checked={breaking_news}
+                  onChange={(e) =>
+                    setBlog({ ...blog, breaking_news: e.target.checked })
+                  }
+                  className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                />
+              </div>
+              <p className=" mb-[5px] sm:text-[14px] ">Add to Health Tips</p>
+            </div> */}
           </div>
         </div>
         <p className="text-dark-grey mb-2 mt-9 required-text">
           News Section - ( Choose the news sections )
         </p>
         <div className="relative input-box pl-2 py-2 pb-4">
-          <select
-            name="news-section"
-            id="news-section"
-            onChange={handleSectionChange}
-            className="input-box mb-5 pl-4 capitalize"
-          >
-            <option value="sport">Sport</option>
-            <option value="politics">Politics</option>
-            <option value="technology">Technology</option>
-            <option value="health">Health</option>
-            <option value="entertainment">Entertainment</option>
-            {/* Add more options as needed */}
-          </select>
+          {
+            <select
+              name="news-section"
+              id="news-section"
+              onChange={handleSectionChange}
+              className="input-box mb-5 pl-4 capitalize"
+            >
+              {CategoryData.map((category, i) => {
+                return (
+                  <option
+                    key={i}
+                    value={category.hindi}
+                    className=" capitalize"
+                  >
+                    {category.hindi}
+                  </option>
+                );
+              })}
+            </select>
+          }
+
+          {/* Add more options as needed */}
+
           {sections &&
             sections.map((tag, i) => {
               return <Section key={i} tagIndex={i} tag={tag} />;

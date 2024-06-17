@@ -26,9 +26,7 @@ const Editor = () => {
   const [blog, setBlog] = useState(blogStructure);
   const [editorState, setEditorState] = useState("editor");
   const [textEditor, setTextEditor] = useState({ isReady: false });
-  let {
-    userAuth: { refreshToken },
-  } = useContext(UserContext);
+
   const [loading, setLoading] = useState(true);
   // console.log(access_token)
 
@@ -43,7 +41,6 @@ const Editor = () => {
         mode: "edit",
       })
       .then(({ data: { news } }) => {
-        // console.log(news);
         setBlog(news);
         setLoading(false);
       })
@@ -53,6 +50,7 @@ const Editor = () => {
         console.log(err);
       });
   }, []);
+
   return (
     <EditorContext.Provider
       value={{
@@ -64,7 +62,7 @@ const Editor = () => {
         setTextEditor,
       }}
     >
-      {editorState === "editor" ? <PublishForm /> : <BlogEditor />}
+      {editorState === "editor" ? <BlogEditor /> : <PublishForm />}
     </EditorContext.Provider>
   );
 };

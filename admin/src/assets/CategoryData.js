@@ -1,0 +1,16 @@
+export const CategoryData = [
+    { english: 'Read Also', hindi: 'इसे भी पढ़ें' },
+    { english: "Big News", hindi: "बड़ी खबर" },
+    { english: "Technology", hindi: "टैकनोलजी" },
+    { english: "Politics", hindi: "राजनीति" },
+    { english: "Country", hindi: "देश" },
+    { english: "World", hindi: "विदेश" },
+    { english: "Crime", hindi: "क्राइम" },
+    { english: "Cricket", hindi: "क्रिकेट" },
+    { english: "Sports", hindi: "खेल कूद" },
+    { english: "Religion", hindi: "धर्म" },
+    { english: "Entertainment", hindi: "मनोरंजन" },
+    { english: "Health", hindi: "स्वास्थ्य" },
+    { english: "Carrier", hindi: "करियर" },
+    { english: "Astrology", hindi: "राशिफल" },
+]   

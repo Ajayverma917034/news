@@ -48,6 +48,7 @@ const NewsSection = ({ data, title }) => {
                     className="w-full h-full"
                     src={data[0]?.banner}
                     onError={handleImageError}
+                    onLoad={handleImageError}
                   />
                 </div>
                 <div className="md:w-[45%] w-full ">
