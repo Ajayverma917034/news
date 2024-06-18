@@ -370,7 +370,7 @@ export const findNewsSectionTypeNews = tryCatch(async (req, res, next) => {
         let selectedNews = shuffled.slice(0, 5);
 
         // Return the randomly selected results
-        return res.status(200).json({ news })
+        return res.status(200).json({ news: selectedNews })
         // if (selectedNews.length === 0) {
         //     News.find().sort({ "activity.total_reads": -1, "createdAt": -1 })
         //         .limit(limit)
