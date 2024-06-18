@@ -7,15 +7,17 @@ import { AiFillInstagram } from "react-icons/ai";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import relativenews from "../../../assets/relativenews.png";
 import newsimg from "../../../assets/img1.png";
-import { Link, Navigate, useParams } from "react-router-dom";
+import { Link, Navigate, useLocation, useParams } from "react-router-dom";
 import httpClient from "../../../api/httpClient";
 import BlogContent from "../BlogContent";
 import SideNews from "../../../pages/advertisement/related-news/SideNews";
+import { MetaData } from "../../../seo/Helmet";
 import { handleImageError } from "../../../common/errorImg";
 export const newsStructure = {
   title: "",
   des: "",
   content: [],
+  tags: [],
   banner: "",
   createdAt: "",
   categories: [],
@@ -27,8 +29,7 @@ const SinglePage = () => {
   const [news, setNews] = useState(newsStructure);
   const [relatedNews, setRelatedNews] = useState(null);
 
-  let { title, description, content, banner, createdAt, categories, location } =
-    news;
+  let { title, description, content, banner, createdAt, tags, location } = news;
 
   const handleError = (e) => {
     e.target.src = newsimg;
@@ -71,13 +72,21 @@ const SinglePage = () => {
     fetchNews();
     scrollTo(0, 0);
   }, [news_id]);
-
+  const locationUrl = useLocation();
+  const currentUrl = `${window.location.protocol}//${window.location.host}${locationUrl.pathname}${locationUrl.search}${locationUrl.hash}`;
   return (
     <>
       {!news ? (
         <>Loading...</>
       ) : (
         <div className="grid flex-col  sm:grid-cols-6 sm:gap-6 w-full spacing ">
+          <MetaData
+            title={title}
+            keywords={tags}
+            banner={banner}
+            description={description}
+            link={currentUrl}
+          />
           <div className=" col-start-1 col-span-4 ">
             <div className="py-4 flex flex-col flex-wrap">
               <h1 className="font-semibold text-[25px] pt-2 text-wrap">
@@ -87,7 +96,7 @@ const SinglePage = () => {
               <div className=" w-full h-[280px] sm:h-[350px] mt-3">
                 <img
                   src={news?.banner}
-                  onError={handleError}
+                  onError={handleImageError}
                   alt="news-img"
                   className="w-full h-full object-cover"
                   loading="lazy"

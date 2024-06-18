@@ -11,26 +11,6 @@ import { formatDate } from "../../../common/date";
 import { handleImageError } from "../../../common/errorImg";
 
 const NewsSection = ({ data, title }) => {
-  const cardData = [
-    {
-      title: "लद्दाख B",
-      date: "Wed, 01 May 2024 04:35 PM",
-    },
-    {
-      title: "लद्दाख BJP में बगावत, प्रत्या..",
-      date: "Wed, 01 May 2024 04:35 PM",
-    },
-    {
-      title:
-        "लद्दाख BJP में बगावत, प्रत्याशी ने भरा पर्चा, नामग्याल ने भी लिए पे...",
-      date: "Wed, 01 May 2024 04:35 PM",
-    },
-    {
-      title:
-        "लद्दाख BJP में बगावत, प्रत्याशी ने भरा पर्चा, नामग्याल ने भी लिए पे...",
-      date: "Wed, 01 May 2024 04:35 PM",
-    },
-  ];
   return (
     <>
       {data ? (
@@ -40,7 +20,7 @@ const NewsSection = ({ data, title }) => {
               <Heading title={title} />
               {/* Main Section  */}
               <Link
-                to={`news/${data[0]?.news_id}`}
+                to={`/news/${data[0]?.news_id}`}
                 className="flex md:flex-row flex-col justify-between w-full "
               >
                 <div className="md:w-[50%] w-full h-auto max-h-[16rem]">
@@ -80,12 +60,18 @@ const NewsSection = ({ data, title }) => {
                           />
                         </div>
                         <div className="md:ml-4 col-span-2 ">
-                          <h2 className="text-lg font-semibold mb-2 line-clamp-2">
+                          <h2 className="text-lg font-semibold line-clamp-2">
                             {card.title}
                           </h2>
                           <p className="text-gray-500 line-clamp-1">
-                            {card.date}
+                            {formatDate(card.createdAt)}
                           </p>
+                          <div className="flex items-center">
+                            <CiLocationOn className="location-sm mb-1 text-red" />
+                            <p className="location-title-sm px-1 capitalize">
+                              {findHindi(card?.location)}
+                            </p>
+                          </div>
                         </div>
                       </Link>
                     );

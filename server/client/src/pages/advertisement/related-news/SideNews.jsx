@@ -22,7 +22,7 @@ const SideNews = ({ title = "" }) => {
   useEffect(() => {
     fetchNews();
   }, []);
-  return data === null ? (
+  return data === null || data?.length === 0 ? (
     <></>
   ) : (
     <div className=" flex-col gap-y-3 py-3 px-5 shadow-light-shadow rounded-md  hidden lg:flex ">
