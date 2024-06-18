@@ -153,7 +153,7 @@ const SideBar = () => {
               </Link>
             )}
 
-            {user?.role === "roporter" && (
+            {user?.role === "reporter" && (
               <Link
                 className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
                 to="/dashboard/all-news-data"

@@ -1,16 +1,8 @@
-import React, {
-  createContext,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
 import axios from "axios";
-// import AnimationWrapper from "../common/page-animation";
-import { UserContext } from "../App";
 import { useLocation } from "react-router-dom";
-import { stateDistricts } from "../common/data";
+import { findHindi, stateDistricts } from "../common/data";
 import Tag from "../components/tag.component";
 
 const ytVideoStructure = {
@@ -25,15 +17,10 @@ const ytVideoStructure = {
 };
 const YoutubeVideo = () => {
   let addYtData = useRef();
-  const {
-    userAuth,
-    userAuth: { refreshToken },
-  } = useContext(UserContext);
 
   const location = useLocation();
   const [loading, setLoading] = useState(false);
 
-  console.log("hello");
   // Extract the user_id from the URL parameters
   const searchParams = new URLSearchParams(location.search);
   const video_id = searchParams.get("video_id");
@@ -213,6 +200,13 @@ const YoutubeVideo = () => {
               <option value="" disabled>
                 Select State
               </option>
+              {states.map((state, i) => {
+                return (
+                  <option key={i} value={state.english} className=" capitalize">
+                    {findHindi(state.english)}
+                  </option>
+                );
+              })}
             </select>
           </div>
           <div>
@@ -236,7 +230,7 @@ const YoutubeVideo = () => {
                       value={district.english}
                       className="capitalize"
                     >
-                      {district.english}
+                      {findHindi(district.english)}
                     </option>
                   )
                 )}
