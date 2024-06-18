@@ -8,6 +8,7 @@ import adsimgright1 from "../assets/adsimgright1.png";
 import adsimgright2 from "../assets/adsimgright2.png";
 import SideNews from "./advertisement/related-news/SideNews";
 import StateBar from "../components/common/StateBar";
+import { MetaData, MetaDataSection } from "../seo/Helmet";
 const StateNews = () => {
   let state = useLocation();
   state = state.pathname.split("/")[1];
@@ -34,6 +35,7 @@ const StateNews = () => {
   // console.log(news && news[0]);
   return (
     <>
+      <MetaDataSection title={state} />
       <div className="flex spacing mt-8">
         <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto  gap-5 ">
           <div className="flex flex-col flex-wrap  md:col-span-4 overflow-hidden">

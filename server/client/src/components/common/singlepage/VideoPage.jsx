@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { MetaData } from "../../../seo/Helmet";
 // import { getFullDay } from "../common/date-format";
 // import AnimationWrapper from "../common/AnimationWrapper";
 // import Skeltons5 from "./Skeltons/Skeltons5";
@@ -69,6 +70,13 @@ const VideoPage = () => {
         <></>
       ) : (
         <div className="center w-full  py-5 max-lg:px-[5vw]">
+          <MetaData
+            title={title}
+            keywords={tags}
+            banner={thumbnail}
+            description={description}
+            link={shareUrl}
+          />
           <div className="center w-full py-2 max-lg:px-[0vw] md:w-[60%] h-[300px] md:h-[500px]">
             <iframe
               style={{ overflow: "hidden", height: "100%", width: "100%" }}

@@ -3,6 +3,7 @@ import HomeRightBar from "../../components/home.component";
 import httpClient from "../../api/httpClient";
 import HomeRightBarOther from "../../components/home.component.other";
 import NewsSection from "../../components/common/news-section/news.section.component";
+import { MetaDataSection } from "../../seo/Helmet";
 
 const HomePage = () => {
   const [homeNews, setHomeNews] = useState([[], [], [], []]);
@@ -41,6 +42,7 @@ const HomePage = () => {
   }, []);
   return (
     <>
+      <MetaDataSection title={"home"} />
       <HomeRightBar data={homeNews.slice(0, 2)} ytData={ytNews} />
       <HomeRightBarOther data={homeNews.slice(2, 4)} />
 

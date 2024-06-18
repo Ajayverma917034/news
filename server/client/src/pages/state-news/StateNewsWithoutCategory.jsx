@@ -10,6 +10,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import useInfiniteScroll from "../../common/useInfiniteScroll";
 import { handleImageError } from "../../common/errorImg";
+import { MetaDataSection } from "../../seo/Helmet";
 
 const StateNewsWithoutCategory = () => {
   const [data, setData] = useState([]);
@@ -63,6 +64,7 @@ const StateNewsWithoutCategory = () => {
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto justify-between gap-10 ">
+          <MetaDataSection title={`${title} News`} />
           <div className="flex flex-col flex-wrap md:col-span-4">
             <div className="flex w-full flex-col flex-wrap ">
               <Heading title={findHindi(title)} />

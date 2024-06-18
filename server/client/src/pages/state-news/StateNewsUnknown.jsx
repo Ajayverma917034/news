@@ -5,6 +5,7 @@ import NewsSection from "../../components/common/news-section/news.section.compo
 import CustomeAndGoogleAdd from "../advertisement/CustomeAndGoogleAdd";
 import SideNews from "../advertisement/related-news/SideNews";
 import { findHindi, stateDistricts } from "../../assets/data";
+import { MetaDataSection } from "../../seo/Helmet";
 
 const StateNewsUnknown = () => {
   const [filteredStates, setFilteredStates] = useState(
@@ -37,6 +38,7 @@ const StateNewsUnknown = () => {
   // console.log(news.slice(0, 2));
   return (
     <>
+      <MetaDataSection title={"All State News"} />
       <div className="flex spacing mt-8 flex-col">
         <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto gap-5 ">
           <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden">

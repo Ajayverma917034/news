@@ -9,6 +9,7 @@ import CustomeAndGoogleAdd from "./advertisement/CustomeAndGoogleAdd";
 import { findHindi } from "../assets/data";
 import { handleImageError } from "../common/errorImg";
 import SideNews from "./advertisement/related-news/SideNews";
+import { MetaDataSection } from "../seo/Helmet";
 
 const DistrictNews = () => {
   const [data, setData] = useState([]);
@@ -64,6 +65,7 @@ const DistrictNews = () => {
         </div>
       ) : (
         <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto justify-between gap-10 ">
+          <MetaDataSection title={`${title} district news`} />
           <div className="flex flex-col flex-wrap md:col-span-4">
             <div className="flex w-full flex-col flex-wrap ">
               <Heading title={findHindi(title)} />
