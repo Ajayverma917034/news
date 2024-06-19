@@ -9,6 +9,7 @@ import { logOutUser } from "../common/session";
 const Navbar = () => {
   const { userAuth, setUserAuth } = useContext(UserContext);
   const { user } = userAuth;
+  console.log(user);
   const navigate = useNavigate();
 
   const Logout = async () => {
@@ -23,12 +24,10 @@ const Navbar = () => {
     }
   };
   return (
-    <div className="flex items-center justify-between gap-3 px-3 md:px-20 lg:px-28 py-1 shadow-dark-shadow border-gray sticky top-0 z-[1000] bg-white  md:h-16 lg:h-20 xl:h-28">
-      <img
-        src={NewLogo}
-        alt="logoimg"
-        className="w-[50%]  sm:w-[35%] md:w-[30%] lg:w-[28%]"
-      />
+    <div className="flex items-center justify-between gap-3 px-3 md:px-20 lg:px-28 py-1 shadow-dark-shadow border-gray sticky top-0 z-[1000] bg-white  h-12 md:h-16 lg:h-16 xl:h-20">
+      <div className="h-12 sm:h-12 md:h-12 lg-h-16 xl:h-20">
+        <img src={NewLogo} alt="logoimg" className="w-full h-full" />
+      </div>
       <div className="flex items-center justify-center gap-4">
         {/* <button className="btn-dark">Log In</button> */}
         <div className="flex items-center justify-center gap-4">

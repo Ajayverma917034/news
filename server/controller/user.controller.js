@@ -58,7 +58,12 @@ export const login = tryCatch(async (req, res, next) => {
 
 export const getUser = tryCatch(async (req, res, next) => {
     const user = req.user;
-    res.status(200).json({ success: true, user })
+    const userData = {
+        username: user.username,
+        profile: user.profile,
+        role: user.role,
+    }
+    res.status(200).json({ success: true, userData })
 })
 
 

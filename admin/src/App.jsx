@@ -44,7 +44,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/dashboard" element={<Sidebar />}>
-            <Route index element={<Das />} />
+            <Route index element={<ProtectedRoute component={Das} />} />
             <Route
               path="create-news"
               element={<ProtectedRoute component={Editor} />}
@@ -58,7 +58,7 @@ const App = () => {
               element={<ProtectedRoute component={YoutubeVideo} />}
             />
             <Route
-              path="all-news-data"
+              path="all-news"
               element={<ProtectedRoute component={NewsHandler} />}
             />
             <Route

@@ -36,7 +36,6 @@ const Editor = () => {
 
       return setLoading(false);
     }
-    console.log(news_id);
     axios
       .post(import.meta.env.VITE_SERVER_DOMAIN + "/get-news", {
         news_id,
@@ -68,7 +67,7 @@ const Editor = () => {
       {loading ? (
         <Loader />
       ) : editorState === "editor" ? (
-        <BlogEditor />
+        <PublishForm />
       ) : (
         <PublishForm />
       )}

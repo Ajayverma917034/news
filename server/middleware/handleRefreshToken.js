@@ -30,8 +30,8 @@ export const handleRefreshToken = tryCatch(async (req, res, next) => {
         const accessToken = await user.getAccessToken();
         const newRefreshToken = await user.getRefreshToken();
 
-        user.refreshToken = newRefreshToken;
-        await user.save({ validateBeforeSave: false });
+        // user.refreshToken = newRefreshToken;
+        // await user.save({ validateBeforeSave: false });
 
         const options = {
             httpOnly: true,
@@ -47,10 +47,17 @@ export const handleRefreshToken = tryCatch(async (req, res, next) => {
             maxAge: process.env.REFRESH_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
         }
 
-        res.cookie('refreshToken', newRefreshToken, refreshOptions);
+        const userData = {
+            username: user.username,
+            profile: user.profile,
+            role: user.role,
+        }
+        // res.cookie('refreshToken', newRefreshToken, refreshOptions);
         res.cookie('accessToken', accessToken, accessOptions);
 
-        return res.status(200).json({ success: true, accessToken, refreshToken: newRefreshToken })
+        return res.status(200).json({
+            user: userData, success: true, accessToken, refreshToken
+        })
     } catch (error) {
         return res.status(500).json({ success: false, message: error.message })
 

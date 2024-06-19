@@ -18,7 +18,7 @@ export const sendToken = async (user, statusCode, res) => {
         }
         const refreshOptions = {
             ...options,
-            maxAge: process.env.REFRESH_COOKIE_EXPIRES * 60 * 1000
+            maxAge: process.env.REFRESH_COOKIE_EXPIRES * 24 * 60 * 60 * 1000
         }
         res.cookie('refreshToken', refreshToken, refreshOptions);
         res.cookie('accessToken', accessToken, accessOptions);

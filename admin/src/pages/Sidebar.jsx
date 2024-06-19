@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import { TbVideoPlus } from "react-icons/tb";
 import { MdNewspaper } from "react-icons/md";
 import { IoNewspaper } from "react-icons/io5";
@@ -58,18 +58,18 @@ const SideBar = () => {
         {/* Overlay */}
         {showSideNav && (
           <div
-            className="fixed inset-0 bg-black bg-opacity-50 z-[100]"
+            className="fixed inset-0 bg-black bg-opacity-50 z-[147]"
             onClick={() => setShowSideNav(false)}
           ></div>
         )}
 
-        <div className="sticky top-[49px] z-[150] md:top-[64px] lg:top-[80px] xl:top-[112px]">
+        <div className="sticky top-[48px] z-[150] md:top-[64px] lg:top-[80px] xl:top-[112px]">
           <div className="relative md:hidden bg-white py-1 border-b border-grey flex flex-nowrap overflow-x-auto pl-5">
             <button
               className="p-1 capitalize sidebar-toggle"
               onClick={() => setShowSideNav(!showSideNav)}
             >
-              <FaBars />
+              <FaBars size={20} />
             </button>
             <button className="p-1 capitalize sidebar-toggle">
               {pageState}
@@ -81,107 +81,107 @@ const SideBar = () => {
           <div
             ref={sidebarRef}
             className={
-              "min-w-[200px] pt-3 px-5 min-h-[calc(100vh-82px)] max-md:pb-4  bg-white md:bg-white md:h-cover md:sticky top-[90px] overflow-y-auto z-[150] md:border-gray-light md:border-r absolute max-md:top-[33px] max-md:px-16 max-md:-ml-7 duration-500 sidebar md:min-h-[calc(100vh-64px)] lg:min-h-[calc(100vh-80px)] xl:min-h-[calc(100vh-112px)]" +
+              "min-w-[200px] pt-3 px-5 min-h-[calc(100vh-82px)] max-md:pb-4  bg-white md:bg-white md:h-cover md:sticky overflow-y-auto z-[150] md:border-gray-light md:border-r absolute max-md:top-[37px] max-md:px-16 max-md:-ml-7 duration-500 sidebar md:min-h-[calc(100vh-64px)] lg:min-h-[calc(100vh-64px)] xl:min-h-[calc(100vh-80px)]" +
               (!showSideNav
                 ? " max-md:opacity-0 max-md:pointer-events-none"
                 : "")
             }
           >
-            <Link
-              className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
+            <NavLink
+              className="flex items-center gap-2 text-gray hover:bg-blue mt-1 hover:text-white p-2 rounded w-full sidebar-link"
               to="/"
               onClick={() => setShowSideNav(false)}
             >
               <FaHome size={24} />
               <span>Home</span>
-            </Link>
-            {/* <Link
+            </NavLink>
+            {/* <NavLink
               className="flex items-center  gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
               to="/profile"
               onClick={() => setShowSideNav(false)}
             >
               <FaUser size={24} />
               <span>Profile</span>
-            </Link>
-            <Link
+            </NavLink>
+            <NavLink
               className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
               to="/settings"
               onClick={() => setShowSideNav(false)}
             >
               <FaCog size={24} />
               <span>Settings</span>
-            </Link> */}
-            <hr className="text-gray w-full py-2 mt-3" />
+            </NavLink> */}
+            <hr className="text-gray w-full mt-1" />
             {/* {user?.role === "admin" && (
-              <Link
+              <NavLink
                 className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
                 to="/dashboard/all-ads"
                 onClick={() => setShowSideNav(false)}
               >
                 <RiAdvertisementLine size={25} />
                 <span>Ads</span>
-              </Link>
+              </NavLink>
             )} */}
             {user?.role === "admin" && (
-              <Link
-                className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
+              <NavLink
+                className="flex items-center gap-2 text-gray hover:bg-blue mt-1 hover:text-white p-2 rounded w-full sidebar-link"
                 to="/dashboard/all-ads"
                 onClick={() => setShowSideNav(false)}
               >
                 <RiAdvertisementLine size={25} />
                 <span>Ads</span>
-              </Link>
+              </NavLink>
             )}
             {user?.role === "reporter" && (
-              <Link
-                className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
+              <NavLink
+                className="flex items-center gap-2 text-gray hover:bg-blue mt-1 hover:text-white p-2 rounded w-full sidebar-link"
                 to="/dashboard/create-news"
                 onClick={() => setShowSideNav(false)}
               >
                 <IoNewspaper size={25} />
                 <span>Create News</span>
-              </Link>
+              </NavLink>
             )}
             {user?.role === "admin" && (
-              <Link
-                className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
+              <NavLink
+                className="flex items-center gap-2 text-gray hover:bg-blue mt-1 hover:text-white p-2 rounded w-full sidebar-link"
                 to="/dashboard/create-videos"
                 onClick={() => setShowSideNav(false)}
               >
                 <TbVideoPlus size={25} />
                 <span>Create YtVideo</span>
-              </Link>
+              </NavLink>
             )}
 
             {user?.role === "reporter" && (
-              <Link
-                className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
-                to="/dashboard/all-news-data"
+              <NavLink
+                className="flex items-center gap-2 text-gray hover:bg-blue mt-1 hover:text-white p-2 rounded w-full sidebar-link"
+                to="/dashboard/all-news"
                 onClick={() => setShowSideNav(false)}
               >
                 <MdNewspaper size={25} />
                 <span>All-News</span>
-              </Link>
+              </NavLink>
             )}
             {user?.role === "admin" && (
-              <Link
-                className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
+              <NavLink
+                className="flex items-center gap-2 text-gray hover:bg-blue mt-1 hover:text-white p-2 rounded w-full sidebar-link"
                 to="/dashboard/all-admin-news-data"
                 onClick={() => setShowSideNav(false)}
               >
                 <MdOutlineVideoSettings size={25} />
                 <span>All-News</span>
-              </Link>
+              </NavLink>
             )}
             {user?.role === "admin" && (
-              <Link
-                className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full"
+              <NavLink
+                className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full sidebar-link"
                 to="/dashboard/all-videos-data"
                 onClick={() => setShowSideNav(false)}
               >
                 <MdOutlineVideoSettings size={25} />
                 <span>All-Videos</span>
-              </Link>
+              </NavLink>
             )}
           </div>
         </div>

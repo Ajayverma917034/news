@@ -165,7 +165,6 @@ export const states = [
 
 
 export const findHindi = (eng) => {
-    console.log(eng)
     return engToHindi[eng] || eng;
 }
 export const findDistrict = (state) => {

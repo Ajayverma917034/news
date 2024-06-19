@@ -9,6 +9,7 @@ import { IoMdClose } from "react-icons/io";
 import { IoIosAddCircle } from "react-icons/io";
 import { findHindi, stateDistricts } from "../common/data.js";
 import { CategoryData } from "../assets/CategoryData.js";
+import { handleImageError } from "../common/imageError.js";
 
 const PublishForm = () => {
   const charLength = 200;
@@ -140,25 +141,35 @@ const PublishForm = () => {
   };
 
   return (
-    <section className="w-full min-h-screen grid grid-cols-1 md:grid-cols-5 lg:gap-4 p-5 md:p-10 ">
-      <button
-        className="w-12 h-12 absolute right-[5vw] z-10 top-[6%] lg:top-[2%]"
-        onClick={handleClose}
-      >
-        <IoMdClose size={20} className="text-sm pointer-events-none" />
-      </button>
-      <div className="max-w-[500px] center col-span-1 mt-3 md:col-span-2">
-        <p className="text-dark-grey mb-1">Preview</p>
-        <div className="w-full aspect-video rounded-lg overflow-hidden bg-grey mt-4">
-          <img src={banner} alt="Banner" />
-        </div>
-        <h1 className="text-4xl font-medium mt-2 leading-tight line-clamp-2">
-          {title}
-        </h1>
-        <p className="line-clamp-3 text-xl leading-7 mt-4">{description}</p>
+    <>
+      <div className="flex justify-between items-center sticky top-[84px] md:top-[64px] lg:top-[64px] xl:top-[80px] bg-blue px-3 md:px-10 z-10">
+        <p className="text-white font-semibold text-2xl md:text-3xl xl:text-4xl mb-1">
+          Preview
+        </p>
+        <button
+          className="w-12 h-12 
+          "
+          onClick={handleClose}
+        >
+          <IoMdClose
+            size={25}
+            className="bg-white rounded-full text-sm text-red pointer-events-none"
+          />
+        </button>
       </div>
-      <div className="border-grey lg:border-1 lg:pl-4 col-span-1 md:col-span-3">
-        {/* <p className="text-dark-grey mb-2 mt-9">News Title</p>
+      <section className="w-full grid grid-cols-1 md:grid-cols-5 lg:gap-4 p-5">
+        <div className="max-w-[500px] center col-span-1 mt-3 md:col-span-2">
+          <div className="w-full aspect-video rounded-lg overflow-hidden bg-grey mt-4">
+            <img src={banner} alt="Banner" onError={handleImageError} />
+          </div>
+          <h1 className="text-4xl font-medium mt-2 leading-tight line-clamp-2">
+            {title}
+          </h1>
+          <p className="line-clamp-3 text-xl leading-7 mt-4">{description}</p>
+        </div>
+
+        <div className="border-grey lg:border-1 lg:pl-4 col-span-1 md:col-span-3  h-full md:max-h-[calc(100vh-200px)] lg:max-h-[calc(100vh-200px)] xl:max-h-[calc(100vh-200px)] md:overflow-y-auto md:px-3">
+          {/* <p className="text-dark-grey mb-2 mt-9">News Title</p>
           <input
             type="text"
             placeholder="News Title"
@@ -167,154 +178,159 @@ const PublishForm = () => {
             onChange={handleBlogTitleChange}
           /> */}
 
-        <p className="text-dark-grey mb-2 mt-9 required-text">
-          Short description about your news
-        </p>
-        <textarea
-          maxLength={charLength}
-          defaultValue={description}
-          className="h-40 resize-none leading-7 input-box pl-4"
-          onChange={(e) => setBlog({ ...blog, description: e.target.value })}
-          onKeyDown={(e) => {
-            if (e.keyCode === 13) e.preventDefault();
-          }}
-        ></textarea>
-        <p className="mt-1 text-dark-grey text-sm text-right">
-          {charLength - description?.length} characters left
-        </p>
+          <p className="text-dark-grey mb-2 mt-4 required-text">
+            Short description about your news
+          </p>
+          <textarea
+            maxLength={charLength}
+            defaultValue={description}
+            className="h-40 resize-none leading-7 input-box pl-4"
+            onChange={(e) => setBlog({ ...blog, description: e.target.value })}
+            onKeyDown={(e) => {
+              if (e.keyCode === 13) e.preventDefault();
+            }}
+          ></textarea>
+          <p className="mt-1 text-dark-grey text-sm text-right">
+            {charLength - description?.length} characters left
+          </p>
 
-        <p className="text-dark-grey mb-2 mt-9 required-text">
-          Topics - ( Helps in searching and ranking your news post )
-        </p>
-        <div className="relative  input-box pl-2 py-2 pb-4">
-          <div className="flex items-center">
-            <input
-              type="text"
-              value={tagdata}
-              placeholder="Topics"
-              onKeyDown={handleKeyDown}
-              onChange={(e) => {
-                setTagData(e.target.value);
-              }}
-              className="sticky input-box bg-white top-0 lef0 pl-4  focus:bg-white"
-            />
-            <button className="ml-2" onClick={handleTag}>
-              <IoIosAddCircle
-                size={25}
-                className="text-dark-grey pointer-events-none"
+          <p className="text-dark-grey mb-2 mt-9 required-text">
+            Topics - ( Helps in searching and ranking your news post )
+          </p>
+          <div className="relative  input-box pl-2 py-2 pb-4">
+            <div className="flex items-center">
+              <input
+                type="text"
+                value={tagdata}
+                placeholder="Topics"
+                onKeyDown={handleKeyDown}
+                onChange={(e) => {
+                  setTagData(e.target.value);
+                }}
+                className="sticky input-box bg-white top-0 lef0 pl-4  focus:bg-white"
               />
-            </button>
-          </div>
-          {tags &&
-            tags.map((tag, i) => {
-              return <Tag key={i} tagIndex={i} tag={tag} />;
-            })}
-        </div>
-        <p className="mt-1 pt-1 mb-4 text-dark-grey text-right ">
-          {tagLimit - tags?.length} Tags left
-        </p>
-
-        <div className="grid w-full grid-cols-1 md:grid-cols-2 gap-3">
-          <div className="">
-            <p className=" mb-2 mt-9">Choose the State</p>
-            <select
-              name="state"
-              id="state"
-              value={state}
-              className="input-box mb-5 pl-4 capitalize"
-              onChange={(e) => setBlog({ ...blog, state: e.target.value })}
-            >
-              <option value="" defaultValue={state}>
-                Select State
-              </option>
-              {states.map((state, i) => {
-                return (
-                  <option key={i} value={state.english} className=" capitalize">
-                    {findHindi(state.english)}
-                  </option>
-                );
+              <button className="ml-2" onClick={handleTag}>
+                <IoIosAddCircle
+                  size={25}
+                  className="text-dark-grey pointer-events-none"
+                />
+              </button>
+            </div>
+            {tags &&
+              tags.map((tag, i) => {
+                return <Tag key={i} tagIndex={i} tag={tag} />;
               })}
-            </select>
           </div>
-          <div className="">
-            <p className=" mb-2 mt-9">Choose District</p>
-            <select
-              name="district"
-              value={district}
-              id="district"
-              className="input-box mb-5 pl-4 capitalize"
-              onChange={(e) => setBlog({ ...blog, district: e.target.value })}
-            >
-              <option value="" defaultValue={state}>
-                Select State
-              </option>
-              {stateDistricts[state] &&
-                stateDistricts[state].map((district, i) => {
+          <p className="mt-1 pt-1 mb-4 text-dark-grey text-right ">
+            {tagLimit - tags?.length} Tags left
+          </p>
+
+          <div className="grid w-full grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="">
+              <p className=" mb-2 mt-9">Choose the State</p>
+              <select
+                name="state"
+                id="state"
+                value={state}
+                className="input-box mb-5 pl-4 capitalize"
+                onChange={(e) => setBlog({ ...blog, state: e.target.value })}
+              >
+                <option value="" defaultValue={state}>
+                  Select State
+                </option>
+                {states.map((state, i) => {
                   return (
                     <option
                       key={i}
-                      value={district.english}
-                      className="capitalize"
+                      value={state.english}
+                      className=" capitalize"
                     >
-                      {district.hindi}
+                      {findHindi(state.english)}
                     </option>
                   );
                 })}
-            </select>
+              </select>
+            </div>
+            <div className="">
+              <p className=" mb-2 mt-9">Choose District</p>
+              <select
+                name="district"
+                value={district}
+                id="district"
+                className="input-box mb-5 pl-4 capitalize"
+                onChange={(e) => setBlog({ ...blog, district: e.target.value })}
+              >
+                <option value="" defaultValue={state}>
+                  Select State
+                </option>
+                {stateDistricts[state] &&
+                  stateDistricts[state].map((district, i) => {
+                    return (
+                      <option
+                        key={i}
+                        value={district.english}
+                        className="capitalize"
+                      >
+                        {district.hindi}
+                      </option>
+                    );
+                  })}
+              </select>
+            </div>
           </div>
-        </div>
-        <div className="grid w-full grid-cols-1 md:grid-cols-2 gap-3">
-          <div className="">
-            <p className=" mb-2 mt-9 required-text">
-              Enter the location of news
-            </p>
-            <input
-              type="text"
-              placeholder="News Location"
-              value={location}
-              className="input-box pl-4"
-              onChange={(e) => setBlog({ ...blog, location: e.target.value })}
-            />
+          <div className="grid w-full grid-cols-1 md:grid-cols-2 gap-3">
+            <div className="">
+              <p className=" mb-2 mt-9 required-text">
+                Enter the location of news
+              </p>
+              <input
+                type="text"
+                placeholder="News Location"
+                value={location}
+                className="input-box pl-4"
+                onChange={(e) => setBlog({ ...blog, location: e.target.value })}
+              />
+            </div>
           </div>
-        </div>
-        <p className="text-dark-grey mb-2 mt-9 required-text">
-          News Section - ( Choose the news sections )
-        </p>
-        <div className="relative input-box pl-2 py-2 pb-4">
-          {
-            <select
-              name="news-section"
-              id="news-section"
-              onChange={handleSectionChange}
-              className="input-box mb-5 pl-4 capitalize"
-            >
-              <option value="">Select News Section</option>
-              {CategoryData.map((category, i) => {
-                return (
-                  <option
-                    key={i}
-                    value={category.english}
-                    className=" capitalize"
-                  >
-                    {category.hindi}
-                  </option>
-                );
+          <p className="text-dark-grey mb-2 mt-9 required-text">
+            News Section - ( Choose the news sections )
+          </p>
+          <div className="relative input-box pl-2 py-2 pb-4">
+            {
+              <select
+                name="news-section"
+                id="news-section"
+                onChange={handleSectionChange}
+                className="input-box mb-5 pl-4 capitalize"
+              >
+                <option value="">Select News Section</option>
+                {CategoryData.map((category, i) => {
+                  return (
+                    <option
+                      key={i}
+                      value={category.english}
+                      className=" capitalize"
+                    >
+                      {category.hindi}
+                    </option>
+                  );
+                })}
+              </select>
+            }
+
+            {/* Add more options as needed */}
+
+            {news_section_type &&
+              news_section_type.map((tag, i) => {
+                return <Section key={i} tagIndex={i} tag={tag} />;
               })}
-            </select>
-          }
-
-          {/* Add more options as needed */}
-
-          {news_section_type &&
-            news_section_type.map((tag, i) => {
-              return <Section key={i} tagIndex={i} tag={tag} />;
-            })}
+          </div>
+          <button onClick={handlePublish} className="btn-dark px-8 my-4">
+            Publish
+          </button>
         </div>
-        <button onClick={handlePublish} className="btn-dark px-8 my-4">
-          Publish
-        </button>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

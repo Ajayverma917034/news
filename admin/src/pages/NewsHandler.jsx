@@ -23,7 +23,7 @@ const categories = [
 const NewsHandler = () => {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
-  const itemsPerPage = 3;
+  const itemsPerPage = 6;
   const [news, setNews] = useState(null);
 
   const fetchNews = ({ page = 1 }) => {
@@ -115,9 +115,9 @@ const NewsHandler = () => {
                     >
                       Edit
                     </button>
-                    <button className="bg-red text-white px-3 py-1 rounded-lg text-base">
+                    {/* <button className="bg-red text-white px-3 py-1 rounded-lg text-base">
                       Delete
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>
