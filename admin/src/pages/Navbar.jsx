@@ -23,7 +23,7 @@ const Navbar = () => {
     }
   };
   return (
-    <div className="flex items-center justify-between gap-3 px-3 md:px-20 lg:px-28 py-1 shadow-dark-shadow border-gray sticky top-0 z-[1000] bg-white">
+    <div className="flex items-center justify-between gap-3 px-3 md:px-20 lg:px-28 py-1 shadow-dark-shadow border-gray sticky top-0 z-[1000] bg-white  md:h-16 lg:h-20 xl:h-28">
       <img
         src={NewLogo}
         alt="logoimg"

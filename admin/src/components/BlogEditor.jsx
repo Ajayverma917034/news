@@ -23,7 +23,10 @@ const BlogEditor = ({ blogContent }) => {
     setEditorState,
   } = useContext(EditorContext);
 
+  console.log(content);
   useEffect(() => {
+    console.log("hello2");
+    console.log(content);
     if (!textEditor.isReady) {
       setTextEditor(
         new EditorJS({
@@ -35,6 +38,7 @@ const BlogEditor = ({ blogContent }) => {
       );
     }
   }, []);
+
   const handleChangeBanner = (e) => {
     if (e.target.files[0]) {
       let ladingTast = toast.loading("Uploading...");

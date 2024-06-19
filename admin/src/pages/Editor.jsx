@@ -32,8 +32,11 @@ const Editor = () => {
 
   useEffect(() => {
     if (!news_id) {
+      console.log(news_id);
+
       return setLoading(false);
     }
+    console.log(news_id);
     axios
       .post(import.meta.env.VITE_SERVER_DOMAIN + "/get-news", {
         news_id,
@@ -62,8 +65,10 @@ const Editor = () => {
         setTextEditor,
       }}
     >
-      {editorState === "editor" ? (
-        <BlogEditor blogContent={blog.content} />
+      {loading ? (
+        <Loader />
+      ) : editorState === "editor" ? (
+        <BlogEditor />
       ) : (
         <PublishForm />
       )}

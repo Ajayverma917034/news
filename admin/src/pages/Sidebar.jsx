@@ -63,7 +63,7 @@ const SideBar = () => {
           ></div>
         )}
 
-        <div className="sticky top-[49px] z-[150]">
+        <div className="sticky top-[49px] z-[150] md:top-[64px] lg:top-[80px] xl:top-[112px]">
           <div className="relative md:hidden bg-white py-1 border-b border-grey flex flex-nowrap overflow-x-auto pl-5">
             <button
               className="p-1 capitalize sidebar-toggle"
@@ -81,7 +81,7 @@ const SideBar = () => {
           <div
             ref={sidebarRef}
             className={
-              "min-w-[200px] pt-3 px-5 !h-[calc(100vh-82px)] max-md:pb-4 md:min-h-[calc(100vh-107px)] bg-white md:bg-white md:h-cover md:sticky top-[90px] overflow-y-auto z-[150] md:border-gray-light md:border-r absolute max-md:top-[33px] max-md:px-16 max-md:-ml-7 duration-500 sidebar" +
+              "min-w-[200px] pt-3 px-5 min-h-[calc(100vh-82px)] max-md:pb-4  bg-white md:bg-white md:h-cover md:sticky top-[90px] overflow-y-auto z-[150] md:border-gray-light md:border-r absolute max-md:top-[33px] max-md:px-16 max-md:-ml-7 duration-500 sidebar md:min-h-[calc(100vh-64px)] lg:min-h-[calc(100vh-80px)] xl:min-h-[calc(100vh-112px)]" +
               (!showSideNav
                 ? " max-md:opacity-0 max-md:pointer-events-none"
                 : "")

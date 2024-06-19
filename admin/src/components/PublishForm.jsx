@@ -4,7 +4,6 @@ import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import Tag from "./Tags.jsx";
 import { EditorContext } from "../pages/Editor.jsx";
-import { UserContext } from "../App.jsx";
 import Section from "./NewsSection.jsx";
 import { IoMdClose } from "react-icons/io";
 import { IoIosAddCircle } from "react-icons/io";
@@ -38,33 +37,11 @@ const PublishForm = () => {
 
   // console.log(blog);
   // let {userAuth: {access_token}} = useContext(UserContext)
-  let {
-    userAuth: { refreshToken },
-  } = useContext(UserContext);
+
   const handleClose = () => {
     setEditorState("editor");
   };
-  const handleBlogTitleChange = (e) => {
-    let input = e.target;
-    setBlog({ ...blog, title: input.value });
-  };
 
-  const handleChooseState = (e) => {
-    let input = e.target;
-    setBlog({ ...blog, state: input.value });
-  };
-  const handleChooseDistrict = (e) => {
-    let input = e.target;
-    setBlog({ ...blog, district: input.value });
-  };
-  const handleLocation = (e) => {
-    let input = e.target.value;
-    setBlog({ ...blog, location: input.value });
-  };
-  const handleChooseTrending = (e) => {
-    let input = e.target;
-    setBlog({ ...blog, breaking_news: input.checked });
-  };
   const handleKeyDown = (e) => {
     if (e.keyCode === 13 || e.keyCode === 188) {
       e.preventDefault();
@@ -96,9 +73,14 @@ const PublishForm = () => {
       return toast.error(
         `Write a description about your news within ${charLength} characters to publish`
       );
-    if (!tags || tags.length > 10) {
+    if (!tags.length || tags.length > 10) {
       return toast.error(
         ` Write some tags about news within ${tagLimit} tag limit to publish`
+      );
+    }
+    if (!news_section_type.length || news_section_type.length > 10) {
+      return toast.error(
+        ` Write some News Section about news within 10 News Section limit to publish`
       );
     }
 
@@ -133,8 +115,8 @@ const PublishForm = () => {
       .catch(({ response }) => {
         e.target.classList.remove("disable");
         toast.dismiss(loadingToast);
-        // console.log(response.data.message);
-        return toast.error(response.data.message);
+        console.log(response);
+        return toast.error(response?.data?.error);
       });
   };
 
@@ -294,49 +276,6 @@ const PublishForm = () => {
               onChange={(e) => setBlog({ ...blog, location: e.target.value })}
             />
           </div>
-          <div className="mt-10 flex flex-col ml-2 ">
-            <div className="flex  items-center gap-2 mt-4">
-              <div>
-                <input
-                  type="checkbox"
-                  checked={breaking_news}
-                  onChange={(e) =>
-                    setBlog({ ...blog, breaking_news: e.target.checked })
-                  }
-                  className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-                />
-              </div>
-              <p className=" mb-[5px] sm:text-[14px] "> Add to Breaking News</p>
-            </div>
-            {/* <div className="flex items-center gap-2">
-              <div>
-                <input
-                  type="checkbox"
-                  checked={breaking_news}
-                  onChange={(e) =>
-                    setBlog({ ...blog, breaking_news: e.target.checked })
-                  }
-                  className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-                />
-              </div>
-              <p className=" mb-[5px] sm:text-[14px] ">
-                Add to Read also section
-              </p>
-            </div>
-            <div className="flex  items-center gap-2">
-              <div>
-                <input
-                  type="checkbox"
-                  checked={breaking_news}
-                  onChange={(e) =>
-                    setBlog({ ...blog, breaking_news: e.target.checked })
-                  }
-                  className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-                />
-              </div>
-              <p className=" mb-[5px] sm:text-[14px] ">Add to Health Tips</p>
-            </div> */}
-          </div>
         </div>
         <p className="text-dark-grey mb-2 mt-9 required-text">
           News Section - ( Choose the news sections )
@@ -380,3 +319,51 @@ const PublishForm = () => {
 };
 
 export default PublishForm;
+
+{
+  /* <div className="mt-10 flex flex-col ml-2 ">
+            <div className="flex  items-center gap-2 mt-4">
+              <div>
+                <input
+                  type="checkbox"
+                  checked={breaking_news}
+                  onChange={(e) =>
+                    setBlog({ ...blog, breaking_news: e.target.checked })
+                  }
+                  className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                />
+              </div>
+              <p className=" mb-[5px] sm:text-[14px] "> Add to Breaking News</p>
+            </div> */
+}
+{
+  /* <div className="flex items-center gap-2">
+              <div>
+                <input
+                  type="checkbox"
+                  checked={breaking_news}
+                  onChange={(e) =>
+                    setBlog({ ...blog, breaking_news: e.target.checked })
+                  }
+                  className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                />
+              </div>
+              <p className=" mb-[5px] sm:text-[14px] ">
+                Add to Read also section
+              </p>
+            </div>
+            <div className="flex  items-center gap-2">
+              <div>
+                <input
+                  type="checkbox"
+                  checked={breaking_news}
+                  onChange={(e) =>
+                    setBlog({ ...blog, breaking_news: e.target.checked })
+                  }
+                  className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
+                />
+              </div>
+              <p className=" mb-[5px] sm:text-[14px] ">Add to Health Tips</p>
+            </div> */
+}
+// </div>
