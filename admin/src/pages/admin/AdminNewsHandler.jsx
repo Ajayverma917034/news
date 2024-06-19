@@ -7,6 +7,7 @@ import { formatDate } from "../../common/date";
 import { handleImageError } from "../../common/imageError";
 import ConfirmationModal from "../../components/ConfirmationModal";
 import toast from "react-hot-toast";
+import Loader from "../../components/Loader";
 
 const categories = [
   "उत्तर प्रदेश",
@@ -75,9 +76,9 @@ const AdminNewsHandler = () => {
           <input
             type="text"
             placeholder="Search News"
-            className="border-none outline-none p-1"
+            className="border-none outline-none p-1 rounded-lg"
           />
-          <BsSearch />
+          <BsSearch size={20} />
         </div>
 
         <select
@@ -99,22 +100,23 @@ const AdminNewsHandler = () => {
             news?.results?.map((item, index) => (
               <div
                 key={index}
-                className="grid sm:grid-cols-7 lg:grid-cols-6 gap-3 items-center  p-4 rounded shadow-dark-shadow"
+                className="grid sm:grid-cols-7 lg:grid-cols-6 gap-3 items-center p-1 max-sm:pb-2 sm:p-4 rounded shadow-light-shadow"
+                // style={{boxShadow: `rgba(100, 100, 111, 0.2) 0px 7px 29px 0px`}}
               >
                 <div className=" sm:col-span-2 lg:col-span-1">
                   <img
                     src={item?.banner}
                     alt="news"
-                    className="w-22 h-20"
+                    className="w-full h-32 sm:w-22 sm:h-20"
                     onError={handleImageError}
                   />
                 </div>
                 <div className="sm:col-span-5 lg:col-span-5">
                   <div className="flex-1">
-                    <h3 className="font-medium text-xl line-clamp-1">
+                    <h3 className="font-medium text-xl line-clamp-2 sm:line-clamp-1">
                       {item.title}
                     </h3>
-                    <div className="flex justify-start gap-8">
+                    <div className="flex max-sm:flex-col justify-start gap-y-1 gap-x-8">
                       <p className="text-lg text-gray">
                         <span className="font-semibold text-black">
                           Created On:
@@ -161,7 +163,7 @@ const AdminNewsHandler = () => {
             <h1>No News</h1>
           )
         ) : (
-          <h1>No News</h1>
+          <Loader />
         )}
       </div>
       <div className="flex justify-between mt-4">

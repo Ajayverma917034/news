@@ -46,7 +46,6 @@ axios.interceptors.response.use(
         originalRequest.headers["Authorization"] = `Bearer ${accessToken}`;
         return axios(originalRequest);
       } catch (refreshError) {
-        console.log("eror");
         await logOut();
 
         return Promise.reject(refreshError);

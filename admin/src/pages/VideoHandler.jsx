@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { formatDate } from "../common/date";
 import ConfirmationModal from "../components/ConfirmationModal";
 import toast from "react-hot-toast";
+import Loader from "../components/Loader";
 
 const categories = [
   "उत्तर प्रदेश",
@@ -155,7 +156,7 @@ const VideoHandler = () => {
             <h1>No News</h1>
           )
         ) : (
-          <h1>No News</h1>
+          <Loader />
         )}
       </div>
       <div className="flex justify-between mt-4">

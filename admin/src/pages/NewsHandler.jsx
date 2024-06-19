@@ -5,6 +5,7 @@ import { filterPaginationData } from "../common/filterPaginationData";
 import { handleImageError } from "../common/imageError";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "../common/date";
+import Loader from "../components/Loader";
 const categories = [
   "उत्तर प्रदेश",
   "मध्यप्रदेश",
@@ -54,9 +55,9 @@ const NewsHandler = () => {
           <input
             type="text"
             placeholder="Search News"
-            className="border-none outline-none p-1"
+            className="border-none outline-none p-1 rounded-lg"
           />
-          <BsSearch />
+          <BsSearch size={20}/>
         </div>
 
         <select
@@ -126,7 +127,7 @@ const NewsHandler = () => {
             <h1>No News</h1>
           )
         ) : (
-          <h1>No News</h1>
+          <Loader />
         )}
       </div>
       <div className="flex justify-between mt-4">

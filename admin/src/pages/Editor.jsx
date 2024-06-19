@@ -32,8 +32,6 @@ const Editor = () => {
 
   useEffect(() => {
     if (!news_id) {
-      console.log(news_id);
-
       return setLoading(false);
     }
     axios
@@ -67,7 +65,7 @@ const Editor = () => {
       {loading ? (
         <Loader />
       ) : editorState === "editor" ? (
-        <PublishForm />
+        <BlogEditor />
       ) : (
         <PublishForm />
       )}

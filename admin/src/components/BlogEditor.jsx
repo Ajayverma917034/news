@@ -23,10 +23,7 @@ const BlogEditor = ({ blogContent }) => {
     setEditorState,
   } = useContext(EditorContext);
 
-  console.log(content);
   useEffect(() => {
-    console.log("hello2");
-    console.log(content);
     if (!textEditor.isReady) {
       setTextEditor(
         new EditorJS({

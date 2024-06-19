@@ -116,7 +116,6 @@ const PublishForm = () => {
       .catch(({ response }) => {
         e.target.classList.remove("disable");
         toast.dismiss(loadingToast);
-        console.log(response);
         return toast.error(response?.data?.error);
       });
   };

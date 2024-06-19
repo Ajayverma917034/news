@@ -175,7 +175,7 @@ const SideBar = () => {
             )}
             {user?.role === "admin" && (
               <NavLink
-                className="flex items-center gap-2 text-gray hover:bg-red hover:text-white p-2 rounded w-full sidebar-link"
+                className="flex items-center gap-2 text-gray hover:bg-red hover:text-white mt-1 p-2 rounded w-full sidebar-link"
                 to="/dashboard/all-videos-data"
                 onClick={() => setShowSideNav(false)}
               >

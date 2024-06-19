@@ -9,7 +9,6 @@ import { logOutUser } from "../common/session";
 const Navbar = () => {
   const { userAuth, setUserAuth } = useContext(UserContext);
   const { user } = userAuth;
-  console.log(user);
   const navigate = useNavigate();
 
   const Logout = async () => {
