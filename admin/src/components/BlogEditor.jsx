@@ -24,31 +24,17 @@ const BlogEditor = ({ blogContent }) => {
   } = useContext(EditorContext);
 
   useEffect(() => {
-    const initializeEditor = async () => {
-      if (!textEditor.isReady) {
-        const newEditor = new EditorJS({
+    if (!textEditor.isReady) {
+      setTextEditor(
+        new EditorJS({
           holderId: "textEditor",
           data: Array.isArray(content) ? content[0] : content,
           tools: tools,
           placeholder: "Let's write an awesome news",
-        });
-
-        await newEditor.isReady;
-        setTextEditor(newEditor);
-      }
-    };
-
-    initializeEditor();
-
-    // Cleanup function to avoid memory leaks
-    return () => {
-      // if (textEditor !== null) {
-      //   textEditor.destroy();
-      //   setTextEditor(null);
-      // }
-    };
-  }, [blog]);
-
+        })
+      );
+    }
+  }, []);
   const handleChangeBanner = (e) => {
     if (e.target.files[0]) {
       let ladingTast = toast.loading("Uploading...");
@@ -83,21 +69,26 @@ const BlogEditor = ({ blogContent }) => {
   };
 
   const handlePublishEvent = () => {
-    setEditorState("publish");
-    // if (textEditor && textEditor.isReady) {
-    //   textEditor
-    //     .save()
-    //     .then((data) => {
-    //       if (data.blocks.length) {
-    //         setBlog({ ...blog, content: data });
-    //       } else {
-    //         return toast.error("Write Something in your news to publish it");
-    //       }
-    //     })
-    //     .catch((err) => {
-    //       toast.error(err);
-    //     });
-    // }
+    // setEditorState("publish");
+    if (!banner.length) {
+      return toast.error("Upload a news banner to publish it");
+    }
+    if (!title.length) return toast.error("Write news title to publis it");
+    if (textEditor.isReady) {
+      textEditor
+        .save()
+        .then((data) => {
+          if (data.blocks.length) {
+            setBlog({ ...blog, content: data });
+            setEditorState("publish");
+          } else {
+            return toast.error("Write Something in your news to publish it");
+          }
+        })
+        .catch((err) => {
+          toast.error(err);
+        });
+    }
   };
 
   const handleSaveDraft = (e) => {

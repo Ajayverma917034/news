@@ -122,12 +122,13 @@ export const getHomeNews = tryCatch(async (req, res, next) => {
         const data = [
             "Big News",
             "Technology",
-            "Politics",
+            // "Politics",
             "Country",
             "World",
             "Crime",
             "Cricket",
             "Sports",
+            "Bollywood",
             "Religion",
             "Entertainment",
             "Health",
@@ -181,7 +182,7 @@ export const getNewses = tryCatch((req, res, next) => {
 
     News.find(query)
         // .populate('author', 'name')
-        .sort({ "activity.total_reads": -1, "createdAt": -1 })
+        .sort({ "createdAt": -1 })
         .skip(limit * (page - 1))
         .limit(limit)
         .populate("author", "username profile")
@@ -322,7 +323,7 @@ export const fetchRelatedNews = tryCatch(async (req, res, next) => {
 
     News.find(query)
         .limit(4)
-        .sort({ "activity.total_reads": -1, "createdAt": -1 })
+        .sort({ "createdAt": -1 })
         .select('news_id title tags state district banner location tags draft createdAt -_id')
         .then(news => {
             // if (news.length === 0) {
@@ -363,7 +364,7 @@ export const findNewsSectionTypeNews = tryCatch(async (req, res, next) => {
         // Fetch the news items from the database
         const fetchedNews = await News.find(query)
             .limit(fetchLimit)
-            .sort({ createdAt: -1 });
+            .sort({ "createdAt": -1 });
 
         // Randomly pick 5 news items from the fetched news
         const shuffled = fetchedNews.sort(() => 0.5 - Math.random());
@@ -414,7 +415,7 @@ export const fetchDataStateWise = tryCatch(async (req, res, next) => {
     if (state !== 'uttar pradesh') {
         return res.status(404).json({ success: false, message: "State not found" })
     }
-    const stateNews = await News.find({ state }).limit(5).sort({ "activity.total_reads": -1, createdAt: -1 }).populate("author", "username profile -_id").select('news_id title tags banner state district location createdAt -_id').exec();
+    const stateNews = await News.find({ state }).limit(5).sort({ createdAt: -1 }).populate("author", "username profile -_id").select('news_id title tags banner state district location createdAt -_id').exec();
 
     promises.push(stateNews);
 
@@ -440,7 +441,7 @@ export const findStateDataWithOutDistrict = tryCatch(async (req, res, next) => {
     page = page ? parseInt(page) : 1;
 
     News.find({ state })
-        .sort({ "activity.total_reads": -1, "createdAt": -1 })
+        .sort({ "createdAt": -1 })
         .skip(limit * (page - 1))
         .limit(limit)
         .select('news_id title description location banner createdAt -_id')

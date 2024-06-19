@@ -4,6 +4,7 @@ export const CategoryData = [
     { english: "technology", hindi: "टैकनोलजी" },
     { english: "politics", hindi: "राजनीति" },
     { english: "country", hindi: "देश" },
+    { english: 'bollywood', hindi: 'बॉलीवुड' },
     { english: "world", hindi: "विदेश" },
     { english: "crime", hindi: "क्राइम" },
     { english: "cricket", hindi: "क्रिकेट" },

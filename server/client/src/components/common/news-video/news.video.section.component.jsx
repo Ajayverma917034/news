@@ -45,10 +45,10 @@ const NewsVideo = ({ data, title }) => {
 
             <div className="flex flex-col">
               {
-                <div className="flex gap-5 flex-col md:flex-row justify-between">
+                <div className="flex gap-5 flex-col md:flex-row justify-between mb-4">
                   {data &&
                     data
-                      .slice(1)
+                      .slice(1, 4)
                       .map((item, index) => (
                         <NewsVideoCard item={item} key={index} />
                       ))}

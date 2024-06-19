@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import logoimg from "../../assets/logoimg.png";
 import { CiLocationOn, CiSearch } from "react-icons/ci";
-import './Navbar.css'
+import "./Navbar.css";
 import AllState from "../../pages/location/AllStates";
 
 const Navbar = () => {
@@ -12,7 +12,7 @@ const Navbar = () => {
     { name: "Country", hindiName: "देश", link: "/country" },
     { name: "World", hindiName: "विदेश", link: "/world" },
     { name: "Crime", hindiName: "क्राइम", link: "/crime" },
-    { name: "IPL 2024", hindiName: "IPL 2024", link: "/ipl" },
+    { name: "Cricket", hindiName: "क्रिकेट", link: "/cricket" },
     { name: "Sports", hindiName: "खेल कूद", link: "/sports" },
     { name: "Religion", hindiName: "धर्म", link: "/religion" },
   ];
@@ -49,7 +49,10 @@ const Navbar = () => {
             className="w-[50%]  sm:w-[35%] md:w-[30%] lg:w-[20%]"
           />
           <div className=" flex justify-between items-center gap-8 ">
-            <div className="flex items-center justify-center gap-1 cursor-pointer"  onClick={toggleMenu}>
+            <div
+              className="flex items-center justify-center gap-1 cursor-pointer"
+              onClick={toggleMenu}
+            >
               <CiLocationOn className="mb-1 text-red text-2xl" />
               <h3 className=" select-none">अपना शहर</h3>
             </div>
@@ -77,7 +80,7 @@ const Navbar = () => {
           </ul>
         </div>
       </div>
-      <AllState isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen}/>
+      <AllState isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
     </>
   );
 };
