@@ -11,6 +11,7 @@ import { formatDate } from "../../../common/date";
 import { handleImageError } from "../../../common/errorImg";
 
 const NewsSection = ({ data, title }) => {
+  
   return (
     <>
       {data ? (
@@ -28,7 +29,6 @@ const NewsSection = ({ data, title }) => {
                     className="w-full h-full"
                     src={data[0]?.banner}
                     onError={handleImageError}
-                    onLoad={handleImageError}
                   />
                 </div>
                 <div className="md:w-[45%] w-full ">
