@@ -33,6 +33,7 @@ const App = () => {
         <Route path="/world" element={<MoreNews />} />
         <Route path="/crime" element={<MoreNews />} />
         <Route path="/ipl" element={<MoreNews />} />
+        <Route path="/cricket" element={<MoreNews />} />
         <Route path="/sports" element={<MoreNews />} />
         <Route path="/religion" element={<MoreNews />} />
         {/* ... add here  */}

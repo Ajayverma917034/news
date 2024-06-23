@@ -30,7 +30,7 @@ const SinglePage = () => {
   const [news, setNews] = useState(newsStructure);
   const [relatedNews, setRelatedNews] = useState(null);
 
-  let { title, description, content, banner, createdAt, tags, location } = news;
+  let { title, description, content, banner, createdAt, tags, location, news_section_type } = news;
 
   const handleError = (e) => {
     e.target.src = newsimg;
@@ -53,6 +53,7 @@ const SinglePage = () => {
             district,
             categories,
             location,
+            news_section_type,
             news_id: prevNewsId,
           })
           .then(({ data }) => {

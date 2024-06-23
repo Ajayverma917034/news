@@ -326,20 +326,6 @@ export const fetchRelatedNews = tryCatch(async (req, res, next) => {
         .sort({ "createdAt": -1 })
         .select('news_id title tags state district banner location tags draft createdAt -_id')
         .then(news => {
-            // if (news.length === 0) {
-            //     News.find()
-            //         .limit(4)
-            //         .sort({ "activity.total_reads": -1, "createdAt": -1 })
-            //         .select('news_id title tags state district banner location tags draft createdAt -_id')
-            //         .then(news => {
-            //         }).catch(err => {
-            //             return next(new ErrorHandler(500, err.message))
-            //         })
-            // }
-            // else {
-
-            //     return res.status(200).json(news);
-            // }
             return res.status(200).json(news)
         }).catch(err => {
             return next(new ErrorHandler(500, err.message));
