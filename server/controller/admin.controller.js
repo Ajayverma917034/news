@@ -83,8 +83,7 @@ export const getUsers = tryCatch(async (req, res, next) => {
 
 export const Createuser = async (req, res) => {
     try {
-        console.log(req.body)
-        const { username, email, password } = req.body;
+        const { username, email, password, role } = req.body;
         const data = await User.findOne({ $or: [{ email }, { username }] });
         if (data) {
             return res.status(200).json({
@@ -92,7 +91,7 @@ export const Createuser = async (req, res) => {
                 success: false,
             });
         }
-        await User.create({ username, email, password });
+        await User.create({ username, email, password, role });
         return res
             .status(200)
             .json({ success: true, message: "User created successfully" });
