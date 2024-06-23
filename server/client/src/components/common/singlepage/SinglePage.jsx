@@ -30,7 +30,16 @@ const SinglePage = () => {
   const [news, setNews] = useState(newsStructure);
   const [relatedNews, setRelatedNews] = useState(null);
 
-  let { title, description, content, banner, createdAt, tags, location, news_section_type } = news;
+  let {
+    title,
+    description,
+    content,
+    banner,
+    createdAt,
+    tags,
+    location,
+    news_section_type,
+  } = news;
 
   const handleError = (e) => {
     e.target.src = newsimg;
@@ -44,14 +53,15 @@ const SinglePage = () => {
           state,
           district,
           location,
-          categories,
+          tags,
+          news_section_type,
           news_id: prevNewsId,
         } = data.news;
         httpClient
           .post("/fetch-related-news", {
             state,
             district,
-            categories,
+            tags,
             location,
             news_section_type,
             news_id: prevNewsId,

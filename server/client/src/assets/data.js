@@ -118,7 +118,21 @@ const engToHindi = {
     'Health': 'स्वास्थ्य',
     'Carrier': 'करियर',
     'Astrology': 'राशिफल',
-    'Sports': 'खेल कूद'
+    'Sports': 'खेल कूद',
+
+    'big news': 'बड़ी खबर',
+    'technology': 'टैकनोलजी',
+    'politics': 'राजनीति',
+    'country': 'देश',
+    'world': 'विदेश',
+    'crime': 'क्राइम',
+    'cricket': 'क्रिकेट',
+    'religion': 'धर्म',
+    'entertainment': 'मनोरंजन',
+    'health': 'स्वास्थ्य',
+    'carrier': 'करियर',
+    'astrology': 'राशिफल',
+    'sports': 'खेल कूद'
 };
 
 

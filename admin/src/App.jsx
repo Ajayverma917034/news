@@ -18,6 +18,7 @@ import Ads from "./pages/AdsPages/Ads";
 import "./App.css";
 import AdminNewsHandler from "./pages/admin/AdminNewsHandler";
 import SignIn from "./pages/SignIn";
+import User from "./pages/admin/Users";
 
 export const UserContext = createContext({});
 
@@ -72,6 +73,10 @@ const App = () => {
             <Route
               path="all-ads"
               element={<ProtectedRoute isAdmin={true} component={Ads} />}
+            />
+            <Route
+              path="all-users"
+              element={<ProtectedRoute isAdmin={true} component={User} />}
             />
           </Route>
           <Route path="/settings" element={<div>Settings Page</div>} />

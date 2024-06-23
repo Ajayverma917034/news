@@ -289,26 +289,27 @@ export const adminNews = tryCatch(async (req, res, next) => {
 })
 
 export const fetchRelatedNews = tryCatch(async (req, res, next) => {
-    let { state, district, location, tags, news_id } = req.body;
-
+    let { state, district, location, tags, news_id, news_section_type } = req.body;
     let query = { $or: [] };
 
-    if (state) {
-        state = state.trim().toLowerCase();
-        query.$or.push({ state: state });
-    }
-    // console.log(state)
-    if (district) {
-        district = district.trim().toLowerCase();
-        query.$or.push({ district: district });
-    }
-    if (location) {
-        location = location.trim().toLowerCase();
-        query.$or.push({ location: location });
-    }
+    // Trim and convert to lowercase if they exist
+    // if (state) {
+    //     state = state.trim().toLowerCase();
+    //     query.$or.push({ state: state });
+    // }
+    // if (district) {
+    //     district = district.trim().toLowerCase();
+    //     query.$or.push({ district: district });
+    // }
+    // if (location) {
+    //     location = location.trim().toLowerCase();
+    //     query.$or.push({ location: location });
+    // }
+
+    // Handle tags
     if (tags && tags.length) {
-        tags = tags.map(cat => cat.trim().toLowerCase());
-        query.tags = { $in: tags }; // Works with $or internally if tags are in an array
+        tags = tags.map(tag => tag.trim().toLowerCase());
+        query.$or.push({ tags: { $in: tags } });
     }
 
     // Check if $or array is empty, if so, remove it from the query
@@ -321,10 +322,17 @@ export const fetchRelatedNews = tryCatch(async (req, res, next) => {
         query.news_id = { $ne: news_id };
     }
 
+    // Handle news_section_type
+    if (news_section_type) {
+        query.$or.push({ news_section_type: { $in: news_section_type } });
+    }
+
+
+    // Fetch related news
     News.find(query)
         .limit(4)
         .sort({ "createdAt": -1 })
-        .select('news_id title tags state district banner location tags draft createdAt -_id')
+        .select('news_id title banner -_id')
         .then(news => {
             return res.status(200).json(news)
         }).catch(err => {
@@ -332,6 +340,7 @@ export const fetchRelatedNews = tryCatch(async (req, res, next) => {
         });
 
 });
+
 
 
 export const findNewsSectionTypeNews = tryCatch(async (req, res, next) => {

@@ -62,3 +62,134 @@ export const deleteNewsAdmin = tryCatch(async (req, res, next) => {
         })
 })
 
+
+export const getUsers = tryCatch(async (req, res, next) => {
+    let { page, limit } = req.body;
+    limit = parseInt(limit) || 10;
+    page = parseInt(page) || 1;
+
+    User.find()
+        .skip((page - 1) * limit)
+        .limit(limit)
+        .sort({ createdAt: -1 })
+        .select('username email fullName profile role account_info -_id')
+        .then((users) => {
+            return res.status(200).json(users)
+        })
+        .catch(err => {
+            return next(new ErrorHandler(500, err.message))
+        })
+})
+
+export const Createuser = async (req, res) => {
+    try {
+        console.log(req.body)
+        const { username, email, password } = req.body;
+        const data = await User.findOne({ $or: [{ email }, { username }] });
+        if (data) {
+            return res.status(200).json({
+                message: "User already exists with this email or username",
+                success: false,
+            });
+        }
+        await User.create({ username, email, password });
+        return res
+            .status(200)
+            .json({ success: true, message: "User created successfully" });
+    } catch (err) {
+        return res.status(500).json({ success: false, error: err.message });
+    }
+};
+
+export const GetUser = async (req, res) => {
+    try {
+        const { data } = req.body;
+        if (!data) {
+            return res.status(400).json({
+                message: "Email or username is required",
+                success: false,
+            });
+        }
+
+        const user = await UserModel.findOne({
+            $or: [{ email: data }, { username: data }],
+        }).select("username password email -_id").exec();
+        if (user) {
+            res.status(200).json({ success: true, user: user });
+        } else {
+            res.status(400).json({
+                success: false,
+                message: "not any user register at this email of username",
+            });
+        }
+    } catch (err) {
+        return res.status(500).json({ success: false, error: error.message });
+    }
+};
+
+// it is a optional funtion like update the password with teh helpp of the emeial or udpdetae the pasword with the help of the username
+
+export const Updateuser = async (req, res) => {
+    try {
+        const { password, data } = req.body;
+
+        if (!data || !password) {
+            return res.status(400).json({
+                message: "email/username or password is required",
+                success: false,
+            });
+        }
+
+        const user = await UserModel.findOne({
+            $or: [{ email: data }, { username: data }],
+        }).select('+password');
+
+
+        if (!user) {
+            return res.status(400).json({
+                success: false,
+                message: "Please enter a valid email or username",
+            });
+        }
+
+        const isMatchpassword = await user.comparePassword(password);
+        if (isMatchpassword) {
+            return res.status(400).json({
+                message: "the old password and new password are same",
+                success: false,
+            });
+        }
+        user.password = password;
+        await user.save();
+        return res.status(200).json({
+            message: "User's password updated successfully",
+            success: true,
+            user,
+        });
+    } catch (error) {
+        return res.status(500).json({ success: false, error: error.message });
+    }
+};
+
+//  it is a optional function like deleted by username or deleted by email
+
+export const Deleteuser = async (req, res) => {
+    try {
+        const { data } = req.body;
+        if (!data) {
+            return res.status(400).json({
+                message: "Email or username is required",
+                success: false,
+            });
+        }
+        await UserModel.findOneAndDelete({
+            $or: [{ email: data }, { username: data }],
+        });
+        res.status(200).json({
+            success: true,
+            message: "user deleted successfully",
+        });
+    } catch (err) {
+        return res.status(500).json({ success: false, error: err.message });
+    }
+};

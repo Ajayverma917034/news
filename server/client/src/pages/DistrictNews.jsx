@@ -19,7 +19,8 @@ const DistrictNews = () => {
   const stateName = useParams();
   const params = useLocation();
   let title = params.pathname.slice(1);
-  title = title.split("%20").join(" ");
+  title = title.split("/")[1];
+
   // console.log
 
   const fetchNews = async (page) => {

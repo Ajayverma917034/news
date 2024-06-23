@@ -34,7 +34,7 @@ const Ads = () => {
             </button>
           </div>
           <AdsSlider showAdd={showAdd} setShowAdd={setShowAdd} />
-          <div>
+          {/* <div>
             <div className="flex justify-between items-center mb-4 px-4 mt-10">
               <h1 className="text-3xl font-bold">Side Bar Ads (350 x 350)</h1>
               <button
@@ -53,7 +53,7 @@ const Ads = () => {
                   </div>
                 ))}
             </div>
-          </div>
+          </div> */}
         </div>
       )}
       {showAdd === 1 && (

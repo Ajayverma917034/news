@@ -7,6 +7,7 @@ import { MdOutlineVideoSettings } from "react-icons/md";
 import { FaHome, FaUser, FaCog, FaBars } from "react-icons/fa";
 import { RiAdvertisementLine } from "react-icons/ri";
 import { lookInSession } from "../common/session";
+import { FaUsersCog } from "react-icons/fa";
 
 const SideBar = () => {
   let page = location.pathname.split("/")[2];
@@ -181,6 +182,16 @@ const SideBar = () => {
               >
                 <MdOutlineVideoSettings size={25} />
                 <span>All-Videos</span>
+              </NavLink>
+            )}
+            {user?.role === "admin" && (
+              <NavLink
+                className="flex items-center gap-2 text-gray hover:bg-red hover:text-white mt-1 p-2 rounded w-full sidebar-link"
+                to="/dashboard/all-users"
+                onClick={() => setShowSideNav(false)}
+              >
+                <FaUsersCog size={25} />
+                <span>All-Users</span>
               </NavLink>
             )}
           </div>
