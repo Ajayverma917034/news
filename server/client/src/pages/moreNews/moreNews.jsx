@@ -75,7 +75,7 @@ const MoreNews = () => {
                         />
                         <div className="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-5"></div>
                         <div className="absolute bottom-0 text-center w-full">
-                          <h1 className="news-title-lg text-white text-start lg:text-[27px] bg-gradient-to-t from-gray to-transparent p-2">
+                          <h1 className="news-title-lg font-semibold text-white text-start lg:text-[27px] bg-gradient-to-t from-gray to-transparent p-2">
                             {data[0]?.title}
                           </h1>
                         </div>

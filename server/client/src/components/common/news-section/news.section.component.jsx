@@ -17,7 +17,7 @@ const NewsSection = ({ data, title }) => {
       {data ? (
         <>
           {data.length > 0 && (
-            <div className="flex w-full flex-col flex-wrap gap-6 ">
+            <div className="flex w-full flex-col flex-wrap gap-4 ">
               <Heading title={title} />
               {/* Main Section  */}
               <Link
