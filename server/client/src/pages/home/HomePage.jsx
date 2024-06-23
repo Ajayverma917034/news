@@ -42,7 +42,7 @@ const HomePage = () => {
   }, []);
   return (
     <>
-      <MetaDataSection title={"home"} />
+      <MetaDataSection title={"Janpad News"} />
       <HomeRightBar data={homeNews.slice(0, 2)} ytData={ytNews} />
       <HomeRightBarOther data={homeNews.slice(2, 4)} />
 

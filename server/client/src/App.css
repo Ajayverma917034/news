@@ -22,6 +22,10 @@ p>a{
     color: #000068 ;
     font-weight: 500;
 }
-/* .swiper-pagination-bullet-active {
-    background-color: #fd0202 !important;
-} */
+.nav-item{
+  border-bottom: 5px solid #000068  ;
+  border-radius: 5px;
+}
+.active{
+  border-bottom: 5px solid #fd0202;
+}

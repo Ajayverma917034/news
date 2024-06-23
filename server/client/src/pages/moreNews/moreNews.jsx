@@ -55,7 +55,7 @@ const MoreNews = () => {
   return (
     <div className="flex spacing mt-8 mb-0">
       {
-        data === null ? <div className="min-h-[30vh] flex w-full items-center justify-center"><Loader/> </div> : (
+        !data  ? <div className="min-h-[30vh] flex w-full items-center justify-center"><Loader/> </div> : (
           data.length === 0 ? (
             <div>No News available </div>
           ) : (

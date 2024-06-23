@@ -67,11 +67,11 @@ const Navbar = () => {
           </div>
         </div>
         <div className="bg-blue py-3 max-md:mt-4">
-          <ul className="flex gap-x-10 text-white px-2  md:px-20 overflow-x-auto overflow-y-hidden no-scrollbar justify-evenly items-center  no-scrollbar">
+          <ul className="flex gap-x-10 text-white px-2 md:px-20 overflow-x-auto overflow-y-hidden no-scrollbar justify-evenly items-center  no-scrollbar">
             {navItems.map((item, index) => (
               <NavLink
                 to={item.link}
-                className="text-2xl min-w-fit"
+                className="text-2xl min-w-fit nav-item"
                 key={index}
               >
                 {item.hindiName}
