@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { MetaData } from "../../../seo/Helmet";
+import { formatDate } from "../../../common/date";
 // import { getFullDay } from "../common/date-format";
 // import AnimationWrapper from "../common/AnimationWrapper";
 // import Skeltons5 from "./Skeltons/Skeltons5";
@@ -93,7 +94,7 @@ const VideoPage = () => {
             <div className=" py-2 flex justify-between items-center relative">
               <div className="flex">
                 <p className="uppercase text-xl">Published Date:</p>
-                <p className="ml-3">{createdAt}</p>
+                <p className="ml-3">{formatDate(createdAt)}</p>
               </div>
 
               {/* <div id="page" className="share">

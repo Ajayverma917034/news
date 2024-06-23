@@ -13,6 +13,7 @@ import BlogContent from "../BlogContent";
 import SideNews from "../../../pages/advertisement/related-news/SideNews";
 import { MetaData } from "../../../seo/Helmet";
 import { handleImageError } from "../../../common/errorImg";
+import { formatDate } from "../../../common/date";
 export const newsStructure = {
   title: "",
   des: "",
@@ -110,7 +111,7 @@ const SinglePage = () => {
                   </h3>
                 </div>
                 <div>
-                  <h3 className="date-lg">{createdAt}</h3>
+                  <h3 className="date-lg">{formatDate(createdAt)}</h3>
                 </div>
                 <div className="flex gap-2 items-center ">
                   <RiWhatsappFill

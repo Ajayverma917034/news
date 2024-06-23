@@ -1,6 +1,7 @@
 // src/NewsList.js
 import React, { useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
+import { formatDate } from '../../../../../server/client/src/common/date';
 
 const newsItems = Array.from({ length: 50 }, (_, index) => ({
   id: index + 1,
@@ -59,7 +60,7 @@ const NewsList = () => {
                 <div className="flex-1">
                 <h3 className="font-medium text-xl">{item.title}</h3>
                 <div className='flex justify-start gap-8'>
-                    <p className="text-lg text-gray"><span className='font-semibold'>Created On:</span> {item.createdAt}</p>
+                    <p className="text-lg text-gray"><span className='font-semibold'>Created On:</span> {formatDate(item.createdAt)}</p>
                     <p className="text-lg text-gray"><span className='font-semibold'>Read:</span> {item.reads}</p>
                 </div>
                 </div>

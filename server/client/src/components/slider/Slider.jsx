@@ -57,11 +57,13 @@ export default function Slider() {
             ? ads.map((ad, index) => {
                 return (
                   <SwiperSlide key={index}>
+                    {/* <div> */}
                     <img
                       src={ad.banner.url}
                       alt="sliderimg"
-                      className="w-full h-full"
+                      className="w-full h-full object-fill"
                     />
+                    {/* </div> */}
                   </SwiperSlide>
                 );
               })
