@@ -145,7 +145,7 @@ export const getHomeNews = tryCatch(async (req, res, next) => {
             let query = {};
             query.news_section_type = { $in: entity.toLocaleLowerCase() };
 
-            const news = await News.find(query).limit(5).sort({ createdAt: -1 }).select('news_id title state district location tags createdAt banner -_id').exec();
+            const news = await News.find(query).limit(5).sort({ createdAt: -1 }).select('news_id title location createdAt banner -_id').exec();
 
             let pushData = {
                 title: entity,
@@ -187,8 +187,8 @@ export const getNewses = tryCatch((req, res, next) => {
         .sort({ "createdAt": -1 })
         .skip(limit * (page - 1))
         .limit(limit)
-        .populate("author", "username profile")
-        .select('news_id title description content tags state district banner location tags breaking_news draft createdAt -_id')
+        // .populate("author", "username profile")
+        .select('news_id title banner location createdAt -_id')
         .then(news => {
             // if (!news.length) {
             //     News.find().sort({ "activity.total_reads": -1, "createdAt": -1 })
@@ -216,7 +216,7 @@ export const getNews = tryCatch(async (req, res, next) => {
 
     let incrementVal = mode !== 'edit' ? val : 0;
     News.findOneAndUpdate({ news_id }, { $inc: { "activity.total_reads": incrementVal, "activity.total_today_count": incrementVal } })
-        .select('news_id title description content tags state district banner location activity.total_reads news_section_type tags breaking_news draft createdAt -_id')
+        .select('news_id title description content tags state district banner location activity.total_reads news_section_type tags createdAt -_id')
         .then(news => {
             // console.log(news)
             if (news.draft && !draft) {
@@ -361,7 +361,8 @@ export const findNewsSectionTypeNews = tryCatch(async (req, res, next) => {
         // Fetch the news items from the database
         const fetchedNews = await News.find(query)
             .limit(fetchLimit)
-            .sort({ "createdAt": -1 });
+            .sort({ "createdAt": -1 })
+            .select('news_id title banner _-id');
 
         // Randomly pick 5 news items from the fetched news
         const shuffled = fetchedNews.sort(() => 0.5 - Math.random());
@@ -470,7 +471,7 @@ export const findStateNews = tryCatch(async (req, res, next) => {
         const stateNews = await News.find({ state: state })
             .sort({ createdAt: -1 })
             .limit(5)
-            .select('news_id title state district location tags createdAt banner -_id')
+            .select('news_id title location createdAt banner -_id')
             .exec();
         promises.push({ state: state, data: stateNews });
     }

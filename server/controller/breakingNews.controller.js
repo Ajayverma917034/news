@@ -14,7 +14,7 @@ export const Createnews = async (req, res) => {
 
 export const Getallnews = async (req, res) => {
     try {
-        const allnews = await BreakingNews.find().select("title _-id").exec();
+        const allnews = await BreakingNews.find().select("title -_id").exec();
         return res.status(200).json({ success: true, news: allnews });
     } catch (error) {
         return res.status(500).json({ success: false, error: error.message });

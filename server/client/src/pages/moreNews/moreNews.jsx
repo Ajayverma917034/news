@@ -17,30 +17,25 @@ const MoreNews = () => {
   const [data, setData] = useState(null);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
-  const [isFetching, setIsFetching] = useState(false);
 
   const params = useLocation();
   const title = params.pathname.slice(1);
 
   const fetchNews = async (page) => {
-    setIsFetching(true);
     axios
-      .post("/get-news-query", { limit: 10, news_section_type: [title], page })
+      .post("/get-news-query", { limit: 2, news_section_type: [title], page })
       .then(({ data }) => {
-        setData((prevData) => (prevData ? [...prevData, ...data] : data));
+        setData((prevData) => [...prevData, ...data]);
         setHasMore(data.length > 0);
       })
       .catch((err) => {
         toast.error("Something went wrong");
         console.log(err);
-      })
-      .finally(() => {
-        setIsFetching(false);
       });
   };
 
   useEffect(() => {
-    setData(null);
+    setData([]);
     setPage(1);
     fetchNews(1);
     window.scrollTo(0, 0);
@@ -63,16 +58,14 @@ const MoreNews = () => {
         <div className="min-h-[30vh] flex w-full items-center justify-center">
           <Loader />
         </div>
-      ) : data.length === 0 && !isFetching ? (
-        <div className="min-h-[30vh] flex w-full items-center justify-center">
-          <div>No more data available</div>
-        </div>
+      ) : data.length === 0 ? (
+        <div>No News available </div>
       ) : (
         <div>
-          <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto justify-between gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto justify-between gap-10 ">
             <MetaDataSection title={title} />
             <div className="flex flex-col flex-wrap md:col-span-4">
-              <div className="flex w-full flex-col flex-wrap">
+              <div className="flex w-full flex-col flex-wrap ">
                 <Heading title={findHindi(title)} />
                 {data.length > 0 && (
                   <Link to={`/news/${data[0]?.news_id}`}>
@@ -81,7 +74,7 @@ const MoreNews = () => {
                         src={data[0]?.banner}
                         alt="News Image"
                         onError={handleImageError}
-                        className="z-0 h-full w-full object-cover"
+                        className="z-0 h-full w-full  object-cover"
                       />
                       <div className="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-5"></div>
                       <div className="absolute bottom-0 text-center w-full">
@@ -102,7 +95,7 @@ const MoreNews = () => {
               </div>
             </div>
 
-            <div className="flex flex-col md:gap-y-10 gap-y-2 md:col-span-2 md:mt-10">
+            <div className="flex flex-col md:gap-y-10 gap-y-2  md:col-span-2 md:mt-10">
               <CustomeAndGoogleAdd />
               <SideNews title={"read also"} />
             </div>
@@ -114,3 +107,48 @@ const MoreNews = () => {
 };
 
 export default MoreNews;
+
+// !data  ? <div className="min-h-[30vh] flex w-full items-center justify-center"><Loader/> </div> : (
+//   data.length === 0 ? (
+//     <div>No News available </div>
+//   ) : (
+//     <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto justify-between gap-10 ">
+//       <MetaDataSection title={title} />
+//       <div className="flex flex-col flex-wrap md:col-span-4">
+//         <div className="flex w-full flex-col flex-wrap ">
+//           <Heading title={findHindi(title)} />
+//           {data.length > 0 && (
+//             <Link to={`/news/${data[0]?.news_id}`}>
+//               <div className="h-[180px] md:h-[400px] w-full mt-2 relative">
+//                 <img
+//                   src={data[0]?.banner}
+//                   alt="News Image"
+//                   onError={handleImageError}
+//                   className="z-0 h-full w-full  object-cover"
+//                 />
+//                 <div className="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-5"></div>
+//                 <div className="absolute bottom-0 text-center w-full">
+//                   <h1 className="news-title-lg font-semibold text-white text-start lg:text-[27px] bg-gradient-to-t from-gray to-transparent p-2">
+//                     {data[0]?.title}
+//                   </h1>
+//                 </div>
+//               </div>
+//             </Link>
+//           )}
+//           <div className="flex w-full flex-col flex-wrap gap-y-6 py-6">
+//             {data.slice(1).map((item, index) => (
+//               <MorePageCard key={index} data={item} />
+//             ))}
+//             <div ref={lastElementRef}></div>
+//             {isLoading && <div>Loading more...</div>}
+//           </div>
+//         </div>
+//       </div>
+
+//       <div className="flex flex-col md:gap-y-10 gap-y-2  md:col-span-2 md:mt-10">
+//         <CustomeAndGoogleAdd />
+//         <SideNews title={"read also"} />
+//       </div>
+//     </div>
+//   )
+// )
