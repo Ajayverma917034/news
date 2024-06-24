@@ -8,6 +8,7 @@ import { FaHome, FaUser, FaCog, FaBars } from "react-icons/fa";
 import { RiAdvertisementLine } from "react-icons/ri";
 import { lookInSession } from "../common/session";
 import { FaUsersCog } from "react-icons/fa";
+import { PiNewspaper } from "react-icons/pi";
 
 const SideBar = () => {
   let page = location.pathname.split("/")[2];
@@ -133,7 +134,7 @@ const SideBar = () => {
                 <span>Ads</span>
               </NavLink>
             )}
-            {user?.role === "reporter" && (
+            {/* {user?.role === "reporter" && ( */}
               <NavLink
                 className="flex items-center gap-2 text-gray hover:bg-blue mt-1 hover:text-white p-2 rounded w-full sidebar-link"
                 to="/dashboard/create-news"
@@ -142,7 +143,7 @@ const SideBar = () => {
                 <IoNewspaper size={25} />
                 <span>Create News</span>
               </NavLink>
-            )}
+            {/* )} */}
             {user?.role === "admin" && (
               <NavLink
                 className="flex items-center gap-2 text-gray hover:bg-blue mt-1 hover:text-white p-2 rounded w-full sidebar-link"
@@ -151,6 +152,16 @@ const SideBar = () => {
               >
                 <TbVideoPlus size={25} />
                 <span>Create YtVideo</span>
+              </NavLink>
+            )}
+            {user?.role === "admin" && (
+              <NavLink
+                className="flex items-center gap-2 text-gray hover:bg-blue mt-1 hover:text-white p-2 rounded w-full sidebar-link"
+                to="/dashboard/breaking-news"
+                onClick={() => setShowSideNav(false)}
+              >
+                <PiNewspaper size={25} />
+                <span>Breaking News</span>
               </NavLink>
             )}
 

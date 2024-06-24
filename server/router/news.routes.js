@@ -4,7 +4,7 @@ import { authorizeroles, isAuthenticated } from '../middleware/Authentication.js
 
 const newsRouter = express.Router();
 
-newsRouter.post('/create-news', isAuthenticated, authorizeroles("reporter"), createNews);
+newsRouter.post('/create-news', isAuthenticated, authorizeroles("reporter", "admin"), createNews);
 newsRouter.post('/get-news-query', getNewses)
 newsRouter.post('/news/home', getHomeNews)
 newsRouter.post('/get-news', getNews)

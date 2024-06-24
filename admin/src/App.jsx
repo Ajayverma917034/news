@@ -19,6 +19,7 @@ import "./App.css";
 import AdminNewsHandler from "./pages/admin/AdminNewsHandler";
 import SignIn from "./pages/SignIn";
 import User from "./pages/admin/Users";
+import BreakingNews from "./pages/admin/BreakingNews";
 
 export const UserContext = createContext({});
 
@@ -56,19 +57,29 @@ const App = () => {
             />
             <Route
               path="create-videos"
-              element={<ProtectedRoute component={YoutubeVideo} />}
+              element={
+                <ProtectedRoute isAdmin={true} component={YoutubeVideo} />
+              }
             />
             <Route
               path="all-news"
               element={<ProtectedRoute component={NewsHandler} />}
             />
             <Route
+              path="breaking-news"
+              element={<ProtectedRoute component={BreakingNews} />}
+            />
+            <Route
               path="all-videos-data"
-              element={<ProtectedRoute component={VideoHandler} />}
+              element={
+                <ProtectedRoute isAdmin={true} component={VideoHandler} />
+              }
             />
             <Route
               path="all-admin-news-data"
-              element={<ProtectedRoute component={AdminNewsHandler} />}
+              element={
+                <ProtectedRoute isAdmin={true} component={AdminNewsHandler} />
+              }
             />
             <Route
               path="all-ads"

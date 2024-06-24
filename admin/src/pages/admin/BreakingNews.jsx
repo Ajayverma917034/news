@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
-import { Link, useNavigate } from "react-router-dom";
-import { filterPaginationData } from "../../common/filterPaginationData";
 import httpClient from "../../services/httpClient";
-import { formatDate } from "../../common/date";
+import { filterPaginationData } from "../../common/filterPaginationData";
 import { handleImageError } from "../../common/imageError";
-import ConfirmationModal from "../../components/ConfirmationModal";
-import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
+import { formatDate } from "../../common/date";
 import Loader from "../../components/Loader";
-import { categoryData } from "../../common/categoryData";
-
+import AddBreakingNews from "../../components/admin/AddBreakingNews";
 const categories = [
   "उत्तर प्रदेश",
   "मध्यप्रदेश",
@@ -25,45 +22,28 @@ const categories = [
   "धर्म",
 ];
 
-const AdminNewsHandler = () => {
+const BreakingNews = () => {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const itemsPerPage = 6;
+  const [addBreakingNews, setAddBreakingNews] = useState(false);
   const [news, setNews] = useState(null);
-  const [id, setId] = useState(null);
 
   const fetchNews = ({ page = 1 }) => {
     httpClient
-      .post(`admin/get-all-news`, { page, limit: itemsPerPage })
+      .post(`admin/get-breaking-news`, { page, limit: itemsPerPage })
       .then(async ({ data }) => {
         let formatData = await filterPaginationData({
           state: news,
-          data: data,
+          data: data.news,
           page,
-          countRoute: "/get-admin-news-count",
+          countRoute: "/admin/get-breaking-news-count",
         });
         setNews(formatData);
       })
       .catch((err) => {
         console.log(err);
       });
-  };
-
-  const handleDelete = async () => {
-    try {
-      if (!id) return;
-      let loadingToast = toast.loading("Deleting...");
-      const { data } = await httpClient.delete(`/admin/delete-news/${id}`);
-      setIsModalOpen(false);
-      toast.dismiss(loadingToast);
-      toast.success("News Deleted Successfully");
-      fetchNews({ page: 1 });
-    } catch (err) {
-      console.log(err);
-      toast.error("Failed to delete news");
-      setIsModalOpen(false);
-    }
   };
 
   useEffect(() => {
@@ -82,17 +62,12 @@ const AdminNewsHandler = () => {
           <BsSearch size={20} />
         </div>
 
-        <select
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-          className="border p-1 rounded"
+        <button
+          className="add-user-button bg-blue"
+          onClick={() => setAddBreakingNews(true)}
         >
-          {categoryData.map((category, index) => (
-            <option key={index} value={category.english}>
-              {category.hindi}
-            </option>
-          ))}
-        </select>
+          + Add Breaking News
+        </button>
       </div>
       {/* <p className="mb-4">{newsItems.length} Item Found</p> */}
       <div className="space-y-4 h-[calc(100vh-247px)] overflow-auto">
@@ -101,23 +76,22 @@ const AdminNewsHandler = () => {
             news?.results?.map((item, index) => (
               <div
                 key={index}
-                className="grid sm:grid-cols-7 lg:grid-cols-6 gap-3 items-center p-1 max-sm:pb-2 sm:p-4 rounded shadow-light-shadow"
-                // style={{boxShadow: `rgba(100, 100, 111, 0.2) 0px 7px 29px 0px`}}
+                className="grid sm:grid-cols-7 lg:grid-cols-6 gap-3 items-center  p-4 rounded shadow-dark-shadow"
               >
                 <div className=" sm:col-span-2 lg:col-span-1">
                   <img
-                    src={item?.banner}
+                    src={item.banner}
                     alt="news"
-                    className="w-full h-32 sm:w-22 sm:h-20"
+                    className="w-22 h-20 "
                     onError={handleImageError}
                   />
                 </div>
                 <div className="sm:col-span-5 lg:col-span-5">
                   <div className="flex-1">
-                    <h3 className="font-medium text-xl line-clamp-2 sm:line-clamp-1">
+                    <h3 className="font-medium text-xl line-clamp-1">
                       {item.title}
                     </h3>
-                    <div className="flex max-sm:flex-col justify-start gap-y-1 gap-x-8">
+                    <div className="flex justify-start gap-8">
                       <p className="text-lg text-gray">
                         <span className="font-semibold text-black">
                           Created On:
@@ -126,15 +100,7 @@ const AdminNewsHandler = () => {
                       </p>
                       <p className="text-lg text-gray">
                         <span className="font-semibold text-black">Read:</span>{" "}
-                        {item.activity?.total_reads}
-                      </p>
-                      <p className="text-lg text-gray">
-                        <span className="font-semibold text-black">
-                          Reporter
-                        </span>
-                        <Link className="text-blue border-b border-blue ml-2">
-                          @{item?.author?.username}
-                        </Link>
+                        {item.activity.total_reads}
                       </p>
                     </div>
                   </div>
@@ -147,15 +113,9 @@ const AdminNewsHandler = () => {
                     >
                       Edit
                     </button>
-                    <button
-                      className="bg-red text-white px-3 py-1 rounded-lg text-base"
-                      onClick={() => {
-                        setIsModalOpen(true);
-                        setId(item?.news_id);
-                      }}
-                    >
+                    {/* <button className="bg-red text-white px-3 py-1 rounded-lg text-base">
                       Delete
-                    </button>
+                    </button> */}
                   </div>
                 </div>
               </div>
@@ -178,29 +138,25 @@ const AdminNewsHandler = () => {
           Prev
         </button>
         <span className="font-semibold">
-          Page {news?.page} of {Math.ceil(news?.totalDocs / itemsPerPage)}
+          Page {news?.page} of {Math.floor(news?.totalDocs / itemsPerPage)}
         </span>
         <button
           onClick={() => fetchNews({ page: news?.page + 1 })}
           className={`${
-            news?.page === Math.ceil(news?.totalDocs / itemsPerPage)
+            news?.page === Math.floor(news?.totalDocs / itemsPerPage)
               ? "bg-gray pointer-events-none cursor-not-allowed"
               : "bg-blue"
           } text-white px-4 py-2 rounded`}
-          disabled={news?.page === Math.ceil(news?.totalDocs / itemsPerPage)}
+          disabled={news?.page === Math.floor(news?.totalDocs / itemsPerPage)}
         >
           Next
         </button>
       </div>
-
-      <ConfirmationModal
-        id={id}
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onConfirm={handleDelete}
-      />
+      {addBreakingNews && (
+        <AddBreakingNews setAddBreakingNews={setAddBreakingNews} />
+      )}
     </div>
   );
 };
 
-export default AdminNewsHandler;
+export default BreakingNews;

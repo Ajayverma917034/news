@@ -121,19 +121,21 @@ export const getHomeNews = tryCatch(async (req, res, next) => {
         // let { data } = req.body;
         const data = [
             "Big News",
+            "state",
+            "apna jila",
             "Technology",
-            // "Politics",
-            "Country",
-            "World",
             "Crime",
-            "Cricket",
+            "Country",
             "Sports",
-            "Bollywood",
-            "Religion",
             "Entertainment",
-            "Health",
-            "Carrier",
             "Astrology",
+            "Carrier",
+            "Religion",
+            // "Politics",
+            "World",
+            "Cricket",
+            "Bollywood",
+            "Health",
         ]
 
         let promises = [];

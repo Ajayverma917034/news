@@ -9,12 +9,15 @@ const Navbar = () => {
   const navItems = [
     { name: "Home", hindiName: "होम", link: "/" },
     { name: "State", hindiName: "राज्य", link: "/state" },
-    { name: "Country", hindiName: "देश", link: "/country" },
-    { name: "World", hindiName: "विदेश", link: "/world" },
     { name: "Crime", hindiName: "क्राइम", link: "/crime" },
-    { name: "Cricket", hindiName: "क्रिकेट", link: "/cricket" },
+    { name: "Country", hindiName: "देश", link: "/country" },
     { name: "Sports", hindiName: "खेल कूद", link: "/sports" },
+    { name: "Entertainment", hindiName: "मनोरंजन", link: "/entertainment" },
+    { name: "Astrology", hindiName: "राशिफल", link: "/astrology" },
+    { name: "Carrier", hindiName: "करियर", link: "/carrier" },
     { name: "Religion", hindiName: "धर्म", link: "/religion" },
+    { name: "World", hindiName: "विदेश", link: "/world" },
+    { name: "Cricket", hindiName: "क्रिकेट", link: "/cricket" },
   ];
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -66,8 +69,8 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-        <div className="bg-blue py-3 max-md:mt-4">
-          <ul className="flex gap-x-10 text-white px-2 md:px-20 overflow-x-auto overflow-y-hidden no-scrollbar justify-evenly items-center  no-scrollbar">
+        <div className="bg-blue py-3 max-md:mt-1">
+          <ul className="flex gap-x-10 text-white px-5 md:px-20 overflow-x-auto overflow-y-hidden no-scrollbar justify-evenly items-center  no-scrollbar">
             {navItems.map((item, index) => (
               <NavLink
                 to={item.link}

@@ -6,6 +6,7 @@ import { handleImageError } from "../common/imageError";
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "../common/date";
 import Loader from "../components/Loader";
+import { categoryData } from "../common/categoryData";
 const categories = [
   "उत्तर प्रदेश",
   "मध्यप्रदेश",
@@ -57,7 +58,7 @@ const NewsHandler = () => {
             placeholder="Search News"
             className="border-none outline-none p-1 rounded-lg"
           />
-          <BsSearch size={20}/>
+          <BsSearch size={20} />
         </div>
 
         <select
@@ -65,9 +66,9 @@ const NewsHandler = () => {
           onChange={(e) => setSelectedCategory(e.target.value)}
           className="border p-1 rounded"
         >
-          {categories.map((category, index) => (
-            <option key={index} value={category}>
-              {category}
+          {categoryData.map((category, index) => (
+            <option key={index} value={category.english}>
+              {category.hindi}
             </option>
           ))}
         </select>

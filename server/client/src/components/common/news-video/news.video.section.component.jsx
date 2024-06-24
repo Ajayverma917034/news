@@ -14,7 +14,7 @@ const NewsVideo = ({ data, title }) => {
     <>
       {data ? (
         <>
-          <div className="flex w-full flex-col flex-wrap gap-6 mt-5">
+          <div className="flex w-full flex-col flex-wrap sm:gap-2 md:gap-6 mt-5">
             <Heading title={title} />
             {/* Main Section  */}
             <Link

@@ -83,7 +83,7 @@
     @apply text-gray mt-2 font-medium text-sm;
   }
   .news-title-lg{
-      @apply  font-medium leading-6 md:leading-10 line-clamp-2 sm:line-clamp-3 text-2xl sm:text-2xl md:text-4xl lg:text-4xl;
+      @apply  font-medium leading-7 md:leading-10 line-clamp-2 sm:line-clamp-3 text-2xl sm:text-2xl md:text-4xl lg:text-4xl;
   }
   .news-title-md{
       @apply  font-medium leading-6 line-clamp-2 sm:line-clamp-3 text-[16px] sm:text-2xl md:text-2xl lg:text-2xl;

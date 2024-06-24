@@ -34,12 +34,12 @@ export const createYtNews = tryCatch(async (req, res, next) => {
         if (!location || location.trim() === '') {
             return next(new ErrorHandler(400, 'You must provide a location for the news'))
         }
-        if (!state || state.trim() === '') {
-            return next(new ErrorHandler(400, 'You must provide a state for the news'))
-        }
-        if (!district || district.trim() === '') {
-            return next(new ErrorHandler(400, 'You must provide a district for the news'))
-        }
+        // if (!state || state.trim() === '') {
+        //     return next(new ErrorHandler(400, 'You must provide a state for the news'))
+        // }
+        // if (!district || district.trim() === '') {
+        //     return next(new ErrorHandler(400, 'You must provide a district for the news'))
+        // }
         if (!videoLinkId || videoLinkId.trim() === '') {
             return next(new ErrorHandler(400, 'You must provide a video link for the news'))
         }

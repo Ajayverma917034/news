@@ -118,7 +118,13 @@ const YoutubeVideo = () => {
       </h1>
       <form ref={addYtData}>
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-5">
-          <div>
+          <div className="flex flex-col gap-y-1">
+            <label
+              htmlFor="title"
+              className="text-2xl font-semibold text-blue required-text"
+            >
+              Title of the video
+            </label>
             <input
               name="title"
               type="text"
@@ -129,7 +135,13 @@ const YoutubeVideo = () => {
               // icon="fi-rr-user"
             />
           </div>
-          <div>
+          <div className="flex flex-col gap-y-1">
+            <label
+              htmlFor="videoLinkId"
+              className="text-2xl font-semibold text-blue required-text"
+            >
+              Enter the video Id{" "}
+            </label>
             <input
               name="videoLinkId"
               type="text"
@@ -142,7 +154,13 @@ const YoutubeVideo = () => {
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-5">
-          <div>
+          <div className="flex flex-col gap-y-1">
+            <label
+              htmlFor="description"
+              className="text-2xl font-semibold text-blue required-text"
+            >
+              Enter the description of the video
+            </label>
             <textarea
               name="description"
               className="input-box h-64 lg:h-40 resize-none leading-7 pl-5"
@@ -150,7 +168,13 @@ const YoutubeVideo = () => {
               defaultValue={ytData.description}
             ></textarea>
           </div>
-          <div>
+          <div className="flex flex-col gap-y-1">
+            <label
+              htmlFor="tags"
+              className="text-2xl font-semibold text-blue required-text"
+            >
+              Enter the tags related to the video
+            </label>
             <input
               type="text"
               placeholder="Tags Related to the video (Press Enter to add)"
@@ -171,7 +195,13 @@ const YoutubeVideo = () => {
                 );
               })}
 
-            <div>
+            <div className="flex flex-col gap-y-1">
+              <label
+                htmlFor="location"
+                className="text-2xl font-semibold text-blue required-text"
+              >
+                Enter the location of the video
+              </label>
               <input
                 type="text"
                 placeholder="Location (Incident location)"
@@ -184,7 +214,13 @@ const YoutubeVideo = () => {
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 md:gap-5">
-          <div>
+          <div className="flex flex-col gap-y-1">
+            <label
+              htmlFor="title"
+              className="text-2xl font-semibold text-blue "
+            >
+              Choose the state of the video
+            </label>
             <select
               name="state"
               type="text"
@@ -206,7 +242,13 @@ const YoutubeVideo = () => {
               })}
             </select>
           </div>
-          <div>
+          <div className="flex flex-col gap-y-1">
+            <label
+              htmlFor="district"
+              className="text-2xl font-semibold text-blue"
+            >
+              Choose the district of news
+            </label>
             <select
               name="district"
               placeholder="District"
@@ -219,18 +261,18 @@ const YoutubeVideo = () => {
               <option value="" disabled>
                 Select District
               </option>
-              {choosenState &&
-                stateDistricts[choosenState.toLowerCase()]?.map(
-                  (district, i) => (
+              {stateDistricts[choosenState] &&
+                stateDistricts[choosenState].map((district, i) => {
+                  return (
                     <option
                       key={i}
                       value={district.english}
                       className="capitalize"
                     >
-                      {findHindi(district.english)}
+                      {district.hindi}
                     </option>
-                  )
-                )}
+                  );
+                })}
             </select>
           </div>
         </div>
