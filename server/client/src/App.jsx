@@ -36,6 +36,9 @@ const App = () => {
         <Route path="/cricket" element={<MoreNews />} />
         <Route path="/sports" element={<MoreNews />} />
         <Route path="/religion" element={<MoreNews />} />
+        <Route path="/entertainment" element={<MoreNews />} />
+        <Route path="/astrology" element={<MoreNews />} />
+        <Route path="/carrier" element={<MoreNews />} />
         {/* ... add here  */}
 
         <Route path="/uttar-pradesh" element={<StateNews />} />
