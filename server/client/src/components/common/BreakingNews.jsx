@@ -8,8 +8,7 @@ const BreakingNews = () => {
     httpClient
       .get("/breaking-news")
       .then(({ data }) => {
-        // console.log(data);
-        setBreakingNews(data.breakingNews);
+        setBreakingNews(data.news);
       })
       .catch((err) => {
         console.log(err);
@@ -29,13 +28,7 @@ const BreakingNews = () => {
         <div className="flex gap-96">
           {breakingNews ? (
             breakingNews.map((news, index) => (
-              <Link
-                to={`/news/${news.news_id}`}
-                className="text-2xl font-medium"
-                key={index}
-              >
-                {news.title}
-              </Link>
+              <p className="text-2xl font-medium">{news.title}</p>
             ))
           ) : (
             <TrendingNewsSkeleton />

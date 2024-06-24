@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
 import axios from "axios";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { findHindi, stateDistricts } from "../common/data";
 import Tag from "../components/tag.component";
 import { IoIosAddCircle } from "react-icons/io";
@@ -18,7 +18,7 @@ const ytVideoStructure = {
 };
 const YoutubeVideo = () => {
   let addYtData = useRef();
-
+  const navigate = useNavigate();
   const location = useLocation();
   const [loading, setLoading] = useState(false);
   const [tagdata, setTagData] = useState("");
@@ -52,7 +52,8 @@ const YoutubeVideo = () => {
         toast.dismiss(loadingToast);
         e.target.removeAttribute("disabled");
         var successData = video_id ? "Updated" : "Added";
-        return toast.success(`Youtube Video ${successData} Successfully`);
+        toast.success(`Youtube Video ${successData} Successfully`);
+        navigate("/dashboard/all-videos-data");
       })
       .catch(({ response }) => {
         toast.dismiss(loadingToast);

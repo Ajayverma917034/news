@@ -73,26 +73,26 @@ const UserList = () => {
 
   return (
     <>
-      <div className="user-list">
+      <div className="user-list  max-sm:px-2">
         <div className="header">
           <h2>User's List</h2>
           <button
-            className="add-user-button bg-blue"
+            className="add-user-button bg-blue max-sm:p-1"
             onClick={() => setAddNewUser(true)}
           >
             + Add New User
           </button>
         </div>
-        <div className="search-bar">
+        <div className="search-bar max-sm:hidden">
           <input
             type="text"
-            className="search-input"
+            className="search-input max-sm:p-1"
             placeholder="Search user name, email ..."
             value={searchText}
             onChange={handleSearchChange}
           />
           <select
-            className="search-select"
+            className="search-select  max-sm:p-1"
             value={selectedPermission}
             onChange={handlePermissionChange}
           >
@@ -100,10 +100,10 @@ const UserList = () => {
             <option value="admin">Admin</option>
             <option value="reporter">Reporter</option>
           </select>
-          <button className="search-button bg-blue">Search</button>
+          <button className="search-button bg-blue  max-sm:p-1">Search</button>
         </div>
       </div>
-      <div className="flex-1 p-6 bg-gray-100">
+      <div className="flex-1 p-2 sm:p-6 bg-gray-100">
         <div className="h-80 bg-white shadow-md rounded-lg">
           <DataGrid
             rows={filteredRows}

@@ -4,11 +4,8 @@ import { useRef } from "react";
 import toast from "react-hot-toast";
 import httpClient from "../../services/httpClient";
 
-const AddBreakingNews = ({ setAddBreakingNews }) => {
-  const [news, setNews] = useState({
-    title: "",
-  });
-
+const EditBreakingNewsHandler = ({ news, setEditBreakingNews }) => {
+  const [data, setData] = useState(news);
   //   useEffect(() => {
   //     if (selectedUser) {
   //       setUser(selectedUser);
@@ -17,25 +14,29 @@ const AddBreakingNews = ({ setAddBreakingNews }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setNews({ ...news, [name]: value });
+    setData({ ...data, [name]: value });
   };
 
   const handleSave = () => {
-    if (!news.title) {
-      return toast.error("Please Enter the title of news");
+    const loadingToast = toast.loading("Updating...");
+    if (!data.title) {
+      return toast.error("Please Enter the Title of the breaking news");
     }
 
     httpClient
-      .post("admin/create-breaking-news", { ...news })
+      .put(`admin/update-news/${news._id}`, { ...data })
       .then(({ data }) => {
         if (data.success) {
-          toast.success("News added successfully");
-          setAddBreakingNews(false);
+          toast.dismiss(loadingToast);
+          toast.success("Breaking News updated successfully");
+          setEditBreakingNews(false);
         } else {
+          toast.dismiss(loadingToast);
           toast.error(data.message);
         }
       })
       .catch((err) => {
+        toast.dismiss(loadingToast);
         toast.error(err.response.data.error);
       });
   };
@@ -44,7 +45,7 @@ const AddBreakingNews = ({ setAddBreakingNews }) => {
 
   const handleClickOutside = (event) => {
     if (formRef.current && !formRef.current.contains(event.target)) {
-      setAddBreakingNews(false);
+      setAddNewUser(false);
     }
   };
 
@@ -58,46 +59,29 @@ const AddBreakingNews = ({ setAddBreakingNews }) => {
     <div className="overlay">
       <div className="user-form" ref={formRef}>
         <h4 className="text-3xl text-center font-bold text-blue">
-          Add Breaking News
+          Update Breaking News
         </h4>
         <form onSubmit={handleSave}>
           <div className="form-group">
-            <label htmlFor="title">
-              Title <span className="required">*</span>
+            <label htmlFor="username">
+              Username <span className="required">*</span>
             </label>
-            <textarea
+            <input
               type="text"
               id="title"
               name="title"
-              value={news.title}
-              className="w-full border rounded-md resize-none border-blue"
+              value={data.title}
               onChange={handleChange}
-              rows={5}
               required
             />
           </div>
         </form>
-        {/* <div className="form-group">
-        <label htmlFor="status">Status <span className="required">*</span></label>
-        <div className="switch-group">
-          <label className="switch">
-            <input
-              type="checkbox"
-              id="status"
-              name="status"
-              checked={user.status}
-              onChange={handleSwitchChange}
-            />
-            <span className="slider"></span>
-          </label>
-          <span className="switch-label">Inactive</span>
-        </div>
-      </div> */}
+
         <div className="form-actions">
           <button
             type="button"
             className="cancel-button"
-            onClick={() => setAddBreakingNews(false)}
+            onClick={() => setAddNewUser(false)}
           >
             Cancel
           </button>
@@ -110,4 +94,4 @@ const AddBreakingNews = ({ setAddBreakingNews }) => {
   );
 };
 
-export default AddBreakingNews;
+export default EditBreakingNewsHandler;

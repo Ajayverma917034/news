@@ -19,8 +19,7 @@ const NewsVideoCard = ({ item }) => {
         <img src={thumbnail} alt="hello" className="rounded-lg" />
       </div>
       <h1 className="news-title-md leading-7 line-clamp-2 col-span-3 mt-3">
-        जिनके कंधों पर है चुनाव आचार संहिता को पालन कराने की जिम्मेदारी, वही कर
-        रहे हैं उल्लंघन
+        {title}
       </h1>
     </Link>
   );

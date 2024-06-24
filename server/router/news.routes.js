@@ -19,7 +19,7 @@ newsRouter.post('/fetch-sidebar-news', findNewsSectionTypeNews)
 
 newsRouter.post('/fetch-state-news-without-district', findStateDataWithOutDistrict)
 
-newsRouter.get('/breaking-news', getBreakingNews)
+// newsRouter.get('/breaking-news', getBreakingNews)
 
 newsRouter.post('/get-my-news', isAuthenticated, authorizeroles("reporter"), getMyNews)
 newsRouter.post('/get-my-news-count', isAuthenticated, authorizeroles("reporter"), getMyNewsCount)
