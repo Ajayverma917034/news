@@ -11,7 +11,6 @@ import { formatDate } from "../../../common/date";
 import { handleImageError } from "../../../common/errorImg";
 
 const NewsSection = ({ data, title }) => {
-  
   return (
     <>
       {data ? (
@@ -77,10 +76,7 @@ const NewsSection = ({ data, title }) => {
                     );
                   })}
               </div>
-              <div
-                div
-                className="w-full h-[6.1rem] max-md:mt-10 flex items-center justify-center"
-              >
+              <div className="w-full h-[6.1rem] max-md:mt-10 flex items-center justify-center">
                 <img
                   src={adsmiddleimg}
                   alt="adsimg"

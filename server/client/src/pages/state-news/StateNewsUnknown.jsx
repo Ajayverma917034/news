@@ -14,6 +14,7 @@ const StateNewsUnknown = () => {
 
   const [news, setNews] = useState(null);
   const navigate = useNavigate();
+
   const fetchStateNews = async () => {
     httpClient
       .get("/fetch-all-state-news")
@@ -24,6 +25,7 @@ const StateNewsUnknown = () => {
         console.log(err);
       });
   };
+
   const handleNavigate = (state) => {
     if (state === "uttar pradesh") {
       navigate("/uttar-pradesh");
@@ -35,14 +37,14 @@ const StateNewsUnknown = () => {
   useEffect(() => {
     fetchStateNews();
   }, []);
-  // console.log(news.slice(0, 2));
+
   return (
     <>
       <MetaDataSection title={"All State News"} />
       <div className="flex spacing mt-8 flex-col">
         <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto gap-5 ">
           <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden">
-            {/* navbar for the states  */}
+            {/* Navbar for the states */}
             <div className="bg-[#262626] flex h-fit w-full">
               <p
                 className="p-3 flex items-center justify-center text-white bg-blue min-w-fit"
@@ -51,7 +53,6 @@ const StateNewsUnknown = () => {
                     "polygon(0 0, 90% 0, 100% 50%, 90% 100%, 0 100%, 0% 50%)",
                 }}
               >
-                <span className="text-2xl"></span>
                 {findHindi("state")}
               </p>
               <div className="flex gap-x-5 overflow-x-auto no-scrollbar">
@@ -68,39 +69,34 @@ const StateNewsUnknown = () => {
             </div>
 
             {news &&
-              news.slice(0, 2).map((news, index) => {
-                return (
-                  <>
-                    <NewsSection
-                      data={news.data}
-                      title={news.state}
-                      key={index}
-                    />
-                  </>
-                );
-              })}
+              news
+                .slice(0, 2)
+                .map((newsItem, index) => (
+                  <NewsSection
+                    data={newsItem.data}
+                    title={newsItem.state}
+                    key={index}
+                  />
+                ))}
           </div>
-          {/* {right advertisement section } */}
+
+          {/* Right advertisement section */}
           <div className="flex flex-col md:gap-y-10 gap-y-2  md:col-span-2 mt-10">
             <CustomeAndGoogleAdd />
             <SideNews title="read also" />
           </div>
         </div>
+
         {news && news.length > 2 && (
-          <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto  gap-5 ">
+          <div className="w-full grid grid-cols-1 lg:grid-cols-6 mx-auto gap-5 ">
             <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden">
-              {news &&
-                news.slice(2, 4).map((news, index) => {
-                  return (
-                    <>
-                      <NewsSection
-                        data={news.data}
-                        title={news.state}
-                        key={index}
-                      />
-                    </>
-                  );
-                })}
+              {news.slice(2, 4).map((newsItem, index) => (
+                <NewsSection
+                  data={newsItem.data}
+                  title={newsItem.state}
+                  key={index + 2}
+                />
+              ))}
             </div>
 
             <div className="flex flex-col md:gap-y-10 gap-y-2  md:col-span-2 mt-10">
@@ -110,20 +106,15 @@ const StateNewsUnknown = () => {
         )}
 
         {news && news.length > 4 && (
-          <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto  gap-5 ">
+          <div className="w-full grid grid-cols-1 lg:grid-cols-6 mx-auto gap-5">
             <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden">
-              {news &&
-                news.slice(4).map((news, index) => {
-                  return (
-                    <>
-                      <NewsSection
-                        data={news.data}
-                        title={news.state}
-                        key={index}
-                      />
-                    </>
-                  );
-                })}
+              {news.slice(4).map((newsItem, index) => (
+                <NewsSection
+                  data={newsItem.data}
+                  title={newsItem.state}
+                  key={index + 4}
+                />
+              ))}
             </div>
           </div>
         )}

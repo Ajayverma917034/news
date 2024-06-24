@@ -28,7 +28,9 @@ const BreakingNews = () => {
         <div className="flex gap-96">
           {breakingNews ? (
             breakingNews.map((news, index) => (
-              <p className="text-2xl font-medium">{news.title}</p>
+              <p key={index} className="text-2xl font-medium">
+                {news.title}
+              </p>
             ))
           ) : (
             <TrendingNewsSkeleton />

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import MorePageCard from "../../components/common/news-section/morepage.news.card";
 import Heading from "../../components/common/Heading";
-import Image from "../../assets/img1.png";
 import CustomeAndGoogleAdd from "../advertisement/CustomeAndGoogleAdd";
 import SideNews from "../advertisement/related-news/SideNews";
 import { Link, useLocation, useParams } from "react-router-dom";

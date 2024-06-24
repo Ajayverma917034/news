@@ -212,11 +212,11 @@ export const getNewses = tryCatch((req, res, next) => {
 })
 
 export const getNews = tryCatch(async (req, res, next) => {
-    let { news_id, draft, mode } = req.body;
+    let { news_id, draft, mode, incrementVal: val } = req.body;
 
-    let incrementVal = mode !== 'edit' ? 1 : 0;
+    let incrementVal = mode !== 'edit' ? val : 0;
     News.findOneAndUpdate({ news_id }, { $inc: { "activity.total_reads": incrementVal, "activity.total_today_count": incrementVal } })
-        .select('news_id title description content tags state district banner location news_section_type tags breaking_news draft createdAt -_id')
+        .select('news_id title description content tags state district banner location activity.total_reads news_section_type tags breaking_news draft createdAt -_id')
         .then(news => {
             // console.log(news)
             if (news.draft && !draft) {

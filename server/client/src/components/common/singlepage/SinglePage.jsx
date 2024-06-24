@@ -14,6 +14,7 @@ import SideNews from "../../../pages/advertisement/related-news/SideNews";
 import { MetaData } from "../../../seo/Helmet";
 import { handleImageError } from "../../../common/errorImg";
 import { formatDate } from "../../../common/date";
+import CustomeAndGoogleAdd from "../../../pages/advertisement/CustomeAndGoogleAdd";
 export const newsStructure = {
   title: "",
   des: "",
@@ -41,12 +42,19 @@ const SinglePage = () => {
     news_section_type,
   } = news;
 
-  const handleError = (e) => {
-    e.target.src = newsimg;
-  };
   const fetchNews = async () => {
+    let incrementVal = 0;
+    const viewedNews = JSON.parse(sessionStorage.getItem("viewedNews") || "[]");
+
+    if (!viewedNews.includes(news_id)) {
+      viewedNews.push(news_id);
+      sessionStorage.setItem("viewedNews", JSON.stringify(viewedNews));
+      incrementVal = 1;
+    } else {
+      incrementVal = 0;
+    }
     httpClient
-      .post("/get-news", { news_id })
+      .post("/get-news", { news_id, incrementVal })
       .then(async ({ data }) => {
         setNews(data.news);
         const {
@@ -86,6 +94,7 @@ const SinglePage = () => {
   }, [news_id]);
   const locationUrl = useLocation();
   const currentUrl = `${window.location.protocol}//${window.location.host}${locationUrl.pathname}${locationUrl.search}${locationUrl.hash}`;
+
   return (
     <>
       {!news ? (
@@ -188,7 +197,8 @@ const SinglePage = () => {
               </div>
             </div>
           </div>
-          <div className="  col-span-2 ">
+          <div className="col-span-2 ">
+            <CustomeAndGoogleAdd />
             <SideNews title="read also" />
           </div>
         </div>
