@@ -4,6 +4,7 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { findHindi, stateDistricts } from "../common/data";
 import Tag from "../components/tag.component";
+import { IoIosAddCircle } from "react-icons/io";
 
 const ytVideoStructure = {
   id: "",
@@ -20,6 +21,7 @@ const YoutubeVideo = () => {
 
   const location = useLocation();
   const [loading, setLoading] = useState(false);
+  const [tagdata, setTagData] = useState("");
 
   // Extract the user_id from the URL parameters
   const searchParams = new URLSearchParams(location.search);
@@ -72,6 +74,7 @@ const YoutubeVideo = () => {
         toast.error(`You can add max ${tagLimit} tags`);
       }
       e.target.value = "";
+      setTagData("");
     }
   };
 
@@ -101,6 +104,22 @@ const YoutubeVideo = () => {
   const handleStateChange = (e) => {
     setChoosenState(e.target.value);
     setChoosenDistrict(""); // reset district when state changes
+  };
+  const handleTag = () => {
+    // e.preventDefault();
+    let tag = tagdata;
+    console.log(tag);
+    // let tag = e.target.value;
+    setTagData(tag);
+    if (ytData.tags?.length < tagLimit) {
+      if (!ytData.tags.includes(tag) && tag.length) {
+        setYtData({ ...ytData, tags: [...ytData.tags, tag] });
+      }
+    } else {
+      toast.error(`You can add max ${tagLimit} tags`);
+    }
+    setTagData("");
+    // e.target.value = "";
   };
   useEffect(() => {
     if (video_id) {
@@ -175,25 +194,37 @@ const YoutubeVideo = () => {
             >
               Enter the tags related to the video
             </label>
-            <input
-              type="text"
-              placeholder="Tags Related to the video (Press Enter to add)"
-              onKeyDown={handleKeyDown}
-              className="sticky input-box pl-4 mb-3"
-              name="tags"
-            />
-            {ytData?.tags &&
-              ytData.tags.map((tag, i) => {
-                return (
-                  <Tag
-                    key={i}
-                    tagIndex={i}
-                    tag={tag}
-                    ytData={ytData}
-                    setYtData={setYtData}
-                  />
-                );
-              })}
+            <div className="flex items-center">
+              <input
+                type="text"
+                placeholder="Tags Related to the video (Press Enter to add)"
+                value={tagdata}
+                onChange={(e) => setTagData(e.target.value)}
+                onKeyDown={handleKeyDown}
+                className="sticky input-box pl-4 mb-3"
+                name="tags"
+              />
+              <button className="ml-2" type="button" onClick={handleTag}>
+                <IoIosAddCircle
+                  size={25}
+                  className="text-dark-grey pointer-events-none"
+                />
+              </button>
+            </div>
+            <div>
+              {ytData?.tags &&
+                ytData.tags.map((tag, i) => {
+                  return (
+                    <Tag
+                      key={i}
+                      tagIndex={i}
+                      tag={tag}
+                      ytData={ytData}
+                      setYtData={setYtData}
+                    />
+                  );
+                })}
+            </div>
 
             <div className="flex flex-col gap-y-1">
               <label
