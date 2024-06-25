@@ -84,6 +84,9 @@ const VideoPage = () => {
               width="100%"
               height="100%"
               src={`https://www.youtube.com/embed/${videoLinkId}`}
+              allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+              title="YouTube video player"
             ></iframe>
           </div>
 

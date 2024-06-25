@@ -26,7 +26,7 @@ export const createNews = tryCatch((req, res, next) => {
     try {
 
         let authorId = req.user._id;
-        let { id, title, description, content, state, district, location, news_section_type, banner, tags, breaking_news, draft } = req.body;
+        let { id, title, description, content, state, district, location, news_section_type, banner, tags, draft } = req.body;
 
 
 
@@ -57,9 +57,10 @@ export const createNews = tryCatch((req, res, next) => {
             }
 
             // Check if tags is provided and not empty
-            // if (!tags || tags.length === 0) {
-            //     return res.status(403).json({ error: 'You must provide tags for the news' })
-            // }
+            if (!tags || tags.length === 0) {
+                return res.status(403).json({ error: 'You must provide tags for the news' })
+            }
+            
             // Check if tags is provided and not empty
             if (!news_section_type || news_section_type.length === 0) {
 
@@ -67,9 +68,9 @@ export const createNews = tryCatch((req, res, next) => {
             }
 
             // Check if breaking_news is provided and is boolean
-            if (breaking_news === undefined || typeof breaking_news !== 'boolean') {
-                return res.status(403).json({ error: 'You must provide breaking news status for the news' })
-            }
+            // if (breaking_news === undefined || typeof breaking_news !== 'boolean') {
+            //     return res.status(403).json({ error: 'You must provide breaking news status for the news' })
+            // }
 
             location = location.trim().toLowerCase();
             state = state.trim().toLowerCase();
@@ -81,18 +82,18 @@ export const createNews = tryCatch((req, res, next) => {
 
         // tags = tags.map(tag => tag.trim().toLowerCase());
 
-        let news_id = id || title.replace(/[^a-zA-Z0-9]/g, ' ').replace(/\s+/g, "-");
+        let news_id = id || title.replace(/[^0-9]/g, ' ').replace(/\s+/g, "-");
         news_id += '-' + getCurrentDate() + '-' + generateNanoId();
 
         // tags = tags.map(tags => tags.trim().toLowerCase());
         if (id) {
-            News.findOneAndUpdate({ news_id: id }, { title, description, content, state, district, location, banner, tags, breaking_news, news_section_type, draft: draft ? draft : false }).then(news => {
+            News.findOneAndUpdate({ news_id: id }, { title, description, content, state, district, location, banner, tags, news_section_type, draft: draft ? draft : false }).then(news => {
                 return res.status(200).json({ id: news.news_id, message: 'update Successfully' })
             })
         }
         else {
             let news = new News({
-                title, description, content, state, district, location, tags, banner, news_section_type, breaking_news, draft: Boolean(draft), news_id, author: authorId
+                title, description, content, state, district, location, tags, banner, news_section_type, draft: Boolean(draft), news_id, author: authorId
             })
 
             news.save().then(news => {
@@ -314,6 +315,10 @@ export const fetchRelatedNews = tryCatch(async (req, res, next) => {
         query.$or.push({ tags: { $in: tags } });
     }
 
+    // Handle news_section_type
+    if (news_section_type && news_section_type.length) {
+        query.$or.push({ news_section_type: { $in: news_section_type } });
+    }
     // Check if $or array is empty, if so, remove it from the query
     if (query.$or.length === 0) {
         delete query.$or;
@@ -324,10 +329,6 @@ export const fetchRelatedNews = tryCatch(async (req, res, next) => {
         query.news_id = { $ne: news_id };
     }
 
-    // Handle news_section_type
-    if (news_section_type) {
-        query.$or.push({ news_section_type: { $in: news_section_type } });
-    }
 
 
     // Fetch related news

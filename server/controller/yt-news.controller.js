@@ -45,7 +45,7 @@ export const createYtNews = tryCatch(async (req, res, next) => {
         }
     }
 
-    let news_id = id || title.replace(/[^a-zA-Z0-9]/g, ' ').replace(/\s+/g, "-");
+    let news_id = id || title.replace(/[^0-9]/g, ' ').replace(/\s+/g, "-");
     news_id += '-' + getCurrentDate() + '-' + generateNanoId();
 
     if (id) {

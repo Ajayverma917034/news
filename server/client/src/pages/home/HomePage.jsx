@@ -48,8 +48,8 @@ const HomePage = () => {
 
       {homeNews.length > 4 && (
         <div className="flex spacing mt-2 sm:mt-8 ">
-          <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full  gap-5 ">
-            <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden">
+          <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full gap-5 ">
+            <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden w-full">
               {homeNews &&
                 homeNews.slice(4).map((news, index) => {
                   return (

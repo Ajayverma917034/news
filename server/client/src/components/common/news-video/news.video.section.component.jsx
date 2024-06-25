@@ -8,6 +8,7 @@ import adsmiddleimg from "../../../assets/adsmiddleimg.png";
 import { YtCollectionSkeleton } from "../../../skeleton/HomeSkeleton";
 import { Link } from "react-router-dom";
 import { formatDate } from "../../../common/date";
+import Heading2 from "../Heading2";
 
 const NewsVideo = ({ data, title }) => {
   return (
@@ -15,7 +16,7 @@ const NewsVideo = ({ data, title }) => {
       {data ? (
         <>
           <div className="flex w-full flex-col flex-wrap sm:gap-2 md:gap-6 mt-5">
-            <Heading title={title} />
+            <Heading2 link={"/top-videos"} title={title} />
             {/* Main Section  */}
             <Link
               to={`/video/${data[0]?.news_id}`}

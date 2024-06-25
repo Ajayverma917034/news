@@ -26,7 +26,7 @@ const StateBar = ({ state, navItems }) => {
   }, []);
 
   return (
-    <div className="bg-[#262626] flex">
+    <div className="bg-[#262626] flex w-full">
       <p
         className="p-3 flex items-center justify-center text-white bg-blue min-w-fit"
         style={{

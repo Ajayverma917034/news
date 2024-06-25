@@ -48,10 +48,7 @@ const newsSchema = new mongoose.Schema({
         required: true,
         ref: 'User'
     },
-    breaking_news: {
-        type: Boolean,
-        default: false,
-    },
+    
     activity: {
         total_reads: {
             type: Number,

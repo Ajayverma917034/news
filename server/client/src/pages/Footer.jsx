@@ -4,6 +4,7 @@ import google from "../assets/googleplay.png";
 import YouTube from "../assets/YouTube.png";
 import { ImFacebook2 } from "react-icons/im";
 import { FaSquareXTwitter, FaSquareInstagram } from "react-icons/fa6";
+import { Link } from "react-router-dom";
 
 const Footer = () => {
   return (
@@ -12,15 +13,24 @@ const Footer = () => {
         <div className="grid justify-center grid-rows-2 md:grid-rows-1 grid-cols-1  md:grid-cols-12 lg:grid-cols-11 gap-8 border-b-2 pb-8 w-full">
           <div className="flex col-span-1 md:col-span-6 lg:col-span-5 justify-center gap-14 sm:gap-28 md:gap-14 lg:gap-20 xl:gap-28 w-full ">
             <div className="flex flex-col ">
-              <h2 className="text-xl lg:text-2xl xl:text-3xl font-semibold border-b-2 mb-4">
+              <Link
+                to={"/"}
+                className="text-xl lg:text-2xl xl:text-3xl font-semibold border-b-2 mb-4"
+              >
                 होम
-              </h2>
-              <p className="text-lg lg:text-xl xl:text-2xl font-normal pb-1">
+              </Link>
+              <Link
+                to={"/"}
+                className="text-lg lg:text-xl xl:text-2xl font-normal pb-1"
+              >
                 बड़ी ख़बरें
-              </p>
-              <p className="text-lg lg:text-xl xl:text-2xl font-normal pb-1">
+              </Link>
+              <Link
+                to={"/top-videos"}
+                className="text-lg lg:text-xl xl:text-2xl font-normal pb-1"
+              >
                 टॉप वीडियो
-              </p>
+              </Link>
               <p className="text-lg lg:text-xl xl:text-2xl font-normal pb-1">
                 देश-विदेश
               </p>
@@ -123,14 +133,14 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-center items-center md:justify-between mb-8 sm:px-4 lg:px-8">
           <div className="py-8">
             <div className="w-68 pb-8 mx-8">
-              <img src={logo} alt="" />
+              <img src={logo} alt="Logo" />
             </div>
             <p>
               <span className="text-3xl sm:p-3 font-medium">
                 Office Address :
               </span>
               <span className="text-xl sm:p-3 font-normal">
-                सोनभद्र, उत्तरप्रदेश (231206)
+                सोनभद्र, उत्तरप्रदेश (231216)
               </span>
             </p>
             <p>
@@ -154,7 +164,7 @@ const Footer = () => {
               </div>
               <div>
                 <h2 className="text-3xl font-semibold">Subscribe Now</h2>
-                <a href="https://youtube.com/@themirror1122?si=uNLCLA9R9YBp_aWl">
+                <a target="_blank"  href="https://youtube.com/@themirror1122?si=uNLCLA9R9YBp_aWl">
                   <div className="flex justify-center items-center gap-2">
                     <div className="w-16">
                       <img src={YouTube} alt="" />
@@ -167,10 +177,10 @@ const Footer = () => {
             <div className="flex gap-8 items-center">
               <p className="text-2xl font-medium ">Follow Us</p>
               <div className="flex gap-4">
-                <a href="https://www.facebook.com/profile.php?id=100064487422657">
+                <a target="_blank" href="https://www.facebook.com/profile.php?id=100064487422657">
                   <ImFacebook2 className="size-8" />
                 </a>
-                <a href="https://x.com/janpadnewslive?t=xf1_SFr0zxbjsS7XEb8VqQ&s=08">
+                <a target="_blank" href="https://x.com/janpadnewslive?t=xf1_SFr0zxbjsS7XEb8VqQ&s=08">
                   <FaSquareXTwitter className="size-9" />
                 </a>
                 <a href="">

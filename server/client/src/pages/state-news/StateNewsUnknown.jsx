@@ -6,11 +6,13 @@ import CustomeAndGoogleAdd from "../advertisement/CustomeAndGoogleAdd";
 import SideNews from "../advertisement/related-news/SideNews";
 import { findHindi, stateDistricts } from "../../assets/data";
 import { MetaDataSection } from "../../seo/Helmet";
+import { CollectionNewsSkeleton } from "../../skeleton/HomeSkeleton";
 
 const StateNewsUnknown = () => {
   const [filteredStates, setFilteredStates] = useState(
     Object.keys(stateDistricts)
   );
+
 
   const [news, setNews] = useState(null);
   const navigate = useNavigate();
@@ -42,7 +44,7 @@ const StateNewsUnknown = () => {
     <>
       <MetaDataSection title={"All State News"} />
       <div className="flex spacing mt-8 flex-col">
-        <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto gap-5 ">
+        <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto gap-5 w-full">
           <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden">
             {/* Navbar for the states */}
             <div className="bg-[#262626] flex h-fit w-full">
@@ -68,7 +70,7 @@ const StateNewsUnknown = () => {
               </div>
             </div>
 
-            {news &&
+            {news ? (
               news
                 .slice(0, 2)
                 .map((newsItem, index) => (
@@ -77,11 +79,17 @@ const StateNewsUnknown = () => {
                     title={newsItem.state}
                     key={index}
                   />
-                ))}
+                ))
+            ) : (
+              <>
+                <CollectionNewsSkeleton />
+                <CollectionNewsSkeleton />
+              </>
+            )}
           </div>
 
           {/* Right advertisement section */}
-          <div className="flex flex-col md:gap-y-10 gap-y-2  md:col-span-2 mt-10">
+          <div className="flex flex-col md:gap-y-10 gap-y-2  md:col-span-2 ">
             <CustomeAndGoogleAdd />
             <SideNews title="read also" />
           </div>

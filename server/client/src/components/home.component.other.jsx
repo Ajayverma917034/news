@@ -8,7 +8,7 @@ const HomeRightBarOther = ({ data }) => {
     <>
       {data.length > 0 && (
         <div className="flex spacing mt-2 sm:mt-8 ">
-          <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto gap-5">
+          <div className="grid grid-cols-1 lg:grid-cols-6 w-full1z02 mx-auto gap-5">
             {/* <StatesNav /> */}
             <div className="flex flex-col flex-wrap  md:col-span-4 overflow-hidden">
               {data &&
