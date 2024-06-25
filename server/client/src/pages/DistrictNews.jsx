@@ -22,6 +22,8 @@ const DistrictNews = () => {
   let title = params.pathname.slice(1);
   title = title.split("/")[1];
 
+  title = title.split('%20').join(' ')
+
   // console.log
 
   const fetchNews = async (page) => {
@@ -65,7 +67,7 @@ const DistrictNews = () => {
         <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden w-full">
           {data ? (
             <>
-              {data.length > 0 && (
+              {!data.length ? <div>No News Found</div> :  (
                 <div className="flex w-full flex-col flex-wrap sm:gap-4 ">
                   <MetaDataSection title={`${title} district news`} />
                   <Heading title={findHindi(title)} />
