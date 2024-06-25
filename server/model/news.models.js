@@ -48,7 +48,10 @@ const newsSchema = new mongoose.Schema({
         required: true,
         ref: 'User'
     },
-    
+    post_time: {
+        type: Date,
+        default: '',
+    },
     activity: {
         total_reads: {
             type: Number,

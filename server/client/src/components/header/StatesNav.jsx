@@ -21,7 +21,7 @@ const StatesNav = () => {
         {navItems.map((item, index) => (
           <NavLink
             key={index}
-            to={`/${state}/${item.english}`}
+            to={`/state/${state}/${item.english}`}
             className="p-3 text-white mt-1 flex items-center justify-center"
           >
             {item.hindi}

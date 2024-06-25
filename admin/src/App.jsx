@@ -20,6 +20,7 @@ import AdminNewsHandler from "./pages/admin/AdminNewsHandler";
 import SignIn from "./pages/SignIn";
 import User from "./pages/admin/Users";
 import BreakingNews from "./pages/admin/BreakingNews";
+import DraftNewsHandler from "./pages/DraftNewsHandler";
 
 export const UserContext = createContext({});
 
@@ -64,6 +65,10 @@ const App = () => {
             <Route
               path="all-news"
               element={<ProtectedRoute component={NewsHandler} />}
+            />
+            <Route
+              path="draft-news"
+              element={<ProtectedRoute component={DraftNewsHandler} />}
             />
             <Route
               path="breaking-news"

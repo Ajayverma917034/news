@@ -60,7 +60,7 @@ export const createNews = tryCatch((req, res, next) => {
             if (!tags || tags.length === 0) {
                 return res.status(403).json({ error: 'You must provide tags for the news' })
             }
-            
+
             // Check if tags is provided and not empty
             if (!news_section_type || news_section_type.length === 0) {
 
@@ -490,10 +490,15 @@ export const getBreakingNews = tryCatch(async (req, res, next) => {
 
 export const getMyNews = tryCatch(async (req, res, next) => {
     let { limit, page, tags, state, district, location, draft } = req.body;
+    let query = {};
+    if (draft) {
+        query.draft = draft
+    }
     const authorId = req.user._id;
     limit = limit ? parseInt(limit) : 10;
     page = page ? parseInt(page) : 1;
-    const news = await News.find({ author: authorId }).sort({ createdAt: -1 }).skip(limit * (page - 1)).limit(limit).select('news_id title createdAt activity banner -_id').exec();
+    // console.log(query)
+    const news = await News.find({ author: authorId, ...query }).sort({ createdAt: -1 }).skip(limit * (page - 1)).limit(limit).select('news_id title createdAt activity banner -_id').exec();
     return res.status(200).json({ success: true, news })
 })
 
@@ -508,4 +513,26 @@ export const getMyNewsCount = tryCatch(async (req, res, next) => {
     if (draft) query.draft = draft;
     const count = await News.countDocuments({ author: authorId, ...query }).exec();
     return res.status(200).json({ totalDocs: count })
+})
+
+
+export const deleteDraftNews = tryCatch(async (req, res, next) => {
+    const { id } = req.params;
+    const news = await News.findOne({ news_id: id }).populate('author', 'username');
+    if (!news) {
+        return next(new ErrorHandler(404, 'News not found'))
+    }
+
+    // return res.status(200).json({ message: "News deleted successfully" })
+
+    await News.deleteOne({ news_id: id })
+
+    User.findOneAndUpdate({ username: news.author.username }, { $inc: { "account_info.total_news": -1 }, $pull: { "news": news._id } })
+        .then(user => {
+            return res.status(200).json({ message: "News deleted successfully" })
+        })
+        .catch(err => {
+            return next(new ErrorHandler(500, err.message))
+
+        })
 })

@@ -15,4 +15,6 @@ adminRoutes.post('/admin/get-user', isAuthenticated, authorizeroles("admin"), Ge
 adminRoutes.post('/admin/update-user', isAuthenticated, authorizeroles("admin"), Updateuser)
 adminRoutes.delete('/admin/delete-user', isAuthenticated, authorizeroles("admin"), Deleteuser)
 
+
+
 export default adminRoutes;

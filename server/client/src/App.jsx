@@ -16,6 +16,7 @@ import Footer from "./pages/Footer";
 import VideoPage from "./components/common/singlepage/VideoPage";
 import { Toaster } from "react-hot-toast";
 import StateNewsWithoutCategory from "./pages/state-news/StateNewsWithoutCategory";
+import MoreVideos from "./pages/MoreVideos";
 const App = () => {
   return (
     <BrowserRouter>
@@ -30,6 +31,8 @@ const App = () => {
         <Route path="/state" element={<StateNewsUnknown />} />
         {/* Routes for all know route    */}
         <Route path="/country" element={<MoreNews />} />
+        <Route path="/top-videos" element={<MoreVideos />} />
+
         <Route path="/world" element={<MoreNews />} />
         <Route path="/crime" element={<MoreNews />} />
         <Route path="/ipl" element={<MoreNews />} />
@@ -41,9 +44,9 @@ const App = () => {
         <Route path="/carrier" element={<MoreNews />} />
         {/* ... add here  */}
 
-        <Route path="/uttar-pradesh" element={<StateNews />} />
-        <Route path="/:state" element={<StateNewsWithoutCategory />} />
-        <Route path="/:state/:district" element={<DistrictNews />} />
+        <Route path="state/uttar-pradesh" element={<StateNews />} />
+        <Route path="state/:state" element={<StateNewsWithoutCategory />} />
+        <Route path="state/:state/:district" element={<DistrictNews />} />
         <Route path="/news/:news_id" element={<SinglePage />} />
         <Route path="/video/:news_id" element={<VideoPage />} />
       </Routes>

@@ -9,6 +9,7 @@ import { RiAdvertisementLine } from "react-icons/ri";
 import { lookInSession } from "../common/session";
 import { FaUsersCog } from "react-icons/fa";
 import { PiNewspaper } from "react-icons/pi";
+import { RiDraftLine } from "react-icons/ri";
 
 const SideBar = () => {
   let page = location.pathname.split("/")[2];
@@ -83,7 +84,7 @@ const SideBar = () => {
           <div
             ref={sidebarRef}
             className={
-              "min-w-[200px] pt-3 px-5 min-h-[calc(100vh-82px)] max-md:pb-4  bg-white md:bg-white md:h-cover md:sticky overflow-y-auto z-[150] md:border-gray-light md:border-r absolute max-md:top-[37px] max-md:px-16 max-md:-ml-7 duration-500 sidebar md:min-h-[calc(100vh-64px)] lg:min-h-[calc(100vh-64px)] xl:min-h-[calc(100vh-80px)]" +
+              "min-w-[200px] pt-3 px-5 min-h-[calc(100vh-85px)] max-md:pb-4  bg-white md:bg-white md:h-cover md:sticky overflow-y-auto z-[150] md:border-gray-light md:border-r absolute max-md:top-[37px] max-md:px-16 max-md:-ml-7 duration-500 sidebar md:min-h-[calc(100vh-64px)] lg:min-h-[calc(100vh-64px)] xl:min-h-[calc(100vh-80px)]" +
               (!showSideNav
                 ? " max-md:opacity-0 max-md:pointer-events-none"
                 : "")
@@ -135,14 +136,14 @@ const SideBar = () => {
               </NavLink>
             )}
             {/* {user?.role === "reporter" && ( */}
-              <NavLink
-                className="flex items-center gap-2 text-gray hover:bg-blue mt-1 hover:text-white p-2 rounded w-full sidebar-link"
-                to="/dashboard/create-news"
-                onClick={() => setShowSideNav(false)}
-              >
-                <IoNewspaper size={25} />
-                <span>Create News</span>
-              </NavLink>
+            <NavLink
+              className="flex items-center gap-2 text-gray hover:bg-blue mt-1 hover:text-white p-2 rounded w-full sidebar-link"
+              to="/dashboard/create-news"
+              onClick={() => setShowSideNav(false)}
+            >
+              <IoNewspaper size={25} />
+              <span>Create News</span>
+            </NavLink>
             {/* )} */}
             {user?.role === "admin" && (
               <NavLink
@@ -185,6 +186,14 @@ const SideBar = () => {
                 <span>All-News</span>
               </NavLink>
             )}
+            <NavLink
+              className="flex items-center gap-2 text-gray hover:bg-blue mt-1 hover:text-white p-2 rounded w-full sidebar-link"
+              to="/dashboard/draft-news"
+              onClick={() => setShowSideNav(false)}
+            >
+              <RiDraftLine size={25} />
+              <span>Draft News</span>
+            </NavLink>
             {user?.role === "admin" && (
               <NavLink
                 className="flex items-center gap-2 text-gray hover:bg-red hover:text-white mt-1 p-2 rounded w-full sidebar-link"

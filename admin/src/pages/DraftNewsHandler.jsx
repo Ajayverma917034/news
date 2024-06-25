@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { Link, useNavigate } from "react-router-dom";
-import { filterPaginationData } from "../../common/filterPaginationData";
-import httpClient from "../../services/httpClient";
-import { formatDate } from "../../common/date";
-import { handleImageError } from "../../common/imageError";
-import ConfirmationModal from "../../components/ConfirmationModal";
+import { filterPaginationData } from "../common/filterPaginationData";
+import httpClient from "../services/httpClient";
+import { formatDate } from "../common/date";
+import { handleImageError } from "../common/imageError";
+import ConfirmationModal from "../components/ConfirmationModal";
 import toast from "react-hot-toast";
-import Loader from "../../components/Loader";
-import { categoryData } from "../../common/categoryData";
+import Loader from "../components/Loader";
+import { categoryData } from "../common/categoryData";
 
 const categories = [
   "उत्तर प्रदेश",
@@ -35,13 +35,14 @@ const AdminNewsHandler = () => {
 
   const fetchNews = ({ page = 1 }) => {
     httpClient
-      .post(`admin/get-all-news`, { page, limit: itemsPerPage })
+      .post(`get-my-news`, { page, limit: itemsPerPage, draft: true })
       .then(async ({ data }) => {
         let formatData = await filterPaginationData({
           state: news,
-          data: data,
+          data: data.news,
           page,
-          countRoute: "/get-admin-news-count",
+          data_to_send: { draft: true },
+          countRoute: "/get-my-news-count",
         });
         setNews(formatData);
       })
@@ -51,18 +52,20 @@ const AdminNewsHandler = () => {
   };
 
   const handleDelete = async () => {
+    let loadingToast = toast.loading("Deleting...");
     try {
       if (!id) return;
-      let loadingToast = toast.loading("Deleting...");
-      const { data } = await httpClient.delete(`/admin/delete-news/${id}`);
+
+      const { data } = await httpClient.delete(`/delete-my-news/${id}`);
       setIsModalOpen(false);
       toast.dismiss(loadingToast);
       toast.success("News Deleted Successfully");
       fetchNews({ page: 1 });
     } catch (err) {
+      setIsModalOpen(false);
+      toast.dismiss(loadingToast);
       console.log(err);
       toast.error("Failed to delete news");
-      setIsModalOpen(false);
     }
   };
 
@@ -95,7 +98,7 @@ const AdminNewsHandler = () => {
         </select>
       </div>
       {/* <p className="mb-4">{newsItems.length} Item Found</p> */}
-      <div className="sspace-y-4 h-[calc(100vh-224px)] md:h-[calc(100vh-219px)] overflow-auto">
+      <div className="space-y-4 h-[calc(100vh-224px)] md:h-[calc(100vh-219px)] overflow-auto">
         {news ? (
           news?.results?.length ? (
             news?.results?.map((item, index) => (
@@ -108,7 +111,7 @@ const AdminNewsHandler = () => {
                   <img
                     src={item?.banner}
                     alt="news"
-                    className="w-full h-36 sm:w-22 sm:h-24"
+                    className="w-full h-32 sm:w-22 sm:h-20"
                     onError={handleImageError}
                   />
                 </div>
@@ -127,14 +130,6 @@ const AdminNewsHandler = () => {
                       <p className="text-lg text-gray">
                         <span className="font-semibold text-black">Read:</span>{" "}
                         {item.activity?.total_reads}
-                      </p>
-                      <p className="text-lg text-gray">
-                        <span className="font-semibold text-black">
-                          Reporter
-                        </span>
-                        <Link className="text-blue border-b border-blue ml-2">
-                          @{item?.author?.username}
-                        </Link>
                       </p>
                     </div>
                   </div>

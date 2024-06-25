@@ -30,9 +30,9 @@ const StateNewsUnknown = () => {
 
   const handleNavigate = (state) => {
     if (state === "uttar pradesh") {
-      navigate("/uttar-pradesh");
+      navigate("/state/uttar-pradesh");
     } else {
-      navigate(`/${state}`);
+      navigate(`/state/${state}`);
     }
   };
 

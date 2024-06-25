@@ -24,7 +24,7 @@ const HomePage = () => {
 
   const fetchYtNews = async () => {
     httpClient
-      .get("/news/youtube")
+      .post("/news/youtube")
       .then(({ data }) => {
         setYtNews(data.news);
       })

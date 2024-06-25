@@ -73,7 +73,7 @@ const BreakingNews = () => {
         </button>
       </div>
       {/* <p className="mb-4">{newsItems.length} Item Found</p> */}
-      <div className="space-y-4 h-[calc(100vh-247px)] overflow-auto">
+      <div className="space-y-4 h-[calc(100vh-224px)] md:h-[calc(100vh-219px)] overflow-auto">
         {news ? (
           news?.results?.length ? (
             news?.results?.map((item, index) => (

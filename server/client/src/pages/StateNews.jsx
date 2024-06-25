@@ -9,10 +9,13 @@ import adsimgright2 from "../assets/adsimgright2.png";
 import SideNews from "./advertisement/related-news/SideNews";
 import StateBar from "../components/common/StateBar";
 import { MetaData, MetaDataSection } from "../seo/Helmet";
+import CustomeAndGoogleAdd from "./advertisement/CustomeAndGoogleAdd";
 const StateNews = () => {
   let state = useLocation();
-  state = state.pathname.split("/")[1];
+  state = state.pathname.split("/")[2];
   state = state.toLowerCase().split("-").join(" ");
+
+  console.log(state)
   const navItems = findDistrict(state);
   const [news, setNews] = useState(null);
   const [dataSequence, setDataSequence] = useState(null);
@@ -57,7 +60,7 @@ const StateNews = () => {
           </div>
 
           <div className="flex flex-col md:gap-y-10 gap-y-2  md:col-span-2 mt-10">
-            <div className="flex flex-wrap  gap-y-1 gap-x-4 md:flex md:w-full  justify-center lg:flex-col ">
+            {/* <div className="flex flex-wrap  gap-y-1 gap-x-4 md:flex md:w-full  justify-center lg:flex-col ">
               <div className="w-[330px] h-[260px] overflow-hidden">
                 <img
                   className="w-full h-auto object-contain"
@@ -70,7 +73,8 @@ const StateNews = () => {
                   src={adsimgright2}
                 />
               </div>
-            </div>
+            </div> */}
+            <CustomeAndGoogleAdd/>
             <SideNews title="read also" />
           </div>
         </div>

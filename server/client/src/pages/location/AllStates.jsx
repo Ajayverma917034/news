@@ -102,7 +102,7 @@ const AllState = ({ isMenuOpen, setIsMenuOpen }) => {
                     return (
                       <li key={idx}>
                         <Link
-                          to={`/${state}/${district.english}`}
+                          to={`/state/${state}/${district.english}`}
                           className={
                             activeLink ===
                             `${state}-${district.english} capitalize`

@@ -132,7 +132,9 @@ const engToHindi = {
     'health': 'स्वास्थ्य',
     'carrier': 'करियर',
     'astrology': 'राशिफल',
-    'sports': 'खेल कूद'
+    'sports': 'खेल कूद',
+    'top videos': 'टॉप वीडियो',
+    'education': 'शिक्षा',
 };
 
 

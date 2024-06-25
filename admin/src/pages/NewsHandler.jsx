@@ -52,7 +52,7 @@ const NewsHandler = () => {
   return (
     <div className="mx-auto p-4 md:px-10">
       <div className="flex justify-between items-center gap-4 mb-4 ">
-        <div className="border-2  rounded-lg w-60 flex  justify-center items-center">
+        <div className="border-2  rounded-lg md:w-60 flex  justify-center items-center">
           <input
             type="text"
             placeholder="Search News"
@@ -74,7 +74,7 @@ const NewsHandler = () => {
         </select>
       </div>
       {/* <p className="mb-4">{newsItems.length} Item Found</p> */}
-      <div className="space-y-4 h-[calc(100vh-247px)] overflow-auto">
+      <div className="space-y-4 h-[calc(100vh-224px)] md:h-[calc(100vh-219px)] overflow-auto">
         {news ? (
           news?.results?.length ? (
             news?.results?.map((item, index) => (

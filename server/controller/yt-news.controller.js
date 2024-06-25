@@ -79,24 +79,24 @@ export const createYtNews = tryCatch(async (req, res, next) => {
 
 export const getYtNewses = tryCatch(async (req, res, next) => {
     try {
-        let { page, limit, state, district, location, tags, draft } = req.body;
-
-        let query = {};
-        if (state) query.state = state;
-        if (district) query.district = district;
-        if (location) query.location = location;
-        if (tags) query.tags = tags;
-        if (draft !== undefined) query.draft = draft;
+        let { page, limit} = req.body;
+        console.log(req.body)
+        // let query = {};
+        // if (state) query.state = state;
+        // if (district) query.district = district;
+        // if (location) query.location = location;
+        // if (tags) query.tags = tags;
+        // if (draft !== undefined) query.draft = draft;
 
         limit = limit ? limit : 4;
 
         page = page ? page : 1;
 
-        YtNews.find(query)
-            .sort({ "activity.total_reads": -1, "createdAt": -1 })
+        YtNews.find({})
+            .sort({  "createdAt": -1 })
             .skip((page - 1) * limit)
             .limit(limit)
-            .select('news_id title description tags location state district videoLinkId createdAt -_id')
+            .select('news_id title location videoLinkId createdAt -_id')
             .then(news => {
                 return res.status(200).json({ success: true, news })
             })

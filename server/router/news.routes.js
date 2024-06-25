@@ -1,6 +1,7 @@
 import express from 'express';
-import { adminNews, createNews, deleteNews, fetchDataStateWise, fetchRelatedNews, findNewsSectionTypeNews, findStateDataWithOutDistrict, findStateNews, getBreakingNews, getHomeNews, getMyNews, getMyNewsCount, getNews, getNewsCount, getNewses } from '../controller/news.controller.js';
+import { adminNews, createNews, deleteDraftNews, deleteNews, fetchDataStateWise, fetchRelatedNews, findNewsSectionTypeNews, findStateDataWithOutDistrict, findStateNews, getBreakingNews, getHomeNews, getMyNews, getMyNewsCount, getNews, getNewsCount, getNewses } from '../controller/news.controller.js';
 import { authorizeroles, isAuthenticated } from '../middleware/Authentication.js';
+import { deleteNewsAdmin } from '../controller/admin.controller.js';
 
 const newsRouter = express.Router();
 
@@ -21,7 +22,8 @@ newsRouter.post('/fetch-state-news-without-district', findStateDataWithOutDistri
 
 // newsRouter.get('/breaking-news', getBreakingNews)
 
-newsRouter.post('/get-my-news', isAuthenticated, authorizeroles("reporter"), getMyNews)
-newsRouter.post('/get-my-news-count', isAuthenticated, authorizeroles("reporter"), getMyNewsCount)
+newsRouter.post('/get-my-news', isAuthenticated, authorizeroles("reporter", "admin"), getMyNews)
+newsRouter.post('/get-my-news-count', isAuthenticated, authorizeroles("reporter", "admin"), getMyNewsCount)
+newsRouter.delete('/delete-my-news/:id', isAuthenticated, authorizeroles("reporter"), deleteDraftNews)
 
 export default newsRouter;

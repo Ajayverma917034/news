@@ -43,7 +43,7 @@ const StateBar = ({ state, navItems }) => {
         {navItems.map((item, index) => (
           <NavLink
             key={index}
-            to={`/${state}/${item.english}`}
+            to={`/state/${state}/${item.english}`}
             className="p-3 text-white mt-1 flex items-center justify-center min-w-fit"
           >
             {item.hindi}

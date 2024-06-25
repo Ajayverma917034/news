@@ -1,40 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
-import axios from "axios";
-import { toast } from "react-hot-toast";
-import useInfiniteScroll from "../common/useInfiniteScroll";
-import Heading from "../components/common/Heading";
 import MorePageCard from "../components/common/news-section/morepage.news.card";
+import Heading from "../components/common/Heading";
 import CustomeAndGoogleAdd from "./advertisement/CustomeAndGoogleAdd";
-import { findHindi } from "../assets/data";
-import { handleImageError } from "../common/errorImg";
 import SideNews from "./advertisement/related-news/SideNews";
+import { Link, useLocation } from "react-router-dom";
+import { findHindi } from "../assets/data";
+import axios from "axios";
+import useInfiniteScroll from "../common/useInfiniteScroll";
+import { handleImageError } from "../common/errorImg";
 import { MetaDataSection } from "../seo/Helmet";
 import { CollectionNewsSkeleton } from "../skeleton/HomeSkeleton";
+import MorePageVideoCard from "../components/common/news-section/morepage.news.card";
+import MoreNewsVideoCard from "../components/common/news-video/MoreNewsVideoCard";
+import { FaYoutube } from "react-icons/fa";
 
-const DistrictNews = () => {
+const MoreVideos = () => {
   const [data, setData] = useState(null);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
-  const stateName = useParams();
   const params = useLocation();
   let title = params.pathname.slice(1);
-  title = title.split("/")[2];
-
-  title = title.split('%20').join(' ')
-
-  // console.log
+  title = title.split("-").join(" ");
 
   const fetchNews = async (page) => {
     axios
-      .post("/get-news-query", {
-        limit: 10,
-        district: stateName.district,
-        page,
-      })
+      .post("/news/youtube", { limit: 10, page })
       .then(({ data }) => {
-        setData((prevData) => [...prevData, ...data]);
+        setData((prevData) => [...prevData, ...data.news]);
         setHasMore(data.length > 0);
       })
       .catch((err) => {
@@ -67,19 +60,25 @@ const DistrictNews = () => {
         <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden w-full">
           {data ? (
             <>
-              {!data.length ? <div>No News Found</div> :  (
+              {!data.length ? (
+                <div>No more news</div>
+              ) : (
                 <div className="flex w-full flex-col flex-wrap sm:gap-4 ">
                   <MetaDataSection title={`${title} district news`} />
                   <Heading title={findHindi(title)} />
                   {data.length > 0 && (
-                    <Link to={`/news/${data[0]?.news_id}`}>
+                    <Link to={`/video/${data[0]?.news_id}`}>
                       <div className="h-[180px] md:h-[400px] w-full mt-2 relative">
                         <img
-                          src={data[0]?.banner}
+                          src={`https://img.youtube.com/vi/${data[0]?.videoLinkId}/mqdefault.jpg`}
                           alt="News Image"
                           onError={handleImageError}
                           className="z-0 h-full w-full  object-cover"
                         />
+                        <div className="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-5"></div>
+                        <div className="absolute inset-0 flex justify-center items-center">
+                          <FaYoutube className="w-12 h-12 text-[#CD201F] cursor-pointer" />
+                        </div>
                         <div className="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-5"></div>
                         <div className="absolute bottom-0 text-center w-full">
                           <h1 className="news-title-lg text-white text-start lg:text-[27px] bg-gradient-to-t from-gray to-transparent p-2">
@@ -91,7 +90,7 @@ const DistrictNews = () => {
                   )}
                   <div className="flex w-full flex-col flex-wrap gap-y-6 py-6">
                     {data.slice(1).map((item, index) => (
-                      <MorePageCard key={index} data={item} />
+                      <MoreNewsVideoCard key={index} data={item} />
                     ))}
                     <div ref={lastElementRef}></div>
                     {isLoading && <div>Loading more...</div>}
@@ -115,4 +114,4 @@ const DistrictNews = () => {
   );
 };
 
-export default DistrictNews;
+export default MoreVideos;
