@@ -8,13 +8,6 @@ const AddBreakingNews = ({ setAddBreakingNews }) => {
   const [news, setNews] = useState({
     title: "",
   });
-
-  //   useEffect(() => {
-  //     if (selectedUser) {
-  //       setUser(selectedUser);
-  //     }
-  //   }, [selectedUser]);
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setNews({ ...news, [name]: value });
@@ -70,29 +63,14 @@ const AddBreakingNews = ({ setAddBreakingNews }) => {
               id="title"
               name="title"
               value={news.title}
-              className="w-full border rounded-md resize-none border-blue"
+              className="w-full border rounded-md resize-none border-blue p-2"
               onChange={handleChange}
               rows={5}
               required
             />
           </div>
         </form>
-        {/* <div className="form-group">
-        <label htmlFor="status">Status <span className="required">*</span></label>
-        <div className="switch-group">
-          <label className="switch">
-            <input
-              type="checkbox"
-              id="status"
-              name="status"
-              checked={user.status}
-              onChange={handleSwitchChange}
-            />
-            <span className="slider"></span>
-          </label>
-          <span className="switch-label">Inactive</span>
-        </div>
-      </div> */}
+       
         <div className="form-actions">
           <button
             type="button"

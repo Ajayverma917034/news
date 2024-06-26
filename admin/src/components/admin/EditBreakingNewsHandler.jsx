@@ -45,7 +45,7 @@ const EditBreakingNewsHandler = ({ news, setEditBreakingNews }) => {
 
   const handleClickOutside = (event) => {
     if (formRef.current && !formRef.current.contains(event.target)) {
-      setAddNewUser(false);
+      setEditBreakingNews(false);
     }
   };
 
@@ -63,15 +63,17 @@ const EditBreakingNewsHandler = ({ news, setEditBreakingNews }) => {
         </h4>
         <form onSubmit={handleSave}>
           <div className="form-group">
-            <label htmlFor="username">
-              Username <span className="required">*</span>
+            <label htmlFor="title">
+              Title <span className="required">*</span>
             </label>
-            <input
+            <textarea
               type="text"
               id="title"
               name="title"
               value={data.title}
+              className="w-full border rounded-md resize-none border-blue p-2"
               onChange={handleChange}
+              rows={5}
               required
             />
           </div>
@@ -81,12 +83,12 @@ const EditBreakingNewsHandler = ({ news, setEditBreakingNews }) => {
           <button
             type="button"
             className="cancel-button"
-            onClick={() => setAddNewUser(false)}
+            onClick={() => setEditBreakingNews(false)}
           >
             Cancel
           </button>
           <button type="button" className="save-button" onClick={handleSave}>
-            Add
+            Update
           </button>
         </div>
       </div>

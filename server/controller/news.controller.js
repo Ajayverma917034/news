@@ -157,6 +157,7 @@ export const getHomeNews = tryCatch(async (req, res, next) => {
                 promises.push(pushData);
 
         }
+
         res.status(200).json({ success: true, data: promises });
     } catch (error) {
         console.log(error);

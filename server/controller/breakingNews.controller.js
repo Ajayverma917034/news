@@ -1,9 +1,10 @@
 import BreakingNews from "../model/breakingnews.model.js";
-
+import cron from 'node-cron';
 export const Createnews = async (req, res) => {
     try {
+        const user = req.user;
         const { title } = req.body;
-        await BreakingNews.create({ title });
+        await BreakingNews.create({ title, author: user.username });
         return res
             .status(200)
             .json({ success: true, message: "breaking news created successfully" });
@@ -22,7 +23,7 @@ export const Getallnews = async (req, res) => {
 };
 export const GetAdminNews = async (req, res) => {
     try {
-        const allnews = await BreakingNews.find().select("title createdAt").exec();
+        const allnews = await BreakingNews.find().select("title createdAt author").exec();
         return res.status(200).json({ success: true, news: allnews });
     } catch (error) {
         return res.status(500).json({ success: false, error: error.message });
@@ -79,3 +80,18 @@ export const Deletenews = async (req, res) => {
         return res.status(500).json({ success: false, error: error.message });
     }
 };
+
+
+
+// Set up the cron job
+cron.schedule('0 0 * * *', async () => {
+    try {
+        const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+        await BreakingNews.deleteMany({ createdAt: { $lt: twentyFourHoursAgo } });
+    } catch (error) {
+        console.error('Error deleting documents:', error);
+    }
+}, {
+    scheduled: true,
+    timezone: "Asia/Kolkata"
+});

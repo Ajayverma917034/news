@@ -11,6 +11,6 @@ BreakinNewsRouter.post("/admin/get-breaking-news-count", isAuthenticated, author
 BreakinNewsRouter.get("/find-news/:id", Getnews);
 BreakinNewsRouter.get("/breaking-news", Getallnews);
 BreakinNewsRouter.put("/admin/update-news/:id", Updatenews);
-BreakinNewsRouter.delete("/admin/delete-news/:id", Deletenews);
+BreakinNewsRouter.delete("/admin/delete-breaking-news/:id", Deletenews);
 
 export default BreakinNewsRouter

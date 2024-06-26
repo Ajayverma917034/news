@@ -8,6 +8,8 @@ import { formatDate } from "../../common/date";
 import Loader from "../../components/Loader";
 import AddBreakingNews from "../../components/admin/AddBreakingNews";
 import EditBreakingNewsHandler from "../../components/admin/EditBreakingNewsHandler";
+import ConfirmationModal from "../../components/ConfirmationModal";
+import toast from "react-hot-toast";
 const categories = [
   "उत्तर प्रदेश",
   "मध्यप्रदेश",
@@ -26,6 +28,8 @@ const categories = [
 const BreakingNews = () => {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState(categories[0]);
+  const [id, setId] = useState(null)
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const itemsPerPage = 6;
   const [addBreakingNews, setAddBreakingNews] = useState(false);
   const [editBreakingNews, setEditBreakingNews] = useState(false);
@@ -47,6 +51,23 @@ const BreakingNews = () => {
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const handleDelete = async (e) => {
+    let loadingToast = toast.loading("Deleting...");
+    try {
+      if (!id) return;
+      const { data } = await httpClient.delete(`/admin/delete-breaking-news/${id}`);
+      setIsModalOpen(false);
+      toast.dismiss(loadingToast);
+      toast.success("News Deleted Successfully");
+      fetchNews({ page: 1 });
+    } catch (err) {
+      toast.dismiss(loadingToast);
+      toast.error("Failed to delete news");
+      console.log(err);
+      setIsModalOpen(false);
+    }
   };
 
   useEffect(() => {
@@ -94,18 +115,18 @@ const BreakingNews = () => {
                     <h3 className="font-medium text-xl line-clamp-1">
                       {item.title}
                     </h3>
-                    {/* <div className="flex justify-start gap-8">
+                    <div className="flex justify-start gap-8">
                       <p className="text-lg text-gray">
                         <span className="font-semibold text-black">
                           Created On:
                         </span>{" "}
-                        {formatDate(item.createdAt)}
+                        {formatDate(item?.createdAt)}
                       </p>
                       <p className="text-lg text-gray">
-                        <span className="font-semibold text-black">Read:</span>{" "}
-                        {item.activity.total_reads}
+                        <span className="font-semibold text-black">Created By:</span>{" "}
+                        @{item?.author}
                       </p>
-                    </div> */}
+                    </div>
                   </div>
                   <div className="flex gap-4 mt-2">
                     <button
@@ -117,9 +138,14 @@ const BreakingNews = () => {
                     >
                       Edit
                     </button>
-                    {/* <button className="bg-red text-white px-3 py-1 rounded-lg text-base">
+                    <button className="bg-red text-white px-3 py-1 rounded-lg text-base"
+                    onClick={() => {
+                      setIsModalOpen(true);
+                      setId(item?._id);
+                    }}
+                    >
                       Delete
-                    </button> */}
+                    </button>
                   </div>
                 </div>
               </div>
@@ -165,6 +191,12 @@ const BreakingNews = () => {
           setEditBreakingNews={setEditBreakingNews}
         />
       )}
+      <ConfirmationModal
+        id={id}
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onConfirm={handleDelete}
+      />
     </div>
   );
 };
