@@ -80,8 +80,8 @@ export const createYtNews = tryCatch(async (req, res, next) => {
 
 export const getYtNewses = tryCatch(async (req, res, next) => {
     try {
-        let { page, limit} = req.body;
-        console.log(req.body)
+        let { page, limit } = req.body;
+        // console.log(req.body)
         // let query = {};
         // if (state) query.state = state;
         // if (district) query.district = district;
@@ -94,7 +94,7 @@ export const getYtNewses = tryCatch(async (req, res, next) => {
         page = page ? page : 1;
 
         YtNews.find({})
-            .sort({  "createdAt": -1 })
+            .sort({ "createdAt": -1 })
             .skip((page - 1) * limit)
             .limit(limit)
             .select('news_id title location videoLinkId createdAt -_id')

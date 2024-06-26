@@ -3,12 +3,12 @@ import SubNewsCard from "../../../components/common/news-section/SubNewsCard";
 import Heading from "../../../components/common/Heading";
 import httpClient from "../../../api/httpClient";
 import { findHindi } from "../../../assets/data";
-const SideNews = ({ title = "" }) => {
+const SideNews = ({ title = "", limit = "5" }) => {
   const [data, setData] = useState(null);
   const fetchNews = async () => {
     httpClient
       .post("/fetch-sidebar-news", {
-        limit: 5,
+        limit: limit,
         news_section_type: [title],
       })
       .then(({ data }) => {

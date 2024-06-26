@@ -4,6 +4,7 @@ import httpClient from "../../api/httpClient";
 import HomeRightBarOther from "../../components/home.component.other";
 import NewsSection from "../../components/common/news-section/news.section.component";
 import { MetaDataSection } from "../../seo/Helmet";
+import ApnaZilaMain from "./ApnaZila/ApnaZilaMain";
 
 const HomePage = () => {
   const [homeNews, setHomeNews] = useState([[], [], [], []]);
@@ -44,11 +45,12 @@ const HomePage = () => {
     <>
       <MetaDataSection title={"Janpad News"} />
       <HomeRightBar data={homeNews.slice(0, 2)} ytData={ytNews} />
+      <ApnaZilaMain />
       <HomeRightBarOther data={homeNews.slice(2, 4)} />
 
       {homeNews.length > 4 && (
         <div className="flex spacing mt-2 sm:mt-8 ">
-          <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full gap-5 ">
+          <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full gap-5">
             <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden w-full">
               {homeNews &&
                 homeNews.slice(4).map((news, index) => {
