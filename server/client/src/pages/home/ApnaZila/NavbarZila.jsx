@@ -33,11 +33,11 @@ const NavbarZila = ({
   }, []);
 
   return (
-    <nav className="px-3 flex justify-between items-center pt-1 bg-[#1f2024] border-b-2 border-[#36373a]">
+    <nav className="px-0 md:px-3 flex justify-between items-center pt-1 bg-[#1f2024] border-b-2 border-[#36373a]">
       <div>
         <h1 className="text-red text-3xl font-semibold">अपना जिला</h1>
       </div>
-      <div className="flex space-x-4 items-center relative">
+      <div className="flex space-x-2 md:space-x-4 items-center relative">
         {districts.slice(0, visibleDistricts).map((district, index) => (
           <button
             key={index}
@@ -63,9 +63,10 @@ const NavbarZila = ({
                 {districts.slice(visibleDistricts).map((district, index) => (
                   <button
                     key={index}
-                    onClick={() =>
-                      setCurrentDistrictIndex(visibleDistricts + index)
-                    }
+                    onClick={() => {
+                      setCurrentDistrictIndex(visibleDistricts + index);
+                      setHovered(false);
+                    }}
                     className={`text-white block text-base md:text-xl w-full mt-1 hover:underline decoration-red ${
                       currentDistrictIndex === index + visibleDistricts
                         ? "!text-red"

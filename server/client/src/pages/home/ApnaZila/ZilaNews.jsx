@@ -110,7 +110,7 @@ const ZilaNews = ({ data, districts, currentDistrictIndex }) => {
                 <Link
                   to={`/news/${card?.news_id}`}
                   key={index}
-                  className=" grid grid-cols-3 max-md:gap-x-4 rounded-lg shadow-md p-2 "
+                  className=" grid grid-cols-3 max-md:gap-x-4 rounded-lg shadow-md max-md:py-2 md:p-2 "
                 >
                   <div className="col-span-1 h-[90px]">
                     <img

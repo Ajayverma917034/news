@@ -44,7 +44,7 @@ const ApnaZilaMain = () => {
   }, [currentDistrictIndex]);
   return (
     <div className="flex spacing mt-2 sm:mt-8 ">
-      <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full gap-5 ">
+      <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full gap-x-5 ">
         <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden w-full p-3 bg-[#1f2024]">
           <NavbarZila
             {...{
@@ -59,7 +59,7 @@ const ApnaZilaMain = () => {
             currentDistrictIndex={currentDistrictIndex}
           />
         </div>
-        <div className="flex flex-col md:gap-y-10 gap-y-2  md:col-span-2 mt-10">
+        <div className="flex flex-col md:gap-y-10 gap-y-2  md:col-span-2 md:mt-10">
           <SideNews title={"education"} limit={6} />
         </div>
       </div>

@@ -5,7 +5,7 @@ import { TfiAngleRight } from "react-icons/tfi";
 
 const PaginationZila = ({ currentDistrictIndex, setCurrentDistrictIndex }) => {
   return (
-    <div className="flex justify-between items-center gap">
+    <div className="flex justify-between items-center gap-x-2">
       <button
         onClick={() => setCurrentDistrictIndex((prev) => prev - 1)}
         className="text-white border p-[2px]"
