@@ -76,7 +76,7 @@ const ZilaNews = ({ data, districts, currentDistrictIndex }) => {
       <div className="flex w-full flex-col p- md:p-4 flex-wrap sm:gap-4 ">
         {/* Main Section  */}
         <Link
-          // to={`/news/${data[0]?.news_id}`}
+          to={`/news/${data[0]?.news_id}`}
           className="flex md:flex-row flex-col justify-between w-full "
         >
           <div className="md:w-[50%] w-full h-auto max-h-[16rem]">
@@ -94,7 +94,11 @@ const ZilaNews = ({ data, districts, currentDistrictIndex }) => {
             <div className="flex items-center">
               <CiLocationOn className="location-lg" />
               <p className="location-title-lg text-white pt-1 px-2 capitalize">
-                {findHindi(districts[currentDistrictIndex])}
+                {findHindi(
+                  currentDistrictIndex === 0
+                    ? data[0]?.location
+                    : districts[currentDistrictIndex]
+                )}
               </p>
             </div>
           </div>
@@ -126,7 +130,11 @@ const ZilaNews = ({ data, districts, currentDistrictIndex }) => {
                     <div className="flex items-center">
                       <CiLocationOn className="location-sm mb-1 text-red" />
                       <p className="location-title-sm px-1 capitalize text-white">
-                        {findHindi(districts[currentDistrictIndex])}
+                        {findHindi(
+                          currentDistrictIndex === 0
+                            ? data[0]?.location
+                            : districts[currentDistrictIndex]
+                        )}
                       </p>
                     </div>
                   </div>

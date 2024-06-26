@@ -21,8 +21,8 @@ const App = () => {
   return (
     <BrowserRouter>
       {/* <HeadNav /> */}
-      {/* <Navbar /> */}
-      {/* <Slider /> */}
+      <Navbar />
+      <Slider />
       <Toaster />
       <BreakingNews />
       <Routes>
