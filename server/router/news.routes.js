@@ -18,7 +18,7 @@ newsRouter.post("/fetch-state-news", fetchDataStateWise)
 newsRouter.get("/fetch-all-state-news", findStateNews)
 newsRouter.post('/fetch-sidebar-news', findNewsSectionTypeNews)
 
-newsRouter.post('/fetch-state-news-without-district', findStateDataWithOutDistrict)
+newsRouter.post('/fetch-state-news-without-districts', findStateDataWithOutDistrict)
 
 // newsRouter.get('/breaking-news', getBreakingNews)
 
