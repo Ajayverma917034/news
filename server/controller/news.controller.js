@@ -82,7 +82,8 @@ export const createNews = tryCatch((req, res, next) => {
 
         // tags = tags.map(tag => tag.trim().toLowerCase());
 
-        let news_id = id || title.replace(/[^0-9]/g, ' ').replace(/\s+/g, "-");
+        let news_id = id || title.trim().replace(/\s+/g, '-');
+
         news_id += '-' + getCurrentDate() + '-' + generateNanoId();
 
         // tags = tags.map(tags => tags.trim().toLowerCase());
