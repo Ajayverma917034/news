@@ -4,7 +4,8 @@ import httpClient from "../../api/httpClient";
 import HomeRightBarOther from "../../components/home.component.other";
 import NewsSection from "../../components/common/news-section/news.section.component";
 import { MetaDataSection } from "../../seo/Helmet";
-import ApnaZilaMain from "./ApnaZila/ApnaZilaMain";
+import RajyaMain from "./RajyaMain";
+import ApnaZila from "./ApnaZila";
 
 const HomePage = () => {
   const [homeNews, setHomeNews] = useState([[], [], [], []]);
@@ -45,7 +46,8 @@ const HomePage = () => {
     <>
       <MetaDataSection title={"Janpad News"} />
       <HomeRightBar data={homeNews.slice(0, 2)} ytData={ytNews} />
-      <ApnaZilaMain />
+      <RajyaMain />
+      <ApnaZila />
       <HomeRightBarOther data={homeNews.slice(2, 4)} />
 
       {homeNews.length > 4 && (

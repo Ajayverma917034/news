@@ -1,19 +1,23 @@
 import React from "react";
 import { CiLocationOn } from "react-icons/ci";
-import { formatDate } from "../../../common/date";
-import { handleImageError } from "../../../common/errorImg";
-import { findHindi } from "../../../assets/data";
 import { Link } from "react-router-dom";
-import { CollectionNewsSkeleton } from "../../../skeleton/HomeSkeleton";
-import moreimg from "../../../assets/morewhite.png";
-
-const ZilaNews = ({ data, districts, currentDistrictIndex }) => {
+import moreimg from "../../assets/morewhite.png";
+import { handleImageError } from "../../common/errorImg";
+import { formatDate } from "../../common/date";
+import { CollectionNewsSkeleton } from "../../skeleton/HomeSkeleton";
+const ApnaNews = ({ data, navItems, currentIndex, hint }) => {
   //   console.log(data);
   return data ? (
     !data.length > 0 ? (
-      <div>कोई समाचार उपलब्ध नहीं</div>
+      <div
+        className={`news-title-lg min-h-32 w-full flex items-center justify-center ${
+          hint === "state" ? "" : "text-white"
+        }`}
+      >
+        <p>कोई समाचार उपलब्ध नहीं</p>
+      </div>
     ) : (
-      <div className="flex w-full flex-col p- md:p-4 flex-wrap sm:gap-4 relative">
+      <div className="flex w-full flex-col max-md:mt-1 md:p-4 flex-wrap sm:gap-4 relative">
         {/* Main Section  */}
         <Link
           to={`/news/${data[0]?.news_id}`}
@@ -24,23 +28,27 @@ const ZilaNews = ({ data, districts, currentDistrictIndex }) => {
               className="max-h-[16rem]"
               src={data[0]?.banner}
               onError={handleImageError}
-              onLoadStart={handleImageError}
-              onLoadedData={data[0]?.banner}
             />
           </div>
           <div className="md:w-[45%] w-full flex flex-col justify-center">
-            <p className="date-lg text-white">
+            <p className={`date-lg ${hint === "state" ? "" : "text-white"}`}>
               {formatDate(data[0]?.createdAt)}
             </p>
-            <h1 className="news-title-lg text-white">{data[0]?.title}</h1>
+            <h1
+              className={`news-title-lg ${
+                hint === "state" ? "" : "text-white"
+              }`}
+            >
+              {data[0]?.title}
+            </h1>
             <div className="flex items-center">
               <CiLocationOn className="location-lg" />
-              <p className="location-title-lg text-white pt-1 px-2 capitalize">
-                {findHindi(
-                  currentDistrictIndex === 0
-                    ? data[0]?.location
-                    : districts[currentDistrictIndex]
-                )}
+              <p
+                className={` location-title-lg pt-1 px-2 capitalize  ${
+                  hint === "state" ? "" : "text-white"
+                }`}
+              >
+                {navItems[currentIndex]}
               </p>
             </div>
           </div>
@@ -63,20 +71,28 @@ const ZilaNews = ({ data, districts, currentDistrictIndex }) => {
                     />
                   </div>
                   <div className="md:ml-4 col-span-2 ">
-                    <h2 className="text-lg text-white line-clamp-2">
+                    <h2
+                      className={`text-lg line-clamp-2 ${
+                        hint === "state" ? "" : "text-white"
+                      }`}
+                    >
                       {card.title}
                     </h2>
-                    <p className="text-gray-500 text-white line-clamp-1">
+                    <p
+                      className={`line-clamp-1 ${
+                        hint === "state" ? "" : "text-white"
+                      }`}
+                    >
                       {formatDate(card?.createdAt)}
                     </p>
                     <div className="flex items-center">
                       <CiLocationOn className="location-sm mb-1 text-red" />
-                      <p className="location-title-sm px-1 capitalize text-white">
-                        {findHindi(
-                          currentDistrictIndex === 0
-                            ? card?.location
-                            : districts[currentDistrictIndex]
-                        )}
+                      <p
+                        className={`location-title-sm px-1 capitalize ${
+                          hint === "state" ? "" : "text-white"
+                        }`}
+                      >
+                        {navItems[currentIndex]}
                       </p>
                     </div>
                   </div>
@@ -85,7 +101,11 @@ const ZilaNews = ({ data, districts, currentDistrictIndex }) => {
             })}
         </div>
         <Link
-          to={`/state/district/${districts[currentDistrictIndex]}`}
+          to={
+            hint === "state"
+              ? `/state/${navItems[currentIndex]}`
+              : `/state/district/${navItems[currentIndex]}`
+          }
           className="flex mr-3 items-center justify-center absolute bottom-[-5px] right-[-15px] bg-red rounded px-1"
         >
           <h1 className="text-2xl md:text-3xl lg:text-3xl font-bold text-white font-sans mr-2 capitalize">
@@ -100,4 +120,4 @@ const ZilaNews = ({ data, districts, currentDistrictIndex }) => {
   );
 };
 
-export default ZilaNews;
+export default ApnaNews;

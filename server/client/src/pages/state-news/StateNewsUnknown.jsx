@@ -13,7 +13,6 @@ const StateNewsUnknown = () => {
     Object.keys(stateDistricts)
   );
 
-
   const [news, setNews] = useState(null);
   const navigate = useNavigate();
 
@@ -38,6 +37,7 @@ const StateNewsUnknown = () => {
 
   useEffect(() => {
     fetchStateNews();
+    window.scrollTo(0, 0);
   }, []);
 
   return (

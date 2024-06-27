@@ -12,7 +12,7 @@ export const stateDistricts = {
         { english: 'lakhimpur kheri', hindi: 'लखीमपुर खीरी' },
         { english: 'pilibhit', hindi: 'पीलीभीत' },
     ],
-    "uttrakhand": [
+    "uttarakhand": [
 
     ],
     "bihar": [
@@ -24,7 +24,7 @@ export const stateDistricts = {
     "madhyapradesh": [
         { english: 'singrauli', hindi: 'सिंगरौली' },
     ],
-    "chhatisgarh": [
+    "chhattisgarh": [
 
     ],
 
@@ -101,9 +101,9 @@ const engToHindi = {
     'north goa': 'उत्तर गोवा',
     'south goa': 'दक्षिण गोवा',
 
-    'uttrakhand': 'उत्तराखंड',
+    'uttarakhand': 'उत्तराखंड',
     'jharkhand': 'झारखंड',
-    'chhatisgarh': 'छत्तीसगढ़',
+    'chhattisgarh': 'छत्तीसगढ़',
 
     // categorydata
     'Big News': 'बड़ी खबर',
@@ -119,6 +119,7 @@ const engToHindi = {
     'Carrier': 'करियर',
     'Astrology': 'राशिफल',
     'Sports': 'खेल कूद',
+    'Bollywood': 'बॉलीवुड',
 
     'big news': 'बड़ी खबर',
     'technology': 'टैकनोलजी',
@@ -135,6 +136,7 @@ const engToHindi = {
     'sports': 'खेल कूद',
     'top videos': 'टॉप वीडियो',
     'education': 'शिक्षा',
+    "bollywood": "बॉलीवुड",
 };
 
 
@@ -177,6 +179,7 @@ export const states = [
 
 
 export const findHindi = (eng) => {
+    eng = eng.toLowerCase();
     return engToHindi[eng] || eng;
 }
 export const findDistrict = (state) => {

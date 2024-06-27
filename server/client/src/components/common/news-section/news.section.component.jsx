@@ -36,7 +36,7 @@ const NewsSection = ({ data, title }) => {
                   <div className="flex items-center">
                     <CiLocationOn className="location-lg" />
                     <p className="location-title-lg pt-1 px-2 capitalize">
-                      {findHindi(data[0]?.location)}
+                      {data[0]?.location}
                     </p>
                   </div>
                 </div>
@@ -68,7 +68,7 @@ const NewsSection = ({ data, title }) => {
                           <div className="flex items-center">
                             <CiLocationOn className="location-sm mb-1 text-red" />
                             <p className="location-title-sm px-1 capitalize">
-                              {findHindi(card?.location)}
+                              {card?.location}
                             </p>
                           </div>
                         </div>

@@ -14,5 +14,6 @@ export const CategoryData = [
     { english: "health", hindi: "स्वास्थ्य" },
     { english: "carrier", hindi: "करियर" },
     { english: "astrology", hindi: "राशिफल" },
-    { english: "education", hindi: "शिक्षा"},
+    { english: "education", hindi: "शिक्षा" },
+    { english: "health tips", hindi: "स्वास्थ्य टिप्स" },
 ]   

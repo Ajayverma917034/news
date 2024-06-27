@@ -21,7 +21,7 @@ export const stateDistricts = {
     "jharkhand": [
 
     ],
-    "madhya pradesh": [
+    "madhyapradesh": [
         { english: 'singrauli', hindi: 'सिंगरौली' },
     ],
     "chhattisgarh": [
@@ -104,6 +104,7 @@ const engToHindi = {
     'chhattisgarh': 'छत्तीसगढ़',
     'uttarakhand': 'उत्तराखंड',
     'madhya pradesh': 'मध्य प्रदेश',
+    'madhyapradesh': 'मध्य प्रदेश',
     'jharkhand': 'झारखंड',
 
 
@@ -122,6 +123,9 @@ const engToHindi = {
     'Carrier': 'करियर',
     'Astrology': 'राशिफल',
     'Sports': 'खेल कूद',
+    'Health Tips': 'स्वास्थ्य टिप्स',
+    'Bollywood': 'बॉलीवुड',
+    'Education': 'शिक्षा',
 
 };
 
