@@ -5,6 +5,7 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
+
     fontSize: {
       'sm': '12px',
       'base': '14px',
@@ -29,6 +30,10 @@ export default {
         'black': 'black',
         'white': 'white',
         'transparent': 'transparent',
+      },
+      screens: {
+        '1374px': '1385px',
+        '1000px': '1000px',
       },
     },
   },

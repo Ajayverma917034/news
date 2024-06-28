@@ -17,8 +17,12 @@ const ytNewsSchema = new mongoose.Schema({
     activity: {
         total_reads: {
             type: Number,
-            default: 0
-        }
+            default: 0,
+        },
+        total_today_count: {
+            type: Number,
+            default: 0,
+        },
     },
     tags: {
         type: [String],

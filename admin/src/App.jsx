@@ -1,7 +1,7 @@
 // src/App.jsx
 import React, { useState, useEffect, createContext } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Das from "./dashboard/Das";
+import Dashboard from "./dashboard/Dashboard";
 import NewsList from "./components/common/news/NewsList";
 import Navbar from "./pages/Navbar";
 import Home from "./pages/Home";
@@ -47,7 +47,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/sign-in" element={<SignIn />} />
           <Route path="/dashboard" element={<Sidebar />}>
-            <Route index element={<ProtectedRoute component={Das} />} />
+            <Route index element={<ProtectedRoute component={Dashboard} />} />
             <Route
               path="create-news"
               element={<ProtectedRoute component={Editor} />}
