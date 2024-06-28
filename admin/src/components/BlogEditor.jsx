@@ -136,7 +136,7 @@ const BlogEditor = ({ blogContent }) => {
 
   return (
     <>
-      <div className="p-5 md:p-10">
+      <div className="p-5 md:p-10 h-[calc(100vh-100px)] md:h-[calc(100vh-82px)] overflow-auto">
         <nav className="flex px-3 mb-4">
           <p className="max-md:hidden text-black line-clamp-1 w-full text-4xl font-medium leading-7 sm:line-clamp-2 ">
             {title?.length ? title : "New News"}

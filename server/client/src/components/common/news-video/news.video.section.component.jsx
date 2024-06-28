@@ -37,7 +37,7 @@ const NewsVideo = ({ data, title }) => {
                 <h1 className="news-title-lg">{data[0]?.title}</h1>
                 <div className="flex items-center">
                   <CiLocationOn className="location-lg" />
-                  <p className="location-title-lg pt-1 px-3">
+                  <p className="location-title-lg pt-1 px-3 capitalize">
                     {data[0]?.location}
                   </p>
                 </div>

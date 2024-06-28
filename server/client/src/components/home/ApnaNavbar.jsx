@@ -7,7 +7,7 @@ const ApnaNavbar = ({ navItems, currentIndex, setCurrentIndex, hint }) => {
 
   const updatevisibleNavItems = () => {
     const width = window.innerWidth;
-    if (width < 331) {
+    if (width < 380) {
       setVisibileNavItems(3);
     } else if (width < 400) {
       setVisibileNavItems(4);
