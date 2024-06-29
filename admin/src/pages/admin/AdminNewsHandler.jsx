@@ -9,38 +9,63 @@ import ConfirmationModal from "../../components/ConfirmationModal";
 import toast from "react-hot-toast";
 import Loader from "../../components/Loader";
 import { categoryData } from "../../common/categoryData";
-
-const categories = [
-  "उत्तर प्रदेश",
-  "मध्यप्रदेश",
-  "छत्तीसगढ़",
-  "बिहार",
-  "झारखंड",
-  "राशिफल",
-  "देश",
-  "क्राइम",
-  "कैरियर",
-  "हेल्थ",
-  "फ़िल्म",
-  "धर्म",
-];
+import { MdOutlineManageSearch } from "react-icons/md";
+import FilterNewsSection from "./FilterNewsSection";
+import { GrPowerReset } from "react-icons/gr";
+import { GiNewspaper } from "react-icons/gi";
 
 const AdminNewsHandler = () => {
   const navigate = useNavigate();
-  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
+  const [selectedOptions, setSelectedOptions] = useState({
+    news_section_type: [],
+    district: "",
+    state: "",
+    location: "",
+    createdAt: "",
+    search: "",
+  });
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const itemsPerPage = 6;
   const [news, setNews] = useState(null);
   const [id, setId] = useState(null);
 
-  const fetchNews = ({ page = 1 }) => {
+  const openFilter = () => {
+    setIsFilterOpen(true);
+    // document.body.style.overflow = "hidden"; // Disable scroll
+  };
+
+  const closeFilter = () => {
+    setIsFilterOpen(false);
+    // document.body.style.overflow = "auto"; // Enable scroll
+  };
+
+  const handleSubmitSearch = (e) => {
+    e.preventDefault();
+    // if (e.key === "Enter") {
+    //   setSelectedOptions((prevOptions) => ({
+    //     ...prevOptions,
+    //     search: e.target.value,
+    //   }));
+    // }
+    fetchNews({ page: 1, findCount: true });
+  };
+  const handleSubmit = () => {
+    fetchNews({ page: 1, findCount: true });
+  };
+  const fetchNews = ({ page = 1, findCount = false }) => {
     httpClient
-      .post(`admin/get-all-news`, { page, limit: itemsPerPage })
+      .post(`admin/get-all-news`, {
+        page,
+        limit: itemsPerPage,
+        ...selectedOptions,
+      })
       .then(async ({ data }) => {
         let formatData = await filterPaginationData({
-          state: news,
+          state: findCount ? null : news,
           data: data,
           page,
+          data_to_send: selectedOptions,
           countRoute: "/get-admin-news-count",
         });
         setNews(formatData);
@@ -65,34 +90,64 @@ const AdminNewsHandler = () => {
       setIsModalOpen(false);
     }
   };
-
+  const handleResetFilter = () => {
+    setSelectedOptions({
+      news_section_type: [],
+      district: "",
+      state: "",
+      location: "",
+      createdAt: "",
+      search: "",
+    });
+    fetchNews({ page: 1, findCount: true });
+  };
   useEffect(() => {
     fetchNews({ page: 1 });
   }, []);
 
   return (
-    <div className="mx-auto p-4 md:px-10">
-      <div className="flex justify-between items-center gap-4 mb-4 ">
-        <div className="border-2  rounded-lg w-60 flex  justify-center items-center">
+    <div className="mx-auto px-4 pt-3 md:p-4 md:px-10">
+      <div className="flex justify-between max-sm:flex-col items-center gap-4 mb-2">
+        <form
+          onSubmit={handleSubmitSearch}
+          className="border-2 rounded-lg w-full sm:w-60 flex  justify-between items-center"
+        >
           <input
             type="text"
             placeholder="Search News"
-            className="border-none outline-none p-1 rounded-lg"
+            // onKeyDown={handleSubmitSearch}
+            // onSubmit={handleSubmitSearch}
+            value={selectedOptions.search}
+            onChange={(e) => {
+              setSelectedOptions({
+                ...selectedOptions,
+                search: e.target.value,
+              });
+            }}
+            className="border-none outline-none max-sm:p-2 p-1 rounded-lg"
           />
-          <BsSearch size={20} />
-        </div>
+          <BsSearch size={25} className="max-sm:pr-1" />
+        </form>
 
-        <select
-          value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
-          className="border p-1 rounded"
-        >
-          {categoryData.map((category, index) => (
-            <option key={index} value={category.english}>
-              {category.hindi}
-            </option>
-          ))}
-        </select>
+        <div className="flex gap-x-3 max-sm:justify-between max-sm:w-full">
+          <button className="flex gap-x-2 items-center text-2xl shadow-regular-shadow p-2 rounded-md px-3 text-blue font-semibold">
+            <GiNewspaper size={20} />
+            Total News : {news?.totalDocs}
+          </button>
+          <button
+            className="flex gap-x-2 items-center text-2xl shadow-regular-shadow p-2 rounded-md px-3 text-blue font-semibold"
+            onClick={handleResetFilter}
+          >
+            <GrPowerReset size={20} />
+            Reset Filter
+          </button>
+          <button
+            className="flex gap-x-2 items-center text-2xl shadow-regular-shadow p-2 rounded-md px-3 text-blue font-semibold"
+            onClick={openFilter}
+          >
+            <MdOutlineManageSearch size={25} /> Filter
+          </button>
+        </div>
       </div>
       {/* <p className="mb-4">{newsItems.length} Item Found</p> */}
       <div className="sspace-y-4 h-[calc(100vh-224px)] md:h-[calc(100vh-219px)] overflow-auto">
@@ -198,6 +253,13 @@ const AdminNewsHandler = () => {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
         onConfirm={handleDelete}
+      />
+      <FilterNewsSection
+        handleSubmit={handleSubmit}
+        setSelectedOptions={setSelectedOptions}
+        selectedOptions={selectedOptions}
+        isOpen={isFilterOpen}
+        onClose={closeFilter}
       />
     </div>
   );

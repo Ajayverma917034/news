@@ -4,12 +4,30 @@ import tryCatch from "../utils/asyncFunction.js";
 import ErrorHandler from "../utils/errorHandler.js";
 
 export const getNews = tryCatch(async (req, res, next) => {
-    let { page, limit, state, district, location, news_section_type, draft } = req.body;
+    let { page, limit, state, district, location, news_section_type, draft, createdAt, search } = req.body;
     const query = {}
+
     if (state) query.state = state;
     if (district) query.district = district;
     if (location) query.location = location;
-    if (news_section_type) query.news_section_type = news_section_type;
+    if (news_section_type && news_section_type.length) query.news_section_type = { $in: news_section_type };
+    if (createdAt) {
+        const start = new Date(createdAt);
+        console.log(start)
+        start.setHours(0, 0, 0, 0); // Start of the day
+        const end = new Date(createdAt);
+        end.setHours(23, 59, 59, 999); // End of the day
+        query.createdAt = { $gte: start, $lt: end };
+    }
+
+    if (search) {
+        query.$or = [
+            { title: { $regex: search, $options: 'i' } },  // Case-insensitive search on title
+            { location: { $regex: search, $options: 'i' } },  // Case-insensitive search on location
+            { state: { $regex: search, $options: 'i' } },  // Case-insensitive search on state
+            { district: { $regex: search, $options: 'i' } }  // Case-insensitive search on district
+        ];
+    }
 
     limit = parseInt(limit) || 10;
     page = parseInt(page) || 1;
@@ -26,20 +44,37 @@ export const getNews = tryCatch(async (req, res, next) => {
         .catch(err => {
             return next(new ErrorHandler(500, err.message))
         })
-})
-
+});
 export const getAdminNewsCount = tryCatch(async (req, res, next) => {
-    const { tags, state, district, location, draft } = req.body;
-    let query = {}
-    if (tags) query.tags = tags;
+    let { page, limit, state, district, location, news_section_type, draft, createdAt, search } = req.body;
+    const query = {}
+
     if (state) query.state = state;
     if (district) query.district = district;
     if (location) query.location = location;
-    if (draft) query.draft = draft;
-    const count = await News.countDocuments(query).exec();
-    return res.status(200).json({ totalDocs: count })
-})
+    if (news_section_type && news_section_type.length) query.news_section_type = { $in: news_section_type };
+    if (createdAt) {
+        const start = new Date(createdAt);
+        console.log(start)
+        start.setHours(0, 0, 0, 0); // Start of the day
+        const end = new Date(createdAt);
+        end.setHours(23, 59, 59, 999); // End of the day
+        query.createdAt = { $gte: start, $lt: end };
+    }
 
+    if (search) {
+        query.$or = [
+            { title: { $regex: search, $options: 'i' } },  // Case-insensitive search on title
+            { location: { $regex: search, $options: 'i' } },  // Case-insensitive search on location
+            { state: { $regex: search, $options: 'i' } },  // Case-insensitive search on state
+            { district: { $regex: search, $options: 'i' } }  // Case-insensitive search on district
+        ];
+    }
+
+    // console.log(query)
+    const count = await News.countDocuments(query).exec();
+    return res.status(200).json({ totalDocs: count });
+});
 
 export const deleteNewsAdmin = tryCatch(async (req, res, next) => {
     const { id } = req.params;
