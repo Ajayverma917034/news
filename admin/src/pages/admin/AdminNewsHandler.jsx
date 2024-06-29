@@ -106,7 +106,7 @@ const AdminNewsHandler = () => {
   }, []);
 
   return (
-    <div className="mx-auto px-4 pt-3 md:p-4 md:px-10">
+    <div className="mx-auto px-2 pt-3 md:p-4 md:px-5 lg:px-10">
       <div className="flex justify-between max-sm:flex-col items-center gap-4 mb-2">
         <form
           onSubmit={handleSubmitSearch}
@@ -129,20 +129,20 @@ const AdminNewsHandler = () => {
           <BsSearch size={25} className="max-sm:pr-1" />
         </form>
 
-        <div className="flex gap-x-3 max-sm:justify-between max-sm:w-full">
-          <button className="flex gap-x-2 items-center text-2xl shadow-regular-shadow p-2 rounded-md px-3 text-blue font-semibold">
+        <div className="flex gap-x-1 sm:gap-x-3 max-sm:justify-between max-sm:w-full">
+          <button className="flex gap-x-1 sm:gap-x-2 items-center text-base sm:text-2xl shadow-regular-shadow p-2 rounded-md px-1 sm:px-3 text-blue font-semibold">
             <GiNewspaper size={20} />
             Total News : {news?.totalDocs}
           </button>
           <button
-            className="flex gap-x-2 items-center text-2xl shadow-regular-shadow p-2 rounded-md px-3 text-blue font-semibold"
+            className="flex gap-x-1 sm:gap-x-2 items-center text-base sm:text-2xl shadow-regular-shadow p-2 rounded-md px-1 sm:px-3 text-blue font-semibold"
             onClick={handleResetFilter}
           >
             <GrPowerReset size={20} />
             Reset Filter
           </button>
           <button
-            className="flex gap-x-2 items-center text-2xl shadow-regular-shadow p-2 rounded-md px-3 text-blue font-semibold"
+            className="flex gap-x-1 sm:gap-x-2 items-center text-base sm:text-2xl shadow-regular-shadow p-2 rounded-md px-1 sm:px-3 text-blue font-semibold"
             onClick={openFilter}
           >
             <MdOutlineManageSearch size={25} /> Filter
