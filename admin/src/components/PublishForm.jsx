@@ -79,9 +79,14 @@ const PublishForm = () => {
         ` Write some tags about news within ${tagLimit} tag limit to publish`
       );
     }
-    if (!news_section_type.length || news_section_type.length > 10) {
+    // if (!news_section_type.length || news_section_type.length > 10) {
+    //   return toast.error(
+    //     ` Write some News Section about news within 10 News Section limit to publish`
+    //   );
+    // }
+    if (!state && !news_section_type.length) {
       return toast.error(
-        ` Write some News Section about news within 10 News Section limit to publish`
+        ` Write some News Section about news within 10 News Section limit Or state of the news to publish `
       );
     }
 

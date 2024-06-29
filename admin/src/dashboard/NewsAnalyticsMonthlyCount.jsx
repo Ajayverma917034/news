@@ -11,7 +11,6 @@ const NewsAnalyticsMonthlyCount = () => {
     "February",
     "March",
     "April",
-    "March",
     "May",
     "June",
     "July",

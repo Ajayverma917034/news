@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import Dropdown from "./DropDown";
-import CountChart from "./CountChart";
-import httpClient from "../services/httpClient";
+import Dropdown from "../../../dashboard/DropDown";
+import CountChart from "../../../dashboard/CountChart";
+import httpClient from "../../../services/httpClient";
 
-const YtNewsMonthlyAnalytics = () => {
+const MonthlyView = () => {
   const [selectedOption, setSelectedOption] = useState(0);
   const options = [
     "Select Month",
@@ -25,15 +25,15 @@ const YtNewsMonthlyAnalytics = () => {
 
   let payload = {};
   if (selectedOption !== 0) {
-    payload.month = selectedOption - 1;
+    payload.month = selectedOption;
   }
   const fetchAnalytics = () => {
     httpClient
-      .post("get-yt-news-analytics-month", {
+      .post("new-view-analytics-month", {
         ...payload,
       })
       .then(({ data }) => {
-        setData(data?.data?.data);
+        setData(data?.result);
       })
       .catch((err) => {
         console.log(err);
@@ -55,8 +55,8 @@ const YtNewsMonthlyAnalytics = () => {
       <div className="flex justify-between items-center">
         <h1 className=" text-xl sm:text-2xl font-semibold ">
           {selectedOption === 0
-            ? "Last 30 days youtube News Analytics"
-            : `Youtube News Analytics for ${options[selectedOption]}`}
+            ? "Current Month Views Analytics"
+            : `Views Analytics for ${options[selectedOption]}`}
         </h1>
         <Dropdown
           {...{
@@ -69,10 +69,10 @@ const YtNewsMonthlyAnalytics = () => {
       </div>
 
       <div className="h-[20rem] max-h-[25rem] mt-5">
-        {data && <CountChart {...{ data }} />}
+        {data && <CountChart {...{ data, hint: "view" }} />}
       </div>
     </div>
   );
 };
 
-export default YtNewsMonthlyAnalytics;
+export default MonthlyView;

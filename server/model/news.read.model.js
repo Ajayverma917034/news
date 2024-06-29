@@ -23,6 +23,6 @@ const monthNewsCountSchema = new mongoose.Schema({
     days: [dailyNewsCountSchema],
 });
 
-const monthNewsCount = mongoose.model('MonthNewsCount', monthNewsCountSchema);
+const MonthNewsCount = mongoose.model('MonthNewsCount', monthNewsCountSchema);
 
-export default monthNewsCount;
+export default MonthNewsCount;

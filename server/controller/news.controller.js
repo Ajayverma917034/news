@@ -41,6 +41,9 @@ export const createNews = tryCatch((req, res, next) => {
                 return res.status(403).json({ error: 'You must provide some content for the news' })
             }
 
+            if (!state && !news_section_type.length) {
+                return res.status(403).json({ error: 'You must provide either State or News Section tags' })
+            }
             // Check if state is provided and not empty
             // if (!state || state.trim() === '') {
             //     return res.status(403).json({ error: 'You must provide a state for the news' })
@@ -62,10 +65,10 @@ export const createNews = tryCatch((req, res, next) => {
             }
 
             // Check if tags is provided and not empty
-            if (!news_section_type || news_section_type.length === 0) {
+            // if (!news_section_type || news_section_type.length === 0) {
 
-                return res.status(403).json({ error: 'You must provide news_section_type for the news' })
-            }
+            //     return res.status(403).json({ error: 'You must provide news_section_type for the news' })
+            // }
 
             // Check if breaking_news is provided and is boolean
             // if (breaking_news === undefined || typeof breaking_news !== 'boolean') {

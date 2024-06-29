@@ -55,12 +55,14 @@ import {
 //   },
 // ];
 
-const CustomTooltip = ({ active, payload, label }) => {
+const CustomTooltip = ({ active, payload, label, hint }) => {
   if (active && payload && payload.length) {
     return (
       <div className="bg-red bg-opacity-45 p-2 rounded-md max-w-48">
         <p className="text-xl font-semibold text-white">
-          Total Number of News Added
+          {hint === "view"
+            ? "Total Number of View"
+            : "Total Number of News Added"}
         </p>
         <p className="text-white font-semibold">{`${label} : ${payload[0].value}`}</p>
         {/* <p className="intro">{getIntroOfPage(label)}</p> */}
@@ -88,7 +90,7 @@ const CustomizedAxisTick = ({ x, y, payload }) => {
     </g>
   );
 };
-const CountChart = ({ data }) => {
+const CountChart = ({ data, hint = "count" }) => {
   return (
     <ResponsiveContainer width="100%" height={300}>
       <LineChart data={data}>
@@ -101,7 +103,7 @@ const CountChart = ({ data }) => {
           stroke="#8884d8"
           strokeWidth={2}
         />
-        <Tooltip content={<CustomTooltip />} />
+        <Tooltip content={<CustomTooltip hint={hint} />} />
       </LineChart>
     </ResponsiveContainer>
   );

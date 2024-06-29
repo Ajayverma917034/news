@@ -21,6 +21,7 @@ import SignIn from "./pages/SignIn";
 import User from "./pages/admin/Users";
 import BreakingNews from "./pages/admin/BreakingNews";
 import DraftNewsHandler from "./pages/DraftNewsHandler";
+import TotalViewsAnalytics from "./pages/admin/TotalViewsAnalytics";
 
 export const UserContext = createContext({});
 
@@ -93,6 +94,15 @@ const App = () => {
             <Route
               path="all-users"
               element={<ProtectedRoute isAdmin={true} component={User} />}
+            />
+            <Route
+              path="views-analytics"
+              element={
+                <ProtectedRoute
+                  isAdmin={true}
+                  component={TotalViewsAnalytics}
+                />
+              }
             />
           </Route>
           <Route path="/settings" element={<div>Settings Page</div>} />

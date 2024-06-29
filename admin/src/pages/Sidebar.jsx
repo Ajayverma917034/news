@@ -10,6 +10,8 @@ import { lookInSession } from "../common/session";
 import { FaUsersCog } from "react-icons/fa";
 import { PiNewspaper } from "react-icons/pi";
 import { RiDraftLine } from "react-icons/ri";
+import { MdAutoGraph } from "react-icons/md";
+import { GiNewspaper } from "react-icons/gi";
 
 const SideBar = () => {
   let page = location.pathname.split("/")[2];
@@ -165,6 +167,7 @@ const SideBar = () => {
                 <span>Breaking News</span>
               </NavLink>
             )}
+            <hr className="text-gray w-full mt-1" />
 
             {user?.role === "reporter" && (
               <NavLink
@@ -173,7 +176,7 @@ const SideBar = () => {
                 onClick={() => setShowSideNav(false)}
               >
                 <MdNewspaper size={25} />
-                <span>All-News</span>
+                <span>All News</span>
               </NavLink>
             )}
             {user?.role === "admin" && (
@@ -182,8 +185,8 @@ const SideBar = () => {
                 to="/dashboard/all-admin-news-data"
                 onClick={() => setShowSideNav(false)}
               >
-                <MdOutlineVideoSettings size={25} />
-                <span>All-News</span>
+                <GiNewspaper size={25} />
+                <span>All News</span>
               </NavLink>
             )}
             <NavLink
@@ -196,22 +199,34 @@ const SideBar = () => {
             </NavLink>
             {user?.role === "admin" && (
               <NavLink
-                className="flex items-center gap-2 text-gray hover:bg-red hover:text-white mt-1 p-2 rounded w-full sidebar-link"
+                className="flex items-center gap-2 text-gray hover:bg-blue hover:text-white mt-1 p-2 rounded w-full sidebar-link"
                 to="/dashboard/all-videos-data"
                 onClick={() => setShowSideNav(false)}
               >
                 <MdOutlineVideoSettings size={25} />
-                <span>All-Videos</span>
+                <span>All Videos</span>
               </NavLink>
             )}
             {user?.role === "admin" && (
               <NavLink
-                className="flex items-center gap-2 text-gray hover:bg-red hover:text-white mt-1 p-2 rounded w-full sidebar-link"
+                className="flex items-center gap-2 text-gray hover:bg-blue hover:text-white mt-1 p-2 rounded w-full sidebar-link"
                 to="/dashboard/all-users"
                 onClick={() => setShowSideNav(false)}
               >
                 <FaUsersCog size={25} />
                 <span>All-Users</span>
+              </NavLink>
+            )}
+            <hr className="text-gray w-full mt-1" />
+
+            {user?.role === "admin" && (
+              <NavLink
+                className="flex items-center gap-2 text-gray hover:bg-blue hover:text-white mt-1 p-2 rounded w-full sidebar-link"
+                to="/dashboard/views-analytics"
+                onClick={() => setShowSideNav(false)}
+              >
+                <MdAutoGraph size={25} />
+                <span>Read Analysis</span>
               </NavLink>
             )}
           </div>
