@@ -39,7 +39,7 @@ export const createAdvertisement = tryCatch(async (req, res, next) => {
 export const getAdvertisement = tryCatch(async (req, res, next) => {
     try {
         const { type } = req.query;
-        let select = 'banner.url link -_id';
+        let select = 'banner.url link order -_id';
 
         const data = await Advertisement.find({ type }).sort({ 'order': 1 }).select(select).exec();
         res.status(200).json({
