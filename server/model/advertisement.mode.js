@@ -19,7 +19,11 @@ const advertisementSchema = new mongoose.Schema({
         type: String,
         enum: ['rectangle', 'square'],
         default: 'rectangle'
-    }
+    },
+    order: {
+        type: Number,
+        default: 0,
+    },
 }, {
     timestamps: true
 });

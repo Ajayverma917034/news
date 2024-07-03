@@ -84,6 +84,8 @@ export const getNewsMonthlyClickAnalytics = tryCatch(async (req, res, next) => {
             { $project: { _id: 0, date: '$days.date', count: '$days.count' } }
         ]);
 
+        console.log(result)
+
         if (result.length > 0) {
             // Format the date
             const formattedResult = result.map(day => ({

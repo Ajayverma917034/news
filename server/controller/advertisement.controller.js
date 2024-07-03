@@ -11,20 +11,6 @@ export const createAdvertisement = tryCatch(async (req, res, next) => {
 
         if (!banner) throw new Error('Please provide all the fields');
 
-        const formData = new FormData();
-        // formData.append('file', banner.data, banner.name, banner.tempFilePath); // Append buffer and original name
-
-        // const uploadResponse = await axios.post(`${process.env.IMG_URL}/upload`, formData, {
-        //     headers: {
-        //         'Content-Type': 'multipart/form-data',
-        //         ...formData.getHeaders() // Include form headers
-        //     }
-        // });
-
-        // if (uploadResponse.status !== 200) {
-        //     throw new Error('Image upload failed');
-        // }
-
         const imageData = await cloudinary.uploader.upload(banner.tempFilePath, { folder: 'advertisement' })
 
         // const imageUrl = uploadResponse.data.url;
@@ -54,14 +40,32 @@ export const getAdvertisement = tryCatch(async (req, res, next) => {
     try {
         const { type } = req.query;
         let select = 'banner.url link -_id';
-        if (req.user) {
-            select = 'banner link'
-        }
-        const data = await Advertisement.find({ type }).select(select).exec();
+
+        const data = await Advertisement.find({ type }).sort().select(select).exec();
         res.status(200).json({
             success: true,
             data: data,
         })
+    }
+    catch (err) {
+        return res.status(500).json({ success: false, message: err.message })
+    }
+})
+export const getAdminAdvertisement = tryCatch(async (req, res, next) => {
+    try {
+        const { type } = req.query;
+        const data = await Advertisement.find({
+            type: 'rectangle'
+        }).sort({ "order": 1 }).select('banner link order').exec();
+
+        const data2 = await Advertisement.find({ type: 'square' }).sort({ "order": 1 }).select('banner link order').exec();
+
+        res.status(200).json({
+            success: true,
+            data: data,
+            data2
+        })
+
     }
     catch (err) {
         return res.status(500).json({ success: false, message: err.message })
@@ -149,3 +153,19 @@ export const updateAdvertisement = tryCatch(async (req, res, next) => {
         next(new ErrorHandler(err.message, 400))
     }
 })
+
+export const updateAdvertisementOrder = async (req, res) => {
+    const { orderedAds } = req.body;
+    // console.log(orderedAds)
+
+    try {
+        // Update the order of each ad in the database
+        for (const [index, ad] of orderedAds.entries()) {
+            const docs = await Advertisement.findByIdAndUpdate(ad._id, { order: index }, { new: true });
+        }
+
+        res.status(200).json({ message: 'Order updated successfully' });
+    } catch (error) {
+        res.status(500).json({ message: 'Failed to update order', error });
+    }
+};
