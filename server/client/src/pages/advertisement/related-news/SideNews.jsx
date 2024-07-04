@@ -16,6 +16,7 @@ const SideNews = ({ title = "", limit = "5" }) => {
         setData(data.news);
       })
       .catch((err) => {
+        setData([]);
         console.log(err);
       });
   };
@@ -23,8 +24,10 @@ const SideNews = ({ title = "", limit = "5" }) => {
   useEffect(() => {
     fetchNews();
   }, []);
-  return data === null || data?.length === 0 ? (
+  return data === null ? (
     <SideNewsSkelton />
+  ) : data.length === 0 ? (
+    <></>
   ) : (
     <div className=" flex-col gap-y-3 py-3 px-5 shadow-light-shadow rounded-md  hidden lg:flex ">
       <Heading title={findHindi(title)} />
