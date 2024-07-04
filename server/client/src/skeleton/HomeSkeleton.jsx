@@ -92,8 +92,8 @@ export const VideoCardSkeleton = () => {
     <>
       <div className="w-full flex flex-col max-md:flex-row max-md:gap-5 max-md:grid max-md:grid-cols-5">
         <div className="max-w-[17rem] h-24 md:h-[10rem] bg-[#dddbdd] animate-pulse rounded-md col-span-2 relative"></div>
-        <div className="h-[25px] bg-[#dddbdd] animate-pulse my-3"></div>
-        <div className="h-[25px] bg-[#dddbdd] animate-pulse my-3"></div>
+        <div className="h-[25px] bg-[#dddbdd] animate-pulse my-2"></div>
+        <div className="h-[25px] bg-[#dddbdd] animate-pulse my-2"></div>
       </div>
     </>
   );
@@ -101,7 +101,7 @@ export const VideoCardSkeleton = () => {
 export const YtCollectionSkeleton = () => {
   return (
     <>
-      <div className="h-[30px] bg-[#dddbdd] animate-pulse my-5"></div>
+      <div className="h-[30px] bg-[#dddbdd] animate-pulse mt-10"></div>
 
       <div className="flex md:flex-row flex-col justify-between w-full mt-5">
         <div className="md:w-[50%] h-[15rem] bg-[#dddbdd] animate-pulse w-fullrelative"></div>

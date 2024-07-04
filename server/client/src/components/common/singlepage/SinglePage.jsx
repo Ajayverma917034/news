@@ -115,8 +115,10 @@ const SinglePage = () => {
             />
             <div className="col-span-4 w-full">
               <div className="py-4 flex flex-col flex-wrap w-full">
-                  <h1 className="font-semibold text-[20px] md:text-[25px]">{title}</h1>
-                  <p className="date-lg text-wrap">{description}</p>
+                <h1 className="font-semibold text-[20px] md:text-[25px]">
+                  {title}
+                </h1>
+                <p className="date-lg text-wrap">{description}</p>
                 <div className=" w-full h-[280px] sm:h-[350px] mt-3">
                   <img
                     src={news?.banner}
@@ -201,7 +203,7 @@ const SinglePage = () => {
               </div>
             </div>
             <div className="col-span-2 flex gap-y-2 flex-col">
-              <CustomeAndGoogleAdd />
+              <CustomeAndGoogleAdd index={1} />
               <SideNews title="read also" />
             </div>
           </div>

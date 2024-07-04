@@ -85,6 +85,33 @@ export const getOneAdvertisement = tryCatch(async (req, res, next) => {
         return res.status(500).json({ success: false, message: err.message })
     }
 })
+export const getSideAdvertisement = tryCatch(async (req, res, next) => {
+    try {
+        const { type, index } = req.query;
+        const docCount = await Advertisement.countDocuments({ type });
+
+        if (index >= docCount) {
+            // Return a random advertisement
+            const data = await Advertisement.find({ type }).select('banner.url link -_id').exec();
+            const randomIndex = Math.floor(Math.random() * docCount);
+
+            res.status(200).json({
+                success: true,
+                data: data[randomIndex]
+            });
+        } else {
+            const data = await Advertisement.findOne({ type, order: index }).select('banner.url link -_id').exec();
+
+            res.status(200).json({
+                success: true,
+                data
+            });
+        }
+    } catch (error) {
+        return res.status(500).json({ success: false, message: error.message });
+    }
+});
+
 
 export const deleteAdvertisement = tryCatch(async (req, res, next) => {
     try {

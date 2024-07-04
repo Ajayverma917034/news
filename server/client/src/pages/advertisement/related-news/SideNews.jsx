@@ -3,6 +3,7 @@ import SubNewsCard from "../../../components/common/news-section/SubNewsCard";
 import Heading from "../../../components/common/Heading";
 import httpClient from "../../../api/httpClient";
 import { findHindi } from "../../../assets/data";
+import SideNewsSkelton from "../../../skeleton/SideNewsSkelton";
 const SideNews = ({ title = "", limit = "5" }) => {
   const [data, setData] = useState(null);
   const fetchNews = async () => {
@@ -23,7 +24,7 @@ const SideNews = ({ title = "", limit = "5" }) => {
     fetchNews();
   }, []);
   return data === null || data?.length === 0 ? (
-    <></>
+    <SideNewsSkelton />
   ) : (
     <div className=" flex-col gap-y-3 py-3 px-5 shadow-light-shadow rounded-md  hidden lg:flex ">
       <Heading title={findHindi(title)} />
