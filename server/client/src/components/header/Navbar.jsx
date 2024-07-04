@@ -4,6 +4,7 @@ import logoimg from "../../assets/logoimg.png";
 import { CiLocationOn, CiSearch } from "react-icons/ci";
 import "./Navbar.css";
 import AllState from "../../pages/location/AllStates";
+import Search from "../../pages/search/Search";
 
 const Navbar = () => {
   const navItems = [
@@ -21,6 +22,7 @@ const Navbar = () => {
   ];
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const handleScroll = () => {
     const scrollTop = window.scrollY;
@@ -41,6 +43,10 @@ const Navbar = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleClickSearch = () => {
+    setSearchOpen(true);
   };
   return (
     <>
@@ -63,6 +69,7 @@ const Navbar = () => {
               <input
                 type="text"
                 placeholder="यहाँ लिखे"
+                onClick={handleClickSearch}
                 className=" border-none text-md py-0.5 outline-none placeholder:text-sm"
               />
               <CiSearch className=" cursor-pointer" />
@@ -84,6 +91,7 @@ const Navbar = () => {
         </div>
       </div>
       <AllState isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
+      <Search searchOpen={searchOpen} setSearchOpen={setSearchOpen} />
     </>
   );
 };

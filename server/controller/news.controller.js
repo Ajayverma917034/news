@@ -543,4 +543,21 @@ export const deleteDraftNews = tryCatch(async (req, res, next) => {
         })
 })
 
+export const searchNews = tryCatch(async (req, res, next) => {
+    const { search } = req.body;
+    let query = {};
+    if (search) {
+        query.$or = [
+            { title: { $regex: search, $options: 'i' } },  // Case-insensitive search on title
+            { location: { $regex: search, $options: 'i' } },  // Case-insensitive search on location
+            { state: { $regex: search, $options: 'i' } },  // Case-insensitive search on state
+            { district: { $regex: search, $options: 'i' } },  // Case-insensitive search on district
+            { tags: { $elemMatch: { $regex: search, $options: 'i' } } }  // Case-insensitive search on tags array
+        ];
+    }
+
+    const news = await News.find(query).limit(5).sort({ createdAt: -1 }).select('news_id title createdAt banner -_id').exec();
+
+    return res.status(200).json({ success: true, news })
+})
 

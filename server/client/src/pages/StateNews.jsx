@@ -15,7 +15,6 @@ const StateNews = () => {
   state = state.pathname.split("/")[2];
   state = state.toLowerCase().split("-").join(" ");
 
-  console.log(state);
   const navItems = findDistrict(state);
   const [news, setNews] = useState(null);
   const [dataSequence, setDataSequence] = useState(null);
@@ -35,7 +34,10 @@ const StateNews = () => {
   useEffect(() => {
     fetchStateNews();
   }, [state]);
-  // console.log(news && news[0]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  // console. log(news && news[0]);
   return (
     <>
       <MetaDataSection title={state} />

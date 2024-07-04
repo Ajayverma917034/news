@@ -14,7 +14,6 @@ const CustomeAndGoogleAdd = ({ index = 0 }) => {
       console.log(err);
     }
   };
-  console.log(ads);
 
   useEffect(() => {
     fetchAds();

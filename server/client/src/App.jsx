@@ -17,6 +17,14 @@ import VideoPage from "./components/common/singlepage/VideoPage";
 import { Toaster } from "react-hot-toast";
 import StateNewsWithoutCategory from "./pages/state-news/StateNewsWithoutCategory";
 import MoreVideos from "./pages/MoreVideos";
+import Search from "./pages/search/Search";
+import Page404 from "./pages/404page/Page404";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import AdvertiseWithUs from "./pages/AdvertiseWithUs";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
+import TermAndCondition from "./pages/TermAndCondition";
+import DisclaimerPolicy from "./pages/DisclaimerPolicy";
 const App = () => {
   return (
     <BrowserRouter>
@@ -49,6 +57,14 @@ const App = () => {
         <Route path="state/:state/:district" element={<DistrictNews />} />
         <Route path="/news/:news_id" element={<SinglePage />} />
         <Route path="/video/:news_id" element={<VideoPage />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/advertisement-us" element={<AdvertiseWithUs />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/terms-and-conditions" element={<TermAndCondition />} />
+        <Route path="/disclaimer-policy" element={<DisclaimerPolicy />} />
+
+        <Route path="*" element={<Page404 />} />
       </Routes>
       <Footer />
     </BrowserRouter>

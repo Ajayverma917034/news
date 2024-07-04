@@ -24,6 +24,7 @@ export default {
       boxShadow: {
         'light-shadow': "rgba(149, 157, 165, 0.2) 0px 8px 24px",
         'dark-shadow': "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px",
+        'regular-shadow': "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
       },
       colors: {
         'blue': '#000068',

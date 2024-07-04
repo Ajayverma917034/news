@@ -31,95 +31,170 @@ const Footer = () => {
               >
                 टॉप वीडियो
               </Link>
-              <p className="text-lg lg:text-xl xl:text-2xl font-normal pb-1">
+              <Link
+                to={"/country"}
+                className="text-lg lg:text-xl xl:text-2xl font-normal pb-1"
+              >
                 देश-विदेश
-              </p>
-              <p className="text-lg lg:text-xl xl:text-2xl font-normal pb-1">
+              </Link>
+              <Link
+                to={"/crime"}
+                className="text-lg lg:text-xl xl:text-2xl font-normal pb-1"
+              >
                 क्राइम
-              </p>
-              <p className="text-lg lg:text-xl xl:text-2xl font-normal pb-1">
+              </Link>
+              <Link
+                to={"/sprots"}
+                className="text-lg lg:text-xl xl:text-2xl font-normal pb-1"
+              >
                 खेल कूद
-              </p>
-              <p className="text-lg lg:text-xl xl:text-2xl font-normal pb-1">
-                शिक्षा{" "}
-              </p>
-              <p className="text-lg lg:text-xl xl:text-2xl font-normal pb-1">
+              </Link>
+              <Link
+                to={"/education"}
+                className="text-lg lg:text-xl xl:text-2xl font-normal pb-1"
+              >
+                शिक्षा
+              </Link>
+              <Link
+                to={"/religion"}
+                className="text-lg lg:text-xl xl:text-2xl font-normal pb-1"
+              >
                 धर्म
-              </p>
+              </Link>
             </div>
             <div className="flex flex-col ">
               <h2 className="text-xl lg:text-2xl xl:text-3xl font-semibold border-b-2 mb-4">
                 राज्य
               </h2>
-              <p className="text-lg lg:text-xl xl:text-2xl font-normal pb-1">
+              <Link
+                to={"/state/uttar-pradesh"}
+                className="text-lg lg:text-xl xl:text-2xl font-normal pb-1"
+              >
                 उत्तर प्रदेश
-              </p>
-              <p className="text-lg lg:text-xl xl:text-2xl font-normal pb-1">
+              </Link>
+              <Link
+                to={"/state/uttarakhand"}
+                className="text-lg lg:text-xl xl:text-2xl font-normal pb-1"
+              >
+                उत्तराखंड
+              </Link>
+              <Link
+                to={"/state/madhyapradesh"}
+                className="text-lg lg:text-xl xl:text-2xl font-normal pb-1"
+              >
                 मध्यप्रदेश
-              </p>
-              <p className="text-lg lg:text-xl xl:text-2xl font-normal pb-1">
+              </Link>
+              <Link
+                to={"/state/chhattisgarh"}
+                className="text-lg lg:text-xl xl:text-2xl font-normal pb-1"
+              >
                 छत्तीसगढ़
-              </p>
-              <p className="text-lg lg:text-xl xl:text-2xl font-normal pb-1">
+              </Link>
+              <Link
+                to={"/state/bihar"}
+                className="text-lg lg:text-xl xl:text-2xl font-normal pb-1"
+              >
                 बिहार
-              </p>
-              <p className="text-lg lg:text-xl xl:text-2xl font-normal pb-1">
+              </Link>
+              <Link
+                to={"/state/jharkhand"}
+                className="text-lg lg:text-xl xl:text-2xl font-normal pb-1"
+              >
                 झारखंड
-              </p>
+              </Link>
             </div>
             <div className="flex flex-col ">
               <h2 className="text-xl lg:text-2xl xl:text-3xl font-semibold border-b-2 mb-4">
                 अपना जिला
               </h2>
-              <p className="text-lg lg:text-xl xl:text-2xl font-normal pb-1">
+              <Link
+                to={"/state/uttar-pradesh/sonbhadra"}
+                className="text-lg lg:text-xl xl:text-2xl font-normal pb-1"
+              >
                 सोनभद्र
-              </p>
-              <p className="text-lg lg:text-xl xl:text-2xl font-normal pb-1">
+              </Link>
+              <Link
+                to={"/state/uttar-pradesh/chandauli"}
+                className="text-lg lg:text-xl xl:text-2xl font-normal pb-1"
+              >
                 चंदौली
-              </p>
-              <p className="text-lg lg:text-xl xl:text-2xl font-normal pb-1">
+              </Link>
+              <Link
+                to={"/state/uttar-pradesh/mirzapur"}
+                className="text-lg lg:text-xl xl:text-2xl font-normal pb-1"
+              >
                 मिर्जापुर
-              </p>
-              <p className="text-lg lg:text-xl xl:text-2xl font-normal pb-1">
+              </Link>
+              <Link
+                to={"/state/uttar-pradesh/varanasi"}
+                className="text-lg lg:text-xl xl:text-2xl font-normal pb-1"
+              >
                 वाराणसी
-              </p>
-              <p className="text-lg lg:text-xl xl:text-2xl font-normal pb-1">
+              </Link>
+              <Link
+                to={"/state/uttar-pradesh/gajipur"}
+                className="text-lg lg:text-xl xl:text-2xl font-normal pb-1"
+              >
                 गाजीपुर
-              </p>
-              <p className="text-lg lg:text-xl xl:text-2xl font-normal pb-1">
+              </Link>
+              <Link
+                to={"/state/uttar-pradesh/shahjhapur"}
+                className="text-lg lg:text-xl xl:text-2xl font-normal pb-1"
+              >
                 शाहजहांपुर
-              </p>
+              </Link>
             </div>
           </div>
           <div className="md:col-span-6 flex flex-col w-full  lg:flex-row gap-8 lg:gap-16 ">
             <div className="flex justify-center gap-14 sm:gap-28 md:gap-10 lg:gap-16">
-              <div>
+              <div className="flex flex-col">
                 <h2 className="text-xl lg:text-2xl xl:text-3xl font-semibold border-b-2 mb-4 ">
                   Useful Links
                 </h2>
-                <p className="text-lg lg:text-xl xl:text-2xl font-normal pb-1">
+
+                <Link
+                  to={"/about"}
+                  className="text-lg lg:text-xl xl:text-2xl font-normal pb-1"
+                >
                   About Us
-                </p>
-                <p className="text-lg lg:text-xl xl:text-2xl font-normal pb-1">
+                </Link>
+
+                <Link
+                  to={"/contact"}
+                  className="text-lg lg:text-xl xl:text-2xl font-normal pb-1"
+                >
                   Contact Us
-                </p>
-                <p className="text-lg lg:text-xl xl:text-2xl font-normal pb-1">
+                </Link>
+
+                <Link
+                  to={"/advertisement-us"}
+                  className="text-lg lg:text-xl xl:text-2xl font-normal pb-1"
+                >
                   Advertisement with Us
-                </p>
+                </Link>
               </div>
-              <div>
+              <div className="flex flex-col">
                 <h2 className="text-xl lg:text-2xl xl:text-3xl font-semibold border-b-2 mb-4">
                   Policies
                 </h2>
-                <p className="text-lg lg:text-xl xl:text-2xl font-normal pb-1 min-w-fit">
+                <Link
+                  to={"/privacy-policy"}
+                  className="text-lg lg:text-xl xl:text-2xl font-normal pb-1"
+                >
                   Privacy Policy
-                </p>
-                <p className="text-lg lg:text-xl xl:text-2xl font-normal pb-1 min-w-fit">
+                </Link>
+                <Link
+                  to={"/terms-and-conditions"}
+                  className="text-lg lg:text-xl xl:text-2xl font-normal pb-1"
+                >
                   Terms & Conditions
-                </p>
-                <p className="text-lg lg:text-xl xl:text-2xl font-normal pb-1 min-w-fit">
+                </Link>
+                <Link
+                  to={"/disclaimer-policy"}
+                  className="text-lg lg:text-xl xl:text-2xl font-normal pb-1"
+                >
                   Disclaimer Policy
-                </p>
+                </Link>
               </div>
             </div>
             <div className="flex flex-col justify-center items-center">
@@ -164,7 +239,10 @@ const Footer = () => {
               </div>
               <div>
                 <h2 className="text-3xl font-semibold">Subscribe Now</h2>
-                <a target="_blank"  href="https://youtube.com/@themirror1122?si=uNLCLA9R9YBp_aWl">
+                <a
+                  target="_blank"
+                  href="https://youtube.com/@themirror1122?si=uNLCLA9R9YBp_aWl"
+                >
                   <div className="flex justify-center items-center gap-2">
                     <div className="w-16">
                       <img src={YouTube} alt="" />
@@ -177,10 +255,16 @@ const Footer = () => {
             <div className="flex gap-8 items-center">
               <p className="text-2xl font-medium ">Follow Us</p>
               <div className="flex gap-4">
-                <a target="_blank" href="https://www.facebook.com/profile.php?id=100064487422657">
+                <a
+                  target="_blank"
+                  href="https://www.facebook.com/profile.php?id=100064487422657"
+                >
                   <ImFacebook2 className="size-8" />
                 </a>
-                <a target="_blank" href="https://x.com/janpadnewslive?t=xf1_SFr0zxbjsS7XEb8VqQ&s=08">
+                <a
+                  target="_blank"
+                  href="https://x.com/janpadnewslive?t=xf1_SFr0zxbjsS7XEb8VqQ&s=08"
+                >
                   <FaSquareXTwitter className="size-9" />
                 </a>
                 <a href="">
@@ -191,10 +275,14 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="bg-gray p-2 text-xl text-center">
+      <a
+        href="https://spriteera.com/"
+        target="_blank"
+        className="flex items-center justify-centerr4tr54uiko , bg-gray p-2 text-xl text-center w-full"
+      >
         Developed By{" "}
         <span className="font-semibold">SpriteEra IT Solutions Pvt. Ltd.</span>
-      </div>
+      </a>
       <div className="p-1 text-xl text-center">
         © Copyright Janpad News Live 2024. All rights reserved.
       </div>
