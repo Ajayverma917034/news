@@ -57,7 +57,7 @@ const Navbar = () => {
             alt="logoimg"
             className="w-[50%]  sm:w-[35%] md:w-[30%] lg:w-[20%]"
           />
-          <div className=" flex justify-between items-center gap-8 ">
+          <div className=" flex justify-between items-center gap-x-3 sm:gap-8 ">
             <div
               className="flex items-center justify-center gap-1 cursor-pointer"
               onClick={toggleMenu}
@@ -65,14 +65,18 @@ const Navbar = () => {
               <CiLocationOn className="mb-1 text-red text-2xl" />
               <h3 className=" select-none">अपना शहर</h3>
             </div>
-            <div className=" justify-between items-center border border-gray rounded-[8px] px-4 hidden sm:flex ">
+            <div className=" justify-between items-center sm:border border-gray rounded-[8px] sm:px-4 flex">
               <input
                 type="text"
                 placeholder="यहाँ लिखे"
                 onClick={handleClickSearch}
-                className=" border-none text-md py-0.5 outline-none placeholder:text-sm"
+                className=" border-none text-md py-0.5 outline-none placeholder:text-sm hidden sm:flex "
               />
-              <CiSearch className=" cursor-pointer" />
+              <CiSearch
+                size={20}
+                className="cursor-pointer"
+                onClick={handleClickSearch}
+              />
             </div>
           </div>
         </div>

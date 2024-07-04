@@ -556,7 +556,7 @@ export const searchNews = tryCatch(async (req, res, next) => {
         ];
     }
 
-    const news = await News.find(query).limit(5).sort({ createdAt: -1 }).select('news_id title createdAt banner -_id').exec();
+    const news = await News.find(query).sort({ createdAt: -1 }).select('news_id title createdAt banner -_id').exec();
 
     return res.status(200).json({ success: true, news })
 })
