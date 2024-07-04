@@ -5,61 +5,11 @@ import httpClient from "../../api/httpClient";
 import { handleImageError } from "../../common/errorImg";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+
 const Search = ({ searchOpen, setSearchOpen }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [news, setNews] = useState(null);
-  // const data = [
-  //   {
-  //     name: "One World Trade Center",
-  //     address: "285 Fulton St, New York, NY 10007, USA",
-  //     imageUrl: "path-to-your-image.jpg",
-  //   },
-  //   {
-  //     name: "One World Trade Center",
-  //     address: "285 Fulton St, New York, NY 10007, USA",
-  //     imageUrl: "path-to-your-image.jpg",
-  //   },
-  //   {
-  //     name: "One World Trade Center",
-  //     address: "285 Fulton St, New York, NY 10007, USA",
-  //     imageUrl: "path-to-your-image.jpg",
-  //   },
-  //   {
-  //     name: "One World Trade Center",
-  //     address: "285 Fulton St, New York, NY 10007, USA",
-  //     imageUrl: "path-to-your-image.jpg",
-  //   },
-  //   {
-  //     name: "One World Trade Center",
-  //     address: "285 Fulton St, New York, NY 10007, USA",
-  //     imageUrl: "path-to-your-image.jpg",
-  //   },
-  //   {
-  //     name: "One World Trade Center",
-  //     address: "285 Fulton St, New York, NY 10007, USA",
-  //     imageUrl: "path-to-your-image.jpg",
-  //   },
-  //   {
-  //     name: "One World Trade Center",
-  //     address: "285 Fulton St, New York, NY 10007, USA",
-  //     imageUrl: "path-to-your-image.jpg",
-  //   },
-  //   {
-  //     name: "Empire State Building",
-  //     address: "20 W 34th St, New York, NY 10001, USA",
-  //     imageUrl: "path-to-your-image.jpg",
-  //   },
-  //   {
-  //     name: "Bank of America Tower",
-  //     address: "New York, NY 10036, USA",
-  //     imageUrl: "path-to-your-image.jpg",
-  //   },
-  //   {
-  //     name: "432 Park Avenue",
-  //     address: "New York, NY 10022, USA",
-  //     imageUrl: "path-to-your-image.jpg",
-  //   },
-  // ];
+  const inputRef = useRef();
   const modalRef = useRef();
 
   const handleClickOutside = (event) => {
@@ -75,9 +25,9 @@ const Search = ({ searchOpen, setSearchOpen }) => {
       if (searchTerm.length <= 0) {
         return toast.error("Please write something to search");
       }
+      inputRef.current.blur();
       httpClient
         .post("search-news", { search: searchTerm })
-
         .then(({ data }) => {
           setNews(data.news);
           console.log(data.news); // Handle the response data
@@ -122,6 +72,7 @@ const Search = ({ searchOpen, setSearchOpen }) => {
               onChange={(e) => setSearchTerm(e.target.value)}
               className="p-2 pr-9 pl-9 focus:outline-none rounded w-full font-sans"
               autoFocus={true}
+              ref={inputRef}
               onKeyDown={handleKeyDown}
             />
             {searchTerm && (
@@ -142,6 +93,7 @@ const Search = ({ searchOpen, setSearchOpen }) => {
                   <Link
                     to={`/news/${item?.news_id}`}
                     className="flex w-full flex-row gap-4 p-2 bg-white rounded border-b border-gray cursor-pointer"
+                    key={index}
                   >
                     <div className="h-[60px] min-w-[120px]">
                       <img
