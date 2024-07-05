@@ -220,7 +220,6 @@ const SinglePage = () => {
                 />
               </div>
 
-              <PageContent item={news} />
               {randomNews &&
                 randomNews.length &&
                 randomNews.map((item, index) => (
