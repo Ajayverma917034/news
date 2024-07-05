@@ -25,10 +25,12 @@ import AdvertiseWithUs from "./pages/AdvertiseWithUs";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermAndCondition from "./pages/TermAndCondition";
 import DisclaimerPolicy from "./pages/DisclaimerPolicy";
+// import LocationPopUp from "./pages/location/LocationPopUp";
 const App = () => {
   return (
     <BrowserRouter>
       {/* <HeadNav /> */}
+      {/* <LocationPopUp /> */}
       <Navbar />
       <Slider />
       <Toaster />

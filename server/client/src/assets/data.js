@@ -137,6 +137,7 @@ const engToHindi = {
     'top videos': 'टॉप वीडियो',
     'education': 'शिक्षा',
     "bollywood": "बॉलीवुड",
+    // "rajya": ""
 };
 
 

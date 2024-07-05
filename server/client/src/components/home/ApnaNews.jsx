@@ -48,7 +48,9 @@ const ApnaNews = ({ data, navItems, currentIndex, hint }) => {
                   hint === "state" ? "" : "text-white"
                 }`}
               >
-                {navItems[currentIndex]}
+                {currentIndex === 0
+                  ? data[0]?.location
+                  : navItems[currentIndex]}
               </p>
             </div>
           </div>
@@ -92,7 +94,9 @@ const ApnaNews = ({ data, navItems, currentIndex, hint }) => {
                           hint === "state" ? "" : "text-white"
                         }`}
                       >
-                        {navItems[currentIndex]}
+                        {currentIndex === 0
+                          ? card.location
+                          : navItems[currentIndex]}
                       </p>
                     </div>
                   </div>

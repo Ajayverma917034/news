@@ -5,6 +5,7 @@ import ApnaNavbar from "../../components/home/ApnaNavbar";
 import ApnaNews from "../../components/home/ApnaNews";
 import SideNews from "../advertisement/related-news/SideNews";
 const districts = [
+  "all",
   "sonbhadra",
   "chandauli",
   "mirzapur",
@@ -26,7 +27,10 @@ const ApnaZila = () => {
     setData(null);
     httpClient
       .post(`get-news-query`, {
-        district: districts[currentDistrictIndex],
+        district:
+          currentDistrictIndex === 0
+            ? "apna zila"
+            : districts[currentDistrictIndex],
       })
       .then(({ data }) => {
         setData(data);

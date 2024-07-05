@@ -23,6 +23,18 @@ const AdsUploader = ({ setShowAdd, showAdd }) => {
       setBanner(URL.createObjectURL(e.target.files[0]));
     }
   };
+
+  const typeData = {
+    1: "rectangle",
+    2: "square",
+    3: "detail",
+  };
+
+  const headingText = {
+    1: "Create a Main Ad (1093 X 297)",
+    2: "Create a Side Ad (350 X 350)",
+    3: "Create a Detail Ad (350 X 350)",
+  };
   const handleSave = () => {
     if (add_id) {
       if (!image) {
@@ -37,7 +49,7 @@ const AdsUploader = ({ setShowAdd, showAdd }) => {
       formData.append("add_id", add_id);
       formData.append("banner", image);
       formData.append("link", link);
-      formData.append("type", showAdd === 1 ? "rectangle" : "square");
+      formData.append("type", typeData[showAdd]);
       let loadingToast = toast.loading("Uploading...");
       httpClient
         .put(`/admin/ads/update/${add_id}`, formData, {
@@ -70,7 +82,7 @@ const AdsUploader = ({ setShowAdd, showAdd }) => {
 
       formData.append("banner", image);
       formData.append("link", link); // Ensure 'link' is correctly appended
-      formData.append("type", showAdd === 1 ? "rectangle" : "square");
+      formData.append("type", typeData[showAdd]);
       let loadingToast = toast.loading("Uploading...");
       httpClient
         .post("/admin/ads/add", formData, {
@@ -111,23 +123,21 @@ const AdsUploader = ({ setShowAdd, showAdd }) => {
     }
   }, [add_id]);
   return (
-    <div className=" w-[70%] mx-auto p-4 mt-4  border-gray-300 rounded-lg ">
-      <h2 className="text-xl font-semibold mb-4">
-        {showAdd === 1
-          ? "Create a Main Ad (1093 X 297)"
-          : "Create a Side Ad (350 X 350)"}
-      </h2>
+    <div className="w-full sm:w-[70%] mx-auto p-4 mt-4  border-gray-300 rounded-lg ">
+      <h2 className="text-xl font-semibold mb-4">{headingText[showAdd]}</h2>
 
       <div
-        className={`relative ${showAdd === 1 ? "h-[297px]" : "h-[350px]"} ${
-          showAdd === 1 ? "w-full" : "w-[350px]"
+        className={`relative ${
+          showAdd === 1 ? "h-[297px]" : "h-[250px] sm:h-[350px]"
+        } ${
+          showAdd === 1 ? "w-full" : "w-full sm:w-[350px]"
         } hover:opacity-80 bg-white border-2 border-blue rounded-md`}
       >
         <label htmlFor="uploadBanner">
           <img
             src={banner}
             alt="Default Banner"
-            className="z-20 rounded-md"
+            className="z-20 rounded-md w-full h-full"
             onError={handleImageError}
           />
           <input

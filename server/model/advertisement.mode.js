@@ -17,7 +17,7 @@ const advertisementSchema = new mongoose.Schema({
     },
     type: {
         type: String,
-        enum: ['rectangle', 'square'],
+        enum: ['rectangle', 'square', 'detail'],
         default: 'rectangle'
     },
     order: {

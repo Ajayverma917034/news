@@ -60,10 +60,13 @@ export const getAdminAdvertisement = tryCatch(async (req, res, next) => {
 
         const data2 = await Advertisement.find({ type: 'square' }).sort({ "order": 1 }).select('banner link order').exec();
 
+        const data3 = await Advertisement.find({ type: 'detail' }).sort({ "order": 1 }).select('banner link order').exec();
+
         res.status(200).json({
             success: true,
             data: data,
-            data2
+            data2,
+            data3
         })
 
     }
@@ -89,10 +92,11 @@ export const getSideAdvertisement = tryCatch(async (req, res, next) => {
     try {
         const { type, index } = req.query;
         const docCount = await Advertisement.countDocuments({ type });
+        console.log(docCount)
 
+        const data = await Advertisement.find({ type }).select('banner.url link -_id').exec();
         if (index >= docCount) {
             // Return a random advertisement
-            const data = await Advertisement.find({ type }).select('banner.url link -_id').exec();
             const randomIndex = Math.floor(Math.random() * docCount);
 
             res.status(200).json({
@@ -100,11 +104,10 @@ export const getSideAdvertisement = tryCatch(async (req, res, next) => {
                 data: data[randomIndex]
             });
         } else {
-            const data = await Advertisement.findOne({ type, order: index }).select('banner.url link -_id').exec();
 
             res.status(200).json({
                 success: true,
-                data
+                data: data[index]
             });
         }
     } catch (error) {

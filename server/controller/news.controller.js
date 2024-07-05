@@ -41,8 +41,8 @@ export const createNews = tryCatch((req, res, next) => {
                 return res.status(403).json({ error: 'You must provide some content for the news' })
             }
 
-            if (!state && !news_section_type.length) {
-                return res.status(403).json({ error: 'You must provide either State or News Section tags' })
+            if (!state && !news_section_type.length && !district) {
+                return res.status(403).json({ error: 'You must provide either State or News Section tags or districts' })
             }
             // Check if state is provided and not empty
             // if (!state || state.trim() === '') {
@@ -561,3 +561,15 @@ export const searchNews = tryCatch(async (req, res, next) => {
     return res.status(200).json({ success: true, news })
 })
 
+export const fetchRandomNews = tryCatch(async (req, res, next) => {
+    const { news_id } = req.body;
+    const news = await News.find({ news_id: { $ne: news_id } }, { createdAt: -1 }).limit(50).sort({ createdAt: -1 }).select('news_id title description content tags state district banner location activity.total_reads news_section_type tags createdAt -_id').exec();
+
+    const randomIndex = Math.floor(Math.random() * news.length);
+    const randomNews = news[randomIndex];
+
+    res.status(200).json({ success: true, news: randomNews });
+
+    // get 1 random news 
+
+})

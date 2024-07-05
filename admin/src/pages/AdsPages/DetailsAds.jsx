@@ -7,7 +7,7 @@ import ConfirmationModal from "../../components/ConfirmationModal";
 import httpClient from "../../services/httpClient";
 import { useNavigate } from "react-router-dom";
 
-const SliderAds = ({ setShowAdd, ads, setAds }) => {
+const DetailsAds = ({ setShowAdd, ads, setAds }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedId, setSelectedId] = useState(null);
   const [changeHappen, setChangeHappen] = useState(false);
@@ -56,14 +56,14 @@ const SliderAds = ({ setShowAdd, ads, setAds }) => {
   const handleAdd = () => {
     if (ads.length >= 5)
       return toast.error("You can only add 5 Advertisement images");
-    setShowAdd(1);
+    setShowAdd(3);
   };
   return (
     <>
       <div className="bg-white shadow-regular-shadow rounded-lg p-2 md:p-6 w-full max-w-sm">
         <div className="flex justify-between items-center border-b border-gray pb-1">
-          <h2 className="text-xl font-semibold ">
-            Banner Advertisement Images
+          <h2 className="!text-xl font-semibold ">
+            Detail Page Advertisement Images
           </h2>
           {/* <Tooltip text="Add Advertisement"> */}
           <IoMdAdd
@@ -149,4 +149,4 @@ const SliderAds = ({ setShowAdd, ads, setAds }) => {
   );
 };
 
-export default SliderAds;
+export default DetailsAds;

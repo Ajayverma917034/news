@@ -41,7 +41,7 @@ const ApnaNavbar = ({ navItems, currentIndex, setCurrentIndex, hint }) => {
           <button
             key={index}
             onClick={() => setCurrentIndex(index)}
-            className={` text-xl md:text-xl hover:underline decoration-red ${
+            className={` text-xl md:text-xl hover:underline decoration-red capitalize ${
               currentIndex === index ? " !text-red" : ""
             } ${hint === "state" ? "text-black font-semibold" : "text-white"}`}
           >

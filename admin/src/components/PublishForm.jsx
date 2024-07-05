@@ -84,9 +84,9 @@ const PublishForm = () => {
     //     ` Write some News Section about news within 10 News Section limit to publish`
     //   );
     // }
-    if (!state && !news_section_type.length) {
+    if (!state && !news_section_type.length && !district) {
       return toast.error(
-        ` Write some News Section about news within 10 News Section limit Or state of the news to publish `
+        `Please choose the state or district or the news section of the news`
       );
     }
 
@@ -242,6 +242,7 @@ const PublishForm = () => {
                 <option value="" defaultValue={state}>
                   Select State
                 </option>
+                <option value="rajya">राज्य</option>
                 {states.map((state, i) => {
                   return (
                     <option
@@ -264,9 +265,10 @@ const PublishForm = () => {
                 className="input-box mb-5 pl-4 capitalize"
                 onChange={(e) => setBlog({ ...blog, district: e.target.value })}
               >
-                <option value="" defaultValue={state}>
-                  Select State
+                <option value="" defaultValue={district}>
+                  Select District
                 </option>
+                <option value="apna zila">अपना जिला</option>
                 {stateDistricts[state] &&
                   stateDistricts[state].map((district, i) => {
                     return (
@@ -296,7 +298,7 @@ const PublishForm = () => {
               />
             </div>
           </div>
-          <p className="text-dark-grey mb-2 mt-9 required-text">
+          <p className="text-dark-grey mb-2 mt-9">
             News Section - ( Choose the news sections )
           </p>
           <div className="relative input-box pl-2 py-2 pb-4">

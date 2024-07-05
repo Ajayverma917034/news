@@ -1,0 +1,161 @@
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.589);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  backdrop-filter: blur(0.2px);
+  z-index: 1000;
+}
+
+.popup-overlay .sizeBox {
+  width: 90%;
+  display: flex;
+  align-items: flex-end;
+}
+
+@media only screen and (min-width: 1361px) {
+  .popup-overlay .sizeBox {
+    width: 1360px;
+  }
+}
+
+.location-popup {
+  width: 400px;
+  padding: 20px;
+  background-color: #faf9f9;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  position: relative;
+  border-radius: 2px;
+  top: 64px;
+  right: 70px;
+  box-shadow: rgba(14, 30, 37, 0.342) 0px 2px 4px 0px,
+    rgba(14, 30, 37, 0.493) 0px 2px 16px 0px;
+  z-index: 999;
+}
+
+.location-popup .up {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.location-popup .up strong {
+  font-size: 1.1rem;
+  background: linear-gradient(to right, #800020, #033186);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.location-popup .middle {
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.location-popup .middle img {
+  width: 30px;
+  margin: 15px 15px 15px 0;
+}
+
+.location-popup button {
+  border-style: none;
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  color: #fff;
+  background-color: #800020;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.location-popup button:hover {
+  background-color: #a0032a;
+}
+
+.location-popup .blinking {
+  width: 90%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 5px;
+}
+
+.location-popup .blinking .blinkBox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 5px;
+}
+
+.location-popup .blinking .blinkBox span {
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+  background-color: #800020;
+  margin: 0;
+  padding: 0;
+}
+
+.location-popup .blinking .blinkBox span:nth-child(1) {
+  opacity: 0.2;
+  animation: blink0 1.5s linear infinite;
+}
+
+.location-popup .blinking .blinkBox span:nth-child(2) {
+  opacity: 0.7;
+  animation: blink1 1.5s linear infinite;
+}
+
+.location-popup .blinking .blinkBox span:nth-child(3) {
+  opacity: 1;
+  animation: blink2 1.5s linear infinite;
+}
+
+@keyframes blink0 {
+  0% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.7;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes blink1 {
+  0% {
+    opacity: 0.7;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.2;
+  }
+}
+
+@keyframes blink2 {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0.7;
+  }
+}

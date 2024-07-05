@@ -55,16 +55,22 @@ const Ads2 = ({ setShowAdd, ads, setAds }) => {
       };
     }
   };
+
+  const handleAdd = () => {
+    if (ads.length >= 5)
+      return toast.error("You can only add 5 Advertisement images");
+    setShowAdd(2);
+  };
   return (
     <>
-      <div className="bg-white shadow-regular-shadow rounded-lg p-2 md:p-6 w-full max-w-md">
+      <div className="bg-white shadow-regular-shadow rounded-lg p-2 md:p-6 w-full max-w-sm">
         <div className="flex justify-between items-center border-b border-gray pb-1">
           <h2 className="text-xl font-semibold ">Side Advertisement Images</h2>
           {/* <Tooltip text="Add Advertisement"> */}
           <IoMdAdd
             size={25}
             className="bg-blue text-white rounded-full"
-            onClick={() => setShowAdd(2)}
+            onClick={handleAdd}
           />
           {/* </Tooltip> */}
         </div>

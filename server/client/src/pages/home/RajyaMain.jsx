@@ -5,6 +5,7 @@ import ApnaNavbar from "../../components/home/ApnaNavbar";
 import ApnaNews from "../../components/home/ApnaNews";
 import SideNews from "../advertisement/related-news/SideNews";
 const states = [
+  "all",
   "uttar pradesh",
   "madhyapradesh",
   "bihar",
@@ -20,7 +21,7 @@ const RajyaMain = () => {
     setData(null);
     httpClient
       .post(`get-news-query`, {
-        state: states[currentStateIndex],
+        state: currentStateIndex === 0 ? "rajya" : states[currentStateIndex],
       })
       .then(({ data }) => {
         setData(data);

@@ -278,7 +278,7 @@ const Footer = () => {
       <a
         href="https://spriteera.com/"
         target="_blank"
-        className="flex items-center justify-centerr4tr54uiko , bg-gray p-2 text-xl text-center w-full"
+        className="flex items-center justify-center bg-gray p-2 text-xl text-center w-full"
       >
         Developed By{" "}
         <span className="font-semibold">SpriteEra IT Solutions Pvt. Ltd.</span>
