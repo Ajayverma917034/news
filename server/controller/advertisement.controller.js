@@ -38,14 +38,22 @@ export const createAdvertisement = tryCatch(async (req, res, next) => {
 
 export const getAdvertisement = tryCatch(async (req, res, next) => {
     try {
-        const { type } = req.query;
+
         let select = 'banner.url link -_id';
 
-        const data = await Advertisement.find({ type }).sort({ 'order': 1 }).select(select).exec();
+        const detailAds = await Advertisement.find({ type: "detail" }).sort({ 'order': 1 }).select(select).exec();
+
+        const sideAds = await Advertisement.find({ type: 'square' }).sort({ 'order': 1 }).select(select).exec();
+        const bannerAds = await Advertisement.find({ type: 'rectangle' }).sort({ 'order': 1 }).select(select).exec();
         res.status(200).json({
             success: true,
-            data: data,
+            bannerAds,
+            sideAds,
+            detailAds
         })
+
+
+
     }
     catch (err) {
         return res.status(500).json({ success: false, message: err.message })

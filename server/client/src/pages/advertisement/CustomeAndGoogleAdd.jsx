@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
-import adsimgright1 from "../../assets/adsimgright1.png";
+import React from "react";
 import adsimgright2 from "../../assets/adsimgright2.png";
-import httpClient from "../../api/httpClient";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/effect-fade";
@@ -11,20 +9,10 @@ import banner from "../../assets/errorimg1.png";
 
 import { AdvertisementSkelton1 } from "../../skeleton/Advertisement.skeltons";
 import { EffectFade, Navigation, Pagination, Autoplay } from "swiper/modules";
+import { useSelector } from "react-redux";
 const CustomeAndGoogleAdd = ({ type = "square" }) => {
-  const [ads, setAds] = useState(null);
-  const fetchAds = async () => {
-    try {
-      const { data } = await httpClient.get(`/get-advertisement?type=${type}`);
-      setAds(data.data);
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  const { loading, error, sideAds } = useSelector((state) => state.ads);
 
-  useEffect(() => {
-    fetchAds();
-  }, []);
   return (
     <div className="flex flex-wrap  gap-y-3 gap-x-4 md:flex md:w-full  lg:flex-col ">
       <Swiper
@@ -39,25 +27,25 @@ const CustomeAndGoogleAdd = ({ type = "square" }) => {
           clickable: true,
         }}
         modules={[EffectFade, Navigation, Pagination, Autoplay]}
-        className="mySwiper p-0 w-[330px] h-[260px]"
+        className="mySwiper p-0 w-[330px] h-[330px]"
       >
         {/* {[0, 0, 0].map((item, index) => (
           <SwiperSlide key={index}>
             <AdvertisementSkelton1 />
           </SwiperSlide>
         ))} */}
-        {ads
-          ? ads.length > 0
-            ? ads.map((ad, index) => {
+        {!loading
+          ? sideAds.length > 0
+            ? sideAds.map((ad, index) => {
                 return (
-                  <SwiperSlide key={index} className="w-full p-0">
-                    {/* <div> */}
-                    <img
-                      src={ad.banner.url}
-                      alt="sliderimg"
-                      className="w-full h-full object-fill"
-                    />
-                    {/* </div> */}
+                  <SwiperSlide key={index} className="w-full h-full p-0">
+                    <div className="w-[330px] h-[330px] overflow-hidden ml-auto mr-auto">
+                      <img
+                        src={ad.banner.url}
+                        alt="sliderimg"
+                        className="w-full h-full object-fill"
+                      />
+                    </div>
                   </SwiperSlide>
                 );
               })
@@ -72,8 +60,8 @@ const CustomeAndGoogleAdd = ({ type = "square" }) => {
               </SwiperSlide>
             ))}
       </Swiper>
-      <div className="w-[330px] h-[260px] overflow-hidden ml-auto mr-auto">
-        <img className="w-full h-auto object-contain" src={adsimgright2} />
+      <div className="w-[330px] h-[330px] overflow-hidden ml-auto mr-auto">
+        <img className="w-full h-auto object-fill" src={adsimgright2} />
       </div>
     </div>
   );

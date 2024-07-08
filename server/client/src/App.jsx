@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 // import Home from "./components/home/home.component";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HeadNav from "./components/header/HeadNav";
@@ -25,8 +25,31 @@ import AdvertiseWithUs from "./pages/AdvertiseWithUs";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermAndCondition from "./pages/TermAndCondition";
 import DisclaimerPolicy from "./pages/DisclaimerPolicy";
+import {
+  getAds,
+  getAdsFail,
+  getAdsSuccess,
+} from "./redux/advertisement/adsSlice";
+
+import httpClient from "./api/httpClient";
+import { useDispatch } from "react-redux";
 // import LocationPopUp from "./pages/location/LocationPopUp";
 const App = () => {
+  const dispatch = useDispatch();
+  const fetchAds = async () => {
+    try {
+      dispatch(getAds());
+      const { data } = await httpClient.get(`/get-advertisement`);
+      dispatch(getAdsSuccess(data));
+    } catch (err) {
+      dispatch(getAdsFail());
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchAds();
+  }, []);
   return (
     <BrowserRouter>
       {/* <HeadNav /> */}

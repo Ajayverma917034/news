@@ -9,8 +9,11 @@ import { formatDate } from "../../../common/date";
 import BlogContent from "../BlogContent";
 import Heading from "../Heading";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import DetailAds from "../../../pages/advertisement/DetailAds";
 
 const PageContent = ({ item }) => {
+  const { loading, error, detailAds } = useSelector((state) => state.ads);
   return (
     <div className="py-4 flex flex-col flex-wrap w-full">
       <h1 className="font-semibold text-[20px] md:text-[25px]">{item.title}</h1>
@@ -55,7 +58,7 @@ const PageContent = ({ item }) => {
           <BlogContent block={item?.content[0]?.blocks[0]} />
         )}
         <div className="bg-gray h-[200px] flex justify-center items-center w-full">
-          Ads
+          <DetailAds />
         </div>
         {item?.content[0]?.blocks?.length > 1 &&
           item?.content[0]?.blocks.slice(1).map((block, i) => (

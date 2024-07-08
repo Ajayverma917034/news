@@ -33,7 +33,7 @@ const AdsUploader = ({ setShowAdd, showAdd }) => {
   const headingText = {
     1: "Create a Main Ad (1093 X 297)",
     2: "Create a Side Ad (350 X 350)",
-    3: "Create a Detail Ad (350 X 350)",
+    3: "Create a Detail Ad (1093 X 297)",
   };
   const handleSave = () => {
     if (add_id) {
@@ -128,16 +128,16 @@ const AdsUploader = ({ setShowAdd, showAdd }) => {
 
       <div
         className={`relative ${
-          showAdd === 1 ? "h-[297px]" : "h-[250px] sm:h-[350px]"
+          showAdd === 2 ? "h-[250px] sm:h-[350px]" : " h-[297px]"
         } ${
-          showAdd === 1 ? "w-full" : "w-full sm:w-[350px]"
+          showAdd === 2 ? "w-full sm:w-[350px]" : " w-full"
         } hover:opacity-80 bg-white border-2 border-blue rounded-md`}
       >
         <label htmlFor="uploadBanner">
           <img
             src={banner}
             alt="Default Banner"
-            className="z-20 rounded-md w-full h-full"
+            className="z-20 rounded-md w-full h-full object-fill"
             onError={handleImageError}
           />
           <input

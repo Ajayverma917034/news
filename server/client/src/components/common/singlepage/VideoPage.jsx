@@ -77,6 +77,7 @@ const VideoPage = () => {
             banner={thumbnail}
             description={description}
             link={shareUrl}
+            createdAt={createdAt}
           />
           <div className="center w-full py-2 max-lg:px-[0vw] md:w-[60%] h-[300px] md:h-[500px]">
             <iframe

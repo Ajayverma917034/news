@@ -29,7 +29,7 @@ const SinglePage = () => {
   const [relatedNews, setRelatedNews] = useState(null);
   const [hasReachedBottom, setHasReachedBottom] = useState(false);
 
-  const { title, description, banner, tags } = news;
+  const { title, description, banner, tags, createdAt } = news;
 
   const fetchNews = async () => {
     let incrementVal = 0;
@@ -125,6 +125,7 @@ const SinglePage = () => {
               banner={banner}
               description={description}
               link={currentUrl}
+              createdAt={createdAt}
             />
             <div className="col-span-4 w-full">
               {/* <div className="py-4 flex flex-col flex-wrap w-full">
@@ -223,7 +224,8 @@ const SinglePage = () => {
               {randomNews &&
                 randomNews.length &&
                 randomNews.map((item, index) => (
-                  <div key={index}>
+                  <div key={index} className="mt-10">
+                    <Heading title="और भी पढ़ें" />
                     <PageContent item={item} />
                     <div className="w-full h-[6.1rem] max-md:mt-10 flex items-center justify-center my-4">
                       <img
