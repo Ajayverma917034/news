@@ -10,11 +10,13 @@ import banner from "../../assets/errorimg1.png";
 import { AdvertisementSkelton1 } from "../../skeleton/Advertisement.skeltons";
 import { EffectFade, Navigation, Pagination, Autoplay } from "swiper/modules";
 import { useSelector } from "react-redux";
+import { HiOutlineExclamationCircle } from "react-icons/hi2";
+import { Link } from "react-router-dom";
 const CustomeAndGoogleAdd = ({ type = "square" }) => {
   const { loading, error, sideAds } = useSelector((state) => state.ads);
 
   return (
-    <div className="flex flex-wrap  gap-y-3 gap-x-4 md:flex md:w-full  lg:flex-col ">
+    <div className="flex flex-wrap  gap-y-3 gap-x-4 md:flex max-sm:items-center w-full  lg:flex-col ">
       <Swiper
         spaceBetween={20}
         effect={"fade"}
@@ -59,6 +61,18 @@ const CustomeAndGoogleAdd = ({ type = "square" }) => {
                 <AdvertisementSkelton1 />
               </SwiperSlide>
             ))}
+        <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
+          <Link
+            to={"/advertisement-us"}
+            className="text-[#f9f9f9] text-[12px] "
+          >
+            <HiOutlineExclamationCircle
+              size={18}
+              className="text-[#f9f9f9] font-sans"
+            />
+          </Link>
+          <span className="text-[#f9f9f9] text-[12px]">Sponsored</span>
+        </div>
       </Swiper>
       <div className="w-[330px] h-[330px] overflow-hidden ml-auto mr-auto">
         <img className="w-full h-auto object-fill" src={adsimgright2} />

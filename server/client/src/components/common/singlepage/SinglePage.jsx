@@ -49,21 +49,10 @@ const SinglePage = () => {
         incrementVal,
       });
       setNews(data.news);
-
-      const {
-        state,
-        district,
-        location,
-        tags,
-        news_section_type,
-        news_id: prevNewsId,
-      } = data.news;
+      const { tags, news_section_type, news_id: prevNewsId } = data.news;
 
       const relatedNewsResponse = await httpClient.post("/fetch-related-news", {
-        state,
-        district,
         tags,
-        location,
         news_section_type,
         news_id: prevNewsId,
       });
@@ -213,7 +202,7 @@ const SinglePage = () => {
                     ))}
                 </div>
               </div>
-              <div className="w-full h-[6.1rem] max-md:mt-10 flex items-center justify-center my-4">
+              <div className="w-full h-[6.1rem] max-md:mt-10 flex items-center justify-center my-4 z-[10]">
                 <img
                   src={adsmiddleimg}
                   alt="adsimg"
@@ -227,7 +216,7 @@ const SinglePage = () => {
                   <div key={index} className="mt-10">
                     <Heading title="और भी पढ़ें" />
                     <PageContent item={item} />
-                    <div className="w-full h-[6.1rem] max-md:mt-10 flex items-center justify-center my-4">
+                    <div className="w-full h-[6.1rem] max-md:mt-10 flex items-center justify-center my-4 ">
                       <img
                         src={adsmiddleimg}
                         alt="adsimg"
@@ -238,7 +227,7 @@ const SinglePage = () => {
                 ))}
               {hasReachedBottom && <Loader />}
             </div>
-            <div className="col-span-2">
+            <div className="col-span-2 w-full">
               <div className="sticky top-32">
                 <CustomeAndGoogleAdd type="detail" />
                 <SideNews title="read also" />

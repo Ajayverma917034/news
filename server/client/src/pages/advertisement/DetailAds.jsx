@@ -45,7 +45,7 @@ export default function DetailAds() {
                       alt="sliderimg"
                       className="w-full h-full object-fill"
                     />
-                    helo
+
                     {/* </div> */}
                   </SwiperSlide>
                 );

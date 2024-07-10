@@ -15,6 +15,8 @@ import "./slider.css";
 import { EffectFade, Navigation, Pagination, Autoplay } from "swiper/modules";
 import { AdvertisementSkelton1 } from "../../skeleton/Advertisement.skeltons";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { HiOutlineExclamationCircle } from "react-icons/hi2";
 
 export default function Slider() {
   const { loading, error, bannerAds } = useSelector((state) => state.ads);
@@ -46,6 +48,20 @@ export default function Slider() {
                       alt="sliderimg"
                       className="w-full h-full object-fill"
                     />
+                    <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
+                      <Link
+                        to={"/advertisement-us"}
+                        className="text-[#f9f9f9] text-[12px] "
+                      >
+                        <HiOutlineExclamationCircle
+                          size={18}
+                          className="text-[#f9f9f9] font-sans"
+                        />
+                      </Link>
+                      <span className="text-[#f9f9f9] text-[12px]">
+                        Sponsored
+                      </span>
+                    </div>
                     {/* </div> */}
                   </SwiperSlide>
                 );

@@ -2,6 +2,7 @@ import News from "../model/news.models.js";
 import User from "../model/user.model.js";
 import tryCatch from "../utils/asyncFunction.js";
 import ErrorHandler from "../utils/errorHandler.js";
+import translate from 'translate-google'
 
 export const getNews = tryCatch(async (req, res, next) => {
     let { page, limit, state, district, location, news_section_type, draft, createdAt, search } = req.body;
@@ -227,3 +228,4 @@ export const Deleteuser = async (req, res) => {
         return res.status(500).json({ success: false, error: err.message });
     }
 };
+

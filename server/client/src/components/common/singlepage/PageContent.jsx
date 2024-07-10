@@ -11,6 +11,7 @@ import Heading from "../Heading";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import DetailAds from "../../../pages/advertisement/DetailAds";
+import { HiOutlineExclamationCircle } from "react-icons/hi2";
 
 const PageContent = ({ item }) => {
   const { loading, error, detailAds } = useSelector((state) => state.ads);
@@ -57,8 +58,20 @@ const PageContent = ({ item }) => {
         {item?.content[0] && (
           <BlogContent block={item?.content[0]?.blocks[0]} />
         )}
-        <div className="bg-gray h-[200px] flex justify-center items-center w-full">
+        <div className="bg-gray h-[200px] flex justify-center items-center w-full relative">
           <DetailAds />
+          <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
+            <Link
+              to={"/advertisement-us"}
+              className="text-[#f9f9f9] text-[12px] "
+            >
+              <HiOutlineExclamationCircle
+                size={18}
+                className="text-[#f9f9f9] font-sans"
+              />
+            </Link>
+            <span className="text-[#f9f9f9] text-[12px]">Sponsored</span>
+          </div>
         </div>
         {item?.content[0]?.blocks?.length > 1 &&
           item?.content[0]?.blocks.slice(1).map((block, i) => (

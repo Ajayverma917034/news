@@ -3,7 +3,7 @@ import State from "../model/state.model.js";
 import User from "../model/user.model.js";
 import tryCatch from "../utils/asyncFunction.js";
 import ErrorHandler from "../utils/errorHandler.js";
-
+import translate from "translate-google";
 
 function generateNanoId(length = 5) {
     let result = '';
@@ -22,7 +22,7 @@ function getCurrentDate() {
     return `${year}${month}${day}`;
 }
 
-export const createNews = tryCatch((req, res, next) => {
+export const createNews = tryCatch(async (req, res, next) => {
     try {
 
         let authorId = req.user._id;
@@ -85,7 +85,20 @@ export const createNews = tryCatch((req, res, next) => {
 
         // tags = tags.map(tag => tag.trim().toLowerCase());
 
-        let news_id = id || title.trim().replace(/\s+/g, '-');
+        let newUrlTitle = ""
+        await translate(title, { from: 'hi', to: 'en' }).then(res => {
+
+            newUrlTitle = res;
+        }).catch(err => {
+            return res.status(500).json({ success: false, error: err.message })
+        });
+
+        let news_id = id || newUrlTitle
+            .trim()
+            .toLocaleLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/-+/g, '-')
+            .replace(/^-|-$/g, ''); // Remove leading or trailing hyphens
 
         news_id += '-' + getCurrentDate() + '-' + generateNanoId();
 
@@ -369,7 +382,8 @@ export const findNewsSectionTypeNews = tryCatch(async (req, res, next) => {
         const fetchedNews = await News.find(query)
             .limit(fetchLimit)
             .sort({ "createdAt": -1 })
-            .select('news_id title banner _-id');
+            .select('news_id title banner -_id')
+            .exec()
 
         // Randomly pick 5 news items from the fetched news
         const shuffled = fetchedNews.sort(() => 0.5 - Math.random());

@@ -116,7 +116,7 @@ const PublishForm = () => {
         e.target.classList.remove("disable");
         toast.dismiss(loadingToast);
         toast.success("Published successfully");
-        navigate("/dashboard");
+        // navigate("/dashboard");
       })
       .catch(({ response }) => {
         e.target.classList.remove("disable");
