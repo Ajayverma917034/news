@@ -1,7 +1,6 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 
-
 export const MetaData = ({
   title,
   keywords,
@@ -10,7 +9,14 @@ export const MetaData = ({
   link,
   createdAt,
 }) => {
-  console.log('MetaData props:', { title, keywords, banner, description, link, createdAt });
+  console.log("MetaData props:", {
+    title,
+    keywords,
+    banner,
+    description,
+    link,
+    createdAt,
+  });
 
   return (
     <Helmet>
@@ -24,14 +30,22 @@ export const MetaData = ({
       />
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
-      <meta property="og:url" content={link} />
-      <meta property="og:type" content="article" />
+      {/* <meta property="og:url" content={link} /> */}
+      {/* <meta property="og:type" content="article" /> */}
       <meta property="og:site_name" content="Janpad Mirror" />
       <meta property="article:published_time" content={createdAt} />
+      {/* <meta property="og:title" content={title} /> */}
+      {/* <meta property="og:description" content={description} /> */}
+      {/* <meta property="og:image" content={banner} /> */}
+
+      {/* for facebook  */}
       <meta property="og:title" content={title} />
-      <meta property="og:description" content={description} />
+      <meta property="og:type" content="article" />
       <meta property="og:image" content={banner} />
-      <meta property="fb:app_id" content="your_fb_app_id" />
+      <meta property="og:url" content={link} />
+      <meta property="og:description" content={description} />
+
+      {/* <meta property="fb:app_id" content="your_fb_app_id" /> */}
       <meta property="twitter:card" content="summary_large_image" />
       <meta property="twitter:creator" content="@your_twitter_handle" />
       <meta property="twitter:title" content={title} />
