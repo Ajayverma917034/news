@@ -117,65 +117,6 @@ const SinglePage = () => {
               createdAt={createdAt}
             />
             <div className="col-span-4 w-full">
-              {/* <div className="py-4 flex flex-col flex-wrap w-full">
-                <h1 className="font-semibold text-[20px] md:text-[25px]">
-                  {title}
-                </h1>
-                <p className="date-lg text-wrap">{description}</p>
-                <div className="w-full h-[280px] sm:h-[350px] mt-3">
-                  <img
-                    src={news?.banner}
-                    onError={handleImageError}
-                    alt="news-img"
-                    className="w-full h-full object-cover"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="flex flex-wrap gap-y-2 sm:flex sm:flex-row items-center py-2 justify-between w-full">
-                  <div className="flex items-center">
-                    <CiLocationOn size={25} className="text-red" />
-                    <h3 className="news-title-md mt-2 ml-1 capitalize">
-                      {location}
-                    </h3>
-                  </div>
-                  <div>
-                    <h3 className="date-lg">{formatDate(createdAt)}</h3>
-                  </div>
-                  <div className="flex gap-2 items-center">
-                    <RiWhatsappFill
-                      className="text-green-600 hover:scale-[1.2]"
-                      size={28}
-                    />
-                    <FaFacebook
-                      size={24}
-                      className="text-blue hover:scale-[1.2]"
-                    />
-                    <AiFillInstagram
-                      size={26}
-                      className="text-red hover:scale-[1.2]"
-                    />
-                    <FaSquareXTwitter
-                      size={24}
-                      className="text-pink-600 hover:scale-[1.2]"
-                    />
-                  </div>
-                </div>
-                <div className="py-2 my-2 border-[3px] border-green-600 rounded-md flex justify-center items-center font-semibold text-green-700 w-full">
-                  फॉलो करे Whatsapp पे !
-                </div>
-                <div className="py-4 w-full">
-                  {content[0] && <BlogContent block={content[0]?.blocks[0]} />}
-                  <div className="bg-gray h-[200px] flex justify-center items-center w-full">
-                    Ads
-                  </div>
-                  {content[0]?.blocks.length > 1 &&
-                    content[0]?.blocks.slice(1).map((block, i) => (
-                      <div className="my-4 md:my-4" key={i}>
-                        <BlogContent block={block} />
-                      </div>
-                    ))}
-                </div>
-              </div> */}
               <PageContent item={news} />
               <div className="w-full">
                 <Heading title={"सम्बंधित खबर"} />
@@ -223,12 +164,15 @@ const SinglePage = () => {
                         className=" w-full h-full"
                       />
                     </div>
+                    <div className="hidden max-sm:flex">
+                      <CustomeAndGoogleAdd />
+                    </div>
                   </div>
                 ))}
               {hasReachedBottom && <Loader />}
             </div>
             <div className="col-span-2 w-full">
-              <div className="sticky top-32">
+              <div className="sticky top-32 max-md:hidden">
                 <CustomeAndGoogleAdd type="detail" />
                 <SideNews title="read also" />
               </div>

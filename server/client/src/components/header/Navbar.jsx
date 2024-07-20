@@ -57,7 +57,7 @@ const Navbar = () => {
             alt="logoimg"
             className="w-[50%]  sm:w-[35%] md:w-[30%] lg:w-[20%]"
           />
-          <div className=" flex justify-between items-center gap-x-3 sm:gap-8 ">
+          <div className=" flex justify-between items-center gap-x-3 sm:gap-8 max-sm:mt-[8px]">
             <div
               className="flex items-center justify-center gap-1 cursor-pointer"
               onClick={toggleMenu}
@@ -80,7 +80,7 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-        <div className="bg-blue py-3 max-md:mt-1">
+        <div className="bg-blue pt-3 pb-2 max-md:mt-1">
           <ul className="flex gap-x-10 text-white px-5 md:px-20 overflow-x-auto overflow-y-hidden no-scrollbar justify-evenly items-center  no-scrollbar">
             {navItems.map((item, index) => (
               <NavLink

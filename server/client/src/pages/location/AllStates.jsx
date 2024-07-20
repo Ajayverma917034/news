@@ -1,17 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./MenuBar.css";
 import { FaSearch, FaTimes } from "react-icons/fa";
-import { findHindi, stateDistricts } from "../../assets/data";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { stateDistricts } from "../../assets/data";
 
 const AllState = ({ isMenuOpen, setIsMenuOpen }) => {
   const menuRef = useRef(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [filteredStates, setFilteredStates] = useState(
-    Object.keys(stateDistricts)
-  );
-  const [openState, setOpenState] = useState(null); // To track which state submenu is open
-  const [activeLink, setActiveLink] = useState(null); // To track the active link
+  const [filteredDistricts, setFilteredDistricts] = useState([]);
 
   const handleClickOutside = (event) => {
     if (menuRef.current && !menuRef.current.contains(event.target)) {
@@ -31,36 +27,38 @@ const AllState = ({ isMenuOpen, setIsMenuOpen }) => {
     };
   }, [isMenuOpen]);
 
+  const navigate = useNavigate();
+  useEffect(() => {
+    // Flatten all districts from all states into one array with state names included
+    const allDistricts = Object.entries(stateDistricts).flatMap(
+      ([state, districts]) =>
+        districts.map((district) => ({ ...district, state }))
+    );
+    setFilteredDistricts(allDistricts);
+  }, []);
+
   const handleSearch = (e) => {
     const term = e.target.value.toLowerCase();
     setSearchTerm(term);
     if (term === "") {
-      setFilteredStates(Object.keys(stateDistricts));
-    } else {
-      const filtered = Object.keys(stateDistricts).filter(
-        (state) =>
-          state.toLowerCase().includes(term) ||
-          stateDistricts[state].some(
-            (district) =>
-              district.hindi.includes(term) ||
-              district.english.toLowerCase().includes(term)
-          )
+      const allDistricts = Object.entries(stateDistricts).flatMap(
+        ([state, districts]) =>
+          districts.map((district) => ({ ...district, state }))
       );
-      setFilteredStates(filtered);
-    }
-  };
-
-  const toggleSubmenu = (state) => {
-    if (openState === state) {
-      setOpenState(null); // Close the submenu if it's already open
+      setFilteredDistricts(allDistricts);
     } else {
-      setOpenState(state); // Open the clicked submenu
+      const filtered = Object.entries(stateDistricts)
+        .flatMap(([state, districts]) =>
+          districts.map((district) => ({ ...district, state }))
+        )
+        .filter(
+          (district) =>
+            district.hindi.includes(term) ||
+            district.english.toLowerCase().includes(term)
+        );
+      setFilteredDistricts(filtered);
     }
   };
-
-  // const handleLinkClick = (state, district) => {
-  //   setActiveLink(`${state}-${district}`);
-  // };
 
   return (
     <div>
@@ -89,35 +87,21 @@ const AllState = ({ isMenuOpen, setIsMenuOpen }) => {
           </button>
         </div>
         <ul>
-          {filteredStates.map((state, index) => (
-            <li key={index} className="capitalize">
-              <div onClick={() => toggleSubmenu(state)}>{findHindi(state)}</div>
-              {stateDistricts[state] && (
-                <ul
-                  className={`submenu ${
-                    openState === state ? "submenu-open" : ""
-                  }`}
-                >
-                  {stateDistricts[state].map((district, idx) => {
-                    return (
-                      <li key={idx}>
-                        <Link
-                          to={`/state/${state}/${district.english}`}
-                          className={
-                            activeLink ===
-                            `${state}-${district.english} capitalize`
-                              ? "active"
-                              : ""
-                          }
-                          onClick={() => setIsMenuOpen(false)}
-                        >
-                          {district.hindi}
-                        </Link>
-                      </li>
-                    );
-                  })}
-                </ul>
-              )}
+          {filteredDistricts.map((district, index) => (
+            <li
+              key={index}
+              className="capitalize w-full"
+              onClick={() =>
+                navigate(`state/${district.state}/${district.english}`)
+              }
+            >
+              {/* <Link
+                to={`state/${district.state}/${district.english}`}
+                onClick={() => setIsMenuOpen(false)}
+                className="w-full"
+              > */}
+              {district.hindi}
+              {/* </Link> */}
             </li>
           ))}
         </ul>

@@ -116,7 +116,7 @@ export const YtCollectionSkeleton = () => {
         {
           <div className="flex gap-5 flex-col md:flex-row justify-between">
             {[1, 1, 1].map((item, index) => (
-              <VideoCardSkeleton />
+              <VideoCardSkeleton key={index}/>
             ))}
           </div>
         }

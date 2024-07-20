@@ -1,6 +1,7 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 
+
 export const MetaData = ({
   title,
   keywords,
@@ -8,8 +9,9 @@ export const MetaData = ({
   description,
   link,
   createdAt,
-  // meta = [],
 }) => {
+  console.log('MetaData props:', { title, keywords, banner, description, link, createdAt });
+
   return (
     <Helmet>
       <title>{title}</title>

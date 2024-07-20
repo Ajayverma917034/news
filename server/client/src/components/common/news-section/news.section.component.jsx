@@ -21,7 +21,7 @@ const NewsSection = ({ data, title }) => {
               {/* Main Section  */}
               <Link
                 to={`/news/${data[0]?.news_id}`}
-                className="flex md:flex-row flex-col justify-between w-full "
+                className="flex md:flex-row flex-col justify-between w-full max-sm:shadow-regular-shadow"
               >
                 <div className="md:w-[50%] w-full h-auto max-h-[16rem]">
                   <img
@@ -41,14 +41,14 @@ const NewsSection = ({ data, title }) => {
                   </div>
                 </div>
               </Link>
-              <div className="grid md:grid-cols-2 gap-4 ">
+              <div className="grid md:grid-cols-2 gap-6 ">
                 {data &&
                   data.slice(1).map((card, index) => {
                     return (
                       <Link
                         to={`/news/${card.news_id}`}
                         key={index}
-                        className=" grid grid-cols-3 max-md:gap-x-4 rounded-lg shadow-md p-2 "
+                        className=" grid grid-cols-3 max-md:gap-x-4 rounded-lg shadow-md p-2 max-sm:py-3 "
                       >
                         <div className="col-span-1 h-[90px]">
                           <img
