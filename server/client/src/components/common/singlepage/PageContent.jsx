@@ -12,6 +12,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import DetailAds from "../../../pages/advertisement/DetailAds";
 import { HiOutlineExclamationCircle } from "react-icons/hi2";
+import { toast } from "react-hot-toast";
 import {
   EmailIcon,
   FacebookIcon,
@@ -38,11 +39,24 @@ import {
   WhatsappIcon,
   WhatsappShareButton,
 } from "react-share";
+import { MdOutlineContentCopy } from "react-icons/md";
 
 const PageContent = ({ item }) => {
   const { loading, error, detailAds } = useSelector((state) => state.ads);
   let { title, content, banner, createdAt, description, tags } = item;
   const shareUrl = window.location.href;
+
+  const copyUrlToClipboard = async () => {
+    // Get the current URL
+    navigator.clipboard
+      .writeText(shareUrl)
+      .then(() => {
+        toast.success("URL copied to clipboard");
+      })
+      .catch((err) => {
+        console.log("Failed to copy: ", err);
+      });
+  };
   return (
     <div className="py-4 flex flex-col flex-wrap w-full">
       <h1 className="font-semibold text-[20px] md:text-[25px]">{item.title}</h1>
@@ -73,22 +87,19 @@ const PageContent = ({ item }) => {
               size={28}
             />
           </WhatsappShareButton>
-          <FacebookShareButton url={shareUrl} quote={title} hashtag={tags}>
+          <FacebookShareButton hashtag={tags} url={shareUrl} title={title}>
             <FaFacebook size={24} className="text-blue hover:scale-[1.2]" />
           </FacebookShareButton>
-          <InstapaperShareButton
-            title={title}
-            description={description}
-            url={shareUrl}
-          >
-            <AiFillInstagram size={26} className="text-red hover:scale-[1.2]" />
-          </InstapaperShareButton>
+
           <TwitterShareButton url={shareUrl} title={title} hashtags={tags}>
             <FaSquareXTwitter
               size={24}
               className="text-pink-600 hover:scale-[1.2]"
             />
           </TwitterShareButton>
+          <button onClick={copyUrlToClipboard}>
+            <MdOutlineContentCopy size={24} className=" hover:scale-[1.2]" />
+          </button>
         </div>
       </div>
       <div className="py-2 my-2 border-[3px] border-green-600 rounded-md flex justify-center items-center font-semibold text-green-700 w-full">
