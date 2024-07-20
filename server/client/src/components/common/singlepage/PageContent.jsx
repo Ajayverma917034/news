@@ -12,9 +12,37 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import DetailAds from "../../../pages/advertisement/DetailAds";
 import { HiOutlineExclamationCircle } from "react-icons/hi2";
+import {
+  EmailIcon,
+  FacebookIcon,
+  FacebookShareButton,
+  InstapaperShareButton,
+  GabIcon,
+  HatenaIcon,
+  InstapaperIcon,
+  LineIcon,
+  LinkedinIcon,
+  LivejournalIcon,
+  MailruIcon,
+  OKIcon,
+  PinterestIcon,
+  PocketIcon,
+  RedditIcon,
+  TelegramIcon,
+  TumblrIcon,
+  TwitterIcon,
+  TwitterShareButton,
+  ViberIcon,
+  VKIcon,
+  WeiboIcon,
+  WhatsappIcon,
+  WhatsappShareButton,
+} from "react-share";
 
 const PageContent = ({ item }) => {
   const { loading, error, detailAds } = useSelector((state) => state.ads);
+  let { title, content, banner, createdAt, description, tags } = item;
+  const shareUrl = window.location.href;
   return (
     <div className="py-4 flex flex-col flex-wrap w-full">
       <h1 className="font-semibold text-[20px] md:text-[25px]">{item.title}</h1>
@@ -39,16 +67,28 @@ const PageContent = ({ item }) => {
           <h3 className="date-lg">{formatDate(item.createdAt)}</h3>
         </div>
         <div className="flex gap-2 items-center">
-          <RiWhatsappFill
-            className="text-green-600 hover:scale-[1.2]"
-            size={28}
-          />
-          <FaFacebook size={24} className="text-blue hover:scale-[1.2]" />
-          <AiFillInstagram size={26} className="text-red hover:scale-[1.2]" />
-          <FaSquareXTwitter
-            size={24}
-            className="text-pink-600 hover:scale-[1.2]"
-          />
+          <WhatsappShareButton url={shareUrl} title={title}>
+            <RiWhatsappFill
+              className="text-green-600 hover:scale-[1.2]"
+              size={28}
+            />
+          </WhatsappShareButton>
+          <FacebookShareButton url={shareUrl} quote={title} hashtag={tags}>
+            <FaFacebook size={24} className="text-blue hover:scale-[1.2]" />
+          </FacebookShareButton>
+          <InstapaperShareButton
+            title={title}
+            description={description}
+            url={shareUrl}
+          >
+            <AiFillInstagram size={26} className="text-red hover:scale-[1.2]" />
+          </InstapaperShareButton>
+          <TwitterShareButton url={shareUrl} title={title} hashtags={tags}>
+            <FaSquareXTwitter
+              size={24}
+              className="text-pink-600 hover:scale-[1.2]"
+            />
+          </TwitterShareButton>
         </div>
       </div>
       <div className="py-2 my-2 border-[3px] border-green-600 rounded-md flex justify-center items-center font-semibold text-green-700 w-full">
