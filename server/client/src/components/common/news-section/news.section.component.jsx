@@ -3,7 +3,7 @@ import Heading from "../Heading";
 import newsImage from "../../../assets/img1.png";
 import { CiLocationOn } from "react-icons/ci";
 import NewsCard from "../news-section/news.card.section.component";
-import adsmiddleimg from "../../../assets/adsmiddleimg.png";
+import adsmiddleimg from "../../../assets/adsmiddleimg.jpg";
 import { Link } from "react-router-dom";
 import { CollectionNewsSkeleton } from "../../../skeleton/HomeSkeleton";
 import { findHindi } from "../../../assets/data";
@@ -76,11 +76,11 @@ const NewsSection = ({ data, title }) => {
                     );
                   })}
               </div>
-              <div className="w-full h-[6.1rem] max-md:mt-10 flex items-center justify-center">
+              <div className="w-full  h-[5rem] md:h-[9rem] max-md:mt-10 flex items-center justify-center">
                 <img
                   src={adsmiddleimg}
                   alt="adsimg"
-                  className=" w-full h-full"
+                  className="w-full h-full object-fill"
                 />
               </div>
             </div>

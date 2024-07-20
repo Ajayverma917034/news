@@ -14,7 +14,7 @@ const states = [
   "uttarakhand",
 ];
 const RajyaMain = () => {
-  const [currentStateIndex, setCurrentStateIndex] = useState(0);
+  const [currentStateIndex, setCurrentStateIndex] = useState(1);
   const [data, setData] = useState(null);
 
   const fetchNewsDistrictWise = () => {

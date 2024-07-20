@@ -20,7 +20,7 @@ const districts = [
   "singrauli",
 ];
 const ApnaZila = () => {
-  const [currentDistrictIndex, setCurrentDistrictIndex] = useState(0);
+  const [currentDistrictIndex, setCurrentDistrictIndex] = useState(1);
   const [data, setData] = useState(null);
 
   const fetchNewsDistrictWise = () => {

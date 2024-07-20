@@ -52,8 +52,6 @@ const App = () => {
   }, []);
   return (
     <BrowserRouter>
-      {/* <HeadNav /> */}
-      {/* <LocationPopUp /> */}
       <Navbar />
       <Slider />
       <Toaster />
@@ -71,6 +69,7 @@ const App = () => {
         <Route path="/ipl" element={<MoreNews />} />
         <Route path="/cricket" element={<MoreNews />} />
         <Route path="/sports" element={<MoreNews />} />
+        <Route path="/entertainment" element={<MoreNews />} />
         <Route path="/religion" element={<MoreNews />} />
         <Route path="/entertainment" element={<MoreNews />} />
         <Route path="/astrology" element={<MoreNews />} />

@@ -1,10 +1,8 @@
 import React from "react";
-import Heading from "../Heading";
-import newsImage from "../../../assets/img1.png";
 import { CiLocationOn } from "react-icons/ci";
 import NewsVideoCard from "./news.video.card.section.component";
 import { FaYoutube } from "react-icons/fa";
-import adsmiddleimg from "../../../assets/adsmiddleimg.png";
+import adsmiddleimg from "../../../assets/adsmiddleimg.jpg";
 import { YtCollectionSkeleton } from "../../../skeleton/HomeSkeleton";
 import { Link } from "react-router-dom";
 import { formatDate } from "../../../common/date";
@@ -20,7 +18,7 @@ const NewsVideo = ({ data, title }) => {
             {/* Main Section  */}
             <Link
               to={`/video/${data[0]?.news_id}`}
-              className="flex md:flex-row flex-col justify-between w-full "
+              className="flex md:flex-row flex-col justify-between w-full"
             >
               <div className="md:w-[50%] w-full h-auto relative">
                 <img
@@ -33,9 +31,17 @@ const NewsVideo = ({ data, title }) => {
                 </div>
               </div>
               <div className="md:w-[45%] w-full ">
-                <p className="date-lg">{formatDate(data[0]?.createdAt)}</p>
+                <div className="flex justify-between items-center">
+                  <p className="date-lg">{formatDate(data[0]?.createdAt)}</p>
+                  <div className="flex items-center md:hidden">
+                    <CiLocationOn className="location-lg" />
+                    <p className="location-title-lg pt-1 px-1 capitalize">
+                      {data[0]?.location}
+                    </p>
+                  </div>
+                </div>
                 <h1 className="news-title-lg">{data[0]?.title}</h1>
-                <div className="flex items-center">
+                <div className="flex items-center max-md:hidden">
                   <CiLocationOn className="location-lg" />
                   <p className="location-title-lg pt-1 px-3 capitalize">
                     {data[0]?.location}
@@ -44,6 +50,7 @@ const NewsVideo = ({ data, title }) => {
               </div>
             </Link>
 
+<hr className="md:hidden text-gray opacity-50 mb-3"/>
             <div className="flex flex-col">
               {
                 <div className="flex gap-5 flex-col md:flex-row justify-between mb-4">
@@ -58,7 +65,11 @@ const NewsVideo = ({ data, title }) => {
             </div>
           </div>
           <div className="w-full h-[6.1rem] max-md:mt-10 flex items-center justify-center mt-2">
-            <img src={adsmiddleimg} alt="adsimg" className=" w-full h-full" />
+            <img
+              src={adsmiddleimg}
+              alt="adsimg"
+              className=" w-full h-full object-fill"
+            />
           </div>
         </>
       ) : (

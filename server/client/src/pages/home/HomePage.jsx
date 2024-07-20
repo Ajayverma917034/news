@@ -6,6 +6,7 @@ import NewsSection from "../../components/common/news-section/news.section.compo
 import { MetaDataSection } from "../../seo/Helmet";
 import RajyaMain from "./RajyaMain";
 import ApnaZila from "./ApnaZila";
+import CustomeAndGoogleAdd from "../advertisement/CustomeAndGoogleAdd";
 
 const HomePage = () => {
   const [homeNews, setHomeNews] = useState([[], [], [], []]);
@@ -51,19 +52,17 @@ const HomePage = () => {
       <HomeRightBarOther data={homeNews.slice(2, 4)} />
 
       {homeNews.length > 4 && (
-        <div className="flex spacing mt-2 sm:mt-8 ">
+        <div className="flex spacing mt-2 sm:mt-8">
           <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full gap-5">
             <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden w-full">
-              {homeNews &&
-                homeNews.slice(4).map((news, index) => {
-                  return (
-                    <NewsSection
-                      key={index}
-                      data={news.data}
-                      title={news.title}
-                    />
-                  );
-                })}
+              {homeNews.slice(4).map((news, index) => (
+                <NewsSection key={index} data={news.data} title={news.title} />
+              ))}
+            </div>
+            <div className="col-span-2 w-full">
+              <div className="sticky top-32 max-md:hidden">
+                <CustomeAndGoogleAdd />
+              </div>
             </div>
           </div>
         </div>

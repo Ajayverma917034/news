@@ -63,7 +63,7 @@ const MoreNews = () => {
                 <div>No more news</div>
               ) : (
                 <div className="flex w-full flex-col flex-wrap sm:gap-4 ">
-                  <MetaDataSection title={`${title} district news`} />
+                  <MetaDataSection title={`${title} news`} />
                   <Heading title={findHindi(title)} />
                   {data.length > 0 && (
                     <Link to={`/news/${data[0]?.news_id}`}>
