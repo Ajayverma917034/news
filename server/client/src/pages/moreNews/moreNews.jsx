@@ -39,9 +39,11 @@ const MoreNews = () => {
     setData([]);
     setPage(1);
     fetchNews(1);
-    window.scrollTo(0, 0);
   }, [title]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
   const loadMore = () => {
     setPage((prevPage) => prevPage + 1);
   };
@@ -67,12 +69,12 @@ const MoreNews = () => {
                   <Heading title={findHindi(title)} />
                   {data.length > 0 && (
                     <Link to={`/news/${data[0]?.news_id}`}>
-                      <div className="h-[180px] md:h-[400px] w-full mt-2 relative">
+                      <div className="h-[180px] md:h-[400px] w-full mt-2 relative p-1">
                         <img
                           src={data[0]?.banner}
                           alt="News Image"
                           onError={handleImageError}
-                          className="z-0 h-full w-full  object-cover"
+                          className="z-0 h-full w-full  object-cover rounded-md"
                         />
                         <div className="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-5"></div>
                         <div className="absolute bottom-0 text-center w-full">
@@ -83,7 +85,7 @@ const MoreNews = () => {
                       </div>
                     </Link>
                   )}
-                  <div className="flex w-full flex-col flex-wrap gap-y-6 py-6">
+                  <div className="flex w-full flex-col flex-wrap gap-y-6 py-6 p-1">
                     {data.slice(1).map((item, index) => (
                       <MorePageCard key={index} data={item} />
                     ))}

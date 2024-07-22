@@ -68,12 +68,12 @@ const MoreVideos = () => {
                   <Heading title={findHindi(title)} />
                   {data.length > 0 && (
                     <Link to={`/video/${data[0]?.news_id}`}>
-                      <div className="h-[180px] md:h-[400px] w-full mt-2 relative">
+                      <div className="h-[180px] sm:h-[180px] md:h-[400px] w-full mt-2 relative shadow-card p-1">
                         <img
                           src={`https://img.youtube.com/vi/${data[0]?.videoLinkId}/mqdefault.jpg`}
                           alt="News Image"
                           onError={handleImageError}
-                          className="z-0 h-full w-full  object-cover"
+                          className="z-0 h-full w-full object-cover rounded-md"
                         />
                         <div className="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-5"></div>
                         <div className="absolute inset-0 flex justify-center items-center">
@@ -81,14 +81,14 @@ const MoreVideos = () => {
                         </div>
                         <div className="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-5"></div>
                         <div className="absolute bottom-0 text-center w-full">
-                          <h1 className="news-title-lg text-white text-start lg:text-[27px] bg-gradient-to-t from-gray to-transparent p-2">
+                          <h1 className="news-title-lg line-clamp-2 text-white text-start lg:text-[27px] bg-gradient-to-t from-gray to-transparent p-2">
                             {data[0]?.title}
                           </h1>
                         </div>
                       </div>
                     </Link>
                   )}
-                  <div className="flex w-full flex-col flex-wrap gap-y-6 py-6">
+                  <div className="flex w-full flex-col flex-wrap gap-y-6 py-6 p-1">
                     {data.slice(1).map((item, index) => (
                       <MoreNewsVideoCard key={index} data={item} />
                     ))}

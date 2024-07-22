@@ -52,9 +52,9 @@ const HomePage = () => {
       <HomeRightBarOther data={homeNews.slice(2, 4)} />
 
       {homeNews.length > 4 && (
-        <div className="flex spacing mt-2 sm:mt-8">
-          <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full gap-5">
-            <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden w-full">
+        <div className="flex spacing mt-2">
+          <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full">
+            <div className="flex flex-col flex-wrap  md:col-span-4 overflow-hidden">
               {homeNews.slice(4).map((news, index) => (
                 <NewsSection key={index} data={news.data} title={news.title} />
               ))}

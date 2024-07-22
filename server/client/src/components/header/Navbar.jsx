@@ -19,7 +19,6 @@ const Navbar = () => {
     { name: "Carrier", hindiName: "करियर", link: "/carrier" },
     { name: "Religion", hindiName: "धर्म", link: "/religion" },
     { name: "World", hindiName: "विदेश", link: "/world" },
-    { name: "Cricket", hindiName: "क्रिकेट", link: "/cricket" },
   ];
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);

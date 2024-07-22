@@ -137,7 +137,7 @@ const VideoPage = () => {
               ></iframe>
             </div>
 
-            <div className="center w-full py-3 max-lg:px-[0vw]">
+            <div className="center w-full max-lg:px-[0vw]">
               <h2 className="text-4xl leading-normal font-bold max-md:text-3xl font-devNagri">
                 {title}
               </h2>
@@ -188,7 +188,7 @@ const VideoPage = () => {
                 </div>
               </div>
 
-              <p className="mt-3 text-lg font-devNagri">{description}</p>
+              <p className=" text-lg font-devNagri">{description}</p>
             </div>
             <div className="w-full">
               <Heading title={"सम्बंधित वीडियो"} />
