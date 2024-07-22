@@ -102,8 +102,8 @@ const PageContent = ({ item }) => {
           </button>
         </div>
       </div>
-      <div className="py-2 my-2 border-[3px] border-green-600 rounded-md flex justify-center items-center font-semibold text-green-700 w-full">
-        फॉलो करे Whatsapp पर !
+      <div className="py-2 my-2 border-[3px] border-green-600 rounded-md flex justify-center items-center font-semibold text-green-700 w-full hover:text-white hover:bg-green-700 cursor-pointer transition-all delay-75">
+        Whatsapp चैनल फॉलो करे !
       </div>
       <div className="py-4 w-full">
         {item?.content[0] && (

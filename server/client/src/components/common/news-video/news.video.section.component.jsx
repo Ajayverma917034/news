@@ -18,9 +18,9 @@ const NewsVideo = ({ data, title }) => {
             {/* Main Section  */}
             <Link
               to={`/video/${data[0]?.news_id}`}
-              className="flex md:flex-row flex-col justify-between w-full shadow-card max-sm:mb-2 rounded-md"
+              className="flex md:flex-row flex-col justify-between w-full shadow-card max-sm:mb-2 rounded-md p-1"
             >
-              <div className="md:w-[50%] w-full h-auto max-h-[16rem] p-1 relative">
+              <div className="md:w-[50%] w-full h-auto max-h-[16rem] rounded-md relative">
                 <img
                   className="w-full h-full rounded-md"
                   src={`https://img.youtube.com/vi/${data[0]?.videoLinkId}/mqdefault.jpg`}

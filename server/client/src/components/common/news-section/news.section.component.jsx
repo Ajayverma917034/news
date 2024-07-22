@@ -59,7 +59,7 @@ const NewsSection = ({ data, title }) => {
                         key={index}
                         className="grid grid-cols-3 max-md:gap-x-4 rounded-sm  shadow-card"
                       >
-                        <div className="col-span-1 p-1 h-full">
+                        <div className="col-span-1 p-1 h-full max-h-[103px]">
                           <img
                             src={card.banner}
                             alt="News"

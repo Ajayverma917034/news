@@ -128,7 +128,7 @@ const SinglePage = () => {
                         key={index}
                         className="flex flex-row lg:flex-col lg:w-[200px] shadow-card p-1 rounded-md max-lg:gap-x-3"
                       >
-                        <div className="max-h-48 lg:h-[120px] max-lg:max-w-36 rounded-md">
+                        <div className="max-h-52 lg:h-[120px] max-lg:max-w-36 rounded-md">
                           <img
                             src={item?.banner}
                             onError={handleImageError}

@@ -17,20 +17,20 @@ const ApnaNews = ({ data, navItems, currentIndex, hint }) => {
         <p>कोई समाचार उपलब्ध नहीं</p>
       </div>
     ) : (
-      <div className="flex w-full flex-col max-md:mt-1 md:p-4 flex-wrap sm:gap-4 relative">
+      <div className="flex flex-col flex-wrap sm:gap-4 p-1 w-full max-md:mt-1 md:p-4 relative">
         {/* Main Section  */}
         <Link
           to={`/news/${data[0]?.news_id}`}
-          className="flex md:flex-row flex-col justify-between w-full "
+          className="flex md:flex-row flex-col justify-between w-full shadow-card max-sm:mb-2 rounded-md"
         >
-          <div className="md:w-[50%] w-full h-auto max-h-[16rem]">
+          <div className="md:w-[50%] w-full h-auto max-h-[16rem] p-1">
             <img
-              className="max-h-[16rem]"
+              className="max-h-[16rem] rounded-md"
               src={data[0]?.banner}
               onError={handleImageError}
             />
           </div>
-          <div className="md:w-[45%] w-full flex flex-col justify-center">
+          <div className="md:w-[45%] w-full p-1">
             <p className={`date-lg ${hint === "state" ? "" : "text-white"}`}>
               {formatDate(data[0]?.createdAt)}
             </p>
@@ -62,26 +62,26 @@ const ApnaNews = ({ data, navItems, currentIndex, hint }) => {
                 <Link
                   to={`/news/${card?.news_id}`}
                   key={index}
-                  className=" grid grid-cols-3 max-md:gap-x-4 rounded-lg shadow-md max-md:py-2 md:p-2 "
+                  className="grid grid-cols-3 max-md:gap-x-4 rounded-sm  shadow-card"
                 >
-                  <div className="col-span-1 h-[90px]">
+                  <div className="col-span-1 p-1 max-h-[103px]">
                     <img
                       src={card?.banner}
                       alt="News"
-                      className="w-full h-full object-cover "
+                      className="w-full h-full object-cover rounded-sm"
                       onError={handleImageError}
                     />
                   </div>
-                  <div className="md:ml-4 col-span-2 ">
+                  <div className="md:ml-4 col-span-2 p-1">
                     <h2
-                      className={`text-lg line-clamp-2 ${
+                      className={`text-lg font-semibold line-clamp-2 ${
                         hint === "state" ? "" : "text-white"
                       }`}
                     >
                       {card.title}
                     </h2>
                     <p
-                      className={`line-clamp-1 ${
+                      className={`text-gray-500 line-clamp-1 ${
                         hint === "state" ? "" : "text-white"
                       }`}
                     >
