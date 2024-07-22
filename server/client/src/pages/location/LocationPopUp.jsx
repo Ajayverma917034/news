@@ -37,7 +37,6 @@ const LocationPopUp = () => {
       // Find Current Position Callback
       navigator.geolocation.getCurrentPosition(
         (position) => {
-          console.log(position);
           // Latitude
           const lat = position.coords.latitude;
           // Longitude

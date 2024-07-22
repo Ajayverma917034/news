@@ -16,7 +16,6 @@ const CustomDatePicker = ({ selectedOptions, setSelectedOptions }) => {
     setInternalDate(date);
   };
 
-  console.log(internalDate);
   setSelectedOptions({ ...selectedOptions, createdAt: internalDate });
   const handleOkClick = () => {
     setSelectedOptions({ ...selectedOptions, createdAt: internalDate });

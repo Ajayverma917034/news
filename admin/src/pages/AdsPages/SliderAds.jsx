@@ -47,7 +47,6 @@ const SliderAds = ({ setShowAdd, ads, setAds }) => {
     try {
       await httpClient.post("/admin/ads/update-order", { orderedAds: ads });
       toast.success("Order Updated Successfully");
-      console.log("Order updated successfully");
     } catch (error) {
       console.error("Failed to update order", error);
     }

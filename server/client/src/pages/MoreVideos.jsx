@@ -13,6 +13,7 @@ import { CollectionNewsSkeleton } from "../skeleton/HomeSkeleton";
 import MorePageVideoCard from "../components/common/news-section/morepage.news.card";
 import MoreNewsVideoCard from "../components/common/news-video/MoreNewsVideoCard";
 import { FaYoutube } from "react-icons/fa";
+import DetailAds from "./advertisement/DetailAds";
 
 const MoreVideos = () => {
   const [data, setData] = useState(null);
@@ -90,7 +91,14 @@ const MoreVideos = () => {
                   )}
                   <div className="flex w-full flex-col flex-wrap mt-1 gap-y-1 md:gap-y-6 md:py-6 p-1">
                     {data.slice(1).map((item, index) => (
-                      <MoreNewsVideoCard key={index} data={item} />
+                      <React.Fragment key={index}>
+                        <MoreNewsVideoCard data={item} />
+                        {(index + 1) % 6 === 0 && (
+                          <div key={index}>
+                            <DetailAds />
+                          </div>
+                        )}
+                      </React.Fragment>
                     ))}
                     <div ref={lastElementRef}></div>
                     {isLoading && <div>Loading more...</div>}

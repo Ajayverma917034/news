@@ -13,6 +13,8 @@ import { handleImageError } from "../../common/errorImg";
 import { MetaDataSection } from "../../seo/Helmet";
 import Loader from "../../loader/Loader";
 import { CollectionNewsSkeleton } from "../../skeleton/HomeSkeleton";
+import DetailAds from "../advertisement/DetailAds";
+import DetailsAds from "../../../../../admin/src/pages/AdsPages/DetailsAds";
 
 const MoreNews = () => {
   const [data, setData] = useState(null);
@@ -78,7 +80,7 @@ const MoreNews = () => {
                         />
                         <div className="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-5"></div>
                         <div className="absolute bottom-0 text-center w-full">
-                          <h1 className="news-title-lg text-white text-start lg:text-[27px] bg-gradient-to-t from-gray to-transparent p-2">
+                          <h1 className="news-title-lg line-clamp-2 text-white text-start lg:text-[27px] bg-gradient-to-t from-gray to-transparent p-2">
                             {data[0]?.title}
                           </h1>
                         </div>
@@ -87,7 +89,14 @@ const MoreNews = () => {
                   )}
                   <div className="flex w-full flex-col flex-wrap gap-y-2 md:gap-y-6 md:py-6 p-1 mt-1">
                     {data.slice(1).map((item, index) => (
-                      <MorePageCard key={index} data={item} />
+                      <>
+                        <MorePageCard key={index} data={item} />
+                        {(index + 1) % 6 === 0 && (
+                          <div key={index}>
+                            <DetailsAds />
+                          </div>
+                        )}
+                      </>
                     ))}
                     <div ref={lastElementRef}></div>
                     {isLoading && <div>Loading more...</div>}

@@ -30,7 +30,6 @@ const Search = ({ searchOpen, setSearchOpen }) => {
         .post("search-news", { search: searchTerm })
         .then(({ data }) => {
           setNews(data.news);
-          console.log(data.news); // Handle the response data
         })
         .catch((error) => {
           console.error("Error:", error);

@@ -9,15 +9,6 @@ export const MetaData = ({
   link,
   createdAt,
 }) => {
-  console.log("MetaData props:", {
-    title,
-    keywords,
-    banner,
-    description,
-    link,
-    createdAt,
-  });
-
   return (
     <Helmet>
       <title>{title}</title>
