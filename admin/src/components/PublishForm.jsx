@@ -150,11 +150,7 @@ const PublishForm = () => {
         <p className="text-white font-semibold text-2xl md:text-3xl xl:text-4xl mb-1">
           Preview
         </p>
-        <button
-          className="w-12 h-12 
-          "
-          onClick={handleClose}
-        >
+        <button className="w-12 h-12" onClick={handleClose}>
           <IoMdClose
             size={25}
             className="bg-white rounded-full text-sm text-red pointer-events-none"

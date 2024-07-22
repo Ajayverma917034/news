@@ -76,8 +76,10 @@ export const createNews = tryCatch(async (req, res, next) => {
             // }
 
             location = location.trim().toLowerCase();
-            state = state.trim().toLowerCase();
-            district = district.trim().toLowerCase();
+            if (state)
+                state = state.trim().toLowerCase();
+            if (district)
+                district = district.trim().toLowerCase();
             for (let i = 0; i < news_section_type.length; i++) {
                 news_section_type[i] = news_section_type[i].trim().toLowerCase();
             }
@@ -85,22 +87,6 @@ export const createNews = tryCatch(async (req, res, next) => {
 
         // tags = tags.map(tag => tag.trim().toLowerCase());
 
-        let newUrlTitle = ""
-        await translate(title, { from: 'hi', to: 'en' }).then(res => {
-
-            newUrlTitle = res;
-        }).catch(err => {
-            return res.status(500).json({ success: false, error: err.message })
-        });
-
-        let news_id = id || newUrlTitle
-            .trim()
-            .toLocaleLowerCase()
-            .replace(/[^a-z0-9]+/g, '-')
-            .replace(/-+/g, '-')
-            .replace(/^-|-$/g, ''); // Remove leading or trailing hyphens
-
-        news_id += '-' + getCurrentDate() + '-' + generateNanoId();
 
         // tags = tags.map(tags => tags.trim().toLowerCase());
         if (id) {
@@ -109,6 +95,24 @@ export const createNews = tryCatch(async (req, res, next) => {
             })
         }
         else {
+
+            let newUrlTitle = ""
+            await translate(title, { from: 'hi', to: 'en' }).then(res => {
+
+                newUrlTitle = res;
+            }).catch(err => {
+                return res.status(500).json({ success: false, error: err.message })
+            });
+
+            let news_id = id || newUrlTitle
+                .trim()
+                .toLocaleLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/-+/g, '-')
+                .replace(/^-|-$/g, ''); // Remove leading or trailing hyphens
+
+            news_id += '-' + getCurrentDate() + '-' + generateNanoId();
+
             let news = new News({
                 title, description, content, state, district, location, tags, banner, news_section_type, draft: Boolean(draft), news_id, author: authorId
             })

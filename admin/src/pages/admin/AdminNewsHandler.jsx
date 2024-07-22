@@ -58,6 +58,7 @@ const AdminNewsHandler = () => {
       .post(`admin/get-all-news`, {
         page,
         limit: itemsPerPage,
+        draft: false,
         ...selectedOptions,
       })
       .then(async ({ data }) => {

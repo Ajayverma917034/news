@@ -11,7 +11,7 @@ import { uploadImage } from "../common/imageUploader.js";
 
 const BlogEditor = ({ blogContent }) => {
   const navigate = useNavigate();
-  let { blog_id } = useParams();
+  let { news_id } = useParams();
   const [contentData, setContentData] = useState(null);
 
   let {
@@ -115,15 +115,14 @@ const BlogEditor = ({ blogContent }) => {
         axios
           .post(import.meta.env.VITE_SERVER_DOMAIN + "/create-news", {
             ...blogObj,
-            id: blog_id,
+            id: news_id,
           })
           .then(() => {
             e.target.classList.remove("disable");
             toast.dismiss(loadingToast);
             toast.success("Saved successfully");
-            setTimeout(() => {
-              navigate("/dashboard/news?tab=draft");
-            }, 5000);
+
+            navigate("/dashboard");
           })
           .catch(({ response }) => {
             e.target.classList.remove("disable");

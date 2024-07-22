@@ -26,6 +26,6 @@ newsRouter.post('/search-news', searchNews)
 
 newsRouter.post('/get-my-news', isAuthenticated, authorizeroles("reporter", "admin"), getMyNews)
 newsRouter.post('/get-my-news-count', isAuthenticated, authorizeroles("reporter", "admin"), getMyNewsCount)
-newsRouter.delete('/delete-my-news/:id', isAuthenticated, authorizeroles("reporter"), deleteDraftNews)
+newsRouter.delete('/delete-my-news/:id', isAuthenticated, authorizeroles("reporter", "admin"), deleteDraftNews)
 
 export default newsRouter;

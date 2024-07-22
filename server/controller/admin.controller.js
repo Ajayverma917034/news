@@ -6,15 +6,16 @@ import translate from 'translate-google'
 
 export const getNews = tryCatch(async (req, res, next) => {
     let { page, limit, state, district, location, news_section_type, draft, createdAt, search } = req.body;
-    const query = {}
+    let query = {}
+
 
     if (state) query.state = state;
+    query.draft = draft ? draft : false;
     if (district) query.district = district;
     if (location) query.location = location;
     if (news_section_type && news_section_type.length) query.news_section_type = { $in: news_section_type };
     if (createdAt) {
         const start = new Date(createdAt);
-        console.log(start)
         start.setHours(0, 0, 0, 0); // Start of the day
         const end = new Date(createdAt);
         end.setHours(23, 59, 59, 999); // End of the day
@@ -56,7 +57,6 @@ export const getAdminNewsCount = tryCatch(async (req, res, next) => {
     if (news_section_type && news_section_type.length) query.news_section_type = { $in: news_section_type };
     if (createdAt) {
         const start = new Date(createdAt);
-        console.log(start)
         start.setHours(0, 0, 0, 0); // Start of the day
         const end = new Date(createdAt);
         end.setHours(23, 59, 59, 999); // End of the day
@@ -72,7 +72,6 @@ export const getAdminNewsCount = tryCatch(async (req, res, next) => {
         ];
     }
 
-    // console.log(query)
     const count = await News.countDocuments(query).exec();
     return res.status(200).json({ totalDocs: count });
 });

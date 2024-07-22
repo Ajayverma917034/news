@@ -37,7 +37,6 @@ const Editor = () => {
     axios
       .post(import.meta.env.VITE_SERVER_DOMAIN + "/get-news", {
         news_id,
-        draft: true,
         mode: "edit",
       })
       .then(({ data: { news } }) => {
