@@ -14,7 +14,6 @@ import { MetaDataSection } from "../../seo/Helmet";
 import Loader from "../../loader/Loader";
 import { CollectionNewsSkeleton } from "../../skeleton/HomeSkeleton";
 import DetailAds from "../advertisement/DetailAds";
-import DetailsAds from "../../../../../admin/src/pages/AdsPages/DetailsAds";
 
 const MoreNews = () => {
   const [data, setData] = useState(null);
@@ -93,7 +92,7 @@ const MoreNews = () => {
                         <MorePageCard key={index} data={item} />
                         {(index + 1) % 6 === 0 && (
                           <div key={index}>
-                            <DetailsAds />
+                            <DetailAds />
                           </div>
                         )}
                       </>
