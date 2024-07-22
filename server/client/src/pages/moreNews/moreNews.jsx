@@ -85,7 +85,7 @@ const MoreNews = () => {
                       </div>
                     </Link>
                   )}
-                  <div className="flex w-full flex-col flex-wrap gap-y-6 py-6 p-1">
+                  <div className="flex w-full flex-col flex-wrap gap-y-2 md:gap-y-6 md:py-6 p-1 mt-1">
                     {data.slice(1).map((item, index) => (
                       <MorePageCard key={index} data={item} />
                     ))}

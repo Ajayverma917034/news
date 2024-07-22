@@ -63,11 +63,12 @@ const SinglePage = () => {
       console.error(err);
     }
   };
-
   const handleScroll = () => {
+    const scrollThreshold = window.innerWidth <= 768 ? 1800 : 1000;
+
     if (
       window.innerHeight + window.scrollY >=
-      document.body.offsetHeight - 1000
+      document.body.offsetHeight - scrollThreshold
     ) {
       setHasReachedBottom(true);
     }
@@ -128,7 +129,7 @@ const SinglePage = () => {
                         key={index}
                         className="flex flex-row lg:flex-col lg:w-[200px] shadow-card p-1 rounded-md max-lg:gap-x-3"
                       >
-                        <div className="max-h-52 lg:h-[120px] max-lg:max-w-36 rounded-md">
+                        <div className="max-h-[103px] lg:h-[120px] max-lg:max-w-36 rounded-md">
                           <img
                             src={item?.banner}
                             onError={handleImageError}
@@ -143,32 +144,36 @@ const SinglePage = () => {
                     ))}
                 </div>
               </div>
-              <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center">
+              <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center mt-2">
                 <img
                   src={adsmiddleimg}
                   alt="adsimg"
                   className="w-full h-full object-fill"
                 />
               </div>
+              <div className="hidden max-sm:flex mt-3">
+                <CustomeAndGoogleAdd />
+              </div>
 
               {randomNews &&
                 randomNews.length &&
                 randomNews.map((item, index) => (
                   <div key={index} className="mt-10">
-                    <Heading title="और भी पढ़ें" />
+                    <Heading title="और भी पढ़े" />
                     <PageContent item={item} />
-                    <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center">
+                    <div className="w-full h-[5rem] md:h-[9rem] flex items-center justify-center">
                       <img
                         src={adsmiddleimg}
                         alt="adsimg"
                         className="w-full h-full object-fill"
                       />
                     </div>
-                    <div className="hidden max-sm:flex">
+                    <div className="hidden max-sm:flex mt-3">
                       <CustomeAndGoogleAdd />
                     </div>
                   </div>
                 ))}
+
               {hasReachedBottom && <Loader />}
             </div>
             <div className="col-span-2 w-full">

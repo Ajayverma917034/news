@@ -91,9 +91,10 @@ const AllState = ({ isMenuOpen, setIsMenuOpen }) => {
             <li
               key={index}
               className="capitalize w-full"
-              onClick={() =>
-                navigate(`state/${district.state}/${district.english}`)
-              }
+              onClick={() => {
+                navigate(`state/${district.state}/${district.english}`);
+                setIsMenuOpen(false);
+              }}
             >
               {/* <Link
                 to={`state/${district.state}/${district.english}`}

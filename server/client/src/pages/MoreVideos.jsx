@@ -64,7 +64,7 @@ const MoreVideos = () => {
                 <div>No more news</div>
               ) : (
                 <div className="flex w-full flex-col flex-wrap sm:gap-4 ">
-                  <MetaDataSection title={`${title} district news`} />
+                  <MetaDataSection title={`${title} news`} />
                   <Heading title={findHindi(title)} />
                   {data.length > 0 && (
                     <Link to={`/video/${data[0]?.news_id}`}>
@@ -88,7 +88,7 @@ const MoreVideos = () => {
                       </div>
                     </Link>
                   )}
-                  <div className="flex w-full flex-col flex-wrap gap-y-6 py-6 p-1">
+                  <div className="flex w-full flex-col flex-wrap mt-1 gap-y-1 md:gap-y-6 md:py-6 p-1">
                     {data.slice(1).map((item, index) => (
                       <MoreNewsVideoCard key={index} data={item} />
                     ))}
