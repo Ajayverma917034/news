@@ -16,7 +16,7 @@ const CustomeAndGoogleAdd = () => {
   const { loading, error, sideAds } = useSelector((state) => state.ads);
 
   return (
-    <div className="flex flex-wrap  gap-y-3 gap-x-4 md:flex max-sm:items-center w-full  lg:flex-col ">
+    <div className="flex flex-wrap gap-y-3 gap-x-4 md:flex max-sm:items-center w-full lg:flex-col ">
       <Swiper
         spaceBetween={20}
         effect={"fade"}
@@ -41,11 +41,11 @@ const CustomeAndGoogleAdd = () => {
             ? sideAds.map((ad, index) => {
                 return (
                   <SwiperSlide key={index} className="w-full h-full p-0">
-                    <div className="w-[330px] h-[330px] overflow-hidden ml-auto mr-auto">
+                    <div className="w-[330px] h-[330px] overflow-hidden ml-auto mr-auto rounded-md">
                       <img
                         src={ad.banner.url}
                         alt="sliderimg"
-                        className="w-full h-full object-fill"
+                        className="w-full h-full object-fill rounded-md"
                       />
                     </div>
                   </SwiperSlide>

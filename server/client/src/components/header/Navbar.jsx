@@ -9,6 +9,7 @@ import Search from "../../pages/search/Search";
 const Navbar = () => {
   const navItems = [
     { name: "Home", hindiName: "होम", link: "/" },
+    { name: "Videos", hindiName: "वीडियो", link: "/videos" },
     { name: "State", hindiName: "राज्य", link: "/state" },
     { name: "Crime", hindiName: "क्राइम", link: "/crime" },
     { name: "Country", hindiName: "देश", link: "/country" },

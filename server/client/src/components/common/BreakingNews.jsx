@@ -21,8 +21,8 @@ const BreakingNews = () => {
 
   return (
     <div className="flex border-2 border-red border-r-0 bg-red items-center">
-      <div className="py-1 px-3 font-medium text-white text-nowrap lg:text-3xl md:text-sm md:px-3 sm:text-xs">
-        Breaking News
+      <div className="py-1 px-3 font-semibold text-white text-nowrap lg:text-3xl md:text-sm md:px-10 sm:text-xs">
+        ब्रेकिंग न्यूज़
       </div>
       <marquee className=" rounded-l-full bg-white w-full py-1.5 px-4 font-lg lg:text-sm sm:text-xs">
         <div className="flex gap-96">

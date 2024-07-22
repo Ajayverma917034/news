@@ -18,7 +18,7 @@ const HomeRightBar = ({ data, ytData }) => {
               <YtCollectionSkeleton />
             )}
           </div>
-          <div className="flex flex-col md:gap-y-10 gap-y-2  md:col-span-2 mt-10">
+          <div className="flex flex-col md:gap-y-10 gap-y-2  md:col-span-2">
             <CustomeAndGoogleAdd index={0} />
             <SideNews title={"read also"} />
           </div>

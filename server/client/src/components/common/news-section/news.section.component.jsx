@@ -16,49 +16,58 @@ const NewsSection = ({ data, title }) => {
       {data ? (
         <>
           {data.length > 0 && (
-            <div className="flex w-full flex-col flex-wrap sm:gap-4">
+            <div className="flex w-full flex-col flex-wrap sm:gap-4 p-1">
               <Heading title={title} />
               {/* Main Section  */}
               <Link
                 to={`/news/${data[0]?.news_id}`}
-                className="flex md:flex-row flex-col justify-between w-full max-sm:shadow-regular-shadow"
+                className="flex md:flex-row flex-col justify-between w-full shadow-card max-sm:mb-2 rounded-md"
               >
-                <div className="md:w-[50%] w-full h-auto max-h-[16rem]">
+                <div className="md:w-[50%] w-full h-auto max-h-[16rem] p-1 ">
                   <img
-                    className="w-full h-full"
+                    className="w-full h-full rounded-md"
                     src={data[0]?.banner}
                     onError={handleImageError}
                   />
                 </div>
-                <div className="md:w-[45%] w-full ">
-                  <p className="date-lg">{formatDate(data[0]?.createdAt)}</p>
+
+                <div className="md:w-[45%] w-full p-1 ">
+                  <div className="flex justify-between items-center">
+                    <p className="date-lg">{formatDate(data[0]?.createdAt)}</p>
+                    <div className="flex items-center md:hidden">
+                      <CiLocationOn className="location-lg" />
+                      <p className="location-title-lg pt-1 px-1 capitalize">
+                        {data[0]?.location}
+                      </p>
+                    </div>
+                  </div>
                   <h1 className="news-title-lg">{data[0]?.title}</h1>
-                  <div className="flex items-center">
+                  <div className="flex items-center max-md:hidden">
                     <CiLocationOn className="location-lg" />
-                    <p className="location-title-lg pt-1 px-2 capitalize">
+                    <p className="location-title-lg pt-1 px-3 capitalize">
                       {data[0]?.location}
                     </p>
                   </div>
                 </div>
               </Link>
-              <div className="grid md:grid-cols-2 gap-6 ">
+              <div className="grid md:grid-cols-2 max-sm:gap-y-2 gap-4 mb-4">
                 {data &&
                   data.slice(1).map((card, index) => {
                     return (
                       <Link
                         to={`/news/${card.news_id}`}
                         key={index}
-                        className=" grid grid-cols-3 max-md:gap-x-4 rounded-lg shadow-md p-2 max-sm:py-3 "
+                        className="grid grid-cols-3 max-md:gap-x-4 rounded-sm  shadow-card"
                       >
-                        <div className="col-span-1 h-[90px]">
+                        <div className="col-span-1 p-1 h-full">
                           <img
                             src={card.banner}
                             alt="News"
-                            className="w-full h-full object-cover "
+                            className="w-full h-full object-cover rounded-sm"
                             onError={handleImageError}
                           />
                         </div>
-                        <div className="md:ml-4 col-span-2 ">
+                        <div className="md:ml-4 col-span-2 p-1">
                           <h2 className="text-lg font-semibold line-clamp-2">
                             {card.title}
                           </h2>
@@ -76,7 +85,7 @@ const NewsSection = ({ data, title }) => {
                     );
                   })}
               </div>
-              <div className="w-full  h-[5rem] md:h-[9rem] max-md:mt-10 flex items-center justify-center">
+              <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center">
                 <img
                   src={adsmiddleimg}
                   alt="adsimg"

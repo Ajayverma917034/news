@@ -103,7 +103,7 @@ const PageContent = ({ item }) => {
         </div>
       </div>
       <div className="py-2 my-2 border-[3px] border-green-600 rounded-md flex justify-center items-center font-semibold text-green-700 w-full">
-        फॉलो करे Whatsapp पे !
+        फॉलो करे Whatsapp पर !
       </div>
       <div className="py-4 w-full">
         {item?.content[0] && (
@@ -131,31 +131,6 @@ const PageContent = ({ item }) => {
             </div>
           ))}
       </div>
-      {/* <div className="w-full">
-        <Heading title={"सम्बंधित खबर"} />
-        <div className="flex flex-wrap md:flex-wrap lg:flex-nowrap gap-4 w-full">
-          {relatedNews &&
-            relatedNews.map((item, index) => (
-              <Link
-                to={`/news/${item?.news_id}`}
-                key={index}
-                className="flex flex-col md:flex-wrap lg:w-[200px] h-auto overflow-hidden"
-              >
-                <div className="lg:h-[120px]">
-                  <img
-                    src={item?.banner}
-                    onError={handleImageError}
-                    alt="Relative-news-image"
-                    className="w-full h-full object-cover hover:scale-95"
-                  />
-                </div>
-                <h3 className="my-2 font-medium line-clamp-2 hover:border-b hover:border-black">
-                  {item?.title}
-                </h3>
-              </Link>
-            ))}
-        </div>
-      </div> */}
     </div>
   );
 };

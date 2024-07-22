@@ -8,7 +8,7 @@ import { handleImageError } from "../../../common/errorImg";
 import CustomeAndGoogleAdd from "../../../pages/advertisement/CustomeAndGoogleAdd";
 import Loader from "../../../loader/Loader";
 import PageContent from "./PageContent";
-import adsmiddleimg from "../../../assets/adsimgright1.png";
+import adsmiddleimg from "../../../assets/adsmiddleimg.jpg";
 
 export const newsStructure = {
   title: "",
@@ -81,8 +81,8 @@ const SinglePage = () => {
   };
 
   useEffect(() => {
-    fetchNews();
     window.scrollTo(0, 0);
+    fetchNews();
 
     const debouncedHandleScroll = debounce(handleScroll, 50);
     window.addEventListener("scroll", debouncedHandleScroll);
@@ -116,38 +116,38 @@ const SinglePage = () => {
               link={currentUrl}
               createdAt={createdAt}
             />
-            <div className="col-span-4 w-full">
+            <div className="col-span-6 md:col-span-4 w-full">
               <PageContent item={news} />
               <div className="w-full">
                 <Heading title={"सम्बंधित खबर"} />
-                <div className="flex flex-wrap lg:flex-nowrap gap-4 w-full">
+                <div className="flex max-lg:flex-col gap-2 w-full">
                   {relatedNews &&
                     relatedNews.map((item, index) => (
                       <Link
                         to={`/news/${item?.news_id}`}
                         key={index}
-                        className="flex flex-col md:flex-wrap lg:w-[200px] h-auto overflow-hidden"
+                        className="flex flex-row lg:flex-col lg:w-[200px] shadow-card p-1 rounded-md max-lg:gap-x-3"
                       >
-                        <div className="max-h-[120px] lg:h-[120px]">
+                        <div className="max-h-48 lg:h-[120px] max-lg:max-w-36 rounded-md">
                           <img
                             src={item?.banner}
                             onError={handleImageError}
                             alt="Relative-news-image"
-                            className="w-full h-full object-cover hover:scale-95"
+                            className="w-full h-full object-cover hover:scale-95 rounded-md"
                           />
                         </div>
-                        <h3 className="my-2 font-medium line-clamp-2 hover:border-b hover:border-black">
+                        <h3 className="mt-2 font-semibold line-clamp-2 text-xl md:hover:border-b hover:border-black">
                           {item?.title}
                         </h3>
                       </Link>
                     ))}
                 </div>
               </div>
-              <div className="w-full h-[6.1rem] max-md:mt-10 flex items-center justify-center my-4 z-[10]">
+              <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center">
                 <img
                   src={adsmiddleimg}
                   alt="adsimg"
-                  className=" w-full h-full"
+                  className="w-full h-full object-fill"
                 />
               </div>
 
@@ -157,11 +157,11 @@ const SinglePage = () => {
                   <div key={index} className="mt-10">
                     <Heading title="और भी पढ़ें" />
                     <PageContent item={item} />
-                    <div className="w-full h-[6.1rem] max-md:mt-10 flex items-center justify-center my-4 ">
+                    <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center">
                       <img
                         src={adsmiddleimg}
                         alt="adsimg"
-                        className=" w-full h-full"
+                        className="w-full h-full object-fill"
                       />
                     </div>
                     <div className="hidden max-sm:flex">

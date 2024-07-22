@@ -13,24 +13,26 @@ const NewsVideo = ({ data, title }) => {
     <>
       {data ? (
         <>
-          <div className="flex w-full flex-col flex-wrap sm:gap-2 md:gap-6 mt-5">
+          <div className="flex w-full flex-col flex-wrap sm:gap-2 md:gap-6 mt-2 p-1">
             <Heading2 link={"/top-videos"} title={title} />
             {/* Main Section  */}
             <Link
               to={`/video/${data[0]?.news_id}`}
-              className="flex md:flex-row flex-col justify-between w-full"
+              className="flex md:flex-row flex-col justify-between w-full shadow-card max-sm:mb-2 rounded-md"
             >
-              <div className="md:w-[50%] w-full h-auto relative">
+              <div className="md:w-[50%] w-full h-auto max-h-[16rem] p-1 relative">
                 <img
-                  className="w-full h-full"
+                  className="w-full h-full rounded-md"
                   src={`https://img.youtube.com/vi/${data[0]?.videoLinkId}/mqdefault.jpg`}
                 />
                 <div className="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-5"></div>
+
                 <div className="absolute inset-0 flex justify-center items-center">
                   <FaYoutube className="w-12 h-12 text-[#CD201F] cursor-pointer" />
                 </div>
               </div>
-              <div className="md:w-[45%] w-full ">
+
+              <div className="md:w-[45%] w-full p-1">
                 <div className="flex justify-between items-center">
                   <p className="date-lg">{formatDate(data[0]?.createdAt)}</p>
                   <div className="flex items-center md:hidden">
@@ -49,11 +51,9 @@ const NewsVideo = ({ data, title }) => {
                 </div>
               </div>
             </Link>
-
-<hr className="md:hidden text-gray opacity-50 mb-3"/>
             <div className="flex flex-col">
               {
-                <div className="flex gap-5 flex-col md:flex-row justify-between mb-4">
+                <div className="flex gap-2 flex-col md:flex-row justify-between mb-4">
                   {data &&
                     data
                       .slice(1, 4)
@@ -64,7 +64,7 @@ const NewsVideo = ({ data, title }) => {
               }
             </div>
           </div>
-          <div className="w-full h-[6.1rem] max-md:mt-10 flex items-center justify-center mt-2">
+          <div className="w-full h-[6rem]  md:h-[10rem] max-md:mt-2 flex items-center justify-center mt-2">
             <img
               src={adsmiddleimg}
               alt="adsimg"

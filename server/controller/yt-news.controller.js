@@ -204,3 +204,52 @@ export const getMyNewsCountYt = tryCatch(async (req, res, next) => {
     const count = await YtNews.countDocuments(query).exec();
     return res.status(200).json({ totalDocs: count })
 })
+
+export const fetchRelatedNews = tryCatch(async (req, res, next) => {
+    let { tags, news_id } = req.body;
+    let query = { $or: [] };
+
+    // Trim and convert to lowercase if they exist
+    // if (state) {
+    //     state = state.trim().toLowerCase();
+    //     query.$or.push({ state: state });
+    // }
+    // if (district) {
+    //     district = district.trim().toLowerCase();
+    //     query.$or.push({ district: district });
+    // }
+    // if (location) {
+    //     location = location.trim().toLowerCase();
+    //     query.$or.push({ location: location });
+    // }
+
+    // Handle tags
+    if (tags && tags.length) {
+        tags = tags.map(tag => tag.trim().toLowerCase());
+        query.$or.push({ tags: { $in: tags } });
+    }
+
+    // Check if $or array is empty, if so, remove it from the query
+    if (query.$or.length === 0) {
+        delete query.$or;
+    }
+
+    // Add condition to exclude the given news_id
+    if (news_id) {
+        query.news_id = { $ne: news_id };
+    }
+
+
+
+    // Fetch related news
+    YtNews.find(query)
+        .limit(4)
+        .sort({ "createdAt": -1 })
+        .select('news_id title videoLinkId -_id')
+        .then(news => {
+            return res.status(200).json(news)
+        }).catch(err => {
+            return next(new ErrorHandler(500, err.message));
+        });
+
+});

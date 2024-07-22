@@ -63,6 +63,7 @@ const App = () => {
         {/* Routes for all know route    */}
         <Route path="/country" element={<MoreNews />} />
         <Route path="/top-videos" element={<MoreVideos />} />
+        <Route path="/videos" element={<MoreVideos />} />
 
         <Route path="/world" element={<MoreNews />} />
         <Route path="/crime" element={<MoreNews />} />

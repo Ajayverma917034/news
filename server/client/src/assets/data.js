@@ -154,6 +154,7 @@ const engToHindi = {
     'education': 'शिक्षा',
     "bollywood": "बॉलीवुड",
     // "rajya": ""
+    "videos": "वीडियो",
 };
 
 
