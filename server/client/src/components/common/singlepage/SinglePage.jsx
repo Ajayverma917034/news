@@ -127,9 +127,9 @@ const SinglePage = () => {
                       <Link
                         to={`/news/${item?.news_id}`}
                         key={index}
-                        className="flex flex-row lg:flex-col lg:w-[200px] shadow-card p-1 rounded-md max-lg:gap-x-3"
+                        className="grid grid-cols-3 max-md:gap-x-1 lg:flex lg:flex-col lg:w-[200px] shadow-card p-1 rounded-md max-lg:gap-x-3"
                       >
-                        <div className=" w-[100px] h-[70px] max-h-[103px] lg:h-[120px] max-lg:max-w-36 rounded-md">
+                        <div className="max-lg:col-span-1  h-[70px] max-h-[103px] lg:h-[120px] max-lg:max-w-36 rounded-md">
                           <img
                             src={item?.banner}
                             onError={handleImageError}
@@ -137,7 +137,7 @@ const SinglePage = () => {
                             className="w-full h-full object-cover hover:scale-95 rounded-md"
                           />
                         </div>
-                        <h3 className="mt-2 font-semibold line-clamp-2 text-xl md:hover:border-b hover:border-black">
+                        <h3 className="col-span-2 mt-2 font-semibold line-clamp-2 text-xl md:hover:border-b hover:border-black">
                           {item?.title}
                         </h3>
                       </Link>
