@@ -11,7 +11,7 @@ const NewsVideoCard = ({ item }) => {
   return (
     <Link
       to={`video/${news_id}`}
-      className="w-full flex-col max-md:flex-row max-md:gap-3 max-md:grid max-md:grid-cols-5 rounded-lg shadow-card p-1"
+      className="w-full flex-col max-md:flex-row max-md:gap-2 max-md:grid max-md:grid-cols-5 rounded-lg shadow-card p-1"
     >
       <div className="max-w-[17rem] h-24 md:h-36 bg-red col-span-2 relative rounded-lg">
         <div className="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-5"></div>
@@ -21,7 +21,7 @@ const NewsVideoCard = ({ item }) => {
         <img src={thumbnail} alt="hello" className="rounded-lg" />
       </div>
       <div className="flex flex-col w-full max-md:col-span-3">
-        <h1 className="news-title-md leading-7 line-clamp-2 col-span-3 mt-3">
+        <h1 className="news-title-md leading-7 line-clamp-2 col-span-3 mt-3 font-semibold">
           {title}
         </h1>
 

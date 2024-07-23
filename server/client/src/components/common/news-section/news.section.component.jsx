@@ -31,7 +31,7 @@ const NewsSection = ({ data, title }) => {
                   />
                 </div>
 
-                <div className="md:w-[45%] w-full p-1 ">
+                <div className="md:w-[45%] w-full">
                   <div className="flex justify-between items-center">
                     <p className="date-lg">{formatDate(data[0]?.createdAt)}</p>
                     <div className="flex items-center md:hidden">
@@ -41,7 +41,7 @@ const NewsSection = ({ data, title }) => {
                       </p>
                     </div>
                   </div>
-                  <h1 className="news-title-lg">{data[0]?.title}</h1>
+                  <h1 className="news-title-lg font-semibold">{data[0]?.title}</h1>
                   <div className="flex items-center max-md:hidden">
                     <CiLocationOn className="location-lg" />
                     <p className="location-title-lg pt-1 px-3 capitalize">
@@ -57,7 +57,7 @@ const NewsSection = ({ data, title }) => {
                       <Link
                         to={`/news/${card.news_id}`}
                         key={index}
-                        className="grid grid-cols-3 max-md:gap-x-4 rounded-sm  shadow-card"
+                        className="grid grid-cols-3 max-md:gap-x-1 rounded-sm shadow-card"
                       >
                         <div className="col-span-1 p-1 h-full max-h-[103px]">
                           <img
