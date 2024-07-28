@@ -41,12 +41,12 @@ app.use(fileUploader({
 }))
 // cors
 app.use(cors({
-    origin: [process.env.FRONTEND_URL, process.env.ADMIN_URL, process.env.FRONTEND_URL_PROD, "https://34e4-27-7-209-159.ngrok-free.app"],
+    origin: [process.env.FRONTEND_URL, process.env.ADMIN_URL, process.env.FRONTEND_URL_PROD],
     credentials: true
 }))
 
 
-const allowedOrigins = [process.env.FRONTEND_URL, process.env.ADMIN_URL, process.env.FRONTEND_URL_PROD, "https://34e4-27-7-209-159.ngrok-free.app"];
+const allowedOrigins = [process.env.FRONTEND_URL, process.env.ADMIN_URL, process.env.FRONTEND_URL_PROD];
 
 app.use((req, res, next) => {
     const origin = req.headers.origin;
