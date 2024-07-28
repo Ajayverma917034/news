@@ -483,8 +483,8 @@ export const findStateNews = tryCatch(async (req, res, next) => {
 
     let states = [
         'uttar pradesh',
-        'madhya pradesh',
         'bihar',
+        'madhya pradesh',
         'jharkhand',
         'chhattisgarh',
         'uttrakhand',
