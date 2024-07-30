@@ -4,6 +4,7 @@ import { sendToken } from "../utils/jwtToken.js";
 
 export const createUser = tryCatch(async (req, res, next) => {
     const { email, password, username } = req.body;
+
     if (!email || !password || !username) {
         return res.status(400).json({ success: false, message: "Please provide email, password and username" })
     }
@@ -33,7 +34,10 @@ export const createUser = tryCatch(async (req, res, next) => {
 })
 
 export const login = tryCatch(async (req, res, next) => {
-    const { email, password } = req.body;
+    let { email, password } = req.body;
+    email = email.trim();
+    password = password.trim();
+
     if (!email || !password) {
         return res.status(400).json({ success: false, message: "Please provide all details" })
     }

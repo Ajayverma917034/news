@@ -3,6 +3,13 @@ import User from "../model/user.model.js";
 import tryCatch from "../utils/asyncFunction.js";
 import ErrorHandler from "../utils/errorHandler.js";
 import translate from 'translate-google'
+import sendMail from "../utils/sendMail.js";
+import ejs from 'ejs'
+import path from 'path'
+import bcrypt from 'bcryptjs'
+import { fileURLToPath } from 'url';
+const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
+const __dirname = path.dirname(__filename);
 
 export const getNews = tryCatch(async (req, res, next) => {
     let { page, limit, state, district, location, news_section_type, draft, createdAt, search } = req.body;
@@ -135,6 +142,79 @@ export const Createuser = async (req, res) => {
     }
 };
 
+export const updateUser = tryCatch(async (req, res, next) => {
+    const { username, role, email } = req.body;
+
+    User.findOneAndUpdate({ username }, { role, email }, { new: true })
+        .then((user) => {
+            return res.status(202).json({ success: true, message: "User updated successfully" });
+
+        })
+        .catch((err) => {
+            return res.status(500).json({ success: false, error: err.message })
+        })
+})
+var Gotp = "";
+export const sendOtp = tryCatch(async (req, res, next) => {
+    const { email } = req.body;
+    const user = req.user;
+
+    const otp = Math.floor(100000 + Math.random() * 900000);
+    Gotp = otp.toString();
+    const mailData = {
+        data: {
+            otp: otp
+        }
+    }
+    const html = await ejs.renderFile(path.join(__dirname, "../mails/send-otp.ejs"), { data: mailData })
+
+    try {
+        await sendMail({
+            email: user.email,
+            subject: "Password update OTP",
+            template: "send-otp.ejs",
+            data: mailData,
+        })
+        return res.status(200).json({ success: true, message: "OTP sent successfully" })
+    }
+    catch (error) {
+        return res.status(500).json({ success: false, message: error.message })
+    }
+
+    // return res.status(200).json({ success: true, otp })
+})
+
+
+
+export const resetPassword = tryCatch(async (req, res, next) => {
+    const { otp, password, username } = req.body;
+
+    // Ensure the incoming OTP is a string for comparison
+    const incomingOtp = otp.toString();
+
+    // Compare the incoming OTP with the stored OTP
+    console.log(incomingOtp, Gotp);
+    if (incomingOtp !== Gotp) {
+        return res.status(400).json({ success: false, message: "Invalid OTP" });
+    }
+
+    // Hash the new password
+    const hashPassword = await bcrypt.hash(password, 10);
+
+    // Find the user and update the password
+    console.log(username)
+    User.findOneAndUpdate({ username }, { password: hashPassword }, { new: true })
+        .then(user => {
+            if (!user) {
+                return res.status(404).json({ success: false, message: "User not found" });
+            }
+            return res.status(200).json({ success: true, message: "Password updated successfully" });
+        })
+        .catch(err => {
+            return res.status(500).json({ success: false, error: err.message });
+        });
+});
+
 export const GetUser = async (req, res) => {
     try {
         const { data } = req.body;
@@ -227,4 +307,6 @@ export const Deleteuser = async (req, res) => {
         return res.status(500).json({ success: false, error: err.message });
     }
 };
+
+
 

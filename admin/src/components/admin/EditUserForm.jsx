@@ -1,14 +1,19 @@
-// src/components/UserForm.js
+// src/components/admin/EditUserForm.js
 
 import React, { useState, useEffect } from "react";
 import "./EditUser.css";
+import httpClient from "../../services/httpClient";
+import toast from "react-hot-toast";
 
-const EditUserForm = ({ user: selectedUser, setSelectedUser }) => {
+const EditUserForm = ({
+  user: selectedUser,
+  setSelectedUser,
+  onUpdateUser,
+}) => {
   const [user, setUser] = useState({
     username: "",
     email: "",
-    password: "",
-    permissions: "",
+    role: "reporter",
   });
 
   useEffect(() => {
@@ -22,24 +27,39 @@ const EditUserForm = ({ user: selectedUser, setSelectedUser }) => {
     setUser({ ...user, [name]: value });
   };
 
-  const handleSwitchChange = (e) => {
-    setUser({ ...user, status: e.target.checked });
-  };
-
   const handleSave = () => {
-    onSave(user);
+    if (!user.username) {
+      return toast.error("Please Enter the username");
+    }
+    if (!user.email) {
+      return toast.error("Please enter the email");
+    }
+
+    httpClient
+      .put("admin/update-user", { ...user })
+      .then(({ data }) => {
+        if (data.success) {
+          toast.success("User Updated successfully");
+          onUpdateUser(user); // Update the user in the parent state
+        } else {
+          toast.error("Something went wrong");
+        }
+      })
+      .catch((err) => {
+        toast.error(err.response.data.error);
+      });
   };
 
   return (
     <div className="user-form">
       <div className="form-group">
-        <label htmlFor="name">
+        <label htmlFor="username">
           Username <span className="required">*</span>
         </label>
         <input
           type="text"
-          id="name"
-          name="name"
+          id="username"
+          name="username"
           value={user.username}
           onChange={handleChange}
           required
@@ -59,50 +79,19 @@ const EditUserForm = ({ user: selectedUser, setSelectedUser }) => {
         />
       </div>
       <div className="form-group">
-        <label htmlFor="email">
-          Password <span className="required">*</span>
-        </label>
-        <input
-          type="email"
-          id="password"
-          name="password"
-          value={user.password}
-          onChange={handleChange}
-          required
-        />
-      </div>
-      <div className="form-group">
-        <label htmlFor="permissions">
+        <label htmlFor="role">
           User Permissions <span className="required">*</span>
         </label>
         <select
-          id="permissions"
-          name="permissions"
-          value={user.permissions}
+          id="role"
+          name="role"
+          value={user.role}
           onChange={handleChange}
           required
         >
-          <option value="Operational">Operational</option>
-          <option value="Admin">Admin</option>
+          <option value="reporter">Reporter</option>
+          <option value="admin">Admin</option>
         </select>
-      </div>
-      <div className="form-group">
-        <label htmlFor="status">
-          Status <span className="required">*</span>
-        </label>
-        <div className="switch-group">
-          <label className="switch">
-            <input
-              type="checkbox"
-              id="status"
-              name="status"
-              checked={user.status}
-              onChange={handleSwitchChange}
-            />
-            <span className="slider"></span>
-          </label>
-          <span className="switch-label">Inactive</span>
-        </div>
       </div>
       <div className="form-actions">
         <button

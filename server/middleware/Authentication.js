@@ -19,7 +19,7 @@ export const isAuthenticated = tryCatch(async (req, res, next) => {
             return next(new ErrorHandler(401, 'Unauthorized request'));
         }
 
-        const user = await User.findById(decodedToken.id)
+        const user = await User.findById(decodedToken.id).select("username email role refreshToken");
 
         if (!user) {
             return next(new ErrorHandler(401, 'Unauthorized request'));

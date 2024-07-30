@@ -47,7 +47,7 @@ const SignIn = () => {
         <h2 className="text-5xl font-bold">Login</h2>
         <h3 className="text-4xl mb-4 font-medium"> To Get Started</h3>
         <div className="mb-4">
-          <label className="block text-gray-700">Email</label>
+          <label className="block text-gray-700">Email or Username</label>
           <input
             type="text"
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring focus:border-blue-300"
