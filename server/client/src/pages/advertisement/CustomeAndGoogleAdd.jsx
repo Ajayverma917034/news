@@ -12,6 +12,7 @@ import { EffectFade, Navigation, Pagination, Autoplay } from "swiper/modules";
 import { useSelector } from "react-redux";
 import { HiOutlineExclamationCircle } from "react-icons/hi2";
 import { Link } from "react-router-dom";
+import GoogleAd from "../../google-ads/GoogleAd";
 const CustomeAndGoogleAdd = () => {
   const { loading, error, sideAds } = useSelector((state) => state.ads);
 
@@ -75,7 +76,13 @@ const CustomeAndGoogleAdd = () => {
         </div>
       </Swiper>
       <div className="w-[330px] h-[330px] overflow-hidden ml-auto mr-auto">
-        <img className="w-full h-auto object-fill" src={adsimgright2} />
+        {/* <img className="w-full h-auto object-fill" src={adsimgright2} /> */}
+        <GoogleAd
+          adClient="ca-pub-5839947415375117"
+          adSlot="7478609423"
+          style={{ display: "block", width: 728, height: 90 }}
+          format="auto"
+        />
       </div>
     </div>
   );
