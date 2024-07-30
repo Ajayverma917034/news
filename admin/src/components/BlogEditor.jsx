@@ -1,18 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import lightBanner from "../assets/news banner.png";
 import { toast } from "react-hot-toast";
 import EditorJS from "@editorjs/editorjs";
 import { tools } from "./Tools.jsx";
 import axios from "axios";
-import { UserContext } from "../App.jsx";
 import { EditorContext } from "../pages/Editor.jsx";
 import { uploadImage } from "../common/imageUploader.js";
 
 const BlogEditor = ({ blogContent }) => {
   const navigate = useNavigate();
   let { news_id } = useParams();
-  const [contentData, setContentData] = useState(null);
+  const [hasChanges, setHasChanges] = useState(false);
 
   let {
     blog,
@@ -31,23 +30,50 @@ const BlogEditor = ({ blogContent }) => {
           data: Array.isArray(content) ? content[0] : content,
           tools: tools,
           placeholder: "Let's write an awesome news",
+          onChange: () => setHasChanges(true),
         })
       );
     }
   }, []);
 
+  useEffect(() => {
+    const autoSave = () => {
+      if (textEditor.isReady && hasChanges) {
+        textEditor.save().then((data) => {
+          setBlog({ ...blog, content: data });
+
+          // Send auto-save request to server
+          axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/create-news", {
+            ...blog,
+            content: data,
+            id: news_id,
+            draft: true,
+          });
+
+          // Reset hasChanges to false after saving
+          setHasChanges(false);
+        });
+      }
+    };
+
+    const intervalId = setInterval(autoSave, 5000);
+
+    return () => clearInterval(intervalId);
+  }, [textEditor, blog, news_id, setBlog, hasChanges]);
+
   const handleChangeBanner = (e) => {
     if (e.target.files[0]) {
-      let ladingTast = toast.loading("Uploading...");
+      let loadingToast = toast.loading("Uploading...");
       uploadImage(e.target.files[0])
         .then((url) => {
-          toast.dismiss(ladingTast);
+          toast.dismiss(loadingToast);
           toast.success("Uploaded Successfully");
 
           setBlog({ ...blog, banner: url });
+          setHasChanges(true);
         })
         .catch((err) => {
-          toast.dismiss(ladingTast);
+          toast.dismiss(loadingToast);
           toast.error(err);
         });
     }
@@ -62,6 +88,7 @@ const BlogEditor = ({ blogContent }) => {
     input.style.height = "auto";
     input.style.height = input.scrollHeight + "px";
     setBlog({ ...blog, title: input.value });
+    setHasChanges(true);
   };
 
   const handleError = (e) => {
@@ -70,11 +97,10 @@ const BlogEditor = ({ blogContent }) => {
   };
 
   const handlePublishEvent = () => {
-    // setEditorState("publish");
     if (!banner.length) {
       return toast.error("Upload a news banner to publish it");
     }
-    if (!title.length) return toast.error("Write news title to publis it");
+    if (!title.length) return toast.error("Write news title to publish it");
     if (textEditor.isReady) {
       textEditor
         .save()

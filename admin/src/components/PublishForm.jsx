@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { Toaster, toast } from "react-hot-toast";
+import React, { useContext, useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import Tag from "./Tags.jsx";
@@ -16,7 +16,7 @@ const PublishForm = () => {
   const tagLimit = 10;
   const navigate = useNavigate();
   const { news_id } = useParams();
-  let {
+  const {
     blog: {
       banner,
       title,
@@ -35,9 +35,72 @@ const PublishForm = () => {
   } = useContext(EditorContext);
 
   const [tagdata, setTagData] = useState("");
+  const [hasChanges, setHasChanges] = useState(false);
 
-  // console.log(blog);
-  // let {userAuth: {access_token}} = useContext(UserContext)
+  useEffect(() => {
+    setHasChanges(true); // Set this to true whenever there's a change
+  }, [
+    title,
+    description,
+    tags,
+    state,
+    district,
+    location,
+    news_section_type,
+    breaking_news,
+  ]);
+
+  useEffect(() => {
+    if (!hasChanges) return; // Only auto-save if there are changes
+
+    const autoSave = () => {
+      if (
+        title.length &&
+        description.length <= charLength &&
+        tags.length <= tagLimit
+      ) {
+        let blogObj = {
+          title,
+          banner,
+          description,
+          content,
+          tags,
+          state,
+          district,
+          location,
+          news_section_type,
+          breaking_news,
+          draft: true,
+        };
+        axios
+          .post(import.meta.env.VITE_SERVER_DOMAIN + "/create-news", {
+            ...blogObj,
+            id: news_id,
+          })
+          .then(() => {
+            setHasChanges(false); // Reset the change tracker after successful save
+          })
+          .catch(({ response }) => {
+            return toast.error(response?.data?.error);
+          });
+      }
+    };
+
+    const intervalId = setInterval(autoSave, 5000);
+
+    return () => clearInterval(intervalId);
+  }, [
+    hasChanges,
+    title,
+    description,
+    tags,
+    state,
+    district,
+    location,
+    news_section_type,
+    breaking_news,
+    news_id,
+  ]);
 
   const handleClose = () => {
     setEditorState("editor");
@@ -50,6 +113,7 @@ const PublishForm = () => {
       if (tags?.length < tagLimit) {
         if (!tags.includes(tag) && tag.length) {
           setBlog({ ...blog, tags: [...tags, tag] });
+          setHasChanges(true); // Mark as changed
         }
       } else {
         toast.error(`You can add max ${tagLimit} tags`);
@@ -61,6 +125,7 @@ const PublishForm = () => {
   const handleSectionChange = (e) => {
     const newSection = e.target.value;
     setBlog({ ...blog, news_section_type: [...news_section_type, newSection] });
+    setHasChanges(true); // Mark as changed
   };
 
   const handlePublish = (e) => {
@@ -68,7 +133,7 @@ const PublishForm = () => {
       return;
     }
     if (!title.length) {
-      return toast.error("Write News Title befor publising");
+      return toast.error("Write News Title before publishing");
     }
     if (!description || description.length > charLength)
       return toast.error(
@@ -79,11 +144,6 @@ const PublishForm = () => {
         ` Write some tags about news within ${tagLimit} tag limit to publish`
       );
     }
-    // if (!news_section_type.length || news_section_type.length > 10) {
-    //   return toast.error(
-    //     ` Write some News Section about news within 10 News Section limit to publish`
-    //   );
-    // }
     if (!state && !news_section_type.length && !district) {
       return toast.error(
         `Please choose the state or district or the news section of the news`
@@ -128,20 +188,19 @@ const PublishForm = () => {
   const states = Object.keys(stateDistricts).map((state) => ({
     english: state,
   }));
+
   const handleTag = () => {
-    // e.preventDefault();
     let tag = tagdata;
-    // let tag = e.target.value;
     setTagData(tag);
     if (tags?.length < tagLimit) {
       if (!tags.includes(tag) && tag.length) {
         setBlog({ ...blog, tags: [...tags, tag] });
+        setHasChanges(true); // Mark as changed
       }
     } else {
       toast.error(`You can add max ${tagLimit} tags`);
     }
     setTagData("");
-    // e.target.value = "";
   };
 
   return (
@@ -168,16 +227,7 @@ const PublishForm = () => {
           <p className="line-clamp-3 text-xl leading-7 mt-4">{description}</p>
         </div>
 
-        <div className="border-grey lg:border-1 lg:pl-4 col-span-1 md:col-span-3  h-full md:max-h-[calc(100vh-200px)] lg:max-h-[calc(100vh-200px)] xl:max-h-[calc(100vh-200px)] md:overflow-y-auto md:px-3">
-          {/* <p className="text-dark-grey mb-2 mt-9">News Title</p>
-          <input
-            type="text"
-            placeholder="News Title"
-            defaultValue={title}
-            className="input-box pl-4"
-            onChange={handleBlogTitleChange}
-          /> */}
-
+        <div className="border-grey lg:border-1 lg:pl-4 col-span-1 md:col-span-3 h-full md:max-h-[calc(100vh-200px)] lg:max-h-[calc(100vh-200px)] xl:max-h-[calc(100vh-200px)] md:overflow-y-auto md:px-3">
           <p className="text-dark-grey mb-2 mt-4 required-text">
             Short description about your news
           </p>
@@ -185,7 +235,10 @@ const PublishForm = () => {
             maxLength={charLength}
             defaultValue={description}
             className="h-40 resize-none leading-7 input-box pl-4"
-            onChange={(e) => setBlog({ ...blog, description: e.target.value })}
+            onChange={(e) => {
+              setBlog({ ...blog, description: e.target.value });
+              setHasChanges(true); // Mark as changed
+            }}
             onKeyDown={(e) => {
               if (e.keyCode === 13) e.preventDefault();
             }}
@@ -197,7 +250,7 @@ const PublishForm = () => {
           <p className="text-dark-grey mb-2 mt-9 required-text">
             Topics - ( Helps in searching and ranking your news post )
           </p>
-          <div className="relative  input-box pl-2 py-2 pb-4">
+          <div className="relative input-box pl-2 py-2 pb-4">
             <div className="flex items-center">
               <input
                 type="text"
@@ -207,7 +260,7 @@ const PublishForm = () => {
                 onChange={(e) => {
                   setTagData(e.target.value);
                 }}
-                className="sticky input-box bg-white top-0 lef0 pl-4  focus:bg-white"
+                className="sticky input-box bg-white top-0 left-0 pl-4 focus:bg-white"
               />
               <button className="ml-2" onClick={handleTag}>
                 <IoIosAddCircle
@@ -221,19 +274,22 @@ const PublishForm = () => {
                 return <Tag key={i} tagIndex={i} tag={tag} />;
               })}
           </div>
-          <p className="mt-1 pt-1 mb-4 text-dark-grey text-right ">
+          <p className="mt-1 pt-1 mb-4 text-dark-grey text-right">
             {tagLimit - tags?.length} Tags left
           </p>
 
           <div className="grid w-full grid-cols-1 md:grid-cols-2 gap-3">
             <div className="">
-              <p className=" mb-2 mt-9">Choose the State</p>
+              <p className="mb-2 mt-9">Choose the State</p>
               <select
                 name="state"
                 id="state"
                 value={state}
                 className="input-box mb-5 pl-4 capitalize"
-                onChange={(e) => setBlog({ ...blog, state: e.target.value })}
+                onChange={(e) => {
+                  setBlog({ ...blog, state: e.target.value });
+                  setHasChanges(true); // Mark as changed
+                }}
               >
                 <option value="" defaultValue={state}>
                   Select State
@@ -244,7 +300,7 @@ const PublishForm = () => {
                     <option
                       key={i}
                       value={state.english}
-                      className=" capitalize"
+                      className="capitalize"
                     >
                       {findHindi(state.english)}
                     </option>
@@ -253,13 +309,16 @@ const PublishForm = () => {
               </select>
             </div>
             <div className="">
-              <p className=" mb-2 mt-9">Choose District</p>
+              <p className="mb-2 mt-9">Choose District</p>
               <select
                 name="district"
                 value={district}
                 id="district"
                 className="input-box mb-5 pl-4 capitalize"
-                onChange={(e) => setBlog({ ...blog, district: e.target.value })}
+                onChange={(e) => {
+                  setBlog({ ...blog, district: e.target.value });
+                  setHasChanges(true); // Mark as changed
+                }}
               >
                 <option value="" defaultValue={district}>
                   Select District
@@ -281,7 +340,7 @@ const PublishForm = () => {
           </div>
           <div className="grid w-full grid-cols-1 md:grid-cols-2 gap-3">
             <div className="">
-              <p className=" mb-2 mt-9 required-text">
+              <p className="mb-2 mt-9 required-text">
                 Enter the location of news
               </p>
               <input
@@ -289,7 +348,10 @@ const PublishForm = () => {
                 placeholder="News Location"
                 value={location}
                 className="input-box pl-4"
-                onChange={(e) => setBlog({ ...blog, location: e.target.value })}
+                onChange={(e) => {
+                  setBlog({ ...blog, location: e.target.value });
+                  setHasChanges(true); // Mark as changed
+                }}
               />
             </div>
           </div>
@@ -297,29 +359,25 @@ const PublishForm = () => {
             News Section - ( Choose the news sections )
           </p>
           <div className="relative input-box pl-2 py-2 pb-4">
-            {
-              <select
-                name="news-section"
-                id="news-section"
-                onChange={handleSectionChange}
-                className="input-box mb-5 pl-4 capitalize"
-              >
-                <option value="">Select News Section</option>
-                {CategoryData.map((category, i) => {
-                  return (
-                    <option
-                      key={i}
-                      value={category.english}
-                      className=" capitalize"
-                    >
-                      {category.hindi}
-                    </option>
-                  );
-                })}
-              </select>
-            }
-
-            {/* Add more options as needed */}
+            <select
+              name="news-section"
+              id="news-section"
+              onChange={handleSectionChange}
+              className="input-box mb-5 pl-4 capitalize"
+            >
+              <option value="">Select News Section</option>
+              {CategoryData.map((category, i) => {
+                return (
+                  <option
+                    key={i}
+                    value={category.english}
+                    className="capitalize"
+                  >
+                    {category.hindi}
+                  </option>
+                );
+              })}
+            </select>
 
             {news_section_type &&
               news_section_type.map((tag, i) => {
@@ -336,51 +394,3 @@ const PublishForm = () => {
 };
 
 export default PublishForm;
-
-{
-  /* <div className="mt-10 flex flex-col ml-2 ">
-            <div className="flex  items-center gap-2 mt-4">
-              <div>
-                <input
-                  type="checkbox"
-                  checked={breaking_news}
-                  onChange={(e) =>
-                    setBlog({ ...blog, breaking_news: e.target.checked })
-                  }
-                  className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-                />
-              </div>
-              <p className=" mb-[5px] sm:text-[14px] "> Add to Breaking News</p>
-            </div> */
-}
-{
-  /* <div className="flex items-center gap-2">
-              <div>
-                <input
-                  type="checkbox"
-                  checked={breaking_news}
-                  onChange={(e) =>
-                    setBlog({ ...blog, breaking_news: e.target.checked })
-                  }
-                  className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-                />
-              </div>
-              <p className=" mb-[5px] sm:text-[14px] ">
-                Add to Read also section
-              </p>
-            </div>
-            <div className="flex  items-center gap-2">
-              <div>
-                <input
-                  type="checkbox"
-                  checked={breaking_news}
-                  onChange={(e) =>
-                    setBlog({ ...blog, breaking_news: e.target.checked })
-                  }
-                  className="h-4 w-4 text-indigo-600 border-gray-300 rounded focus:ring-indigo-500"
-                />
-              </div>
-              <p className=" mb-[5px] sm:text-[14px] ">Add to Health Tips</p>
-            </div> */
-}
-// </div>
