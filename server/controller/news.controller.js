@@ -580,8 +580,8 @@ export const searchNews = tryCatch(async (req, res, next) => {
 })
 
 export const fetchRandomNews = tryCatch(async (req, res, next) => {
-    const { news_id, } = req.body;
-    const news = await News.findOneAndUpdate({ news_id: { $ne: news_id } }, { createdAt: -1 }, { $inc: { "activity.total_reads": 1, "activity.total_today_count": 1 } }).limit(50).sort({ createdAt: -1 }).select('news_id title description content tags state district banner location activity.total_reads news_section_type tags createdAt -_id').exec();
+    const { news_id } = req.body;
+    const news = await News.find({ news_id: { $ne: news_id } }, { createdAt: -1 }).limit(50).sort({ createdAt: -1 }).select('news_id title description content tags state district banner location activity.total_reads news_section_type tags createdAt -_id').exec();
 
     const randomIndex = Math.floor(Math.random() * news.length);
     const randomNews = news[randomIndex];

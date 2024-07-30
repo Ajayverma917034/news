@@ -45,7 +45,24 @@ const HomePage = () => {
   }, []);
   return (
     <>
-      <MetaDataSection title={"Janpad News"} />
+      <MetaDataSection
+        title={"Home - Janpad News Live"}
+        description={
+          "Janpad News Live (जनपद न्यूज़ लाइव): Latest Khabar (लेटेस्ट खबरें), Breaking news  (ब्रेकिंग न्यूज़), World (विश्व), Sports (खेल), Business, Entertainment (मनोरंजन)."
+        }
+        tags={[
+          "janpad",
+          "janpad news",
+          "janpad news live",
+          "sonbhadra news",
+          "breaking news",
+          "aaj ki khabar",
+          "today news",
+          "latest news",
+          "uttar pradesh news",
+        ]}
+        url={"https://www.janpadnews.live"}
+      />
       <HomeRightBar data={homeNews.slice(0, 2)} ytData={ytNews} />
       <RajyaMain />
       <ApnaZila />

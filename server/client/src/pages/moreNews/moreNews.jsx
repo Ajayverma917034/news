@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
 import MorePageCard from "../../components/common/news-section/morepage.news.card";
 import Heading from "../../components/common/Heading";
-import Image from "../../assets/img1.png";
 import CustomeAndGoogleAdd from "../advertisement/CustomeAndGoogleAdd";
 import SideNews from "../advertisement/related-news/SideNews";
 import { Link, useLocation } from "react-router-dom";
 import { findHindi } from "../../assets/data";
 import axios from "axios";
-import { toast } from "react-hot-toast";
 import useInfiniteScroll from "../../common/useInfiniteScroll";
 import { handleImageError } from "../../common/errorImg";
 import { MetaDataSection } from "../../seo/Helmet";
-import Loader from "../../loader/Loader";
 import { CollectionNewsSkeleton } from "../../skeleton/HomeSkeleton";
 import DetailAds from "../advertisement/DetailAds";
+import { findDistrict } from "../../../../../admin/src/common/data";
+import { findMetaData } from "../../seo/dataset-page";
 
 const MoreNews = () => {
   const [data, setData] = useState(null);
@@ -56,6 +55,7 @@ const MoreNews = () => {
 
   const [lastElementRef, isLoading] = useInfiniteScroll(loadMore, hasMore);
 
+  const metaData = findMetaData(title);
   return (
     <div className="flex spacing mt-2 sm:mt-8">
       <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full gap-5 ">
@@ -66,7 +66,7 @@ const MoreNews = () => {
                 <div>No more news</div>
               ) : (
                 <div className="flex w-full flex-col flex-wrap sm:gap-4 ">
-                  <MetaDataSection title={`${title} news`} />
+                  <MetaDataSection {...metaData} />
                   <Heading title={findHindi(title)} />
                   {data.length > 0 && (
                     <Link to={`/news/${data[0]?.news_id}`}>

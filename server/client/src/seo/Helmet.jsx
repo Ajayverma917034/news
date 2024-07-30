@@ -70,16 +70,24 @@ export const MetaData = ({
   );
 };
 
-export const MetaDataSection = ({ title }) => {
+export const MetaDataSection = ({ title, tags, description, url }) => {
   return (
     <Helmet>
       <title>{title}</title>
-      <meta name="description" content="This is a news website" />
-      <meta name="keywords" content="news, latest news, breaking news" />
-      <meta name="author" content="Janpad News" />
+      <meta name="og:image" content="../assets/logoimg.png" />
+      <meta name="description" content={description} />
+      <meta name="keywords" content={tags} />
+      <meta name="author" content="Janpad News Live" />
       <meta name="robots" content="index, follow" />
       <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+      <meta property="og:title" content={title} />
+      <meta property="og:type" content="article" />
+      <meta property="og:description" content={description} />
+      <meta property="og:image" content="../assets/logoimg.png" />
+      <meta property="og:url" content={url} />
+      <meta name="twitter:card" content="summary_large_image" />
     </Helmet>
   );
 };

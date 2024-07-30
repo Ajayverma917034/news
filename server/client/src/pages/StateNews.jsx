@@ -40,7 +40,13 @@ const StateNews = () => {
   // console. log(news && news[0]);
   return (
     <>
-      <MetaDataSection title={state} />
+      <MetaDataSection
+        title={`${state} - Janpad News Live`}
+        description={`${state} news Latest news and updates (ताज़ा समाचार और अपडेट) from state (राज्य), including state news today (राज्य न्यूज़ आज), and Janpad news in Hindi (जनपद न्यूज़ हिंदी में)`}
+        tags={`${state}news , ${state} news today, janpad news, ${findHindi(
+          state
+        )} समाचार, समाचार, ${findHindi(state)} न्यूज़ आज, जनपद न्यूज़`}
+      />
       <div className="flex spacing mt-8">
         <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto  gap-5 ">
           <div className="flex flex-col flex-wrap  md:col-span-4 overflow-hidden">

@@ -23,11 +23,20 @@ const BlogEditor = ({ blogContent }) => {
   } = useContext(EditorContext);
 
   useEffect(() => {
+    const savedBlog = JSON.parse(localStorage.getItem("blog"));
+    if (savedBlog) {
+      setBlog(savedBlog);
+    }
+
     if (!textEditor.isReady) {
       setTextEditor(
         new EditorJS({
           holderId: "textEditor",
-          data: Array.isArray(content) ? content[0] : content,
+          data: savedBlog
+            ? savedBlog.content
+            : Array.isArray(content)
+            ? content[0]
+            : content,
           tools: tools,
           placeholder: "Let's write an awesome news",
           onChange: () => setHasChanges(true),
@@ -40,15 +49,16 @@ const BlogEditor = ({ blogContent }) => {
     const autoSave = () => {
       if (textEditor.isReady && hasChanges) {
         textEditor.save().then((data) => {
-          setBlog({ ...blog, content: data });
+          const updatedBlog = { ...blog, content: data };
+          setBlog(updatedBlog);
+          localStorage.setItem("blog", JSON.stringify(updatedBlog));
 
           // Send auto-save request to server
-          axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/create-news", {
-            ...blog,
-            content: data,
-            id: news_id,
-            draft: true,
-          });
+          // axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/create-news", {
+          //   ...updatedBlog,
+          //   id: news_id,
+          //   draft: true,
+          // });
 
           // Reset hasChanges to false after saving
           setHasChanges(false);
@@ -69,7 +79,9 @@ const BlogEditor = ({ blogContent }) => {
           toast.dismiss(loadingToast);
           toast.success("Uploaded Successfully");
 
-          setBlog({ ...blog, banner: url });
+          const updatedBlog = { ...blog, banner: url };
+          setBlog(updatedBlog);
+          localStorage.setItem("blog", JSON.stringify(updatedBlog));
           setHasChanges(true);
         })
         .catch((err) => {
@@ -87,7 +99,9 @@ const BlogEditor = ({ blogContent }) => {
     let input = e.target;
     input.style.height = "auto";
     input.style.height = input.scrollHeight + "px";
-    setBlog({ ...blog, title: input.value });
+    const updatedBlog = { ...blog, title: input.value };
+    setBlog(updatedBlog);
+    localStorage.setItem("blog", JSON.stringify(updatedBlog));
     setHasChanges(true);
   };
 
@@ -106,8 +120,10 @@ const BlogEditor = ({ blogContent }) => {
         .save()
         .then((data) => {
           if (data.blocks.length) {
-            setBlog({ ...blog, content: data });
+            const updatedBlog = { ...blog, content: data };
+            setBlog(updatedBlog);
             setEditorState("publish");
+            localStorage.setItem("blog", JSON.stringify(updatedBlog));
           } else {
             return toast.error("Write Something in your news to publish it");
           }

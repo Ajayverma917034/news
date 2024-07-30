@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { toast } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import Tag from "./Tags.jsx";
@@ -16,7 +16,7 @@ const PublishForm = () => {
   const tagLimit = 10;
   const navigate = useNavigate();
   const { news_id } = useParams();
-  const {
+  let {
     blog: {
       banner,
       title,
@@ -37,83 +37,90 @@ const PublishForm = () => {
   const [tagdata, setTagData] = useState("");
   const [hasChanges, setHasChanges] = useState(false);
 
-  useEffect(() => {
-    setHasChanges(true); // Set this to true whenever there's a change
-  }, [
-    title,
-    description,
-    tags,
-    state,
-    district,
-    location,
-    news_section_type,
-    breaking_news,
-  ]);
+  // useEffect(() => {
+  //   const autoSave = () => {
+  //     if (
+  //       title.length &&
+  //       description.length <= charLength &&
+  //       tags.length <= tagLimit
+  //     ) {
+  //       let blogObj = {
+  //         title,
+  //         banner,
+  //         description,
+  //         content,
+  //         tags,
+  //         state,
+  //         district,
+  //         location,
+  //         news_section_type,
+  //         breaking_news,
+  //         draft: true,
+  //       };
+  //       axios
+  //         .post(import.meta.env.VITE_SERVER_DOMAIN + "/create-news", {
+  //           ...blogObj,
+  //           id: news_id,
+  //         })
+  //         .then(() => {})
+  //         .catch(({ response }) => {
+  //           return toast.error(response?.data?.error);
+  //         });
+  //     }
+  //   };
+
+  //   const intervalId = setInterval(autoSave, 5000);
+
+  //   return () => clearInterval(intervalId);
+  // }, [
+  //   description,
+  //   tags,
+  //   state,
+  //   district,
+  //   location,
+  //   news_section_type,
+  //   breaking_news,
+  //   news_id,
+  // ]);
 
   useEffect(() => {
-    if (!hasChanges) return; // Only auto-save if there are changes
-
     const autoSave = () => {
-      if (
-        title.length &&
-        description.length <= charLength &&
-        tags.length <= tagLimit
-      ) {
-        let blogObj = {
-          title,
-          banner,
-          description,
-          content,
-          tags,
-          state,
-          district,
-          location,
-          news_section_type,
-          breaking_news,
-          draft: true,
-        };
-        axios
-          .post(import.meta.env.VITE_SERVER_DOMAIN + "/create-news", {
-            ...blogObj,
-            id: news_id,
-          })
-          .then(() => {
-            setHasChanges(false); // Reset the change tracker after successful save
-          })
-          .catch(({ response }) => {
-            return toast.error(response?.data?.error);
-          });
-      }
+      // if (textEditor.isReady && hasChanges) {
+      //   textEditor.save().then((data) => {
+      //     const updatedBlog = { ...blog, content: data };
+      //     setBlog(updatedBlog);
+
+      //     // Send auto-save request to server
+      //     // axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/create-news", {
+      //       //   ...updatedBlog,
+      //       //   id: news_id,
+      //       //   draft: true,
+      //       // });
+
+      //       // Reset hasChanges to false after saving
+      //     });
+      //   }
+      localStorage.setItem("blog", JSON.stringify(blog));
+      setHasChanges(false);
     };
 
     const intervalId = setInterval(autoSave, 5000);
 
     return () => clearInterval(intervalId);
-  }, [
-    hasChanges,
-    title,
-    description,
-    tags,
-    state,
-    district,
-    location,
-    news_section_type,
-    breaking_news,
-    news_id,
-  ]);
+  }, [description, state, district, location, news_section_type, hasChanges]);
 
   const handleClose = () => {
     setEditorState("editor");
   };
 
   const handleKeyDown = (e) => {
+    setHasChanges(true);
     if (e.keyCode === 13 || e.keyCode === 188) {
       e.preventDefault();
       let tag = e.target.value;
       if (tags?.length < tagLimit) {
         if (!tags.includes(tag) && tag.length) {
           setBlog({ ...blog, tags: [...tags, tag] });
-          setHasChanges(true); // Mark as changed
         }
       } else {
         toast.error(`You can add max ${tagLimit} tags`);
@@ -123,9 +130,9 @@ const PublishForm = () => {
   };
 
   const handleSectionChange = (e) => {
+    setHasChanges(true);
     const newSection = e.target.value;
     setBlog({ ...blog, news_section_type: [...news_section_type, newSection] });
-    setHasChanges(true); // Mark as changed
   };
 
   const handlePublish = (e) => {
@@ -195,7 +202,6 @@ const PublishForm = () => {
     if (tags?.length < tagLimit) {
       if (!tags.includes(tag) && tag.length) {
         setBlog({ ...blog, tags: [...tags, tag] });
-        setHasChanges(true); // Mark as changed
       }
     } else {
       toast.error(`You can add max ${tagLimit} tags`);
@@ -237,7 +243,7 @@ const PublishForm = () => {
             className="h-40 resize-none leading-7 input-box pl-4"
             onChange={(e) => {
               setBlog({ ...blog, description: e.target.value });
-              setHasChanges(true); // Mark as changed
+              setHasChanges(true);
             }}
             onKeyDown={(e) => {
               if (e.keyCode === 13) e.preventDefault();
@@ -288,7 +294,7 @@ const PublishForm = () => {
                 className="input-box mb-5 pl-4 capitalize"
                 onChange={(e) => {
                   setBlog({ ...blog, state: e.target.value });
-                  setHasChanges(true); // Mark as changed
+                  setHasChanges(true);
                 }}
               >
                 <option value="" defaultValue={state}>
@@ -317,7 +323,7 @@ const PublishForm = () => {
                 className="input-box mb-5 pl-4 capitalize"
                 onChange={(e) => {
                   setBlog({ ...blog, district: e.target.value });
-                  setHasChanges(true); // Mark as changed
+                  setHasChanges(true);
                 }}
               >
                 <option value="" defaultValue={district}>
@@ -350,7 +356,7 @@ const PublishForm = () => {
                 className="input-box pl-4"
                 onChange={(e) => {
                   setBlog({ ...blog, location: e.target.value });
-                  setHasChanges(true); // Mark as changed
+                  setHasChanges(true);
                 }}
               />
             </div>
