@@ -1,6 +1,6 @@
 import express from "express";
 import { authorizeroles, isAuthenticated } from "../middleware/Authentication.js";
-import { Createuser, Deleteuser, GetUser, Updateuser, deleteNewsAdmin, getAdminNewsCount, getNews, getUsers } from "../controller/admin.controller.js";
+import { Createuser, Deleteuser, GetUser, Updateuser, deleteNewsAdmin, getAdminNewsCount, getNews, getUsers, updateImageUrl } from "../controller/admin.controller.js";
 
 export const adminRoutes = express.Router();
 
@@ -14,6 +14,8 @@ adminRoutes.post('/admin/add-user', isAuthenticated, authorizeroles("admin"), Cr
 adminRoutes.post('/admin/get-user', isAuthenticated, authorizeroles("admin"), GetUser)
 adminRoutes.post('/admin/update-user', isAuthenticated, authorizeroles("admin"), Updateuser)
 adminRoutes.delete('/admin/delete-user', isAuthenticated, authorizeroles("admin"), Deleteuser)
+
+adminRoutes.put('/admin/update-url', isAuthenticated, authorizeroles("admin"), updateImageUrl)
 
 
 

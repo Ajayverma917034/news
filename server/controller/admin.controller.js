@@ -228,3 +228,30 @@ export const Deleteuser = async (req, res) => {
     }
 };
 
+
+export const updateImageUrl = async (req, res, next) => {
+    try {
+        // Find all documents with the old URL
+        const newsList = await News.find({ banner: { $regex: 'img.janpadmirror.com' } });
+
+        // Log the number of documents found
+        console.log(`Found ${newsList.length} documents to update.`);
+
+        // Update each document
+        const updatePromises = newsList.map(news => {
+            news.banner = news.banner.replace('img.janpadmirror.com', 'img.janpadnewslive.com');
+            return news.save();
+        });
+
+        // Wait for all updates to complete
+        await Promise.all(updatePromises);
+
+        // Send response
+        res.status(200).json({
+            message: 'URLs updated successfully',
+            modifiedCount: updatePromises.length,
+        });
+    } catch (error) {
+        next(error);
+    }
+};
