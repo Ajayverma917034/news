@@ -7,7 +7,7 @@ import { EditorContext } from "../pages/Editor.jsx";
 import Section from "./NewsSection.jsx";
 import { IoMdClose } from "react-icons/io";
 import { IoIosAddCircle } from "react-icons/io";
-import { findHindi, stateDistricts } from "../common/data.js";
+import { districts, findHindi, stateDistricts } from "../common/data.js";
 import { CategoryData } from "../assets/CategoryData.js";
 import { handleImageError } from "../common/imageError.js";
 
@@ -265,18 +265,17 @@ const PublishForm = () => {
                   Select District
                 </option>
                 <option value="apna zila">अपना जिला</option>
-                {stateDistricts[state] &&
-                  stateDistricts[state].map((district, i) => {
-                    return (
-                      <option
-                        key={i}
-                        value={district.english}
-                        className="capitalize"
-                      >
-                        {district.hindi}
-                      </option>
-                    );
-                  })}
+                {districts.map((district, i) => {
+                  return (
+                    <option
+                      key={i}
+                      value={district.english}
+                      className="capitalize"
+                    >
+                      {district.hindi}
+                    </option>
+                  );
+                })}
               </select>
             </div>
           </div>

@@ -30,6 +30,21 @@ export const stateDistricts = {
 
 };
 
+export const districts = [
+    { hindi: 'सोनभद्र', english: 'sonbhadra' },
+    { hindi: 'चंदौली', english: 'chandauli' },
+    { hindi: 'मिर्जापुर', english: 'mirzapur' },
+    { hindi: 'वाराणसी', english: 'varanasi' },
+    { hindi: 'गाजीपुर', english: 'gajipur' },
+    { hindi: 'शाहजहांपुर', english: 'shahjhapur' },
+    { hindi: 'प्रयागराज', english: 'prayagraj' },
+    { hindi: 'देवरिया', english: 'deoria' },
+    { hindi: 'बरेली', english: 'bareilly' },
+    { english: 'lakhimpur kheri', hindi: 'लखीमपुर खीरी' },
+    { english: 'pilibhit', hindi: 'पीलीभीत' },
+    { english: 'singrauli', hindi: 'सिंगरौली' }
+]
+
 
 
 const engToHindi = {
