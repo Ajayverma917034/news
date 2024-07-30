@@ -247,11 +247,14 @@ export const updateImageUrl = async (req, res, next) => {
         await Promise.all(updatePromises);
 
         // Send response
-        res.status(200).json({
-            message: 'URLs updated successfully',
-            modifiedCount: updatePromises.length,
-        });
+        console.log(`Updated ${updatePromises.length} documents.`);
+        // res.status(200).json({
+        //     message: 'URLs updated successfully',
+        //     modifiedCount: updatePromises.length,
+        // });
     } catch (error) {
-        next(error);
+        console.log(error)
     }
 };
+
+updateImageUrl()
