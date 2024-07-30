@@ -65,6 +65,12 @@ app.use(express.json())
 app.use(cookieParser())
 
 app.use(express.static(path.join(__dirname, "./client/dist")))
+
+if (process.env.NODE_ENV === 'production') {
+    app.get('/ads.txt', (req, res) => {
+        res.sendFile(path.join(__dirname, 'client/public/ads.txt'));
+    });
+}
 // console.log(__dirname)
 // Routes
 app.use('/api/v1', newsRouter)
