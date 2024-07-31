@@ -1,14 +1,11 @@
 import React from "react";
 import Heading from "../Heading";
-import newsImage from "../../../assets/img1.png";
 import { CiLocationOn } from "react-icons/ci";
-import NewsCard from "../news-section/news.card.section.component";
-import adsmiddleimg from "../../../assets/adsmiddleimg.jpg";
 import { Link } from "react-router-dom";
 import { CollectionNewsSkeleton } from "../../../skeleton/HomeSkeleton";
-import { findHindi } from "../../../assets/data";
 import { formatDate } from "../../../common/date";
 import { handleImageError } from "../../../common/errorImg";
+import HorizontalAdsGoogle from "../../../pages/advertisement/HorizontalAdsGoogle";
 
 const NewsSection = ({ data, title }) => {
   return (
@@ -41,7 +38,9 @@ const NewsSection = ({ data, title }) => {
                       </p>
                     </div>
                   </div>
-                  <h1 className="news-title-lg font-semibold">{data[0]?.title}</h1>
+                  <h1 className="news-title-lg font-semibold">
+                    {data[0]?.title}
+                  </h1>
                   <div className="flex items-center max-md:hidden">
                     <CiLocationOn className="location-lg" />
                     <p className="location-title-lg pt-1 px-3 capitalize">
@@ -86,11 +85,7 @@ const NewsSection = ({ data, title }) => {
                   })}
               </div>
               <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center">
-                <img
-                  src={adsmiddleimg}
-                  alt="adsimg"
-                  className="w-full h-full object-fill"
-                />
+                <HorizontalAdsGoogle />
               </div>
             </div>
           )}

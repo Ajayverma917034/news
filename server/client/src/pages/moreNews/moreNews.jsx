@@ -11,8 +11,9 @@ import { handleImageError } from "../../common/errorImg";
 import { MetaDataSection } from "../../seo/Helmet";
 import { CollectionNewsSkeleton } from "../../skeleton/HomeSkeleton";
 import DetailAds from "../advertisement/DetailAds";
-import { findDistrict } from "../../../../../admin/src/common/data";
 import { findMetaData } from "../../seo/dataset-page";
+import HorizontalAdsGoogle from "../advertisement/HorizontalAdsGoogle";
+import { HiOutlineExclamationCircle } from "react-icons/hi2";
 
 const MoreNews = () => {
   const [data, setData] = useState(null);
@@ -89,12 +90,36 @@ const MoreNews = () => {
                   <div className="flex w-full flex-col flex-wrap gap-y-2 md:gap-y-6 md:py-6 p-1 mt-1">
                     {data.slice(1).map((item, index) => (
                       <>
-                        <MorePageCard key={index} data={item} />
-                        {(index + 1) % 6 === 0 && (
-                          <div key={index}>
-                            <DetailAds />
-                          </div>
-                        )}
+                        {data.map((item, index) => (
+                          <>
+                            <MorePageCard key={`news-${index}`} data={item} />
+                            {(index + 1) % 2 === 0 && ( // Add DetailAds after every 2 news
+                              <div key={`ad6-${index}`}>
+                                <HorizontalAdsGoogle />
+                              </div>
+                            )}
+                            {(index + 1) % 3 === 0 && (
+                              // Add HorizontalAdsGoogle after every 6 news
+                              <div className="bg-gray h-[200px] flex justify-center items-center w-full relative">
+                                <DetailAds />
+                                <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
+                                  <Link
+                                    to={"/advertisement-us"}
+                                    className="text-[#f9f9f9] text-[12px] "
+                                  >
+                                    <HiOutlineExclamationCircle
+                                      size={18}
+                                      className="text-[#f9f9f9] font-sans"
+                                    />
+                                  </Link>
+                                  <span className="text-[#f9f9f9] text-[12px]">
+                                    Sponsored
+                                  </span>
+                                </div>
+                              </div>
+                            )}
+                          </>
+                        ))}
                       </>
                     ))}
                     <div ref={lastElementRef}></div>

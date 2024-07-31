@@ -9,6 +9,7 @@ import CustomeAndGoogleAdd from "../../../pages/advertisement/CustomeAndGoogleAd
 import Loader from "../../../loader/Loader";
 import PageContent from "./PageContent";
 import adsmiddleimg from "../../../assets/adsmiddleimg.jpg";
+import HorizontalAdsGoogle from "../../../pages/advertisement/HorizontalAdsGoogle";
 
 export const newsStructure = {
   title: "",
@@ -145,11 +146,7 @@ const SinglePage = () => {
                 </div>
               </div>
               <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center mt-2">
-                <img
-                  src={adsmiddleimg}
-                  alt="adsimg"
-                  className="w-full h-full object-fill"
-                />
+                <HorizontalAdsGoogle />
               </div>
               <div className="hidden max-sm:flex mt-3">
                 <CustomeAndGoogleAdd />
@@ -162,11 +159,7 @@ const SinglePage = () => {
                     <Heading title="और भी पढ़े" />
                     <PageContent item={item} />
                     <div className="w-full h-[5rem] md:h-[9rem] flex items-center justify-center">
-                      <img
-                        src={adsmiddleimg}
-                        alt="adsimg"
-                        className="w-full h-full object-fill"
-                      />
+                      <HorizontalAdsGoogle />
                     </div>
                     <div className="hidden max-sm:flex mt-3">
                       <CustomeAndGoogleAdd />

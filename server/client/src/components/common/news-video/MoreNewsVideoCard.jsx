@@ -10,16 +10,16 @@ const MoreNewsVideoCard = ({ data }) => {
     <>
       <Link
         to={`/video/${data?.news_id}`}
-        className="grid grid-cols-6 md:grid-cols-7 gap-2 md:gap-2 lg:h-[150px] shadow-card p-1 rounded-md"
+        className="grid grid-cols-6 md:grid-cols-7 gap-2 md:gap-2 lg:h-[150px] shadow-card p-1 rounded-md w-full"
       >
-        <div className="col-span-2 md:col-span-2 h-[95px] sm:h-[140px] w-full relative rounded-md">
+        <div className="col-span-2 md:col-span-2 h-[95px] sm:h-[140px] w-full rounded-md relative">
           <img
             src={`https://img.youtube.com/vi/${data?.videoLinkId}/mqdefault.jpg`}
             alt="Image"
             className="object-cover w-full h-full rounded-md"
             onError={handleImageError}
           />
-          <div className="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-5"></div>
+          <div className="absolute top-0 left-0 right-0 bottom-0 bg-black  opacity-5"></div>
           <div className="absolute inset-0 flex justify-center items-center">
             <FaYoutube className="w-10 h-10 text-[#CD201F] cursor-pointer" />
           </div>
