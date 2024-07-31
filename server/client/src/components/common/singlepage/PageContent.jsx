@@ -63,11 +63,11 @@ const PageContent = ({ item }) => {
       <p className="date-lg text-wrap">{item.description}</p>
       <div className="w-full h-[280px] sm:h-[350px] mt-3">
         <img
-          src={item?.banner}
+          src={item.banner}
           onError={handleImageError}
           alt="news-img"
-          className="w-full h-full object-cover"
-          loading="lazy"
+          className="w-full max-sm:max-w-screen-sm h-full object-cover"
+          // loading="lazy"
         />
       </div>
       <div className="flex flex-wrap gap-y-2 sm:flex sm:flex-row items-center py-2 justify-between w-full">

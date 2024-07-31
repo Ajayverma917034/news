@@ -52,7 +52,11 @@ export default function DetailAds() {
               })
             : [0, 0, 0].map((item, index) => (
                 <SwiperSlide key={index}>
-                  <img src={banner} alt="sliderimg" className="w-full h-full" />
+                  <img
+                    src={banner}
+                    alt="sliderimg"
+                    className="w-full h-full max-sm:max-w-screen-sm"
+                  />
                 </SwiperSlide>
               ))
           : [0, 0, 0].map((item, index) => (

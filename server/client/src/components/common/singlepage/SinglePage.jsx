@@ -8,7 +8,7 @@ import { handleImageError } from "../../../common/errorImg";
 import CustomeAndGoogleAdd from "../../../pages/advertisement/CustomeAndGoogleAdd";
 import Loader from "../../../loader/Loader";
 import PageContent from "./PageContent";
-import adsmiddleimg from "../../../assets/adsmiddleimg.jpg";
+// import adsmiddleimg from "../../../assets/adsmiddleimg.jpg";
 import HorizontalAdsGoogle from "../../../pages/advertisement/HorizontalAdsGoogle";
 
 export const newsStructure = {
@@ -104,12 +104,12 @@ const SinglePage = () => {
   const currentUrl = `${window.location.protocol}//${window.location.host}${locationUrl.pathname}${locationUrl.search}${locationUrl.hash}`;
 
   return (
-    <div className="flex spacing mt-2">
+    <div className="flex spacing mt-2 w-full">
       {loading ? (
         <Loader />
       ) : (
         news && (
-          <div className="grid flex-col sm:grid-cols-6 sm:gap-6 w-full gap-x-2">
+          <div className="grid max-sm:flex flex-col sm:grid-cols-6 sm:gap-6 w-full gap-x-2">
             <MetaData
               title={title}
               keywords={tags}
