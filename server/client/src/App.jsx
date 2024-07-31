@@ -30,6 +30,7 @@ import {
   getAdsFail,
   getAdsSuccess,
 } from "./redux/advertisement/adsSlice";
+import { Helmet, HelmetProvider } from "react-helmet-async";
 
 import httpClient from "./api/httpClient";
 import { useDispatch } from "react-redux";
@@ -51,47 +52,49 @@ const App = () => {
     fetchAds();
   }, []);
   return (
-    <BrowserRouter>
-      <Navbar />
-      <Slider />
-      <Toaster />
-      <BreakingNews />
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/sonbhadra" element={<MoreNews />} />
-        <Route path="/state" element={<StateNewsUnknown />} />
-        {/* Routes for all know route    */}
-        <Route path="/country" element={<MoreNews />} />
-        <Route path="/top-videos" element={<MoreVideos />} />
-        <Route path="/videos" element={<MoreVideos />} />
+    <HelmetProvider>
+      <BrowserRouter>
+        <Navbar />
+        <Slider />
+        <Toaster />
+        <BreakingNews />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/sonbhadra" element={<MoreNews />} />
+          <Route path="/state" element={<StateNewsUnknown />} />
+          {/* Routes for all know route    */}
+          <Route path="/country" element={<MoreNews />} />
+          <Route path="/top-videos" element={<MoreVideos />} />
+          <Route path="/videos" element={<MoreVideos />} />
 
-        <Route path="/world" element={<MoreNews />} />
-        <Route path="/crime" element={<MoreNews />} />
-        <Route path="/ipl" element={<MoreNews />} />
-        <Route path="/cricket" element={<MoreNews />} />
-        <Route path="/sports" element={<MoreNews />} />
-        <Route path="/entertainment" element={<MoreNews />} />
-        <Route path="/religion" element={<MoreNews />} />
-        <Route path="/astrology" element={<MoreNews />} />
-        <Route path="/carrier" element={<MoreNews />} />
-        {/* ... add here  */}
+          <Route path="/world" element={<MoreNews />} />
+          <Route path="/crime" element={<MoreNews />} />
+          <Route path="/ipl" element={<MoreNews />} />
+          <Route path="/cricket" element={<MoreNews />} />
+          <Route path="/sports" element={<MoreNews />} />
+          <Route path="/entertainment" element={<MoreNews />} />
+          <Route path="/religion" element={<MoreNews />} />
+          <Route path="/astrology" element={<MoreNews />} />
+          <Route path="/carrier" element={<MoreNews />} />
+          {/* ... add here  */}
 
-        <Route path="state/uttar-pradesh" element={<StateNews />} />
-        <Route path="state/:state" element={<StateNewsWithoutCategory />} />
-        <Route path="state/:state/:district" element={<DistrictNews />} />
-        <Route path="/news/:news_id" element={<SinglePage />} />
-        <Route path="/video/:news_id" element={<VideoPage />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/advertisement-us" element={<AdvertiseWithUs />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/terms-and-conditions" element={<TermAndCondition />} />
-        <Route path="/disclaimer-policy" element={<DisclaimerPolicy />} />
+          <Route path="state/uttar-pradesh" element={<StateNews />} />
+          <Route path="state/:state" element={<StateNewsWithoutCategory />} />
+          <Route path="state/:state/:district" element={<DistrictNews />} />
+          <Route path="/news/:news_id" element={<SinglePage />} />
+          <Route path="/video/:news_id" element={<VideoPage />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/advertisement-us" element={<AdvertiseWithUs />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms-and-conditions" element={<TermAndCondition />} />
+          <Route path="/disclaimer-policy" element={<DisclaimerPolicy />} />
 
-        <Route path="*" element={<Page404 />} />
-      </Routes>
-      <Footer />
-    </BrowserRouter>
+          <Route path="*" element={<Page404 />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </HelmetProvider>
   );
 };
 
