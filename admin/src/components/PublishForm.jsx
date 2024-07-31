@@ -183,6 +183,7 @@ const PublishForm = () => {
         e.target.classList.remove("disable");
         toast.dismiss(loadingToast);
         toast.success("Published successfully");
+        localStorage.removeItem("blog");
         navigate("/dashboard/all-news");
       })
       .catch(({ response }) => {

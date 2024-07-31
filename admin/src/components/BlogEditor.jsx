@@ -163,7 +163,7 @@ const BlogEditor = ({ blogContent }) => {
             e.target.classList.remove("disable");
             toast.dismiss(loadingToast);
             toast.success("Saved successfully");
-
+            localStorage.removeItem("blog");
             navigate("/dashboard");
           })
           .catch(({ response }) => {
