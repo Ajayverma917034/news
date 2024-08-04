@@ -41,12 +41,12 @@ app.use(fileUploader({
 }))
 // cors
 app.use(cors({
-    origin: [process.env.FRONTEND_URL, process.env.ADMIN_URL, process.env.FRONTEND_URL_PROD],
+    origin: [process.env.FRONTEND_URL, process.env.ADMIN_URL, process.env.FRONTEND_URL_PROD, "http://localhost:3000", "https://dbna77cozgkszynkgimjj4jk2m.srv.us", "https://some-animals-give.loca.lt"],
     credentials: true
 }))
 
 
-const allowedOrigins = [process.env.FRONTEND_URL, process.env.ADMIN_URL, process.env.FRONTEND_URL_PROD];
+const allowedOrigins = [process.env.FRONTEND_URL, process.env.ADMIN_URL, process.env.FRONTEND_URL_PROD, "http://localhost:3000", "https://dbna77cozgkszynkgimjj4jk2m.srv.us", "https://some-animals-give.loca.lt"];
 
 app.use((req, res, next) => {
     const origin = req.headers.origin;

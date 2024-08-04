@@ -139,6 +139,7 @@ export const createNews = tryCatch(async (req, res, next) => {
 
 
 export const getHomeNews = tryCatch(async (req, res, next) => {
+    console.log("je")
     try {
         // let { data } = req.body;
         const data = [
@@ -236,14 +237,16 @@ export const getNewses = tryCatch((req, res, next) => {
 })
 
 export const getNews = tryCatch(async (req, res, next) => {
-    let { news_id, draft, mode, incrementVal: val } = req.body;
+    let { news_id, draft = false, mode = "read", incrementVal: val } = req.body;
+
+    console.log(req.body)
 
     let incrementVal = mode !== 'edit' ? val : 0;
     News.findOneAndUpdate({ news_id }, { $inc: { "activity.total_reads": incrementVal, "activity.total_today_count": incrementVal } })
         .select('news_id title description content tags state district banner location activity.total_reads news_section_type tags createdAt -_id')
         .then(news => {
             // console.log(news)
-            if (news.draft && !draft) {
+            if (news?.draft && !draft) {
                 return next(new ErrorHandler(403, "This news is in draft mode"))
             }
             return res.status(200).json({ success: true, news })
