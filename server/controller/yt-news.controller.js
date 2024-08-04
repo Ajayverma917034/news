@@ -89,7 +89,7 @@ export const getYtNewses = tryCatch(async (req, res, next) => {
         // if (tags) query.tags = tags;
         // if (draft !== undefined) query.draft = draft;
 
-        limit = limit ? limit : 1;
+        limit = limit ? limit : 4;
 
         page = page ? page : 1;
 
