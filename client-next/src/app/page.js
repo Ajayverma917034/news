@@ -1,3 +1,4 @@
+import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 import ApnaZila from "@/components/ApnaZila";
 import HomeRightBar from "@/components/home/HomeRightBar";
 import HomeRightBarOther from "@/components/news-section/home.other";
@@ -80,7 +81,7 @@ const Home = async () => {
             )}
           </div>
           <div className="flex flex-col md:gap-y-10 gap-y-2  md:col-span-2">
-            {/* <CustomeAndGoogleAdd index={0} /> */}
+            <CustomeAndGoogleAdd />
             <SideNews title={"read also"} />
           </div>
         </div>
@@ -90,8 +91,11 @@ const Home = async () => {
       <RajyaMain />
       <ApnaZila />
 
-      <HomeRightBarOther data={homeNews} />
-
+      {
+        homeNews && homeNews.data && homeNews.data.length > 2 && (
+          <HomeRightBarOther data={homeNews.data.slice(2, 4)} />
+        )
+      }
 
       {homeNews.data.length > 4 && (
         <div className="flex spacing mt-2">
@@ -103,7 +107,7 @@ const Home = async () => {
             </div>
             <div className="col-span-2 w-full">
               <div className="sticky top-32 max-md:hidden">
-                {/* <CustomeAndGoogleAdd /> */}
+                <CustomeAndGoogleAdd />
               </div>
             </div>
           </div>

@@ -4,16 +4,22 @@ import { formatDate } from "@/lib/formatDate";
 import Image from "next/image";
 import React from "react";
 import { CiLocationOn } from "react-icons/ci";
-// import { FacebookShareButton, WhatsappShareButton } from "react-share";
+import {
+  FacebookShareButton,
+  WhatsappShareButton,
+  TwitterShareButton,
+} from "react-share";
 import { FaFacebook } from "react-icons/fa";
 
 import { MdOutlineContentCopy } from "react-icons/md";
 import { FaSquareXTwitter } from "react-icons/fa6";
-import { RiWhatsappFill, TwitterShareButton } from "react-icons/ri";
+import { RiWhatsappFill } from "react-icons/ri";
 import toast from "react-hot-toast";
 import { HiOutlineExclamationCircle } from "react-icons/hi2";
 import BlogContent from "./BlogContent";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { handleImageError } from "@/lib/errorImg";
 
 const PageContent = ({ item }) => {
   const copyUrlToClipboard = async () => {
@@ -28,7 +34,8 @@ const PageContent = ({ item }) => {
       });
   };
 
-  const shareUrl = "https://www.facebook.com";
+  const pathname = usePathname();
+  const shareUrl = pathname;
   return (
     item && (
       <div className="py-4 flex flex-col flex-wrap w-full">
@@ -45,7 +52,7 @@ const PageContent = ({ item }) => {
               maxWidth: "100%",
               height: "auto",
             }}
-            // onError={handleImageError}
+            onError={handleImageError}
             alt="news-img"
             className="w-full max-sm:max-w-screen-sm h-full object-cover"
             loading="lazy"
@@ -62,21 +69,21 @@ const PageContent = ({ item }) => {
             <h3 className="date-lg">{formatDate(item.createdAt)}</h3>
           </div>
           <div className="flex gap-2 items-center">
-            {/* <WhatsappShareButton url={"jfdkf"} title={item.title}>
+            <WhatsappShareButton url={"jfdkf"} title={item.title}>
               <RiWhatsappFill
                 className="text-green-600 hover:scale-[1.2]"
                 size={28}
               />
-            </WhatsappShareButton> */}
-            {/* <FacebookShareButton
-              hashtag={news?.tags}
+            </WhatsappShareButton>
+            <FacebookShareButton
+              hashtag={item.tags}
               url={shareUrl}
-              title={news.title}
+              title={item.title}
             >
               <FaFacebook size={24} className="text-blue hover:scale-[1.2]" />
-            </FacebookShareButton> */}
+            </FacebookShareButton>
 
-            {/* <TwitterShareButton
+            <TwitterShareButton
               url={shareUrl}
               title={item.title}
               hashtags={item?.tags}
@@ -85,7 +92,7 @@ const PageContent = ({ item }) => {
                 size={24}
                 className="text-pink-600 hover:scale-[1.2]"
               />
-            </TwitterShareButton> */}
+            </TwitterShareButton>
             <button onClick={copyUrlToClipboard}>
               <MdOutlineContentCopy size={24} className=" hover:scale-[1.2]" />
             </button>

@@ -3,6 +3,7 @@ import { CiLocationOn } from "react-icons/ci";
 import Image from "next/image";
 import Link from "next/link";
 import { formatDate } from "@/lib/formatDate";
+import { handleImageError } from "@/lib/errorImg";
 
 const MorePageCard = ({ data }) => {
   return (
@@ -22,7 +23,7 @@ const MorePageCard = ({ data }) => {
               height: "auto",
             }}
             className="object-cover w-full h-full rounded-md"
-            // onError={handleImageError}
+            onError={handleImageError}
           />
         </div>
         <div className="flex flex-col col-span-4  md:col-span-5 ml-2 gap-1">

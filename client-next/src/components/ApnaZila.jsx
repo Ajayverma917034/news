@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import ApnaNavbar from "./apna-section/ApnaNavbar";
 import ApnaNews from "./apna-section/ApnaNews";
 import SideNews from "./side-news/SideNews";
@@ -26,26 +26,27 @@ const ApnaZila = () => {
   const [currentDistrictIndex, setCurrentDistrictIndex] = useState(1);
   const [data, setData] = useState(null);
 
-  const fetchNewsDistrictWise = (district) => {
+  const fetchNewsDistrictWise = () => {
     setData(null);
     axios
       .post(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/get-news-query`, {
-        district,
+        district:
+          currentDistrictIndex === 0
+            ? "apna zila"
+            : districts[currentDistrictIndex],
       })
       .then(({ data }) => {
         setData(data);
+        // console.log(data);
       })
       .catch((err) => {
         setData(null);
         console.log(err);
       });
   };
-
-  const handleDistrictChange = (index) => {
-    setCurrentDistrictIndex(index);
-    const selectedDistrict = index === 0 ? "apna zila" : districts[index];
-    fetchNewsDistrictWise(selectedDistrict);
-  };
+  useEffect(() => {
+    fetchNewsDistrictWise();
+  }, [currentDistrictIndex]);
 
   return (
     <div className="flex spacing mt-2 sm:mt-8">
@@ -56,7 +57,7 @@ const ApnaZila = () => {
             <ApnaNavbar
               navItems={districts}
               currentIndex={currentDistrictIndex}
-              setCurrentIndex={handleDistrictChange}
+              setCurrentIndex={setCurrentDistrictIndex}
               hint={"district"}
             />
             <ApnaNews

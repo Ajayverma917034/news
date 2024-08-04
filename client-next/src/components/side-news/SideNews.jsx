@@ -8,25 +8,26 @@ import { findHindi } from "@/assets/data";
 const SideNews = ({ title = "", limit = "5" }) => {
   const [data, setData] = React.useState(null);
 
-  useEffect(() => {
-    const fetchNews = async () => {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/fetch-sidebar-news`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            limit: limit,
-            news_section_type: [title],
-          }),
-        }
-      );
+  const fetchNews = async () => {
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/fetch-sidebar-news`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          limit: limit,
+          news_section_type: [title],
+        }),
+      }
+    );
 
-      const data = await response.json();
-      setData(data.news);
-    };
+    const data = await response.json();
+    setData(data.news);
+  };
+  useEffect(() => {
+    fetchNews();
   }, [title, limit]);
   return (
     <>

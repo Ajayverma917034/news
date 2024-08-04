@@ -12,7 +12,7 @@ function SubNewsCard({ data }) {
       <div className="h-[80px] min-w-[120px]">
         <Image
           src={data?.banner}
-          alt="Image"
+          alt="Image 123"
           width={1200}
           height={400}
           sizes={{

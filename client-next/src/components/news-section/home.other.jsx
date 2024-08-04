@@ -1,18 +1,18 @@
 "use client";
 import React from "react";
 import NewsSection from "./news.section.component";
-// import CustomeAndGoogleAdd from "../pages/advertisement/CustomeAndGoogleAdd";
-import SideNews from "../side-news/SubNewsCard";
+import SideNews from "../side-news/SideNews";
+import CustomeAndGoogleAdd from "../ads/CustomeAndGoogleAdd";
 
 const HomeRightBarOther = ({ data }) => {
   return (
     <>
-      {data && data.data && data.data.length > 0 && (
+      {data && data.length > 0 && (
         <div className="flex spacing mt-2 sm:mt-8 ">
           <div className="grid grid-cols-1 lg:grid-cols-6 w-full mx-auto gap-5">
             {/* <StatesNav /> */}
             <div className="flex flex-col flex-wrap  md:col-span-4 overflow-hidden">
-              {data.data.data &&
+              {data &&
                 data.map((news, index) => {
                   return (
                     <NewsSection
@@ -24,7 +24,7 @@ const HomeRightBarOther = ({ data }) => {
                 })}
             </div>
             <div className="flex flex-col md:gap-y-10 gap-y-2  md:col-span-2 ">
-              {/* <CustomeAndGoogleAdd index={2} /> */}
+              <CustomeAndGoogleAdd />
               <SideNews title="education" />
             </div>
           </div>

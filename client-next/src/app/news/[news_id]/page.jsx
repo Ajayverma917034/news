@@ -3,6 +3,9 @@ import { notFound } from "next/navigation";
 import RandomNewsScroll from "./RandomNewsScroll.jsx";
 import Image from "next/image.js";
 import PageContent from "@/components/single-page/PageContent.jsx";
+import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd.jsx";
+import { handleImageError } from "@/lib/errorImg.js";
+import Heading from "@/lib/Heading.jsx";
 
 export async function generateMetadata({ params: { news_id } }) {
   const response = await fetch(
@@ -86,7 +89,7 @@ export default async function BlogPostPage({ params: { news_id } }) {
           </article>
 
           <div className="w-full">
-            {/* <Heading title={"सम्बंधित खबर"} /> */}
+            <Heading title={"सम्बंधित खबर"} />
             <div className="flex max-lg:flex-col gap-2 w-full">
               {relatedNews &&
                 relatedNews.length &&
@@ -99,7 +102,7 @@ export default async function BlogPostPage({ params: { news_id } }) {
                     <div className="max-lg:col-span-1  h-[70px] max-h-[103px] lg:h-[120px] max-lg:max-w-36 rounded-md">
                       <Image
                         src={item?.banner}
-                        //   onError={handleImageError}
+                        // onError={handleImageError}
                         alt="Relative-news-image"
                         width={1200}
                         height={800}
@@ -122,7 +125,7 @@ export default async function BlogPostPage({ params: { news_id } }) {
             {/* <HorizontalAdsGoogle /> */}
           </div>
           <div className="hidden max-sm:flex mt-3">
-            {/* <CustomeAndGoogleAdd /> */}
+            <CustomeAndGoogleAdd />
           </div>
 
           <div className="flex mt-2 w-full">

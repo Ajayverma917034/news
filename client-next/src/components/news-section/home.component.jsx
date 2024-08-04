@@ -5,6 +5,7 @@ import NewsVideo from "../news-video/news.video.section.component";
 // import CustomeAndGoogleAdd from "../pages/advertisement/CustomeAndGoogleAdd";
 import SideNews from "../side-news/SideNews";
 import { YtCollectionSkeleton } from "@/skeleton/HomeSkeleton";
+import CustomeAndGoogleAdd from "../ads/CustomeAndGoogleAdd";
 
 const HomeRightBar = ({ data, ytData }) => {
   return (
@@ -20,8 +21,8 @@ const HomeRightBar = ({ data, ytData }) => {
             )}
           </div>
           <div className="flex flex-col md:gap-y-10 gap-y-2  md:col-span-2">
-            {/* <CustomeAndGoogleAdd index={0} /> */}
-            {/* <SideNews title={"read also"} /> */}
+            <CustomeAndGoogleAdd />
+            <SideNews title={"read also"} />
           </div>
         </div>
       </div>

@@ -12,6 +12,8 @@ import Image from "next/image";
 import MorePageCard from "@/components/news-section/morepage.news.card";
 import { CollectionNewsSkeleton } from "@/skeleton/HomeSkeleton";
 import SideNews from "@/components/side-news/SideNews";
+import { handleImageError } from "@/lib/errorImg";
+import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 
 const MoreNews = ({ title }) => {
   const [data, setData] = useState(null);
@@ -94,7 +96,7 @@ const MoreNews = ({ title }) => {
                           maxWidth: "100%",
                           height: "auto",
                         }}
-                        // onError={handleImageError}
+                        onError={handleImageError}
                         className="z-0 h-full w-full  object-cover rounded-md"
                       />
                       <div className="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-5"></div>
@@ -143,7 +145,7 @@ const MoreNews = ({ title }) => {
           )}
         </div>
         <div className="flex flex-col gap-y-2 md:gap-y-10 md:col-span-2 md:mt-10">
-          {/* <CustomeAndGoogleAdd /> */}
+          <CustomeAndGoogleAdd />
           <SideNews title={"education"} />
         </div>
       </div>

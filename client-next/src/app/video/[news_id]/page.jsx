@@ -4,19 +4,23 @@ import Image from "next/image.js";
 import { CiLocationOn } from "react-icons/ci";
 import { formatDate } from "@/lib/formatDate";
 import Heading from "@/lib/Heading";
+import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 
 export async function generateMetadata({ params: { news_id } }) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/get-youtube-news`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    cache: "no-cache",
-    body: JSON.stringify({
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/get-youtube-news`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      cache: "no-cache",
+      body: JSON.stringify({
         video_id: news_id,
-      incrementVal: 1, // replace with the actual value
-    }),
-  });
+        incrementVal: 1, // replace with the actual value
+      }),
+    }
+  );
 
   if (!response.ok) {
     notFound(); // Handle if the news is not found
@@ -34,16 +38,19 @@ export async function generateMetadata({ params: { news_id } }) {
 }
 
 export default async function BlogPostPage({ params: { news_id } }) {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/get-youtube-news`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/get-youtube-news`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
         video_id: news_id,
-      incrementVal: 1, // replace with the actual value
-    }),
-  });
+        incrementVal: 1, // replace with the actual value
+      }),
+    }
+  );
 
   if (!response.ok) {
     notFound(); // Handle if the news is not found
@@ -67,7 +74,7 @@ export default async function BlogPostPage({ params: { news_id } }) {
   );
   const relatedNews = await relatednewsResponse.json();
 
-  console.log(relatedNews)
+  console.log(relatedNews);
   const thumbnail = `https://img.youtube.com/vi/${news?.videoLinkId}/mqdefault.jpg`;
 
   return (
@@ -75,7 +82,7 @@ export default async function BlogPostPage({ params: { news_id } }) {
       <div className="grid max-sm:flex flex-col sm:grid-cols-6 sm:gap-6 w-full gap-x-2">
         <div className="col-span-6 md:col-span-4 w-full">
           <article className="">
-          <div className="center w-full py-2 max-lg:px-[0vw] h-[300px] md:h-[500px]">
+            <div className="center w-full py-2 max-lg:px-[0vw] h-[300px] md:h-[500px]">
               <iframe
                 style={{ overflow: "hidden", height: "100%", width: "100%" }}
                 width="100%"
@@ -148,7 +155,7 @@ export default async function BlogPostPage({ params: { news_id } }) {
               {relatedNews &&
                 relatedNews.length &&
                 relatedNews.map((item, index) => (
-                  <Link 
+                  <Link
                     href={`/video/${item?.news_id}`}
                     key={index}
                     className="grid grid-cols-3 max-md:gap-x-1 lg:flex lg:flex-col lg:w-[200px] shadow-card p-1 rounded-md max-lg:gap-x-3"
@@ -179,7 +186,7 @@ export default async function BlogPostPage({ params: { news_id } }) {
             {/* <HorizontalAdsGoogle /> */}
           </div>
           <div className="hidden max-sm:flex mt-3">
-            {/* <CustomeAndGoogleAdd /> */}
+            <CustomeAndGoogleAdd />
           </div>
         </div>
       </div>

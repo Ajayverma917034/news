@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { findDistrict, findHindi } from "../assets/data";
-import { NavLink, useLocation, useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import httpClient from "../api/httpClient";
 import NewsSection from "../components/common/news-section/news.section.component";
-import { CiLocationOn } from "react-icons/ci";
-import adsimgright1 from "../assets/adsimgright1.png";
-import adsimgright2 from "../assets/adsimgright2.png";
+
 import SideNews from "./advertisement/related-news/SideNews";
 import StateBar from "../components/common/StateBar";
-import { MetaData, MetaDataSection } from "../seo/Helmet";
+import { MetaDataSection } from "../seo/Helmet";
 import CustomeAndGoogleAdd from "./advertisement/CustomeAndGoogleAdd";
 const StateNews = () => {
   let state = useLocation();
