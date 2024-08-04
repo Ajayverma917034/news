@@ -61,7 +61,10 @@ app.get('/image/:filename', async (req, res) => {
             res.sendFile(filePath);
         }
         else {
-            res.status(404).send('file not found');
+            const filePath = path.join(__dirname, 'public/images', "not-found.png")
+            if (fs.existsSync(filePath)) {
+                res.sendFile(filePath);
+            }
         }
     } catch (error) {
         console.log(error)
