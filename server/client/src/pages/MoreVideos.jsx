@@ -15,6 +15,7 @@ import MoreNewsVideoCard from "../components/common/news-video/MoreNewsVideoCard
 import { FaYoutube } from "react-icons/fa";
 import DetailAds from "./advertisement/DetailAds";
 import { HiOutlineExclamationCircle } from "react-icons/hi2";
+import HorizontalAdsGoogle from "./advertisement/HorizontalAdsGoogle";
 
 const MoreVideos = () => {
   const [data, setData] = useState(null);
@@ -95,23 +96,28 @@ const MoreVideos = () => {
                       <React.Fragment key={index}>
                         <MoreNewsVideoCard data={item} />
                         {(index + 1) % 6 === 0 && (
-                          <div className="bg-gray h-[200px] flex justify-center items-center w-full relative">
-                            <DetailAds />
-                            <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
-                              <Link
-                                to={"/advertisement-us"}
-                                className="text-[#f9f9f9] text-[12px] "
-                              >
-                                <HiOutlineExclamationCircle
-                                  size={18}
-                                  className="text-[#f9f9f9] font-sans"
-                                />
-                              </Link>
-                              <span className="text-[#f9f9f9] text-[12px]">
-                                Sponsored
-                              </span>
+                          <>
+                            <div className="bg-gray h-[200px] flex justify-center items-center w-full relative">
+                              <DetailAds />
+                              <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
+                                <Link
+                                  to={"/advertisement-us"}
+                                  className="text-[#f9f9f9] text-[12px] "
+                                >
+                                  <HiOutlineExclamationCircle
+                                    size={18}
+                                    className="text-[#f9f9f9] font-sans"
+                                  />
+                                </Link>
+                                <span className="text-[#f9f9f9] text-[12px]">
+                                  Sponsored
+                                </span>
+                              </div>
                             </div>
-                          </div>
+                            <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center">
+                              <HorizontalAdsGoogle />
+                            </div>
+                          </>
                         )}
                       </React.Fragment>
                     ))}

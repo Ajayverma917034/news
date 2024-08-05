@@ -7,6 +7,7 @@ import { MetaDataSection } from "../../seo/Helmet";
 import RajyaMain from "./RajyaMain";
 import ApnaZila from "./ApnaZila";
 import CustomeAndGoogleAdd from "../advertisement/CustomeAndGoogleAdd";
+import HorizontalAdsGoogle from "../advertisement/HorizontalAdsGoogle";
 
 const HomePage = () => {
   const [homeNews, setHomeNews] = useState([[], [], [], []]);
@@ -64,8 +65,15 @@ const HomePage = () => {
         url={"https://www.janpadnews.live"}
       />
       <HomeRightBar data={homeNews.slice(0, 2)} ytData={ytNews} />
+
       <RajyaMain />
+      <div className="w-full h-[6rem]  md:h-[10rem] max-md:mt-2 flex items-center justify-center mt-2">
+        <HorizontalAdsGoogle />
+      </div>
       <ApnaZila />
+      <div className="w-full h-[6rem]  md:h-[10rem] max-md:mt-2 flex items-center justify-center mt-2">
+        <HorizontalAdsGoogle />
+      </div>
       <HomeRightBarOther data={homeNews.slice(2, 4)} />
 
       {homeNews.length > 4 && (

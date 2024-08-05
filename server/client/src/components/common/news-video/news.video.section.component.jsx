@@ -7,6 +7,7 @@ import { YtCollectionSkeleton } from "../../../skeleton/HomeSkeleton";
 import { Link } from "react-router-dom";
 import { formatDate } from "../../../common/date";
 import Heading2 from "../Heading2";
+import HorizontalAdsGoogle from "../../../pages/advertisement/HorizontalAdsGoogle";
 
 const NewsVideo = ({ data, title }) => {
   return (
@@ -65,11 +66,7 @@ const NewsVideo = ({ data, title }) => {
             </div>
           </div>
           <div className="w-full h-[6rem]  md:h-[10rem] max-md:mt-2 flex items-center justify-center mt-2">
-            <img
-              src={adsmiddleimg}
-              alt="adsimg"
-              className=" w-full h-full object-fill"
-            />
+            <HorizontalAdsGoogle />
           </div>
         </>
       ) : (
