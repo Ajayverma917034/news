@@ -106,9 +106,6 @@ const PageContent = ({ item }) => {
         Whatsapp चैनल फॉलो करे !
       </div>
       <div className="py-4 w-full">
-        {item?.content[0] && (
-          <BlogContent block={item?.content[0]?.blocks[0]} />
-        )}
         <div className="bg-gray h-[200px] flex justify-center items-center w-full relative">
           <DetailAds />
           <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
@@ -124,6 +121,9 @@ const PageContent = ({ item }) => {
             <span className="text-[#f9f9f9] text-[12px]">Sponsored</span>
           </div>
         </div>
+        {item?.content[0] && (
+          <BlogContent block={item?.content[0]?.blocks[0]} />
+        )}
         {item?.content[0]?.blocks?.length > 1 &&
           item?.content[0]?.blocks.slice(1).map((block, i) => (
             <div className="my-4 md:my-4" key={i}>

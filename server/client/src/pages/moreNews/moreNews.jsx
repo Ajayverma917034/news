@@ -16,7 +16,7 @@ import HorizontalAdsGoogle from "../advertisement/HorizontalAdsGoogle";
 import { HiOutlineExclamationCircle } from "react-icons/hi2";
 
 const MoreNews = () => {
-  const [data, setData] = useState([]);
+  const [data, setData] = useState(null);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -80,64 +80,70 @@ const MoreNews = () => {
     <div className="flex spacing mt-2 sm:mt-8">
       <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full gap-5">
         <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden w-full">
-          {data.length > 0 ? (
-            <div className="flex w-full flex-col flex-wrap sm:gap-4">
-              <MetaDataSection {...metaData} />
-              <Heading title={findHindi(title)} />
-              {data.length > 0 && (
-                <Link to={`/news/${data[0]?.news_id}`}>
-                  <div className="h-[180px] md:h-[400px] w-full mt-2 relative p-1">
-                    <img
-                      src={data[0]?.banner}
-                      alt="News Image"
-                      onError={handleImageError}
-                      className="z-0 h-full w-full  object-cover rounded-md"
-                    />
-                    <div className="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-5"></div>
-                    <div className="absolute bottom-0 text-center w-full">
-                      <h1 className="news-title-lg line-clamp-2 text-white text-start lg:text-[27px] bg-gradient-to-t from-gray to-transparent p-2">
-                        {data[0]?.title}
-                      </h1>
-                    </div>
-                  </div>
-                </Link>
-              )}
-              <div className="flex w-full flex-col flex-wrap gap-y-2 md:gap-y-6 md:py-6 p-1 mt-1">
-                {data.slice(1).map((item, index) => (
-                  <React.Fragment key={`news-${index}`}>
-                    <MorePageCard data={item} />
-                    {(index + 1) % 3 === 0 && (
-                      <div className="bg-gray h-[200px] flex justify-center items-center w-full relative">
-                        <DetailAds />
-                        <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
-                          <Link
-                            to={"/advertisement-us"}
-                            className="text-[#f9f9f9] text-[12px] "
-                          >
-                            <HiOutlineExclamationCircle
-                              size={18}
-                              className="text-[#f9f9f9] font-sans"
-                            />
-                          </Link>
-                          <span className="text-[#f9f9f9] text-[12px]">
-                            Sponsored
-                          </span>
+          {data ? (
+            <>
+              {data.length ? (
+                <div className="flex w-full flex-col flex-wrap sm:gap-4">
+                  <MetaDataSection {...metaData} />
+                  <Heading title={findHindi(title)} />
+                  {data.length > 0 && (
+                    <Link to={`/news/${data[0]?.news_id}`}>
+                      <div className="h-[180px] md:h-[400px] w-full mt-2 relative p-1">
+                        <img
+                          src={data[0]?.banner}
+                          alt="News Image"
+                          onError={handleImageError}
+                          className="z-0 h-full w-full  object-cover rounded-md"
+                        />
+                        <div className="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-5"></div>
+                        <div className="absolute bottom-0 text-center w-full">
+                          <h1 className="news-title-lg line-clamp-2 text-white text-start lg:text-[27px] bg-gradient-to-t from-gray to-transparent p-2">
+                            {data[0]?.title}
+                          </h1>
                         </div>
                       </div>
-                    )}
-                    {/* {(index + 1) % 3 === 0 && (
+                    </Link>
+                  )}
+                  <div className="flex w-full flex-col flex-wrap gap-y-2 md:gap-y-6 md:py-6 p-1 mt-1">
+                    {data.slice(1).map((item, index) => (
+                      <React.Fragment key={`news-${index}`}>
+                        <MorePageCard data={item} />
+                        {(index + 1) % 3 === 0 && (
+                          <div className="bg-gray h-[200px] flex justify-center items-center w-full relative">
+                            <DetailAds />
+                            <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
+                              <Link
+                                to={"/advertisement-us"}
+                                className="text-[#f9f9f9] text-[12px] "
+                              >
+                                <HiOutlineExclamationCircle
+                                  size={18}
+                                  className="text-[#f9f9f9] font-sans"
+                                />
+                              </Link>
+                              <span className="text-[#f9f9f9] text-[12px]">
+                                Sponsored
+                              </span>
+                            </div>
+                          </div>
+                        )}
+                        {/* {(index + 1) % 3 === 0 && (
                       Add something after each 4 items
                       <div className="w-fullt">
                         Custom content or component
                         <HorizontalAdsGoogle />
                       </div>
                     )} */}
-                  </React.Fragment>
-                ))}
-                <div ref={lastElementRef}></div>
-                {isLoading && <div>Loading more...</div>}
-              </div>
-            </div>
+                      </React.Fragment>
+                    ))}
+                    <div ref={lastElementRef}></div>
+                    {isLoading && <div>Loading more...</div>}
+                  </div>
+                </div>
+              ) : (
+                <div>No more news</div>
+              )}
+            </>
           ) : (
             <>
               <CollectionNewsSkeleton />

@@ -14,6 +14,7 @@ import MorePageVideoCard from "../components/common/news-section/morepage.news.c
 import MoreNewsVideoCard from "../components/common/news-video/MoreNewsVideoCard";
 import { FaYoutube } from "react-icons/fa";
 import DetailAds from "./advertisement/DetailAds";
+import { HiOutlineExclamationCircle } from "react-icons/hi2";
 
 const MoreVideos = () => {
   const [data, setData] = useState(null);
@@ -94,8 +95,22 @@ const MoreVideos = () => {
                       <React.Fragment key={index}>
                         <MoreNewsVideoCard data={item} />
                         {(index + 1) % 6 === 0 && (
-                          <div key={index}>
+                          <div className="bg-gray h-[200px] flex justify-center items-center w-full relative">
                             <DetailAds />
+                            <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
+                              <Link
+                                to={"/advertisement-us"}
+                                className="text-[#f9f9f9] text-[12px] "
+                              >
+                                <HiOutlineExclamationCircle
+                                  size={18}
+                                  className="text-[#f9f9f9] font-sans"
+                                />
+                              </Link>
+                              <span className="text-[#f9f9f9] text-[12px]">
+                                Sponsored
+                              </span>
+                            </div>
                           </div>
                         )}
                       </React.Fragment>

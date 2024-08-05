@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import MorePageCard from "../../components/common/news-section/morepage.news.card";
 import Heading from "../../components/common/Heading";
-import CustomeAndGoogleAdd from "../advertisement/CustomeAndGoogleAdd";
+// import CustomeAndGoogleAdd from "../advertisement/CustomeAndGoogleAdd";
 import SideNews from "../advertisement/related-news/SideNews";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { findHindi } from "../../assets/data";
@@ -16,7 +16,6 @@ const MoreNews = () => {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
-  
   const stateName = useParams();
   const params = useLocation();
 
@@ -24,7 +23,11 @@ const MoreNews = () => {
 
   const fetchNews = async (page) => {
     axios
-      .post("/fetch-state-news-without-districts", { limit: 10, state: title, page })
+      .post("/fetch-state-news-without-districts", {
+        limit: 10,
+        state: title,
+        page,
+      })
       .then(({ data }) => {
         setData((prevData) => [...prevData, ...data]);
         setHasMore(data.length > 0);
