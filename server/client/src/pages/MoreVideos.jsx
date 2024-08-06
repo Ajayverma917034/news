@@ -15,7 +15,7 @@ import MoreNewsVideoCard from "../components/common/news-video/MoreNewsVideoCard
 import { FaYoutube } from "react-icons/fa";
 import DetailAds from "./advertisement/DetailAds";
 import { HiOutlineExclamationCircle } from "react-icons/hi2";
-import HorizontalAdsGoogle from "./advertisement/HorizontalAdsGoogle";
+// import HorizontalAdsGoogle from "./advertisement/HorizontalAdsGoogle";
 
 const MoreVideos = () => {
   const [data, setData] = useState(null);
@@ -114,9 +114,9 @@ const MoreVideos = () => {
                                 </span>
                               </div>
                             </div>
-                            <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center">
+                            {/* <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center">
                               <HorizontalAdsGoogle />
-                            </div>
+                            </div> */}
                           </>
                         )}
                       </React.Fragment>

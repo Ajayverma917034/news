@@ -12,7 +12,7 @@ import { MetaDataSection } from "../../seo/Helmet";
 import { CollectionNewsSkeleton } from "../../skeleton/HomeSkeleton";
 import DetailAds from "../advertisement/DetailAds";
 import { findMetaData } from "../../seo/dataset-page";
-import HorizontalAdsGoogle from "../advertisement/HorizontalAdsGoogle";
+// import HorizontalAdsGoogle from "../advertisement/HorizontalAdsGoogle";
 import { HiOutlineExclamationCircle } from "react-icons/hi2";
 
 const MoreNews = () => {
@@ -127,9 +127,9 @@ const MoreNews = () => {
                                 </span>
                               </div>
                             </div>
-                            <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center">
+                            {/* <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center">
                               <HorizontalAdsGoogle />
-                            </div>
+                            </div> */}
                           </>
                         )}
                       </React.Fragment>
