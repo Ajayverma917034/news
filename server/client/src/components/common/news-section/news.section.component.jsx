@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { CollectionNewsSkeleton } from "../../../skeleton/HomeSkeleton";
 import { formatDate } from "../../../common/date";
 import { handleImageError } from "../../../common/errorImg";
-import HorizontalAdsGoogle from "../../../pages/advertisement/HorizontalAdsGoogle";
+// import HorizontalAdsGoogle from "../../../pages/advertisement/HorizontalAdsGoogle";
 
 const NewsSection = ({ data, title }) => {
   return (
