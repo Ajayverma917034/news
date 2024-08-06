@@ -84,7 +84,7 @@ const NewsSection = ({ data, title }) => {
                     );
                   })}
               </div>
-              <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center">
+              <div className="w-full max-md:mt-2 flex items-center justify-center">
                 <HorizontalAdsGoogle />
               </div>
             </div>
