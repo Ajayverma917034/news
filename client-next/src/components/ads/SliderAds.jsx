@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
@@ -17,9 +17,28 @@ import { HiOutlineExclamationCircle } from "react-icons/hi2";
 import Link from "next/link";
 import Image from "next/image";
 import banner from "../../assets/errorimg1.png";
+import axios from "axios";
 
 export default function SliderAds() {
-  const { loading, error, bannerAds } = useSelector((state) => state.ads);
+  // const { loading, error, bannerAds } = useSelector((state)  => state.ads);
+
+  const [bannerAds, setBannerAds] = useState(null);
+
+  const fetchAds = async () => {
+    try {
+      const { data } = await axios.get(
+        `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/get-advertisement`
+      );
+      if (data?.success) {
+        setBannerAds(data?.bannerAds);
+      }
+    } catch (error) {
+      console.log(error);
+      setBannerAds([]);
+    }
+  };
+
+  fetchAds();
 
   return (
     <>
@@ -37,7 +56,7 @@ export default function SliderAds() {
         modules={[EffectFade, Navigation, Pagination, Autoplay]}
         className="mySwiper px-1 sm:px-10 md:!px-32 mt-2"
       >
-        {!loading
+        {bannerAds
           ? bannerAds.length > 0
             ? bannerAds.map((ad, index) => {
                 return (

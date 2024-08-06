@@ -10,7 +10,7 @@ import Image from "next/image";
 import MorePageCard from "@/components/news-section/morepage.news.card";
 import { CollectionNewsSkeleton } from "@/skeleton/HomeSkeleton";
 import SideNews from "@/components/side-news/SideNews";
-import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
+// import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 
 const MoreNews = ({ params }) => {
   const [data, setData] = useState(null);
@@ -138,7 +138,7 @@ const MoreNews = ({ params }) => {
           )}
         </div>
         <div className="flex flex-col gap-y-2 md:gap-y-10 md:col-span-2 md:mt-10">
-          <CustomeAndGoogleAdd />
+          {/* <CustomeAndGoogleAdd /> */}
           <SideNews title={"education"} />
         </div>
       </div>

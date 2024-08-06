@@ -1,4 +1,4 @@
-import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
+// import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 import ApnaZila from "@/components/ApnaZila";
 import HomeRightBar from "@/components/home/HomeRightBar";
 import HomeRightBarOther from "@/components/news-section/home.other";
@@ -81,7 +81,7 @@ const Home = async () => {
             )}
           </div>
           <div className="flex flex-col md:gap-y-10 gap-y-2  md:col-span-2">
-            <CustomeAndGoogleAdd />
+            {/* <CustomeAndGoogleAdd /> */}
             <SideNews title={"read also"} />
           </div>
         </div>
@@ -107,7 +107,7 @@ const Home = async () => {
             </div>
             <div className="col-span-2 w-full">
               <div className="sticky top-32 max-md:hidden">
-                <CustomeAndGoogleAdd />
+                {/* <CustomeAndGoogleAdd /> */}
               </div>
             </div>
           </div>

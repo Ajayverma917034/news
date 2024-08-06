@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/effect-fade";
@@ -9,13 +9,32 @@ import { EffectFade, Navigation, Pagination, Autoplay } from "swiper/modules";
 import { useSelector } from "react-redux";
 import { HiOutlineExclamationCircle } from "react-icons/hi2";
 import Image from "next/image";
+import axios from "axios";
 
 import banner from "../../assets/errorimg1.png";
 import { AdvertisementSkelton1 } from "@/skeleton/Advertisement.skeltons";
 import Link from "next/link";
 const CustomeAndGoogleAdd = () => {
-  const { loading, error, sideAds } = useSelector((state) => state.ads);
+  // const { loading, error, sideAds } = useSelector((state) => state.ads);
+  const [sideAds, setSideAds] = useState(null);
 
+  const fetchAds = async () => {
+    try {
+      const { data } = await axios.get(
+        `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/get-advertisement`
+      );
+      if (data?.success) {
+        setSideAds(data?.sideAds);
+      }
+    } catch (error) {
+      console.log(error);
+      setSideAds([]);
+    }
+  };
+
+  // useEffect(() => {
+  //   fetchAds();
+  // }, []);
   return (
     <div className="flex flex-wrap gap-y-3 gap-x-4 md:flex max-sm:items-center w-full lg:flex-col ">
       <Swiper
@@ -32,7 +51,7 @@ const CustomeAndGoogleAdd = () => {
         modules={[EffectFade, Navigation, Pagination, Autoplay]}
         className="mySwiper p-0 w-[330px] h-[330px]"
       >
-        {!loading
+        {sideAds
           ? sideAds.length > 0
             ? sideAds.map((ad, index) => {
                 return (
@@ -73,7 +92,6 @@ const CustomeAndGoogleAdd = () => {
                 <AdvertisementSkelton1 />
               </SwiperSlide>
             ))}
-
         <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
           <Link
             href={"/advertisement-us"}

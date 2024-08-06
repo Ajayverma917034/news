@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import RandomNewsScroll from "./RandomNewsScroll.jsx";
 import Image from "next/image.js";
 import PageContent from "@/components/single-page/PageContent.jsx";
-import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd.jsx";
+// import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd.jsx";
 import { handleImageError } from "@/lib/errorImg.js";
 import Heading from "@/lib/Heading.jsx";
 
@@ -125,7 +125,7 @@ export default async function BlogPostPage({ params: { news_id } }) {
             {/* <HorizontalAdsGoogle /> */}
           </div>
           <div className="hidden max-sm:flex mt-3">
-            <CustomeAndGoogleAdd />
+            {/* <CustomeAndGoogleAdd /> */}
           </div>
 
           <div className="flex mt-2 w-full">

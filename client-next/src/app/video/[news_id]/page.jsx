@@ -4,7 +4,7 @@ import Image from "next/image.js";
 import { CiLocationOn } from "react-icons/ci";
 import { formatDate } from "@/lib/formatDate";
 import Heading from "@/lib/Heading";
-import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
+// import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 
 export async function generateMetadata({ params: { news_id } }) {
   const response = await fetch(
@@ -186,7 +186,7 @@ export default async function BlogPostPage({ params: { news_id } }) {
             {/* <HorizontalAdsGoogle /> */}
           </div>
           <div className="hidden max-sm:flex mt-3">
-            <CustomeAndGoogleAdd />
+            {/* <CustomeAndGoogleAdd /> */}
           </div>
         </div>
       </div>
