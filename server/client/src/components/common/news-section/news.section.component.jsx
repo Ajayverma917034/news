@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { CollectionNewsSkeleton } from "../../../skeleton/HomeSkeleton";
 import { formatDate } from "../../../common/date";
 import { handleImageError } from "../../../common/errorImg";
-import HorizontalAdsGoogle from "../../../pages/advertisement/HorizontalAdsGoogle";
+// import HorizontalAdsGoogle from "../../../pages/advertisement/HorizontalAdsGoogle";
 
 const NewsSection = ({ data, title }) => {
   return (
@@ -84,9 +84,9 @@ const NewsSection = ({ data, title }) => {
                     );
                   })}
               </div>
-              <div className="w-full max-md:mt-2 flex items-center justify-center">
+              {/* <div className="w-full max-md:mt-2 flex items-center justify-center">
                 <HorizontalAdsGoogle />
-              </div>
+              </div> */}
             </div>
           )}
         </>
