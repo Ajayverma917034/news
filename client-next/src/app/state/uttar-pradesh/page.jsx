@@ -7,7 +7,7 @@ import StateNav from "@/components/state-section/StateNav";
 import { CollectionNewsSkeleton } from "@/skeleton/HomeSkeleton";
 import React from "react";
 
-const page = async () => {
+export default async function Page() {
   //   const router = useRouter();
 
   //   const handleNavigate = (state) => {
@@ -70,5 +70,3 @@ const page = async () => {
     </>
   );
 };
-
-export default page;
