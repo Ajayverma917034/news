@@ -80,6 +80,8 @@ export const createYtNews = tryCatch(async (req, res, next) => {
 
 export const getYtNewses = tryCatch(async (req, res, next) => {
     try {
+        console.log(req.body)
+
         let { page, limit } = req.body;
         // console.log(req.body)
         // let query = {};
@@ -92,6 +94,7 @@ export const getYtNewses = tryCatch(async (req, res, next) => {
         limit = limit ? limit : 4;
 
         page = page ? page : 1;
+
 
         YtNews.find({})
             .sort({ "createdAt": -1 })

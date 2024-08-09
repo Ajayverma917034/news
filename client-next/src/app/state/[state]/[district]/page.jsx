@@ -12,7 +12,7 @@ import { CollectionNewsSkeleton } from "@/skeleton/HomeSkeleton";
 import DetailAds from "@/components/ads/DetailAds";
 // import SideNews from "@/components/side-news/SideNews";
 
-export default async function Page({ params }) {
+const MoreNews = ({ params }) => {
   const [data, setData] = useState(null);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -153,3 +153,5 @@ export default async function Page({ params }) {
     </div>
   );
 };
+
+export default MoreNews;

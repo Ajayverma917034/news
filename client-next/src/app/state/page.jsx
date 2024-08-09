@@ -6,7 +6,7 @@ import { CollectionNewsSkeleton } from "@/skeleton/HomeSkeleton";
 import StateNav from "@/components/state-section/StateNav";
 // import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 
-export default async function Page(){
+const StateNewsUnknown = async () => {
   //   const router = useRouter();
 
   //   const handleNavigate = (state) => {
@@ -93,3 +93,4 @@ export default async function Page(){
   );
 };
 
+export default StateNewsUnknown;

@@ -47,6 +47,7 @@ app.use(
       process.env.FRONTEND_URL,
       process.env.ADMIN_URL,
       process.env.FRONTEND_URL_PROD,
+      'http://localhost:3000',
       process.env.FRONTEND_URL_PROD2,
      
     ],
@@ -58,6 +59,7 @@ const allowedOrigins = [
   process.env.FRONTEND_URL,
   process.env.ADMIN_URL,
   process.env.FRONTEND_URL_PROD,
+  'http://localhost:3000',
   process.env.FRONTEND_URL_PROD2,
 ];
 

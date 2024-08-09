@@ -45,21 +45,22 @@ const SinglePage = () => {
     }
 
     try {
-      const { data } = await httpClient.post("/get-news", {
+      const  {data}  = await httpClient.post("/get-news", {
         news_id,
         incrementVal,
       });
-      setNews(data.news);
-      const { tags, news_section_type, news_id: prevNewsId } = data.news;
 
-      const relatedNewsResponse = await httpClient.post("/fetch-related-news", {
-        tags,
-        news_section_type,
-        news_id: prevNewsId,
-      });
+      setNews(data.news);
+      setRelatedNews(data.relatedNews)
+      // const { tags, news_section_type, news_id: prevNewsId } = data.news;
+
+      // const relatedNewsResponse = await httpClient.post("/fetch-related-news", {
+      //   tags,
+      //   news_section_type,
+      //   news_id: prevNewsId,
+      // });
 
       setLoading(false);
-      setRelatedNews(relatedNewsResponse.data);
     } catch (err) {
       console.error(err);
     }
