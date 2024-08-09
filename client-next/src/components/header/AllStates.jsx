@@ -12,13 +12,13 @@ const AllState = ({ isMenuOpen, setIsMenuOpen }) => {
   const router = useRouter();
 
   // Handle clicks outside the menu to close it
-  const handleClickOutside = (event) => {
-    if (menuRef.current && !menuRef.current.contains(event.target)) {
-      setIsMenuOpen(false);
-    }
-  };
 
   useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+      }
+    };
     if (isMenuOpen) {
       document.addEventListener("mousedown", handleClickOutside);
     } else {

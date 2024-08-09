@@ -7,8 +7,6 @@ import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 
-import "./slider.css";
-
 // import required modules
 import { EffectFade, Navigation, Pagination, Autoplay } from "swiper/modules";
 import { AdvertisementSkelton1 } from "../../skeleton/Advertisement.skeltons";
@@ -18,8 +16,8 @@ import Link from "next/link";
 import Image from "next/image";
 import banner from "../../assets/errorimg1.png";
 
-export default function SliderAds() {
-  const { loading, error, bannerAds } = useSelector((state) => state.ads);
+export default function DetailAds() {
+  const { loading, error, detailAds } = useSelector((state) => state.ads);
 
   // const [bannerAds, setBannerAds] = useState(null);
 
@@ -37,39 +35,29 @@ export default function SliderAds() {
           clickable: true,
         }}
         modules={[EffectFade, Navigation, Pagination, Autoplay]}
-        className="mySwiper !px-2 sm:!px-10 md:!px-32 mt-0 !py-3"
+        className="w-full p-0 h-[200px]"
+        style={{
+          width: "100%",
+          height: "200px",
+        }}
       >
-        {bannerAds
-          ? bannerAds.length > 0
-            ? bannerAds.map((ad, index) => {
+        {!loading
+          ? detailAds.length > 0
+            ? detailAds.map((ad, index) => {
                 return (
-                  <SwiperSlide key={index} className="">
+                  <SwiperSlide key={index} className="w-full h-[200px]">
                     {/* <div> */}
                     <Image
                       src={ad.banner.url}
                       alt="sliderimg"
-                      width={1000}
-                      height={400}
+                      width={20}
+                      height={10}
                       sizes={{
                         maxWidth: "100%",
                         height: "auto",
                       }}
-                      className="w-full h-full object-fill"
+                      className=" object-fill h-[200px] "
                     />
-                    <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
-                      <Link
-                        href={"/advertisement-us"}
-                        className="text-[#f9f9f9] text-[12px] "
-                      >
-                        <HiOutlineExclamationCircle
-                          size={18}
-                          className="text-[#f9f9f9] font-sans"
-                        />
-                      </Link>
-                      <span className="text-[#f9f9f9] text-[12px]">
-                        Sponsored
-                      </span>
-                    </div>
                     {/* </div> */}
                   </SwiperSlide>
                 );
@@ -85,7 +73,7 @@ export default function SliderAds() {
                       maxWidth: "100%",
                       height: "auto",
                     }}
-                    className="w-full h-full"
+                    className="w-full h-full max-sm:max-w-screen-sm"
                   />
                 </SwiperSlide>
               ))

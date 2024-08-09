@@ -6,7 +6,7 @@ import { formatDate } from "@/lib/formatDate";
 import Heading from "@/lib/Heading";
 // import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 
-export async function generateMetadata({ params: { news_id } }) {
+const fetchNews = async (news_id) => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/get-youtube-news`,
     {
@@ -14,7 +14,6 @@ export async function generateMetadata({ params: { news_id } }) {
       headers: {
         "Content-Type": "application/json",
       },
-      cache: "no-cache",
       body: JSON.stringify({
         video_id: news_id,
         incrementVal: 1, // replace with the actual value
@@ -26,8 +25,11 @@ export async function generateMetadata({ params: { news_id } }) {
     notFound(); // Handle if the news is not found
   }
 
-  const { news } = await response.json();
-
+  const news = await response.json();
+  return news;
+};
+export async function generateMetadata({ params: { news_id } }) {
+  const { news, relatedNews } = await fetchNews(news_id);
   return {
     title: news?.title,
     description: news?.description,
@@ -38,43 +40,8 @@ export async function generateMetadata({ params: { news_id } }) {
 }
 
 export default async function BlogPostPage({ params: { news_id } }) {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/get-youtube-news`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        video_id: news_id,
-        incrementVal: 1, // replace with the actual value
-      }),
-    }
-  );
+  const { news, relatedNews } = await fetchNews(news_id);
 
-  if (!response.ok) {
-    notFound(); // Handle if the news is not found
-  }
-
-  const { news } = await response.json();
-
-  const relatednewsResponse = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/fetch-related-yt-news`,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        tags: news?.tags,
-        news_section_type: news?.news_section_type,
-        news_id: news?.news_id,
-      }),
-    }
-  );
-  const relatedNews = await relatednewsResponse.json();
-
-  console.log(relatedNews);
   const thumbnail = `https://img.youtube.com/vi/${news?.videoLinkId}/mqdefault.jpg`;
 
   return (
@@ -150,35 +117,37 @@ export default async function BlogPostPage({ params: { news_id } }) {
           </article>
 
           <div className="w-full mt-5">
-            <Heading title={"सम्बंधित खबर"} />
             <div className="flex max-lg:flex-col gap-2 w-full">
               {relatedNews &&
-                relatedNews.length &&
+                relatedNews.length > 0 &&
                 relatedNews.map((item, index) => (
-                  <Link
-                    href={`/video/${item?.news_id}`}
-                    key={index}
-                    className="grid grid-cols-3 max-md:gap-x-1 lg:flex lg:flex-col lg:w-[200px] shadow-card p-1 rounded-md max-lg:gap-x-3"
-                  >
-                    <div className="max-lg:col-span-1  h-[70px] max-h-[103px] lg:h-[120px] max-lg:max-w-36 rounded-md">
-                      <Image
-                        src={`https://img.youtube.com/vi/${item?.videoLinkId}/mqdefault.jpg`}
-                        //   onError={handleImageError}
-                        alt="Relative-news-image"
-                        width={1200}
-                        height={800}
-                        sizes={{
-                          maxWidth: "100%",
-                          height: "auto",
-                        }}
-                        loading="lazy"
-                        className="w-full h-full object-cover hover:scale-95 rounded-md"
-                      />
-                    </div>
-                    <h3 className="col-span-2 mt-2 font-semibold line-clamp-2 text-xl md:hover:border-b hover:border-black">
-                      {item?.title}
-                    </h3>
-                  </Link>
+                  <>
+                    <Heading title={"सम्बंधित खबर"} />
+                    <Link
+                      href={`/video/${item?.news_id}`}
+                      key={index}
+                      className="grid grid-cols-3 max-md:gap-x-1 lg:flex lg:flex-col lg:w-[200px] shadow-card p-1 rounded-md max-lg:gap-x-3"
+                    >
+                      <div className="max-lg:col-span-1  h-[70px] max-h-[103px] lg:h-[120px] max-lg:max-w-36 rounded-md">
+                        <Image
+                          src={`https://img.youtube.com/vi/${item?.videoLinkId}/mqdefault.jpg`}
+                          //   onError={handleImageError}
+                          alt="Relative-news-image"
+                          width={1200}
+                          height={800}
+                          sizes={{
+                            maxWidth: "100%",
+                            height: "auto",
+                          }}
+                          loading="lazy"
+                          className="w-full h-full object-cover hover:scale-95 rounded-md"
+                        />
+                      </div>
+                      <h3 className="col-span-2 mt-2 font-semibold line-clamp-2 text-xl md:hover:border-b hover:border-black">
+                        {item?.title}
+                      </h3>
+                    </Link>
+                  </>
                 ))}
             </div>
           </div>

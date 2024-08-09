@@ -241,12 +241,53 @@ export const getNews = tryCatch(async (req, res, next) => {
     let incrementVal = mode !== 'edit' ? val : 0;
     News.findOneAndUpdate({ news_id }, { $inc: { "activity.total_reads": incrementVal, "activity.total_today_count": incrementVal } })
         .select('news_id title description content tags state district banner location activity.total_reads news_section_type tags createdAt -_id')
-        .then(news => {
-            // console.log(news)
-            if (news.draft && !draft) {
+        .then(article => {
+
+            if (article.draft && !draft) {
                 return next(new ErrorHandler(403, "This news is in draft mode"))
             }
-            return res.status(200).json({ success: true, news })
+            if (mode === 'edit') {
+                return res.status(200).json({ news: article });
+            }
+            let query = { $or: [] };
+            let { state, district, location, tags, news_section_type, news_id } = article;
+            if (tags && tags.length) {
+                tags = tags.map(tag => tag.trim().toLowerCase());
+                query.$or.push({ tags: { $in: tags } });
+            }
+
+            // Handle news_section_type
+            if (news_section_type && news_section_type.length) {
+                query.$or.push({ news_section_type: { $in: news_section_type } });
+            }
+            // Check if $or array is empty, if so, remove it from the query
+            if (query.$or.length === 0) {
+                delete query.$or;
+            }
+
+            // Add condition to exclude the given news_id
+            if (news_id) {
+                query.news_id = { $ne: news_id };
+            }
+
+
+            // Fetch related news
+            News.find(query)
+                .limit(4)
+                .sort({ "createdAt": -1 })
+                .select('news_id title banner -_id')
+                .then(news => {
+                    // if (news.length === 0) {
+                    // News.aggregate([{ $sample: { size: 4 } }])
+                    // .then(news => {
+                    return res.status(200).json({ news: article, relatedNews: news })
+                    // }).catch(err => {
+                    // return next(new ErrorHandler(500, err.message));
+                    // });
+                }
+                ).catch(err => {
+                    return next(new ErrorHandler(500, err.message));
+                });
         })
         .catch(err => {
             return next(new ErrorHandler(500, err.message))
@@ -360,7 +401,14 @@ export const fetchRelatedNews = tryCatch(async (req, res, next) => {
         .sort({ "createdAt": -1 })
         .select('news_id title banner -_id')
         .then(news => {
-            return res.status(200).json(news)
+            if (news.length === 0) {
+                News.aggregate([{ $sample: { size: 4 } }])
+                    .then(news => {
+                        return res.status(200).json(news)
+                    }).catch(err => {
+                        return next(new ErrorHandler(500, err.message));
+                    });
+            }
         }).catch(err => {
             return next(new ErrorHandler(500, err.message));
         });

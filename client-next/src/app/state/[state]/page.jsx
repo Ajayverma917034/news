@@ -9,7 +9,8 @@ import Heading from "@/lib/Heading";
 import Image from "next/image";
 import MorePageCard from "@/components/news-section/morepage.news.card";
 import { CollectionNewsSkeleton } from "@/skeleton/HomeSkeleton";
-import SideNews from "@/components/side-news/SideNews";
+import DetailAds from "@/components/ads/DetailAds";
+// import SideNews from "@/components/side-news/SideNews";
 // import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 
 const MoreNews = ({ params }) => {
@@ -18,6 +19,8 @@ const MoreNews = ({ params }) => {
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   let { state } = params;
+
+ state = state.split("%20").join(" ");
   const fetchNews = async (page) => {
     try {
       setIsLoading(true);
@@ -36,6 +39,7 @@ const MoreNews = ({ params }) => {
           );
           return [...prevData, ...filteredData];
         });
+
         setHasMore(newData.length > 0);
       } else {
         setHasMore(false);
@@ -51,7 +55,7 @@ const MoreNews = ({ params }) => {
     setData([]);
     setPage(1);
     fetchNews(1);
-  }, [state, fetchNews]);
+  }, [state]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -65,7 +69,7 @@ const MoreNews = ({ params }) => {
     if (page > 1) {
       fetchNews(page);
     }
-  }, [page, fetchNews]);
+  }, [page]);
 
   const [lastElementRef] = useInfiniteScroll(loadMore, hasMore && !isLoading);
 
@@ -103,25 +107,30 @@ const MoreNews = ({ params }) => {
                 )}
                 <div className="flex w-full flex-col flex-wrap gap-y-2 md:gap-y-6 md:py-6 p-1 mt-1">
                   {data.slice(1).map((item, index) => (
-                    <div key={`news-${index}`}>
-                      <MorePageCard data={item} />
-                      {(index + 1) % 3 === 0 && (
-                        <div className="bg-gray h-[200px] flex justify-center items-center w-full relative">
-                          {/* <DetailAds /> */}
-                          <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
-                            <Link href="/advertisement-us">
-                              <HiOutlineExclamationCircle
-                                size={18}
-                                className="text-[#f9f9f9] font-sans"
-                              />
-                            </Link>
-                            <span className="text-[#f9f9f9] text-[12px]">
-                              Sponsored
-                            </span>
-                          </div>
-                        </div>
-                      )}
-                    </div>
+                     <div key={`news-${index}`} className="flex w-full flex-col gap-y-1 md:gap-y-6">
+                     <MorePageCard data={item} />
+                     {(index + 1) % 5 === 0 && (
+                         <div className="flex w-full">
+                           <div className="bg-gray h-[200px] flex justify-center items-center w-full relative">
+                             <DetailAds />
+                             <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
+                               <Link
+                                 href={"/advertisement-us"}
+                                 className="text-[#f9f9f9] text-[12px] "
+                               >
+                                 <HiOutlineExclamationCircle
+                                   size={18}
+                                   className="text-[#f9f9f9] font-sans"
+                                 />
+                               </Link>
+                               <span className="text-[#f9f9f9] text-[12px]">
+                                 Sponsored
+                               </span>
+                             </div>
+                           </div>
+                         </div>
+                       )}
+                   </div>
                   ))}
                   <div ref={lastElementRef}></div>
                   {isLoading && <div>Loading more...</div>}
@@ -139,7 +148,7 @@ const MoreNews = ({ params }) => {
         </div>
         <div className="flex flex-col gap-y-2 md:gap-y-10 md:col-span-2 md:mt-10">
           {/* <CustomeAndGoogleAdd /> */}
-          <SideNews title={"education"} />
+          {/* <SideNews title={"education"} /> */}
         </div>
       </div>
     </div>

@@ -1,26 +1,24 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { TrendingNewsSkeleton } from "@/skeleton/HomeSkeleton";
 const BreakingNews = () => {
   const [breakingNews, setBreakingNews] = useState(null);
-  const fetchBreakingNews = async () => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/breaking-news`)
-      .then(({ data }) => {
-        setBreakingNews(data.news);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
 
   useEffect(() => {
+    const fetchBreakingNews = async () => {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/breaking-news`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        setBreakingNews(data.news);
+      }
+    };
     fetchBreakingNews();
   }, []);
 
   return (
-    <div className="flex border-2 border-red border-r-0 bg-red items-center mt-5">
+    <div className="flex border-2 border-red border-r-0 bg-red items-center mt-0">
       <div className="py-1 px-3 font-semibold text-white text-nowrap lg:text-3xl md:text-sm md:px-10 sm:text-xs">
         ब्रेकिंग न्यूज़
       </div>

@@ -57,7 +57,7 @@ const RandomNewsScroll = ({ initialNewsId }) => {
       {randomNews.length > 0 && (
         <div className="">
           {randomNews.map((item, index) => (
-            <div key={index} className="mt-10">
+            <div key={index} className="mt-5">
               <Heading title="और भी पढ़े" />
               <PageContent item={item} />
             </div>

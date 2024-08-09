@@ -47,6 +47,8 @@ app.use(
       process.env.FRONTEND_URL,
       process.env.ADMIN_URL,
       process.env.FRONTEND_URL_PROD,
+      process.env.FRONTEND_URL_PROD2,
+     
     ],
     credentials: true,
   })
@@ -56,6 +58,7 @@ const allowedOrigins = [
   process.env.FRONTEND_URL,
   process.env.ADMIN_URL,
   process.env.FRONTEND_URL_PROD,
+  process.env.FRONTEND_URL_PROD2,
 ];
 
 app.use((req, res, next) => {

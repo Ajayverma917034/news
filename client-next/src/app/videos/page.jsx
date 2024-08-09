@@ -1,8 +1,9 @@
 "use client";
 import { findHindi } from "@/assets/data";
+import DetailAds from "@/components/ads/DetailAds";
 // import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 import MoreNewsVideoCard from "@/components/news-video/MoreNewsVideoCard";
-import SideNews from "@/components/side-news/SideNews";
+// import SideNews from "@/components/side-news/SideNews";
 import Heading from "@/lib/Heading";
 import useInfiniteScroll from "@/lib/useInfiniteScroll";
 import { CollectionNewsSkeleton } from "@/skeleton/HomeSkeleton";
@@ -10,6 +11,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaYoutube } from "react-icons/fa";
+import { HiOutlineExclamationCircle } from "react-icons/hi2";
 
 const MoreVideos = () => {
   const [data, setData] = useState([]);
@@ -98,9 +100,29 @@ const MoreVideos = () => {
                   )}
                   <div className="flex w-full flex-col flex-wrap mt-1 gap-y-1 md:gap-y-6 md:py-6 p-1">
                     {data.slice(1).map((item, index) => (
-                      <div key={index}>
+                      <div key={index} className="flex w-full flex-col gap-y-1 md:gap-y-6">
                         <MoreNewsVideoCard data={item} />
-                        {(index + 1) % 6 === 0 && <div>hello</div>}
+                        {(index + 1) % 5 === 0 && (
+                          <div className="flex w-full">
+                            <div className="bg-gray h-[200px] flex justify-center items-center w-full relative">
+                              <DetailAds />
+                              <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
+                                <Link
+                                  href={"/advertisement-us"}
+                                  className="text-[#f9f9f9] text-[12px] "
+                                >
+                                  <HiOutlineExclamationCircle
+                                    size={18}
+                                    className="text-[#f9f9f9] font-sans"
+                                  />
+                                </Link>
+                                <span className="text-[#f9f9f9] text-[12px]">
+                                  Sponsored
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        )}
                       </div>
                     ))}
                     <div ref={lastElementRef}></div>
@@ -118,7 +140,7 @@ const MoreVideos = () => {
         </div>
         <div className="flex flex-col gap-y-2 md:gap-y-10 md:col-span-2 md:mt-10">
           {/* <CustomeAndGoogleAdd /> */}
-          <SideNews title={"education"} />
+          {/* <SideNews title={"education"} /> */}
         </div>
       </div>
     </div>

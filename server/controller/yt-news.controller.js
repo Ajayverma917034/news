@@ -111,15 +111,45 @@ export const getYtNewses = tryCatch(async (req, res, next) => {
 
 export const getYtNews = tryCatch(async (req, res, next) => {
     let { video_id, draft, mode } = req.body;
+    console.log(video_id)
     let incrementVal = mode !== 'edit' ? 1 : 0;
 
     YtNews.findOneAndUpdate({ news_id: video_id }, { $inc: { "activity.total_reads": incrementVal } })
         .select('news_id title description tags location state district videoLinkId createdAt -_id')
         .then((news) => {
-            // if (news.draft && !draft) {
-            //     return next(new ErrorHandler(400, 'This news is not published yet'))
-            // }
-            return res.status(200).json({ success: true, news })
+            if (news.draft && !draft) {
+                return next(new ErrorHandler(400, 'This news is not published yet'))
+            }
+            let query = { $or: [] };
+            let { tags, news_id } = news;
+            if (tags && tags.length) {
+                tags = tags.map(tag => tag.trim().toLowerCase());
+                query.$or.push({ tags: { $in: tags } });
+            }
+
+            // Check if $or array is empty, if so, remove it from the query
+            if (query.$or.length === 0) {
+                delete query.$or;
+            }
+
+            // Add condition to exclude the given news_id
+            if (news_id) {
+                query.news_id = { $ne: news_id };
+            }
+
+
+
+            // Fetch related news
+            YtNews.find(query)
+                .limit(4)
+                .sort({ "createdAt": -1 })
+                .select('news_id title videoLinkId -_id')
+                .then(relatedNews => {
+                    if (relatedNews.length === 0)
+                        return res.status(200).json({ news, relatedNews })
+                }).catch(err => {
+                    return next(new ErrorHandler(500, err.message));
+                });
         })
         .catch(err => {
             return next(new ErrorHandler(500, err.message))

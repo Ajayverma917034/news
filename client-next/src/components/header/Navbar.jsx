@@ -9,8 +9,32 @@ import "./Navbar.css";
 import AllState from "./AllStates";
 import Search from "./Search";
 import logoimg from "../../assets/logoimg.png";
+import { useDispatch } from "react-redux";
+import {
+  getAds,
+  getAdsFail,
+  getAdsSuccess,
+} from "@/redux/advertisement/adsSlice";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const fetchAds = async () => {
+      dispatch(getAds());
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/get-advertisement`
+      );
+      if (response.ok) {
+        const data = await response.json();
+        dispatch(getAdsSuccess(data));
+        return;
+      }
+
+      dispatch(getAdsFail());
+    };
+
+    fetchAds();
+  }, []);
   const navItems = [
     { name: "Home", hindiName: "होम", link: "/" },
     { name: "Videos", hindiName: "वीडियो", link: "/videos" },

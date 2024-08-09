@@ -5,16 +5,16 @@ import { FaYoutube } from "react-icons/fa";
 import Link from "next/link";
 import { YtCollectionSkeleton } from "@/skeleton/HomeSkeleton";
 import Image from "next/image";
-import Heading2 from "@/lib/Heading2";
 import { formatDate } from "@/lib/formatDate";
+import Heading from "@/lib/Heading";
 
 const NewsVideo = ({ data, title }) => {
   return (
     <>
       {data && data.length ? (
         <>
-          <div className="flex w-full flex-col flex-wrap sm:gap-2 md:gap-6 mt-2 p-1">
-            <Heading2 link={"/top-videos"} title={title} />
+          <div className="flex w-full flex-col flex-wrap sm:gap-2 md:gap-2 mt-5 md:mt-8 p-1">
+            <Heading link={"/top-videos"} title={title} />
             {/* Main Section  */}
             <Link
               href={`/video/${data[0]?.news_id}`}
@@ -74,10 +74,10 @@ const NewsVideo = ({ data, title }) => {
               }
             </div>
           </div>
-          <div className="w-full h-[6rem]  md:h-[10rem] max-md:mt-2 flex items-center justify-center mt-2">
+          <div className="w-full  max-md:mt-2 flex items-center justify-center mt-2">
             {/* <img
               src={adsmiddleimg}
-              alt="adsimg"
+              alt="adsimg" h-[6rem] md:h-[10rem]
               className=" w-full h-full object-fill"
             /> */}
           </div>

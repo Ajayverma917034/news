@@ -9,32 +9,13 @@ import { EffectFade, Navigation, Pagination, Autoplay } from "swiper/modules";
 import { useSelector } from "react-redux";
 import { HiOutlineExclamationCircle } from "react-icons/hi2";
 import Image from "next/image";
-import axios from "axios";
 
 import banner from "../../assets/errorimg1.png";
 import { AdvertisementSkelton1 } from "@/skeleton/Advertisement.skeltons";
 import Link from "next/link";
 const CustomeAndGoogleAdd = () => {
-  // const { loading, error, sideAds } = useSelector((state) => state.ads);
-  const [sideAds, setSideAds] = useState(null);
+  const { loading, error, sideAds } = useSelector((state) => state.ads);
 
-  const fetchAds = async () => {
-    try {
-      const { data } = await axios.get(
-        `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/get-advertisement`
-      );
-      if (data?.success) {
-        setSideAds(data?.sideAds);
-      }
-    } catch (error) {
-      console.log(error);
-      setSideAds([]);
-    }
-  };
-
-  // useEffect(() => {
-  //   fetchAds();
-  // }, []);
   return (
     <div className="flex flex-wrap gap-y-3 gap-x-4 md:flex max-sm:items-center w-full lg:flex-col ">
       <Swiper
@@ -119,45 +100,3 @@ const CustomeAndGoogleAdd = () => {
 };
 
 export default CustomeAndGoogleAdd;
-
-// {!loading
-//     ? sideAds.length > 0
-//       ? sideAds.map((ad, index) => {
-//           return (
-//             <SwiperSlide key={index} className="w-full h-full p-0">
-//               <div className="w-[330px] h-[330px] overflow-hidden ml-auto mr-auto rounded-md">
-//                 <Image
-//                   src={ad.banner.url}
-//                   alt="sliderimg"
-//                   className="w-full h-full object-fill rounded-md"
-//                   width={1200}
-//                   height={400}
-//                   sizes={{
-//                     maxWidth: "100%",
-//                     height: "auto",
-//                   }}
-//                 />
-//               </div>
-//             </SwiperSlide>
-//           );
-//         })
-//       : [0, 0, 0].map((item, index) => (
-//           <SwiperSlide key={index}>
-//             <Image
-//               src={banner}
-//               alt="sliderimg"
-//               width={1200}
-//               height={400}
-//               sizes={{
-//                 maxWidth: "100%",
-//                 height: "auto",
-//               }}
-//               className="w-full h-full"
-//             />
-//           </SwiperSlide>
-//         ))
-//     : [0, 0, 0].map((item, index) => (
-//         <SwiperSlide key={index}>
-//           <AdvertisementSkelton1 />
-//         </SwiperSlide>
-//       ))}

@@ -2,7 +2,7 @@ import React from "react";
 import { findHindi, stateDistricts } from "@/assets/data";
 import NewsSection from "@/components/news-section/news.section.component";
 import { CollectionNewsSkeleton } from "@/skeleton/HomeSkeleton";
-import SideNews from "@/components/side-news/SideNews";
+// import SideNews from "@/components/side-news/SideNews";
 import StateNav from "@/components/state-section/StateNav";
 // import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 
@@ -22,10 +22,11 @@ const StateNewsUnknown = async () => {
 
   const { data: news } = await response.json();
 
+
   return (
     <>
       {/* <MetaDataSection title={"All State News"} /> */}
-      <div className="flex spacing mt-8 flex-col">
+      <div className="flex spacing mt-4 md:mt-8 flex-col">
         <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto gap-5 w-full">
           <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden">
             {/* Navbar for the states */}
@@ -50,9 +51,9 @@ const StateNewsUnknown = async () => {
           </div>
 
           {/* Right advertisement section */}
-          <div className="flex flex-col md:gap-y-10 gap-y-2  md:col-span-2 ">
+          <div className="flex flex-col md:gap-y-10 gap-y-2 md:col-span-2 ">
             {/* <CustomeAndGoogleAdd /> */}
-            <SideNews title="read also" />
+            {/* <SideNews title="read also" /> */}
           </div>
         </div>
 

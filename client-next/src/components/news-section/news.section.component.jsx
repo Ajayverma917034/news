@@ -14,12 +14,12 @@ const NewsSection = ({ data, title }) => {
       {data ? (
         <>
           {data.length > 0 && (
-            <div className="flex w-full flex-col flex-wrap sm:gap-4 p-1">
+            <div className="flex w-full flex-col flex-wrap sm:gap-4 p-1 mt-2 md:mt-7">
               <Heading title={title} />
               {data[0]?.news_id && (
                 <Link
                   href={`/news/${data[0]?.news_id}`}
-                  className="flex md:flex-row flex-col justify-between w-full shadow-card max-sm:mb-2 rounded-md"
+                  className="flex md:flex-row flex-col justify-between w-full shadow-card max-sm:mb-2 rounded-md -mt-1 md:-mt-3"
                 >
                   <div className="md:w-[50%] w-full h-[200px] sm:h-[250px] p-1">
                     <Image
@@ -68,12 +68,12 @@ const NewsSection = ({ data, title }) => {
                         key={index}
                         className="grid grid-cols-3 max-md:gap-x-1 rounded-sm shadow-card"
                       >
-                        <div className="col-span-1 p-1 max-h-[120px] relative h-[105px]">
+                        <div className="col-span-1 p-1 relative h-[110px]">
                           <Image
                             alt="news"
                             src={card.banner}
                             width={1200}
-                            height={800}
+                            height={900}
                             sizes={{
                               maxWidth: "100%",
                               height: "auto",
@@ -100,9 +100,7 @@ const NewsSection = ({ data, title }) => {
                     );
                   })}
               </div>
-              <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center bg-green-300">
-                {/* <HorizontalAdsGoogle /> */}
-              </div>
+              <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center bg-green-300"></div>
             </div>
           )}
         </>
