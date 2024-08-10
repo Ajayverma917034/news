@@ -23,6 +23,7 @@ import { handleImageError } from "@/lib/errorImg";
 import DetailAds from "../ads/DetailAds";
 
 const PageContent = ({ item }) => {
+  const pathname = usePathname();
   const shareUrl = process.env.NEXT_PUBLIC_CURRENT_URL + pathname;
   const copyUrlToClipboard = async () => {
     // Get the current URL
@@ -36,7 +37,6 @@ const PageContent = ({ item }) => {
       });
   };
 
-  const pathname = usePathname();
   return (
     item && (
       <div className="py-4 flex flex-col flex-wrap w-full">
