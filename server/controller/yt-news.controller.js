@@ -80,7 +80,6 @@ export const createYtNews = tryCatch(async (req, res, next) => {
 
 export const getYtNewses = tryCatch(async (req, res, next) => {
     try {
-        console.log(req.body)
 
         let { page, limit } = req.body;
         // console.log(req.body)
@@ -114,7 +113,6 @@ export const getYtNewses = tryCatch(async (req, res, next) => {
 
 export const getYtNews = tryCatch(async (req, res, next) => {
     let { video_id, draft, mode } = req.body;
-    console.log(video_id)
     let incrementVal = mode !== 'edit' ? 1 : 0;
 
     YtNews.findOneAndUpdate({ news_id: video_id }, { $inc: { "activity.total_reads": incrementVal } })

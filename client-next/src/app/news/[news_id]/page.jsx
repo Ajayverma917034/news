@@ -34,12 +34,28 @@ const fetchNews = async (news_id) => {
 
 export async function generateMetadata({ params: { news_id } }) {
   const { news } = await fetchNews(news_id);
+  let tags = news?.tags;
+
+  let keywords = ''
+  for(let i=0; i<tags.length; i++) {
+    keywords += tags[i] + ', '
+  }
+
 
   return {
     title: news?.title,
     description: news?.description,
+    keywords: `${keywords}janpad news, janpad news live, latest news, today news`,
     openGraph: {
+      type: "article",
+      url: `https://janpadnewslive.com/news/${news_id}`,
+      title: news?.title,
+      description: news?.description,
       images: [{ url: news?.banner }],
+    },
+    metadataBase: new URL('https://janpadnewslive.com'),
+    alternates: {
+      canonical: `https://janpadnewslive.com/news/${news_id}`,
     },
   };
 }
