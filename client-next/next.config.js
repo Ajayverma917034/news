@@ -17,6 +17,11 @@ module.exports = {
         hostname: 'img.youtube.com',
         pathname: '/**', // Allows any path
       },
+      {
+        protocol: 'https',
+        hostname: 'img.janpadnewslive.com',
+        pathname: '/**', // Allows any path
+      },
     ],
   },
 };
