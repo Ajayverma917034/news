@@ -25,6 +25,7 @@ import DetailAds from "../ads/DetailAds";
 const PageContent = ({ item }) => {
   const copyUrlToClipboard = async () => {
     // Get the current URL
+    const shareUrl = process.env.NEXT_PUBLIC_CURRENT_URL + pathname;
     navigator.clipboard
       .writeText(shareUrl)
       .then(() => {
@@ -36,7 +37,6 @@ const PageContent = ({ item }) => {
   };
 
   const pathname = usePathname();
-  const shareUrl = pathname;
   return (
     item && (
       <div className="py-4 flex flex-col flex-wrap w-full">
@@ -70,7 +70,7 @@ const PageContent = ({ item }) => {
             <h3 className="date-lg">{formatDate(item.createdAt)}</h3>
           </div>
           <div className="flex gap-2 items-center">
-            <WhatsappShareButton url={"jfdkf"} title={item.title}>
+            <WhatsappShareButton url={shareUrl} title={item.title}>
               <RiWhatsappFill
                 className="text-green-600 hover:scale-[1.2]"
                 size={28}

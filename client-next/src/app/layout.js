@@ -1,5 +1,6 @@
 import { Anek_Devanagari, Inter } from "next/font/google";
 import "./globals.css";
+import { HelmetProvider } from "react-helmet-async";
 import Navbar from "@/components/header/Navbar";
 import { StoreProvider } from "@/redux/StoreProvider";
 import BreakingNews from "@/components/breaking-news/BreakingNews";
@@ -41,6 +42,9 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <StoreProvider>
+      <HelmetProvider>
+
+
       <html lang="en">
         <body className={aneka.className}>
           <Navbar />
@@ -48,6 +52,8 @@ export default function RootLayout({ children }) {
           <BreakingNews />
           {children}</body>
       </html>
+      </HelmetProvider>
+
     </StoreProvider>
   );
 }
