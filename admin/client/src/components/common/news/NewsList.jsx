@@ -1,7 +1,7 @@
 // src/NewsList.js
 import React, { useState } from 'react';
 import { BsSearch } from 'react-icons/bs';
-import { formatDate } from '../../../../../server/client/src/common/date';
+import { formatDate } from '../../../common/date';
 
 const newsItems = Array.from({ length: 50 }, (_, index) => ({
   id: index + 1,
