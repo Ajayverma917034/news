@@ -1,10 +1,10 @@
 import { Anek_Devanagari, Inter } from "next/font/google";
 import "./globals.css";
-import { HelmetProvider } from "react-helmet-async";
 import Navbar from "@/components/header/Navbar";
 import { StoreProvider } from "@/redux/StoreProvider";
 import BreakingNews from "@/components/breaking-news/BreakingNews";
 import SliderAds from "@/components/ads/SliderAds";
+import { Toaster } from "react-hot-toast";
 
 // const aneka = Anek_Devanagari({ subsets: ["devanagari"] });
 const aneka = Anek_Devanagari({subsets: ['devanagari']});
@@ -42,18 +42,16 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <StoreProvider>
-      <HelmetProvider>
-
-
+      
       <html lang="en">
         <body className={aneka.className}>
           <Navbar />
+          <Toaster />
+
           <SliderAds />
           <BreakingNews />
           {children}</body>
       </html>
-      </HelmetProvider>
-
     </StoreProvider>
   );
 }
