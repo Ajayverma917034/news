@@ -23,9 +23,9 @@ import { handleImageError } from "@/lib/errorImg";
 import DetailAds from "../ads/DetailAds";
 
 const PageContent = ({ item }) => {
+  const shareUrl = process.env.NEXT_PUBLIC_CURRENT_URL + pathname;
   const copyUrlToClipboard = async () => {
     // Get the current URL
-    const shareUrl = process.env.NEXT_PUBLIC_CURRENT_URL + pathname;
     navigator.clipboard
       .writeText(shareUrl)
       .then(() => {
