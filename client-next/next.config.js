@@ -22,6 +22,11 @@ module.exports = {
         hostname: 'img.janpadnewslive.com',
         pathname: '/**', // Allows any path
       },
+      {
+        protocol: 'http',
+        hostname: 'image.notemyword.online',
+        pathname: '/**', // Allows any path
+      },
     ],
   },
 };
