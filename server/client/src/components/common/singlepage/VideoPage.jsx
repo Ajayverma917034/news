@@ -44,7 +44,7 @@ const VideoPage = () => {
   const { news_id } = useParams();
 
   let { title, description, videoLinkId, createdAt, tags, location } = ytdata;
-  const fetchNews = () => {
+  const fetchNews = async() => {
     let incrementVal = 0;
     const viewedYtNews = JSON.parse(
       sessionStorage.getItem("viewedYtNews") || "[]"
@@ -58,32 +58,17 @@ const VideoPage = () => {
       incrementVal = 0;
     }
 
-    axios
+    const {data}  = await axios
       .post(import.meta.env.VITE_SERVER_DOMAIN + "/get-youtube-news", {
         video_id: news_id,
         incrementVal,
       })
-      .then(async ({ data: { news } }) => {
-        // console.log(news)
-        setYtData(news);
-        const { tags, news_section_type, news_id: prevNewsId } = news;
 
-        const relatedNewsResponse = await httpClient.post(
-          "/fetch-related-yt-news",
-          {
-            tags,
-            news_section_type,
-            news_id: prevNewsId,
-          }
-        );
-
-        setLoading(false);
-        setRelatedNews(relatedNewsResponse.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        setLoading(false);
-      });
+      setLoading(false);
+      setYtData(data.news)
+      setRelatedNews(data.relatedNews)
+      
+      
   };
   const resetState = () => {
     setYtData(ytNewsStructure);

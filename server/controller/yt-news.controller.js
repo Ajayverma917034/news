@@ -148,7 +148,6 @@ export const getYtNews = tryCatch(async (req, res, next) => {
                 .sort({ "createdAt": -1 })
                 .select('news_id title videoLinkId -_id')
                 .then(relatedNews => {
-                    if (relatedNews.length === 0)
                         return res.status(200).json({ news, relatedNews })
                 }).catch(err => {
                     return next(new ErrorHandler(500, err.message));
