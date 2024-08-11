@@ -40,7 +40,7 @@ export default function SliderAds() {
         className="mySwiper !px-2 sm:!px-10 md:!px-32 mt-0 !py-3"
       >
         {bannerAds
-          ? bannerAds.length > 0
+          ? !bannerAds.length > 0
             ? bannerAds.map((ad, index) => {
                 return (
                   <SwiperSlide key={index} className="">
@@ -80,12 +80,12 @@ export default function SliderAds() {
                     src={banner}
                     alt="sliderimg"
                     width={1200}
-                    height={400}
+                    height={300}
                     sizes={{
                       maxWidth: "100%",
                       height: "auto",
                     }}
-                    className="w-full h-full"
+                    className="w-full h-full object-fill"
                   />
                 </SwiperSlide>
               ))

@@ -49,7 +49,7 @@ export default async function Page() {
     }
 
     let YtData = await response2.json();
-    let Ytnews = YtData.news
+    let Ytnews = YtData?.news
 
     // if (news.success === false) {
     //     // news.data = [{ data: [], title: '' }, { data: [], title: '' }, { data: [], title: '' }, { data: [], title: '' }]

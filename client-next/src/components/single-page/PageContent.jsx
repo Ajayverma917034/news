@@ -44,11 +44,11 @@ const PageContent = ({ item }) => {
           {item.title}
         </h1>
         <p className="date-lg text-wrap">{item.description}</p>
-        <div className="w-full h-[280px] sm:h-[350px] mt-3">
+        <div className="w-full h-[220px] sm:h-[350px] mt-3">
           <Image
             src={item.banner}
             width={1200}
-            height={800}
+            height={400}
             sizes={{
               maxWidth: "100%",
               height: "auto",

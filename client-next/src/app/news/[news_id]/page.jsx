@@ -36,11 +36,10 @@ export async function generateMetadata({ params: { news_id } }) {
   const { news } = await fetchNews(news_id);
   let tags = news?.tags;
 
-  let keywords = ''
-  for(let i=0; i<tags.length; i++) {
-    keywords += tags[i] + ', '
+  let keywords = "";
+  for (let i = 0; i < tags.length; i++) {
+    keywords += tags[i] + ", ";
   }
-
 
   return {
     title: news?.title,
@@ -53,7 +52,7 @@ export async function generateMetadata({ params: { news_id } }) {
       description: news?.description,
       images: [{ url: news?.banner }],
     },
-    metadataBase: new URL('https://janpadnewslive.com'),
+    metadataBase: new URL("https://janpadnewslive.com"),
     alternates: {
       canonical: `https://janpadnewslive.com/news/${news_id}`,
     },
@@ -71,12 +70,11 @@ export default async function BlogPostPage({ params: { news_id } }) {
             <PageContent item={news} />
           </article>
 
-          <div className="w-full">
-            <Heading title={"सम्बंधित खबर"} />
-            <div className="flex max-lg:flex-col gap-2 w-full">
-              {relatedNews &&
-                relatedNews.length &&
-                relatedNews.map((item, index) => (
+          {relatedNews && relatedNews.length ? (
+            <div className="w-full">
+              <Heading title={"सम्बंधित खबर"} />
+              <div className="flex max-lg:flex-col gap-2 w-full">
+                {relatedNews.map((item, index) => (
                   <Link
                     href={`/news/${item?.news_id}`}
                     key={index}
@@ -102,8 +100,12 @@ export default async function BlogPostPage({ params: { news_id } }) {
                     </h3>
                   </Link>
                 ))}
+              </div>
             </div>
-          </div>
+          ) : (
+            <></>
+          )}
+
           <div className="w-full max-md:mt-2 flex items-center justify-center mt-2">
             {/* <HorizontalAdsGoogle /> */}
           </div>
