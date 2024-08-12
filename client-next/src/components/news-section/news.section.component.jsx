@@ -7,6 +7,7 @@ import { formatDate } from "@/lib/formatDate";
 import Image from "next/image";
 import { handleImageError } from "@/lib/errorImg";
 import Heading from "@/lib/Heading";
+import HorizontalAds from "../../../components/HorizontalAds";
 
 const NewsSection = ({ data, title }) => {
   return (
@@ -100,7 +101,13 @@ const NewsSection = ({ data, title }) => {
                     );
                   })}
               </div>
-              <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center bg-green-300"></div>
+              <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center">
+                <HorizontalAds
+                  dataAdFormat="auto"
+                  dataAdSlot="8542991653"
+                  dataFullWidthResponsive={true}
+                />
+              </div>
             </div>
           )}
         </>

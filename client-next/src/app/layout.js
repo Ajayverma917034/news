@@ -5,6 +5,7 @@ import { StoreProvider } from "@/redux/StoreProvider";
 import BreakingNews from "@/components/breaking-news/BreakingNews";
 import SliderAds from "@/components/ads/SliderAds";
 import { Toaster } from "react-hot-toast";
+import AdSense from "../../components/AdSense";
 
 // const aneka = Anek_Devanagari({ subsets: ["devanagari"] });
 const aneka = Anek_Devanagari({ subsets: ['devanagari'] });
@@ -43,6 +44,9 @@ export default function RootLayout({ children }) {
   return (
     <StoreProvider>
       <html lang="en">
+        <head>
+          <AdSense />
+        </head>
         <body className={aneka.className}>
           <Navbar />
           <Toaster />
