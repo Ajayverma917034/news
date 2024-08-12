@@ -34,7 +34,7 @@ const SinglePage = () => {
 
   const fetchNews = async () => {
     let incrementVal = 0;
-    const viewedNews = JSON.parse(sessionStorage.getItem("viewedNews") || "[]");
+    const viewedNews = JSON.parse(lookInSession("viewedNews") || "[]");
 
     if (!viewedNews.includes(news_id)) {
       viewedNews.push(news_id);
@@ -45,13 +45,13 @@ const SinglePage = () => {
     }
 
     try {
-      const  {data}  = await httpClient.post("/get-news", {
+      const { data } = await httpClient.post("/get-news", {
         news_id,
         incrementVal,
       });
 
       setNews(data.news);
-      setRelatedNews(data.relatedNews)
+      setRelatedNews(data.relatedNews);
       // const { tags, news_section_type, news_id: prevNewsId } = data.news;
 
       // const relatedNewsResponse = await httpClient.post("/fetch-related-news", {

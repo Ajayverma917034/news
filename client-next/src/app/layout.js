@@ -7,7 +7,7 @@ import SliderAds from "@/components/ads/SliderAds";
 import { Toaster } from "react-hot-toast";
 
 // const aneka = Anek_Devanagari({ subsets: ["devanagari"] });
-const aneka = Anek_Devanagari({subsets: ['devanagari']});
+const aneka = Anek_Devanagari({ subsets: ['devanagari'] });
 export const metadata = {
   title: {
     default: "Home - Janpad News Live",
@@ -42,7 +42,6 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <StoreProvider>
-      
       <html lang="en">
         <body className={aneka.className}>
           <Navbar />

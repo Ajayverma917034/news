@@ -7,7 +7,6 @@ import Loader from "../../../loader/Loader";
 import CustomeAndGoogleAdd from "../../../pages/advertisement/CustomeAndGoogleAdd";
 import SideNews from "../../../pages/advertisement/related-news/SideNews";
 import Heading from "../Heading";
-import httpClient from "../../../api/httpClient";
 import { handleImageError } from "../../../common/errorImg";
 import {
   FacebookShareButton,
@@ -44,7 +43,7 @@ const VideoPage = () => {
   const { news_id } = useParams();
 
   let { title, description, videoLinkId, createdAt, tags, location } = ytdata;
-  const fetchNews = async() => {
+  const fetchNews = async () => {
     let incrementVal = 0;
     const viewedYtNews = JSON.parse(
       sessionStorage.getItem("viewedYtNews") || "[]"
@@ -58,17 +57,17 @@ const VideoPage = () => {
       incrementVal = 0;
     }
 
-    const {data}  = await axios
-      .post(import.meta.env.VITE_SERVER_DOMAIN + "/get-youtube-news", {
+    const { data } = await axios.post(
+      import.meta.env.VITE_SERVER_DOMAIN + "/get-youtube-news",
+      {
         video_id: news_id,
         incrementVal,
-      })
+      }
+    );
 
-      setLoading(false);
-      setYtData(data.news)
-      setRelatedNews(data.relatedNews)
-      
-      
+    setLoading(false);
+    setYtData(data.news);
+    setRelatedNews(data.relatedNews);
   };
   const resetState = () => {
     setYtData(ytNewsStructure);

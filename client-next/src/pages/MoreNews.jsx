@@ -12,7 +12,7 @@ import MorePageCard from "@/components/news-section/morepage.news.card";
 import { CollectionNewsSkeleton } from "@/skeleton/HomeSkeleton";
 // import SideNews from "@/components/side-news/SideNews";
 import { handleImageError } from "@/lib/errorImg";
-import DetailAds from "@/components/ads/DetailAds";
+// import DetailAds from "@/components/ads/DetailAds";
 // import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 
 const MoreNews = ({ title }) => {
@@ -110,30 +110,33 @@ const MoreNews = ({ title }) => {
                 )}
                 <div className="flex w-full flex-col flex-wrap gap-y-2 md:gap-y-6 md:py-6 p-1 mt-1">
                   {data.slice(1).map((item, index) => (
-                     <div key={`news-${index}`} className="flex w-full flex-col gap-y-1 md:gap-y-6">
-                     <MorePageCard data={item} />
-                     {(index + 1) % 5 === 0 && (
-                         <div className="flex w-full">
-                           <div className="bg-gray h-[200px] flex justify-center items-center w-full relative">
-                             <DetailAds />
-                             <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
-                               <Link
-                                 href={"/advertisement-us"}
-                                 className="text-[#f9f9f9] text-[12px] "
-                               >
-                                 <HiOutlineExclamationCircle
-                                   size={18}
-                                   className="text-[#f9f9f9] font-sans"
-                                 />
-                               </Link>
-                               <span className="text-[#f9f9f9] text-[12px]">
-                                 Sponsored
-                               </span>
-                             </div>
-                           </div>
-                         </div>
-                       )}
-                   </div>
+                    <div
+                      key={`news-${index}`}
+                      className="flex w-full flex-col gap-y-1 md:gap-y-6"
+                    >
+                      <MorePageCard data={item} />
+                      {(index + 1) % 5 === 0 && (
+                        <div className="flex w-full">
+                          <div className="bg-gray h-[200px] flex justify-center items-center w-full relative">
+                            {/* <DetailAds /> */}
+                            <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
+                              <Link
+                                href={"/advertisement-us"}
+                                className="text-[#f9f9f9] text-[12px] "
+                              >
+                                <HiOutlineExclamationCircle
+                                  size={18}
+                                  className="text-[#f9f9f9] font-sans"
+                                />
+                              </Link>
+                              <span className="text-[#f9f9f9] text-[12px]">
+                                Sponsored
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   ))}
                   <div ref={lastElementRef}></div>
                   {isLoading && <div>Loading more...</div>}

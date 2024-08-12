@@ -1,7 +1,6 @@
 "use client";
 import { findHindi } from "@/assets/data";
 import DetailAds from "@/components/ads/DetailAds";
-// import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 import MoreNewsVideoCard from "@/components/news-video/MoreNewsVideoCard";
 // import SideNews from "@/components/side-news/SideNews";
 import Heading from "@/lib/Heading";
@@ -100,7 +99,10 @@ const MoreVideos = () => {
                   )}
                   <div className="flex w-full flex-col flex-wrap mt-1 gap-y-1 md:gap-y-6 md:py-6 p-1">
                     {data.slice(1).map((item, index) => (
-                      <div key={index} className="flex w-full flex-col gap-y-1 md:gap-y-6">
+                      <div
+                        key={index}
+                        className="flex w-full flex-col gap-y-1 md:gap-y-6"
+                      >
                         <MoreNewsVideoCard data={item} />
                         {(index + 1) % 5 === 0 && (
                           <div className="flex w-full">

@@ -18,11 +18,10 @@ import toast from "react-hot-toast";
 import { HiOutlineExclamationCircle } from "react-icons/hi2";
 import BlogContent from "./BlogContent";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { handleImageError } from "@/lib/errorImg";
-import SliderAds from "../ads/SliderAds";
+import DetailAds from "../ads/DetailAds2";
 
-const PageContent = ({ item }) => {
+const PageContent2 = ({ item, ads }) => {
   const shareUrl =
     process.env.NEXT_PUBLIC_CURRENT_URL + `/news/${item.news_id}`;
   const copyUrlToClipboard = async () => {
@@ -104,7 +103,7 @@ const PageContent = ({ item }) => {
         </div>
         <div className="py-4 w-full">
           <div className="bg-gray h-[200px] flex justify-center items-center w-full relative">
-            <SliderAds />
+            <DetailAds ads={ads} />
             <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
               <Link
                 href={"/advertisement-us"}
@@ -135,4 +134,4 @@ const PageContent = ({ item }) => {
   );
 };
 
-export default PageContent;
+export default PageContent2;

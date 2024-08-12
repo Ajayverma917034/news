@@ -15,7 +15,6 @@ import { AdvertisementSkelton1 } from "@/skeleton/Advertisement.skeltons";
 import Link from "next/link";
 const CustomeAndGoogleAdd = () => {
   const { loading, error, sideAds } = useSelector((state) => state.ads);
-
   return (
     <div className="flex flex-wrap gap-y-3 gap-x-4 md:flex max-sm:items-center w-full lg:flex-col ">
       <Swiper

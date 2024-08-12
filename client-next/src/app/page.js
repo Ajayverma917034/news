@@ -93,7 +93,7 @@ export default async function Page() {
                         </div>
                         <div className="col-span-2 w-full">
                             <div className="sticky top-32 max-md:hidden">
-                                {/* <CustomeAndGoogleAdd /> */}
+                                <CustomeAndGoogleAdd />
                             </div>
                         </div>
                     </div>

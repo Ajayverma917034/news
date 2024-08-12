@@ -192,6 +192,7 @@ export const getNewses = tryCatch((req, res, next) => {
     let { page, limit, state, district, location, tags, breaking_news, draft, news_section_type } = req.body;
     let query = {};
 
+
     if (state) query.state = state;
     if (district) query.district = district;
     if (location) query.location = location;
@@ -236,7 +237,7 @@ export const getNewses = tryCatch((req, res, next) => {
 })
 
 export const getNews = tryCatch(async (req, res, next) => {
-    let { news_id, draft, mode, incrementVal: val } = req.body;
+    let { news_id, draft = false, mode, incrementVal: val } = req.body;
 
     let incrementVal = mode !== 'edit' ? val : 0;
     News.findOneAndUpdate({ news_id }, { $inc: { "activity.total_reads": incrementVal, "activity.total_today_count": incrementVal } })
@@ -290,6 +291,7 @@ export const getNews = tryCatch(async (req, res, next) => {
                 });
         })
         .catch(err => {
+            console.log(err)
             return next(new ErrorHandler(500, err.message))
         })
 })

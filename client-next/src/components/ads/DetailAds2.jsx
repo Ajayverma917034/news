@@ -1,4 +1,3 @@
-"use client";
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
@@ -13,10 +12,8 @@ import { useSelector } from "react-redux";
 import Image from "next/image";
 import banner from "../../assets/errorimg1.png";
 
-export default function DetailAds() {
+export default function DetailAds({ ads: detailAds }) {
   // Always call useSelector at the top level
-  const { error, loading, detailAds } = useSelector((state) => state.ads);
-
   return (
     <Swiper
       spaceBetween={20}
@@ -33,6 +30,7 @@ export default function DetailAds() {
       style={{
         width: "100%",
         height: "200px",
+        padding: "0",
       }}
     >
       {detailAds
