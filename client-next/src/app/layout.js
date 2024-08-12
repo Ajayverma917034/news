@@ -20,10 +20,10 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
   },
-  metadataBase: new URL('https://janpadnewslive.com'),
+  metadataBase: new URL('https://notemyword.online'),
   openGraph: {
     type: "article",
-    url: "https://janpadnewslive.com",
+    url: "https://notemyword.online",
     title: "Janpad News Live",
     description: "Janpad News Live (जनपद न्यूज़ लाइव): Latest News (लेटेस्ट खबरें), Breaking News  (ब्रेकिंग न्यूज़), World (विश्व), Sports (खेल), Business, Entertainment (मनोरंजन).",
     images: [
