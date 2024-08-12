@@ -1,6 +1,6 @@
 "use client";
 import RandomNewsScroll from "@/app/news/[news_id]/RandomNewsScroll";
-import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
+// import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 import PageContent2 from "@/components/single-page/PageContent2";
 import Heading from "@/lib/Heading";
 import Image from "next/image";
@@ -121,7 +121,7 @@ const SinglePage = ({ news_id, ads }) => {
             {/* <HorizontalAdsGoogle /> */}
           </div>
           <div className="hidden max-sm:flex mt-3">
-            <CustomeAndGoogleAdd />
+            {/* <CustomeAndGoogleAdd /> */}
           </div>
 
           <div className="flex mt-2 w-full">
@@ -132,7 +132,7 @@ const SinglePage = ({ news_id, ads }) => {
 
         <div className="flex flex-col gap-y-2 md:gap-y-10 md:col-span-2 md:mt-10">
           <div className="sticky top-36 max-md:hidden">
-            <CustomeAndGoogleAdd />
+            {/* <CustomeAndGoogleAdd /> */}
           </div>
           {/* <SideNews title={"education"} /> */}
         </div>

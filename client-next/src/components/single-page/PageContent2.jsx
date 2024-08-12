@@ -52,7 +52,6 @@ const PageContent2 = ({ item, ads }) => {
               maxWidth: "100%",
               height: "auto",
             }}
-            onError={handleImageError}
             alt="news-img"
             className="w-full max-sm:max-w-screen-sm h-full object-cover"
             loading="lazy"
