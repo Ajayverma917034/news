@@ -36,7 +36,7 @@ export const metadata = {
     ],
   },
   alternates: {
-    canonical: "https://janpadnewslive.com",
+    canonical: "https://notemyword.online",
   },
 };
 
