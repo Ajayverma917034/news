@@ -33,6 +33,7 @@ export default function DetailAds() {
       style={{
         width: "100%",
         height: "200px",
+        padding: "0 !important",
       }}
     >
       {detailAds

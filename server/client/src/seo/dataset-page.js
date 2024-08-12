@@ -1,7 +1,7 @@
 const dataset = {
     'sonbhadra': {
         title: 'Sonbhadra - Janpad News Live',
-        description: 'Latest news and updates (ताज़ा समाचार और अपडेट) from Sonbhadra (सोनभद्र), including Sonbhadra news today (सोनभद्र न्यूज़ आज), and Janpad news in Hindi (जनपद न्यूज़ हिंदी में).',
+        description: 'Latest news and updates (ताज़ा समाचार और अपडेट), Sonbhadra (सोनभद्र), Sonbhadra news today (सोनभद्र न्यूज़ आज), Janpad news in Hindi (जनपद न्यूज़ हिंदी में).',
         keywords: 'sonbhadra news, news, sonbadra news today, janpad news, सोनभद्र समाचार, समाचार, सोनभद्र न्यूज़ आज, जनपद न्यूज़',
         image: '../assets/logoimg.png'
     },

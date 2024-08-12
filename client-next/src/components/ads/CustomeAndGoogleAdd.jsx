@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css/effect-fade";
@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import { HiOutlineExclamationCircle } from "react-icons/hi2";
 import Image from "next/image";
 
-import banner from "../../assets/errorimg1.png";
+import banner from "../../assets/rectangle-janpad-news-live.png";
 import { AdvertisementSkelton1 } from "@/skeleton/Advertisement.skeltons";
 import Link from "next/link";
 const CustomeAndGoogleAdd = () => {
@@ -30,6 +30,10 @@ const CustomeAndGoogleAdd = () => {
         }}
         modules={[EffectFade, Navigation, Pagination, Autoplay]}
         className="mySwiper p-0 w-[330px] h-[330px]"
+        style={{
+          width: "330px",
+          height: "330px",
+        }}
       >
         {sideAds
           ? sideAds.length > 0

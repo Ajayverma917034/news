@@ -7,16 +7,38 @@ import StateNav from "@/components/state-section/StateNav";
 import { CollectionNewsSkeleton } from "@/skeleton/HomeSkeleton";
 import React from "react";
 
-const page = async () => {
-  //   const router = useRouter();
+export const metadata = {
+  title: "Uttar Pradesh News",
+  description:
+    "Latest News (लेटेस्ट खबरें), Breaking News (ब्रेकिंग न्यूज़), UP News (यूपी समाचार), Uttar Pradesh (उत्तर प्रदेश), State News (राज्य समाचार)",
+  keywords:
+    "janpad, janpad news, janpad news live, up, uttar pradesh, state, state news, breaking, top news, UP News",
+  author: "Janpad News Team",
+  twitter: {
+    card: "summary_large_image",
+  },
+  metadataBase: new URL("https://notemyword.online"),
+  openGraph: {
+    type: "article",
+    url: "https://notemyword.online",
+    title: "Uttar Pradesh News - Janpad News Live",
+    description:
+      "Latest News (लेटेस्ट खबरें), Breaking News (ब्रेकिंग न्यूज़), UP News (यूपी समाचार), Uttar Pradesh (उत्तर प्रदेश), State News (राज्य समाचार)",
+    images: [
+      {
+        url: "../assets/janpad_news_live.png",
+        width: 800,
+        height: 600,
+        alt: "Janpad News Live - UP News",
+      },
+    ],
+  },
+  alternates: {
+    canonical: "https://notemyword.online",
+  },
+};
 
-  //   const handleNavigate = (state) => {
-  //     if (state === "uttar pradesh") {
-  //       router.push("/state/uttar-pradesh");
-  //     } else {
-  //       router.push(`/state/${state}`);
-  //     }
-  //   };
+const page = async () => {
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/fetch-state-news`,
     {

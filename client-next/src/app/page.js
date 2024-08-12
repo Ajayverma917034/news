@@ -55,6 +55,7 @@ export default async function Page() {
     //     // news.data = [{ data: [], title: '' }, { data: [], title: '' }, { data: [], title: '' }, { data: [], title: '' }]
     // }
 
+
     return (
         <main className="bg-red-200">
             <div className="flex spacing mt-2 ">
@@ -81,9 +82,24 @@ export default async function Page() {
 
             <ApnaZila />
             <RajyaMain />
+            {news && news.data && news.data.length > 1 && (
+                <div className="flex spacing mt-2">
+                    <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full">
+                        <div className="flex flex-col flex-wrap  md:col-span-4 overflow-hidden">
+                            {news.data.slice(1).map((news, index) => (
+                                <NewsSection key={index} data={news.data} title={news.title} />
+                            ))}
+                        </div>
+                        <div className="col-span-2 w-full">
+                            <div className="sticky top-32 max-md:hidden">
+                                <CustomeAndGoogleAdd />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
 
-
-            {news && news.data && news.data.length > 4 && (
+            {news && news.data && news.data.length > 3 && (
                 <div className="flex spacing mt-2">
                     <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full">
                         <div className="flex flex-col flex-wrap  md:col-span-4 overflow-hidden">

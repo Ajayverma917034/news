@@ -1,5 +1,6 @@
 "use client";
 import { findHindi } from "@/assets/data";
+import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 import DetailAds from "@/components/ads/DetailAds";
 import MoreNewsVideoCard from "@/components/news-video/MoreNewsVideoCard";
 // import SideNews from "@/components/side-news/SideNews";
@@ -141,7 +142,9 @@ const MoreVideos = () => {
           )}
         </div>
         <div className="flex flex-col gap-y-2 md:gap-y-10 md:col-span-2 md:mt-10">
-          {/* <CustomeAndGoogleAdd /> */}
+          <div className="sticky top-36 max-md:hidden">
+            <CustomeAndGoogleAdd />
+          </div>
           {/* <SideNews title={"education"} /> */}
         </div>
       </div>

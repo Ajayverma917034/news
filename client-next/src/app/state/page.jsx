@@ -2,34 +2,50 @@ import React from "react";
 import { findHindi, stateDistricts } from "@/assets/data";
 import NewsSection from "@/components/news-section/news.section.component";
 import { CollectionNewsSkeleton } from "@/skeleton/HomeSkeleton";
-// import SideNews from "@/components/side-news/SideNews";
 import StateNav from "@/components/state-section/StateNav";
-// import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
-
+import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
+export const metadata = {
+  title: "State News",
+  description:
+    "Latest News (लेटेस्ट खबरें), Breaking News (ब्रेकिंग न्यूज़), State News (राज्य समाचार), World (विश्व), Sports (खेल), Business, Entertainment (मनोरंजन), State News (राज्य समाचार)",
+  keywords:
+    "janpad, janpad news, janpad news live, up, uttar pradesh, bihar, jharkhand, uttarakhand, madhya pradesh, chhattisgarh, delhi, up, state, state news, india, top news",
+  author: "Janpad News Team",
+  twitter: {
+    card: "summary_large_image",
+  },
+  metadataBase: new URL("https://notemyword.online"),
+  openGraph: {
+    type: "article",
+    url: "https://notemyword.online",
+    title: "Janpad News Live",
+    description:
+      "Latest News (लेटेस्ट खबरें), Breaking News (ब्रेकिंग न्यूज़), State News (राज्य समाचार), World (विश्व), Sports (खेल), Business, Entertainment (मनोरंजन), State News (राज्य समाचार)",
+    images: [
+      {
+        url: "../assets/janpad_news_live.png",
+        width: 800,
+        height: 600,
+        alt: "Janpad News Live",
+      },
+    ],
+  },
+  alternates: {
+    canonical: "https://notemyword.online",
+  },
+};
 const StateNewsUnknown = async () => {
-  //   const router = useRouter();
-
-  //   const handleNavigate = (state) => {
-  //     if (state === "uttar pradesh") {
-  //       router.push("/state/uttar-pradesh");
-  //     } else {
-  //       router.push(`/state/${state}`);
-  //     }
-  //   };
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/fetch-all-state-news`
   );
 
   const { data: news } = await response.json();
 
-
   return (
     <>
-      {/* <MetaDataSection title={"All State News"} /> */}
       <div className="flex spacing mt-4 md:mt-8 flex-col">
         <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto gap-5 w-full">
           <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden">
-            {/* Navbar for the states */}
             <StateNav />
 
             {news ? (
@@ -52,7 +68,7 @@ const StateNewsUnknown = async () => {
 
           {/* Right advertisement section */}
           <div className="flex flex-col md:gap-y-10 gap-y-2 md:col-span-2 ">
-            {/* <CustomeAndGoogleAdd /> */}
+            <CustomeAndGoogleAdd />
             {/* <SideNews title="read also" /> */}
           </div>
         </div>

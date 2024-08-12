@@ -32,9 +32,9 @@ export async function generateMetadata({ params: { news_id } }) {
   const { news } = await fetchNews(news_id);
   let tags = news?.tags;
 
-  let keywords = ''
-  for(let i=0; i<tags.length; i++) {
-    keywords += tags[i] + ', '
+  let keywords = "";
+  for (let i = 0; i < tags.length; i++) {
+    keywords += tags[i] + ", ";
   }
   const thumbnail = `https://img.youtube.com/vi/${news?.videoLinkId}/mqdefault.jpg`;
 
@@ -44,14 +44,14 @@ export async function generateMetadata({ params: { news_id } }) {
     keywords: `${keywords}janpad news, janpad news live, latest news, today news`,
     openGraph: {
       type: "article",
-      url: `https://janpadnewslive.com/video/${news_id}`,
+      url: `https://notemyword.online/video/${news_id}`,
       title: news?.title,
       description: news?.description,
       images: [{ url: thumbnail }],
     },
-    metadataBase: new URL('https://janpadnewslive.com'),
+    metadataBase: new URL("https://notemyword.online"),
     alternates: {
-      canonical: `https://janpadnewslive.com/video/${news_id}`,
+      canonical: `https://notemyword.online/video/${news_id}`,
     },
   };
 }
