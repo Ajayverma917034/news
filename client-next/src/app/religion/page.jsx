@@ -19,7 +19,7 @@ export const metadata = {
       "Latest news and updates (ताज़ा समाचार और अपडेट) from religion (धर्म), including religion news today (धर्म न्यूज़ आज), and Janpad news in Hindi (जनपद न्यूज़ हिंदी में).",
     images: [
       {
-        url: "../assets/janpad_news_live.png",
+        url: "../../assets/janpad_news_live.png",
         width: 800,
         height: 600,
         alt: "Janpad News Live",

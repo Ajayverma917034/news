@@ -15,7 +15,7 @@ export const metadata = {
     description: "",
     images: [
       {
-        url: "../assets/janpad_news_live.png",
+        url: "../../assets/janpad_news_live.png",
         width: 800,
         height: 600,
         alt: "Janpad News Live",
