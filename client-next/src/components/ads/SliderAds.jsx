@@ -37,7 +37,7 @@ export default function SliderAds() {
           clickable: true,
         }}
         modules={[EffectFade, Navigation, Pagination, Autoplay]}
-        className="mySwiper !px-2 sm:!px-10 md:!px-32 mt-0 !py-3"
+        className="mySwiper swiper1 !px-2 sm:!px-10 md:!px-32 mt-0 !py-3"
       >
         {bannerAds
           ? bannerAds.length > 0
