@@ -4,6 +4,8 @@ import Image from "next/image.js";
 import { CiLocationOn } from "react-icons/ci";
 import { formatDate } from "@/lib/formatDate";
 import Heading from "@/lib/Heading";
+import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
+import FooterAds from "../../../../components/FooterAds";
 // import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 
 const fetchNews = async (news_id) => {
@@ -169,11 +171,17 @@ export default async function BlogPostPage({ params: { news_id } }) {
             </div>
           </div>
           <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center mt-2">
-            {/* <HorizontalAdsGoogle /> */}
+            <FooterAds />
           </div>
           <div className="hidden max-sm:flex mt-3">
-            {/* <CustomeAndGoogleAdd /> */}
+            <CustomeAndGoogleAdd />
           </div>
+        </div>
+        <div className="flex flex-col gap-y-2 md:gap-y-10 md:col-span-2 md:mt-10">
+          <div className="sticky top-36 max-md:hidden">
+            <CustomeAndGoogleAdd />
+          </div>
+          {/* <SideNews title={"education"} /> */}
         </div>
       </div>
     </div>

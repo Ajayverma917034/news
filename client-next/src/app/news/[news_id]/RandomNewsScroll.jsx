@@ -1,9 +1,9 @@
-// app/[postId]/RandomNewsScroll.js
 "use client";
 
 import { useEffect, useState } from "react";
 import Heading from "@/lib/Heading";
 import PageContent from "@/components/single-page/PageContent";
+import CustomeAndGoogleAdd1 from "@/components/ads/CustomeAndGoogleAdd1";
 
 const RandomNewsScroll = ({ initialNewsId }) => {
   const [randomNews, setRandomNews] = useState([]);
@@ -60,6 +60,9 @@ const RandomNewsScroll = ({ initialNewsId }) => {
             <div key={index} className="mt-5">
               <Heading title="और भी पढ़े" />
               <PageContent item={item} />
+              <div>
+                <CustomeAndGoogleAdd1 />
+              </div>
             </div>
           ))}
         </div>

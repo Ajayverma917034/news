@@ -12,6 +12,7 @@ import MorePageCard from "@/components/news-section/morepage.news.card";
 import { CollectionNewsSkeleton } from "@/skeleton/HomeSkeleton";
 // import SideNews from "@/components/side-news/SideNews";
 import { handleImageError } from "@/lib/errorImg";
+import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 // import DetailAds from "@/components/ads/DetailAds";
 // import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 
@@ -153,7 +154,7 @@ const MoreNews = ({ title }) => {
           )}
         </div>
         <div className="flex flex-col gap-y-2 md:gap-y-10 md:col-span-2 md:mt-10">
-          {/* <CustomeAndGoogleAdd /> */}
+          <CustomeAndGoogleAdd />
           {/* <SideNews title={"education"} /> */}
         </div>
       </div>

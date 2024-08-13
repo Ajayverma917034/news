@@ -11,7 +11,7 @@ const GoogleAds = ({ adClient, adSlot, style, format }) => {
   }
 
   return (
-    <div className="adsense-ad" style={style}>
+    <div className="adsense-ad">
       <ins
         className="adsbygoogle"
         style={style}

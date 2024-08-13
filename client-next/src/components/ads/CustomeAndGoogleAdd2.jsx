@@ -6,17 +6,14 @@ import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { EffectFade, Navigation, Pagination, Autoplay } from "swiper/modules";
-import { useSelector } from "react-redux";
 import { HiOutlineExclamationCircle } from "react-icons/hi2";
 import Image from "next/image";
 
 import banner from "../../assets/rectangle-janpad-news-live.png";
 import { AdvertisementSkelton1 } from "@/skeleton/Advertisement.skeltons";
 import Link from "next/link";
-import HorizontalAds from "../../../components/HorizontalAds";
 import SquareAds from "../../../components/SquareAds";
-const CustomeAndGoogleAdd = () => {
-  const { loading, error, sideAds } = useSelector((state) => state.ads);
+const CustomeAndGoogleAdd2 = ({ sideAds }) => {
   return (
     <div className="flex flex-wrap gap-y-3 gap-x-4 md:flex max-sm:items-center w-full lg:flex-col ">
       <Swiper
@@ -99,4 +96,4 @@ const CustomeAndGoogleAdd = () => {
   );
 };
 
-export default CustomeAndGoogleAdd;
+export default CustomeAndGoogleAdd2;

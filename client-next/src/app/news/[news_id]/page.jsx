@@ -1,11 +1,3 @@
-import Link from "next/link";
-import { notFound } from "next/navigation";
-import RandomNewsScroll from "./RandomNewsScroll.jsx";
-import Image from "next/image.js";
-import PageContent from "@/components/single-page/PageContent.jsx";
-// import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd.jsx";
-// import { handleImageError } from "@/lib/errorImg.js";
-import Heading from "@/lib/Heading.jsx";
 import SinglePage from "@/pages/SinglePage.jsx";
 
 const fetchNews = async (news_id) => {

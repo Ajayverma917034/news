@@ -1,7 +1,7 @@
 export const horizontalAdSlotId = [
     {
         adSlot: 1,
-        adSlotId: '1074914801',
+        adSlotId: '8542991653',
     },
     {
         adSlot: 2,

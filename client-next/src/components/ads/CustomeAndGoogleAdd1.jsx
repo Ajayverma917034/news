@@ -13,9 +13,7 @@ import Image from "next/image";
 import banner from "../../assets/rectangle-janpad-news-live.png";
 import { AdvertisementSkelton1 } from "@/skeleton/Advertisement.skeltons";
 import Link from "next/link";
-import HorizontalAds from "../../../components/HorizontalAds";
-import SquareAds from "../../../components/SquareAds";
-const CustomeAndGoogleAdd = () => {
+const CustomeAndGoogleAdd1 = () => {
   const { loading, error, sideAds } = useSelector((state) => state.ads);
   return (
     <div className="flex flex-wrap gap-y-3 gap-x-4 md:flex max-sm:items-center w-full lg:flex-col ">
@@ -92,11 +90,8 @@ const CustomeAndGoogleAdd = () => {
           <span className="text-[#f9f9f9] text-[12px]">Sponsored</span>
         </div>
       </Swiper>
-      <div className="w-[330px] h-[330px] ml-auto mr-auto">
-        <SquareAds />
-      </div>
     </div>
   );
 };
 
-export default CustomeAndGoogleAdd;
+export default CustomeAndGoogleAdd1;
