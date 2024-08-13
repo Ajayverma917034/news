@@ -13,8 +13,8 @@ import Image from "next/image";
 import banner from "../../assets/rectangle-janpad-news-live.png";
 import { AdvertisementSkelton1 } from "@/skeleton/Advertisement.skeltons";
 import Link from "next/link";
-import HorizontalAds from "../../../components/HorizontalAds";
-import SquareAds from "../../../components/SquareAds";
+// import HorizontalAds from "../../../components/HorizontalAds";
+// import SquareAds from "../../../components/SquareAds";
 const CustomeAndGoogleAdd = () => {
   const { loading, error, sideAds } = useSelector((state) => state.ads);
   return (
@@ -93,7 +93,7 @@ const CustomeAndGoogleAdd = () => {
         </div>
       </Swiper>
       <div className="w-[330px] h-[330px] ml-auto mr-auto">
-        <SquareAds />
+        {/* <SquareAds /> */}
       </div>
     </div>
   );

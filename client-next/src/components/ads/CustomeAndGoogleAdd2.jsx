@@ -12,7 +12,7 @@ import Image from "next/image";
 import banner from "../../assets/rectangle-janpad-news-live.png";
 import { AdvertisementSkelton1 } from "@/skeleton/Advertisement.skeltons";
 import Link from "next/link";
-import SquareAds from "../../../components/SquareAds";
+// import SquareAds from "../../../components/SquareAds";
 const CustomeAndGoogleAdd2 = ({ sideAds }) => {
   return (
     <div className="flex flex-wrap gap-y-3 gap-x-4 md:flex max-sm:items-center w-full lg:flex-col ">
@@ -90,7 +90,7 @@ const CustomeAndGoogleAdd2 = ({ sideAds }) => {
         </div>
       </Swiper>
       <div className="w-[330px] h-[330px] ml-auto mr-auto">
-        <SquareAds />
+        {/* <SquareAds /> */}
       </div>
     </div>
   );
