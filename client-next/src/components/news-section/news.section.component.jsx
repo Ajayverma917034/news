@@ -101,7 +101,7 @@ const NewsSection = ({ data, title, adInd }) => {
                   })}
               </div>
               <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center">
-                <HorizontalAds
+                {/* <HorizontalAds
                   adClient="ca-pub-5839947415375117"
                   adSlot={horizontalAdSlotId[adInd]?.adSlotId}
                   style={{ display: "block", width: "100%", height: 90 }}
@@ -109,7 +109,7 @@ const NewsSection = ({ data, title, adInd }) => {
                   dataAdFormat="auto"
                   dataAdSlot="8542991653"
                   dataFullWidthResponsive={true}
-                />
+                /> */}
               </div>
             </div>
           )}
