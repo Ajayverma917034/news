@@ -63,7 +63,7 @@ export default async function Page() {
                     <div className="flex flex-col flex-wrap  md:col-span-4 overflow-hidden bg-white">
                         {
                             news && news.data &&
-                            <NewsSection data={news.data[0].data} title={news?.data[0]?.title} />
+                            <NewsSection adInd={1} data={news.data[0].data} title={news?.data[0]?.title} />
 
                         }
                         {
@@ -86,8 +86,9 @@ export default async function Page() {
                 <div className="flex spacing mt-2">
                     <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full">
                         <div className="flex flex-col flex-wrap  md:col-span-4 overflow-hidden">
-                            {news.data.slice(1).map((news, index) => (
-                                <NewsSection key={index} data={news.data} title={news.title} />
+                            {news.data.slice(1, 3).map((news, index) => (
+                                <NewsSection key={index} data={news.data} title={news.title}
+                                    adInd={2 + index} />
                             ))}
                         </div>
                         <div className="col-span-2 w-full">
@@ -104,7 +105,7 @@ export default async function Page() {
                     <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full">
                         <div className="flex flex-col flex-wrap  md:col-span-4 overflow-hidden">
                             {news.data.slice(4).map((news, index) => (
-                                <NewsSection key={index} data={news.data} title={news.title} />
+                                <NewsSection dInd={3 + index} key={index} data={news.data} title={news.title} />
                             ))}
                         </div>
                         <div className="col-span-2 w-full">

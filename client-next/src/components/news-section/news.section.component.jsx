@@ -1,15 +1,14 @@
 import React from "react";
 import { CiLocationOn } from "react-icons/ci";
-// import HorizontalAdsGoogle from "../../../pages/advertisement/HorizontalAdsGoogle";
 import Link from "next/link";
 import { CollectionNewsSkeleton } from "@/skeleton/HomeSkeleton";
 import { formatDate } from "@/lib/formatDate";
 import Image from "next/image";
-import { handleImageError } from "@/lib/errorImg";
 import Heading from "@/lib/Heading";
 import HorizontalAds from "../../../components/HorizontalAds";
+import { horizontalAdSlotId } from "@/assets/google-ads-data";
 
-const NewsSection = ({ data, title }) => {
+const NewsSection = ({ data, title, adInd }) => {
   return (
     <>
       {data ? (
@@ -103,6 +102,10 @@ const NewsSection = ({ data, title }) => {
               </div>
               <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center">
                 <HorizontalAds
+                  adClient="ca-pub-5839947415375117"
+                  adSlot={horizontalAdSlotId[adInd]?.adSlotId}
+                  style={{ display: "block", width: "100%", height: 90 }}
+                  format="auto"
                   dataAdFormat="auto"
                   dataAdSlot="8542991653"
                   dataFullWidthResponsive={true}

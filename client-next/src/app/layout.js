@@ -6,6 +6,7 @@ import BreakingNews from "@/components/breaking-news/BreakingNews";
 import SliderAds from "@/components/ads/SliderAds";
 import { Toaster } from "react-hot-toast";
 import AdSense from "../../components/AdSense";
+import Footer from "@/components/Footer";
 
 // const aneka = Anek_Devanagari({ subsets: ["devanagari"] });
 const aneka = Anek_Devanagari({ subsets: ['devanagari'] });
@@ -53,7 +54,9 @@ export default function RootLayout({ children }) {
 
           <SliderAds />
           <BreakingNews />
-          {children}</body>
+          {children}
+          <Footer />
+        </body>
       </html>
     </StoreProvider>
   );

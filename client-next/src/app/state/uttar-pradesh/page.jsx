@@ -67,13 +67,18 @@ const page = async () => {
           <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden">
             {/* Navbar for the states */}
             <DistrictNav state={"uttar pradesh"} navItems={navItems} />
-            <NewsSection data={news && news[0]} title={dataSequence?.state} />
+            <NewsSection
+              data={news && news[0]}
+              title={dataSequence?.state}
+              adInd={0}
+            />
             {news &&
               news.length > 1 &&
               news.slice(1).map((news, index) => {
                 // console.log(news)
                 return (
                   <NewsSection
+                    adInd={1 + index}
                     data={news}
                     title={dataSequence?.districts[index]}
                     key={index}

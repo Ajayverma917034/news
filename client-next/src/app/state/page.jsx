@@ -56,6 +56,7 @@ const StateNewsUnknown = async () => {
                     data={newsItem.data}
                     title={newsItem.state}
                     key={index}
+                    adInd={0 + index}
                   />
                 ))
             ) : (
@@ -81,6 +82,7 @@ const StateNewsUnknown = async () => {
                   data={newsItem.data}
                   title={newsItem.state}
                   key={index + 2}
+                  adInd={2 + index}
                 />
               ))}
             </div>
@@ -99,6 +101,7 @@ const StateNewsUnknown = async () => {
                   data={newsItem.data}
                   title={newsItem.state}
                   key={index + 4}
+                  adInd={4 + index}
                 />
               ))}
             </div>

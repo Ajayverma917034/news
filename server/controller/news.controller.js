@@ -145,7 +145,6 @@ export const getHomeNews = tryCatch(async (req, res, next) => {
             "Big News",
             "state",
             "apna jila",
-            "Technology",
             "Crime",
             "Country",
             "Sports",
@@ -158,6 +157,7 @@ export const getHomeNews = tryCatch(async (req, res, next) => {
             "Cricket",
             "Bollywood",
             "Health",
+            "Technology",
         ]
 
         let promises = [];
