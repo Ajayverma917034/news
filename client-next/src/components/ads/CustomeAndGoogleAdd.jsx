@@ -33,6 +33,7 @@ const CustomeAndGoogleAdd = () => {
         style={{
           width: "330px",
           height: "330px",
+          padding: "0px",
         }}
       >
         {sideAds

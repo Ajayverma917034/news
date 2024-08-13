@@ -1,27 +1,14 @@
-"use client";
-import React, { useEffect } from "react";
+import React from "react";
+import GoogleAds from "./GoogleAds";
 
-const HorizontalAds = ({
-  dataAdFormat,
-  dataAdSlot,
-  dataFullWidthResponsive,
-}) => {
-  useEffect(() => {
-    try {
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (error) {
-      console.error(error.message);
-    }
-  }, []);
+const HorizontalAds = () => {
   return (
-    <ins
-      className="adsbygoogle"
-      style={{ display: "block" }}
-      data-ad-client="ca-pub-5839947415375117"
-      data-ad-slot={dataAdSlot}
-      data-ad-format={dataAdFormat}
-      data-full-width-responsive={dataFullWidthResponsive.toString()}
-    ></ins>
+    <GoogleAds
+      adClient="ca-pub-5839947415375117"
+      adSlot="8542991653"
+      style={{ display: "block", width: "100%", height: 90 }}
+      format="auto"
+    />
   );
 };
 
