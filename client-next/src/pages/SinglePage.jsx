@@ -121,7 +121,7 @@ const SinglePage = ({ news_id, ads }) => {
             {/* <HorizontalAdsGoogle /> */}
           </div>
           <div className="hidden max-sm:flex mt-3">
-            <CustomeAndGoogleAdd2 sideAds={ads.sideAds} />
+            <CustomeAndGoogleAdd2 sideAds={ads?.sideAds} />
           </div>
 
           <div className="flex mt-2 w-full">
@@ -132,7 +132,7 @@ const SinglePage = ({ news_id, ads }) => {
 
         <div className="flex flex-col gap-y-2 md:gap-y-10 md:col-span-2 md:mt-10">
           <div className="sticky top-36 max-md:hidden">
-            <CustomeAndGoogleAdd2 sideAds={ads.sideAds} />
+            <CustomeAndGoogleAdd2 sideAds={ads?.sideAds} />
           </div>
           {/* <SideNews title={"education"} /> */}
         </div>
