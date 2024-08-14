@@ -10,12 +10,12 @@ const MoreEventPageCard = ({ data }) => {
         href={`/event-news/${data?.news_id}`}
         className="gap-2 md:gap-4  flex flex-col p-1 shadow-card rounded-md"
       >
-        <div className="h-full max-h-[800px] w-full">
+        <div className="h-full max-h-[1500px] w-full">
           <Image
             src={data?.banner}
             alt="Image"
             width={1200}
-            height={800}
+            height={1200}
             sizes={{
               maxWidth: "100%",
               height: "auto",

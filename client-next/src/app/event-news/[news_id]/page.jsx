@@ -40,19 +40,19 @@ export async function generateMetadata({ params: { news_id } }) {
   const { news } = await fetchNews(news_id);
 
   let keywords =
-    "event news, special event news, event news by janpad news live, ";
+    "event news, special event news, independence day, independence news, independence day news, independence day news by janpad news live";
 
   return {
     title: news?.title,
     description: news?.description
       ? news?.description
-      : "event news by janpad news live",
+      : "Happy Independence Day - Janpad News Live",
     keywords: `${keywords}janpad news, janpad news live, latest news, today news`,
     openGraph: {
       type: "article",
       url: `https://janpadnewslive.com/event-news/${news_id}`,
       title: news?.title,
-      description: news?.description,
+      description: "Happy Independence Day - Janpad News Live",
       images: [{ url: news?.banner }],
     },
     metadataBase: new URL("https://janpadnewslive.com"),

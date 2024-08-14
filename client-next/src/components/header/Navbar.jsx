@@ -144,12 +144,14 @@ const Navbar = () => {
             </li> */}
 
             <div className="box">
-              <Link
-                href={navItems[1].link}
-                className=" font-medium text-2xl sm:-mb-1"
-              >
-                {navItems[1].hindiName}
-              </Link>
+              <li className="min-w-fit">
+                <Link
+                  href={navItems[1].link}
+                  className=" font-medium text-2xl sm:-mb-1 min-w-fit"
+                >
+                  {navItems[1].hindiName}
+                </Link>
+              </li>
             </div>
             {navItems.splice(2).map((item, index) => (
               <li

@@ -41,12 +41,12 @@ const EventPageContent = ({ item, ads }) => {
         <h1 className="font-semibold text-[20px] md:text-[25px]">
           {item?.title}
         </h1>
-        <div className="h-full max-h-[950px] w-full">
+        <div className="h-full max-h-[1500px] w-full">
           <Image
             src={item?.banner}
             alt="Image"
             width={1200}
-            height={850}
+            height={1200}
             loading="lazy"
             sizes={{
               maxWidth: "100%",
