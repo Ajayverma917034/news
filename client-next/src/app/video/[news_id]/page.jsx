@@ -4,8 +4,12 @@ import Image from "next/image.js";
 import { CiLocationOn } from "react-icons/ci";
 import { formatDate } from "@/lib/formatDate";
 import Heading from "@/lib/Heading";
-import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
+// import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 import FooterAds from "../../../../components/FooterAds";
+// import CustomeAndGoogleAdd2 from "@/components/ads/CustomeAndGoogleAdd2";
+// import CustomeAndGoogleAdd1 from "@/components/ads/CustomeAndGoogleAdd1";
+import DetailAds from "@/components/ads/DetailAds";
+import { HiOutlineExclamationCircle } from "react-icons/hi2";
 // import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 
 const fetchNews = async (news_id) => {
@@ -135,51 +139,74 @@ export default async function BlogPostPage({ params: { news_id } }) {
             </div>
           </article>
 
-          <div className="w-full mt-5">
-            <div className="flex max-lg:flex-col gap-2 w-full">
-              {relatedNews &&
-                relatedNews.length > 0 &&
-                relatedNews.map((item, index) => (
-                  <>
-                    <Heading title={"सम्बंधित खबर"} />
-                    <Link
-                      href={`/video/${item?.news_id}`}
-                      key={index}
-                      className="grid grid-cols-3 max-md:gap-x-1 lg:flex lg:flex-col lg:w-[200px] shadow-card p-1 rounded-md max-lg:gap-x-3"
-                    >
-                      <div className="max-lg:col-span-1  h-[70px] max-h-[103px] lg:h-[120px] max-lg:max-w-36 rounded-md">
-                        <Image
-                          src={`https://img.youtube.com/vi/${item?.videoLinkId}/mqdefault.jpg`}
-                          //   onError={handleImageError}
-                          alt="Relative-news-image"
-                          width={1200}
-                          height={800}
-                          sizes={{
-                            maxWidth: "100%",
-                            height: "auto",
-                          }}
-                          loading="lazy"
-                          className="w-full h-full object-cover hover:scale-95 rounded-md"
-                        />
-                      </div>
-                      <h3 className="col-span-2 mt-2 font-semibold line-clamp-2 text-xl md:hover:border-b hover:border-black">
-                        {item?.title}
-                      </h3>
-                    </Link>
-                  </>
-                ))}
+          <div className="w-full mt-5 mb-3">
+            {relatedNews && relatedNews.length > 0 ? (
+              <>
+                <Heading title={"सम्बंधित खबर"} />
+                <div className="flex max-lg:flex-col gap-2 w-full">
+                  {relatedNews &&
+                    relatedNews.length > 0 &&
+                    relatedNews.map((item, index) => (
+                      <>
+                        <Link
+                          href={`/video/${item?.news_id}`}
+                          key={index}
+                          className="grid grid-cols-3 max-md:gap-x-1 lg:flex lg:flex-col lg:w-[200px] shadow-card p-1 rounded-md max-lg:gap-x-3"
+                        >
+                          <div className="max-lg:col-span-1  h-[70px] max-h-[103px] lg:h-[120px] max-lg:max-w-36 rounded-md">
+                            <Image
+                              src={`https://img.youtube.com/vi/${item?.videoLinkId}/mqdefault.jpg`}
+                              //   onError={handleImageError}
+                              alt="Relative-news-image"
+                              width={1200}
+                              height={800}
+                              sizes={{
+                                maxWidth: "100%",
+                                height: "auto",
+                              }}
+                              loading="lazy"
+                              className="w-full h-full object-cover hover:scale-95 rounded-md"
+                            />
+                          </div>
+                          <h3 className="col-span-2 mt-2 font-semibold line-clamp-2 text-xl md:hover:border-b hover:border-black">
+                            {item?.title}
+                          </h3>
+                        </Link>
+                      </>
+                    ))}
+                </div>
+              </>
+            ) : (
+              <></>
+            )}
+          </div>
+          <div className="flex w-full">
+            <div className="bg-gray h-[200px] flex justify-center items-center w-full relative">
+              <DetailAds />
+              <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
+                <Link
+                  href={"/advertisement-us"}
+                  className="text-[#f9f9f9] text-[12px] "
+                >
+                  <HiOutlineExclamationCircle
+                    size={18}
+                    className="text-[#f9f9f9] font-sans"
+                  />
+                </Link>
+                <span className="text-[#f9f9f9] text-[12px]">Sponsored</span>
+              </div>
             </div>
           </div>
           <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center mt-2">
             <FooterAds />
           </div>
           <div className="hidden max-sm:flex mt-3">
-            <CustomeAndGoogleAdd />
+            {/* <CustomeAndGoogleAdd1 /> */}
           </div>
         </div>
         <div className="flex flex-col gap-y-2 md:gap-y-10 md:col-span-2 md:mt-10">
           <div className="sticky top-36 max-md:hidden">
-            <CustomeAndGoogleAdd />
+            {/* <CustomeAndGoogleAdd1 /> */}
           </div>
           {/* <SideNews title={"education"} /> */}
         </div>

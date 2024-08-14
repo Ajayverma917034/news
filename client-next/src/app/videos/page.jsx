@@ -12,6 +12,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { FaYoutube } from "react-icons/fa";
 import { HiOutlineExclamationCircle } from "react-icons/hi2";
+// import HorizontalAds from "../../../components/HorizontalAds";
 
 const MoreVideos = () => {
   const [data, setData] = useState([]);
@@ -106,7 +107,7 @@ const MoreVideos = () => {
                       >
                         <MoreNewsVideoCard data={item} />
                         {(index + 1) % 5 === 0 && (
-                          <div className="flex w-full">
+                          <div className="flex w-full flex-col">
                             <div className="bg-gray h-[200px] flex justify-center items-center w-full relative">
                               <DetailAds />
                               <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
@@ -124,6 +125,7 @@ const MoreVideos = () => {
                                 </span>
                               </div>
                             </div>
+                            {/* <HorizontalAds /> */}
                           </div>
                         )}
                       </div>
