@@ -292,39 +292,4 @@ export const fetchRelatedNews = tryCatch(async (req, res, next) => {
 });
 
 
-const updateYtLink = tryCatch(async (req, res, next) => {
-    try {
-        const allNews = await YtNews.find({}).exec();
-
-        for (let news of allNews) {
-            let newUrlTitle = "";
-            await translate(news.title, { from: 'hi', to: 'en' }).then(res => {
-                newUrlTitle = res;
-            }).catch(err => {
-                return res.status(500).json({ success: false, error: err.message });
-            });
-
-            let news_id = newUrlTitle
-                .trim()
-                .toLowerCase()
-                .replace(/[^a-z0-9]+/g, '-')
-                .replace(/-+/g, '-')
-                .replace(/^-|-$/g, ''); // Remove leading or trailing hyphens
-
-            news_id += '-' + getCurrentDate() + '-' + generateNanoId();
-
-            // Update the document with the new news_id
-            await YtNews.updateOne(
-                { _id: news._id },
-                { $set: { news_id: news_id } }
-            );
-        }
-        console.log('News updated successfully');
-
-    } catch (error) {
-        console.log('Error updating news:', error.message);
-    }
-});
-
-updateYtLink();
 
