@@ -29,7 +29,7 @@ const AdminEventNewsHandler = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [id, setId] = useState(null);
 
-  const itemsPerPage = 6;
+  const itemsPerPage = 100;
   const [news, setNews] = useState(null);
 
   const fetchNews = ({ page = 1 }) => {
