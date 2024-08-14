@@ -1,6 +1,7 @@
 import YtNews from "../model/yt-news.models.js";
 import tryCatch from "../utils/asyncFunction.js";
 import ErrorHandler from "../utils/errorHandler.js";
+import translate from "translate-google";
 
 function generateNanoId(length = 5) {
     let result = '';
@@ -34,47 +35,53 @@ export const createYtNews = tryCatch(async (req, res, next) => {
         if (!location || location.trim() === '') {
             return next(new ErrorHandler(400, 'You must provide a location for the news'))
         }
-        // if (!state || state.trim() === '') {
-        //     return next(new ErrorHandler(400, 'You must provide a state for the news'))
-        // }
-        // if (!district || district.trim() === '') {
-        //     return next(new ErrorHandler(400, 'You must provide a district for the news'))
-        // }
+
         if (!videoLinkId || videoLinkId.trim() === '') {
             return next(new ErrorHandler(400, 'You must provide a video link for the news'))
         }
     }
 
-    let news_id = id || title.trim().replace(/\s+/g, '-');
-
-    news_id += '-' + getCurrentDate() + '-' + generateNanoId();
-
     if (id) {
-        YtNews.findOneAndUpdate({ news_id }, { title, description, tags, location, state, district, videoLinkId, draft: draft ? draft : false }).then(news => {
+        YtNews.findOneAndUpdate({ news_id: id }, { title, description, tags, location, state, district, videoLinkId, draft: draft ? draft : false }).then(news => {
             return res.status(200).json({ id: news.news_id, message: 'update Successfully' })
         })
-            .catch(err => {
-                return next(new ErrorHandler(500, 'Internal server error'))
-            })
     }
     else {
-        let news = new YtNews({ title, news_id, description, tags, location, state, district, videoLinkId, draft: Boolean(draft), news_id })
-        news.save().then(news => {
 
-            // let incrementVal = draft ? 0 : 1;
-            // User.findOneAndUpdate({_id: authorId}, { $inc: { "activity.total_yt_news": incrementVal}, $push: {"yt_news": news._id}})
-            // .then(user => {
-            //     return res.status(200).json({ id: news.news_id, message: 'created Successfully' })
-            // })
-            // .catch(err => {
-            //     return next(new ErrorHandler(500, 'Failed to update total posts number'))
-            // })
+        let newUrlTitle = ""
+        await translate(title, { from: 'hi', to: 'en' }).then(res => {
+            newUrlTitle = res;
+        }).catch(err => {
+            return res.status(500).json({ success: false, error: err.message })
+        });
 
-            return res.status(200).json({ success: true, id: news.news_id, message: 'created Successfully' })
+        let news_id = id || newUrlTitle
+            .trim()
+            .toLocaleLowerCase()
+            .replace(/[^a-z0-9]+/g, '-')
+            .replace(/-+/g, '-')
+            .replace(/^-|-$/g, ''); // Remove leading or trailing hyphens
+
+        news_id += '-' + getCurrentDate() + '-' + generateNanoId();
+
+        let news = new YtNews({
+            title, description, tags, location, state, district, videoLinkId, draft: Boolean(draft), news_id,
         })
-            .catch(err => {
-                return next(new ErrorHandler(500, 'Internal server error'))
-            })
+
+        news.save().then(news => {
+            return res.status(200).json({ id: news.news_id })
+            // let incrementVal = draft ? 0 : 1;
+            // User.findOneAndUpdate({ _id: authorId }, {
+            //     $inc: { "account_info.total_news": incrementVal }, $push: { "news": news._id }
+            // }).then(user => {
+            //     return res.status(200).json({ id: news.news_id })
+            // }).catch(err => {
+            //     return next(new ErrorHandler(500, "Failed to update total posts number"))
+            // })
+        }).catch(err => {
+            return next(new ErrorHandler(500, err.message))
+
+        })
     }
 })
 
@@ -146,7 +153,7 @@ export const getYtNews = tryCatch(async (req, res, next) => {
                 .sort({ "createdAt": -1 })
                 .select('news_id title videoLinkId -_id')
                 .then(relatedNews => {
-                        return res.status(200).json({ news, relatedNews })
+                    return res.status(200).json({ news, relatedNews })
                 }).catch(err => {
                     return next(new ErrorHandler(500, err.message));
                 });
@@ -283,3 +290,41 @@ export const fetchRelatedNews = tryCatch(async (req, res, next) => {
         });
 
 });
+
+
+const updateYtLink = tryCatch(async (req, res, next) => {
+    try {
+        const allNews = await YtNews.find({}).exec();
+
+        for (let news of allNews) {
+            let newUrlTitle = "";
+            await translate(news.title, { from: 'hi', to: 'en' }).then(res => {
+                newUrlTitle = res;
+            }).catch(err => {
+                return res.status(500).json({ success: false, error: err.message });
+            });
+
+            let news_id = newUrlTitle
+                .trim()
+                .toLowerCase()
+                .replace(/[^a-z0-9]+/g, '-')
+                .replace(/-+/g, '-')
+                .replace(/^-|-$/g, ''); // Remove leading or trailing hyphens
+
+            news_id += '-' + getCurrentDate() + '-' + generateNanoId();
+
+            // Update the document with the new news_id
+            await YtNews.updateOne(
+                { _id: news._id },
+                { $set: { news_id: news_id } }
+            );
+        }
+        console.log('News updated successfully');
+
+    } catch (error) {
+        console.log('Error updating news:', error.message);
+    }
+});
+
+updateYtLink();
+
