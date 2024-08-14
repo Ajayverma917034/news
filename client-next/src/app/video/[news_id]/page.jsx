@@ -5,7 +5,7 @@ import { CiLocationOn } from "react-icons/ci";
 import { formatDate } from "@/lib/formatDate";
 import Heading from "@/lib/Heading";
 // import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
-import FooterAds from "../../../../components/FooterAds";
+// import FooterAds from "../../../../components/FooterAds";
 // import CustomeAndGoogleAdd2 from "@/components/ads/CustomeAndGoogleAdd2";
 // import CustomeAndGoogleAdd1 from "@/components/ads/CustomeAndGoogleAdd1";
 import DetailAds from "@/components/ads/DetailAds";
@@ -79,7 +79,6 @@ export default async function BlogPostPage({ params: { news_id } }) {
                 height="100%"
                 src={`https://www.youtube.com/embed/${news?.videoLinkId}`}
                 allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                allowfullscreen
                 title="YouTube video player"
               ></iframe>
             </div>
@@ -197,9 +196,9 @@ export default async function BlogPostPage({ params: { news_id } }) {
               </div>
             </div>
           </div>
-          <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center mt-2">
-            <FooterAds />
-          </div>
+          {/* <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center mt-2"> */}
+          {/* <FooterAds /> */}
+          {/* </div> */}
           <div className="hidden max-sm:flex mt-3">
             {/* <CustomeAndGoogleAdd1 /> */}
           </div>
