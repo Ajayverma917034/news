@@ -18,7 +18,12 @@ const BreakingNews = () => {
   }, []);
 
   return (
-    <div className="flex border-2 border-red border-r-0 bg-red items-center mt-0">
+    <div
+      className="flex border-2 border-red border-r-0 bg-red items-center mt-0"
+      style={{
+        backgroundImage: "linear-gradient(to right, #e85600, #FFFFFF, #138808)",
+      }}
+    >
       <div className="py-1 px-3 font-semibold text-white text-nowrap lg:text-3xl md:text-sm md:px-10 sm:text-xs min-w-fit">
         ब्रेकिंग न्यूज़
       </div>

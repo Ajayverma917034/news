@@ -19,7 +19,7 @@ const NewsSection = ({ data, title, adInd }) => {
               {data[0]?.news_id && (
                 <Link
                   href={`/news/${data[0]?.news_id}`}
-                  className="flex md:flex-row flex-col justify-between w-full shadow-card max-sm:mb-2 rounded-md -mt-1 md:-mt-3"
+                  className="flex md:flex-row flex-col justify-between w-full shadow-card max-sm:mb-2 rounded-md -mt-1 md:-mt-3 news_card"
                 >
                   <div className="md:w-[50%] w-full h-[200px] sm:h-[250px] p-1">
                     <Image

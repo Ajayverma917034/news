@@ -58,9 +58,9 @@ const ApnaZila = () => {
   return (
     <div className="flex max-sm:px-1 spacing mt-5 md:mt-8">
       <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full gap-x-5">
-        <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden w-full">
+        <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden w-full ">
           <Heading title={"अपना जिला"} />
-          <div className="p-3 mt-1 bg-[#1f2024]">
+          <div className="p-3 mt-1 bg-[#1f2024] news_card_1">
             <ApnaNavbar
               navItems={districts}
               currentIndex={currentDistrictIndex}

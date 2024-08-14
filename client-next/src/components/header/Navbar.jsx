@@ -9,6 +9,7 @@ import "./Navbar.css";
 import AllState from "./AllStates";
 import Search from "./Search";
 import logoimg from "../../assets/logoimg.png";
+import eventLogo from "../../assets/independence_day_logo.gif";
 import { useDispatch } from "react-redux";
 import {
   getAds,
@@ -95,7 +96,7 @@ const Navbar = () => {
       <div className={`navbar ${isScrolled ? "navbar-scrolled" : ""}`}>
         <div className="flex items-center justify-between px-[1rem] sm:px-[2rem] md:px-[3rem] lg:px-[5rem] max-md:pt-3">
           <Image
-            src={logoimg}
+            src={eventLogo}
             alt="logo"
             className="w-[50%] sm:w-[35%] md:w-[30%] lg:w-[20%]"
             priority={true}

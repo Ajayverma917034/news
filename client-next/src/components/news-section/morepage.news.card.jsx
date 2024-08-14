@@ -10,7 +10,7 @@ const MorePageCard = ({ data }) => {
     <>
       <Link
         href={`/news/${data?.news_id}`}
-        className="grid grid-cols-6 md:grid-cols-7 gap-2 md:gap-4 lg:h-[150px] p-1 shadow-card rounded-md"
+        className="grid grid-cols-6 md:grid-cols-7 gap-2 md:gap-4 lg:h-[150px] p-1 shadow-card rounded-md news_card"
       >
         <div className="col-span-2 md:col-span-2 h-[95px] sm:h-[140px] w-full">
           <Image

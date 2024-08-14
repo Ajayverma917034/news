@@ -54,7 +54,7 @@ const RajyaMain = () => {
         <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden w-full">
           <Heading title={"राज्य"} />
 
-          <div className="p-3 mt-1 bg-white border-2 border-[#36373a]">
+          <div className="p-3 mt-1 bg-white border-2 border-[#36373a] news_card">
             <ApnaNavbar
               navItems={states}
               currentIndex={currentStateIndex}

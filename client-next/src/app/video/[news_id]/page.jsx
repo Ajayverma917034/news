@@ -72,7 +72,7 @@ export default async function BlogPostPage({ params: { news_id } }) {
       <div className="grid max-sm:flex flex-col sm:grid-cols-6 sm:gap-6 w-full gap-x-2">
         <div className="col-span-6 md:col-span-4 w-full">
           <article className="">
-            <div className="center w-full py-2 max-lg:px-[0vw] h-[300px] md:h-[500px]">
+            <div className="center w-full py-2 max-lg:px-[0vw] h-[300px] md:h-[500px] news_card p-1">
               <iframe
                 style={{ overflow: "hidden", height: "100%", width: "100%" }}
                 width="100%"
@@ -83,7 +83,7 @@ export default async function BlogPostPage({ params: { news_id } }) {
               ></iframe>
             </div>
 
-            <div className="center w-full max-lg:px-[0vw]">
+            <div className="center w-full max-lg:px-[0vw] mt-1">
               <h2 className="text-4xl leading-normal font-bold max-md:text-3xl font-devNagri">
                 {news?.title}
               </h2>
