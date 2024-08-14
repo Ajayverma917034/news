@@ -19,7 +19,7 @@ const BreakingNews = () => {
 
   return (
     <div
-      className="flex border-2 border-red border-r-0 bg-red items-center mt-0"
+      className="flex border-2 border-[#138808] border-r-0 bg-red items-center mt-0"
       style={{
         backgroundImage: "linear-gradient(to right, #e85600, #FFFFFF, #138808)",
       }}

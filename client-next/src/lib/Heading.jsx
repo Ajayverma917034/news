@@ -12,14 +12,15 @@ const Heading = ({ title }) => {
           minWidth: "fit-content",
         }}
       >
-        {title}
+        {findHindi(title)}
       </p>
       <div
         className="flex w-full h-[2px] mb-2"
         style={{
-          background:
-            "linear-gradient(to right, #FF9933 35%, #FFFFFF 45%, #138808 55%)",
+          width: "100%",
+          background: "linear-gradient(to right, #FF9933, #FFFFFF, #138808)",
           marginLeft: "5px",
+          height: "3px",
         }}
       ></div>
     </div>

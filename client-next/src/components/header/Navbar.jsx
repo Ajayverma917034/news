@@ -94,7 +94,8 @@ const Navbar = () => {
   return (
     <>
       <div className={`navbar ${isScrolled ? "navbar-scrolled" : ""}`}>
-        <div className="flex items-center justify-between px-[1rem] sm:px-[2rem] md:px-[3rem] lg:px-[5rem] max-md:pt-3">
+        <div className="flex items-center justify-between px-[1rem] sm:px-[2rem] md:px-[3rem] lg:px-[5rem]">
+          {/* <div className="flex items-center justify-between px-[1rem] sm:px-[2rem] md:px-[3rem] lg:px-[5rem] max-md:pt-3"> */}
           <Image
             src={eventLogo}
             alt="logo"
