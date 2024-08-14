@@ -17,6 +17,7 @@ import cloudinary from "cloudinary";
 import adminRoutes from "./router/admin.routes.js";
 import BreakinNewsRouter from "./router/breakingNews.routes.js";
 import analyticsRouter from "./router/analytics.routes.js";
+import eventNewsRouter from "./router/event.news.routes.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -48,7 +49,7 @@ app.use(
       process.env.ADMIN_URL,
       process.env.FRONTEND_URL_PROD,
       process.env.FRONTEND_URL_PROD2,
-     
+      "https://dbna77cozgkszynkgimjj4jk2m.srv.us"
     ],
     credentials: true,
   })
@@ -59,6 +60,7 @@ const allowedOrigins = [
   process.env.ADMIN_URL,
   process.env.FRONTEND_URL_PROD,
   process.env.FRONTEND_URL_PROD2,
+  "https://dbna77cozgkszynkgimjj4jk2m.srv.us"
 ];
 
 console.log(allowedOrigins);
@@ -103,6 +105,7 @@ app.use("/api/v1", AdvertisementRoutes);
 app.use("/api/v1", adminRoutes);
 app.use("/api/v1", BreakinNewsRouter);
 app.use("/api/v1", analyticsRouter);
+app.use("/api/v1", eventNewsRouter);
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/dist/index.html"));

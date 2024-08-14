@@ -22,6 +22,9 @@ import User from "./pages/admin/Users";
 import BreakingNews from "./pages/admin/BreakingNews";
 import DraftNewsHandler from "./pages/DraftNewsHandler";
 import TotalViewsAnalytics from "./pages/admin/TotalViewsAnalytics";
+import CreateEventNews from "./pages/CreateEventNews";
+import AdminEventNewsHandler from "./pages/AdminEventNewsHandler";
+import EventNewsHandler from "./pages/EventNewsHandler";
 
 export const UserContext = createContext({});
 
@@ -76,6 +79,15 @@ const App = () => {
               element={<ProtectedRoute component={BreakingNews} />}
             />
             <Route
+              path="event-news"
+              element={<ProtectedRoute component={CreateEventNews} />}
+            />
+            <Route
+              path="event-news/:news_id"
+              element={<ProtectedRoute component={CreateEventNews} />}
+            />
+
+            <Route
               path="all-videos-data"
               element={
                 <ProtectedRoute isAdmin={true} component={VideoHandler} />
@@ -85,6 +97,19 @@ const App = () => {
               path="all-admin-news-data"
               element={
                 <ProtectedRoute isAdmin={true} component={AdminNewsHandler} />
+              }
+            />
+            <Route
+              path="all-event-news"
+              element={<ProtectedRoute component={EventNewsHandler} />}
+            />
+            <Route
+              path="all-admin-event-news"
+              element={
+                <ProtectedRoute
+                  isAdmin={true}
+                  component={AdminEventNewsHandler}
+                />
               }
             />
             <Route

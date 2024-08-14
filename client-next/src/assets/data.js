@@ -156,6 +156,8 @@ const engToHindi = {
     // "rajya": ""
     "videos": "वीडियो",
     'read also': 'ये भी पढ़ें',
+
+    'independence day': 'स्वतंत्रता दिवस',
 };
 
 

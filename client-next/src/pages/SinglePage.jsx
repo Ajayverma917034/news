@@ -1,11 +1,13 @@
 "use client";
 import RandomNewsScroll from "@/app/news/[news_id]/RandomNewsScroll";
 import CustomeAndGoogleAdd2 from "@/components/ads/CustomeAndGoogleAdd2";
+import EventPageContent from "@/components/single-page/EventPageContent";
 import PageContent2 from "@/components/single-page/PageContent2";
 import Heading from "@/lib/Heading";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
+import RandomNewsPage from "./RandomNewsPage";
 export const newsStructure = {
   title: "",
   des: "",
@@ -19,6 +21,7 @@ export const newsStructure = {
 const SinglePage = ({ news_id, ads }) => {
   const [news, setNews] = useState(newsStructure);
   const [relatedNews, setRelatedNews] = useState([]);
+  const [randomEventNews, setRandomEventNews] = useState(null);
 
   const fetchNews = async () => {
     let incrementVal = 0;
@@ -63,11 +66,55 @@ const SinglePage = ({ news_id, ads }) => {
       console.error(err);
     }
   };
+  const fetchRandomEventNews = async () => {
+    let incrementVal = 0;
+
+    // Parse session storage or initialize an empty array if it doesn't exist
+    let viewedNews = JSON.parse(sessionStorage.getItem("viewedNews") || "[]");
+
+    // // Check if the news_id is not already viewed
+    if (!viewedNews.includes(news_id)) {
+      viewedNews.push(news_id); // Add the news_id to the array
+      sessionStorage.setItem("viewedNews", JSON.stringify(viewedNews)); // Store the updated array
+      incrementVal = 1;
+    } else {
+      incrementVal = 0;
+    }
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/get-random-event-news`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          cache: "no-cache",
+
+          body: JSON.stringify({
+            incrementVal,
+            mode: "read",
+            draft: false,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+
+        console.log(data?.news);
+        setRandomEventNews(data?.news);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   // Fetch news data when the component mounts
   useEffect(() => {
     if (news_id && news_id !== "[object Object]") {
       fetchNews();
+      fetchRandomEventNews();
     }
   }, []);
 
@@ -117,6 +164,9 @@ const SinglePage = ({ news_id, ads }) => {
             <></>
           )}
 
+          <div className="w-full max-md:mt-2 flex items-center justify-center mt-2">
+            <RandomNewsPage news={randomEventNews} ads={ads} />
+          </div>
           <div className="w-full max-md:mt-2 flex items-center justify-center mt-2">
             {/* <HorizontalAdsGoogle /> */}
           </div>

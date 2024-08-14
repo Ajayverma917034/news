@@ -89,9 +89,9 @@ const CustomeAndGoogleAdd2 = ({ sideAds }) => {
           <span className="text-[#f9f9f9] text-[12px]">Sponsored</span>
         </div>
       </Swiper>
-      <div className="w-[330px] h-[330px] ml-auto mr-auto">
-        {/* <SquareAds /> */}
-      </div>
+      {/* <div className="w-[330px] h-[330px] ml-auto mr-auto"> */}
+      {/* <SquareAds /> */}
+      {/* </div> */}
     </div>
   );
 };

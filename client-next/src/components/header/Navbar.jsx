@@ -37,16 +37,27 @@ const Navbar = () => {
   }, []);
   const navItems = [
     { name: "Home", hindiName: "होम", link: "/" },
-    { name: "Videos", hindiName: "वीडियो", link: "/videos" },
-    { name: "State", hindiName: "राज्य", link: "/state" },
-    { name: "Crime", hindiName: "क्राइम", link: "/crime" },
-    { name: "Country", hindiName: "देश", link: "/country" },
-    { name: "Sports", hindiName: "खेल कूद", link: "/sports" },
+    {
+      name: "independence day",
+      hindiName: "स्वतंत्रता दिवस",
+      link: "/independence-day",
+      event: true,
+    },
+    { name: "Videos", hindiName: "वीडियो", event: false, link: "/videos" },
+    { name: "State", hindiName: "राज्य", event: false, link: "/state" },
+    { name: "Crime", hindiName: "क्राइम", event: false, link: "/crime" },
+    { name: "Country", hindiName: "देश", event: false, link: "/country" },
+    { name: "Sports", hindiName: "खेल कूद", event: false, link: "/sports" },
     { name: "Entertainment", hindiName: "मनोरंजन", link: "/entertainment" },
-    { name: "Astrology", hindiName: "राशिफल", link: "/astrology" },
-    { name: "Career", hindiName: "करियर", link: "/career" },
-    { name: "Religion", hindiName: "धर्म", link: "/religion" },
-    { name: "World", hindiName: "विदेश", link: "/world" },
+    {
+      name: "Astrology",
+      hindiName: "राशिफल",
+      event: false,
+      link: "/astrology",
+    },
+    { name: "Career", hindiName: "करियर", event: false, link: "/career" },
+    { name: "Religion", hindiName: "धर्म", event: false, link: "/religion" },
+    { name: "World", hindiName: "विदेश", event: false, link: "/world" },
   ];
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -114,12 +125,38 @@ const Navbar = () => {
         </div>
         <div className="bg-blue pt-3 pb-2 max-md:mt-1">
           <ul className="flex gap-x-10 text-white px-5 md:px-20 overflow-x-auto overflow-y-hidden no-scrollbar justify-evenly items-center">
-            {navItems.map((item, index) => (
+            <li
+              className={`text-2xl min-w-fit nav-item ${
+                pathname === navItems[0].link ? "active" : ""
+              } ${navItems[0].event ? "event-menu" : ""}`}
+            >
+              <Link href="/">{navItems[0].hindiName}</Link>
+            </li>
+
+            {/* <li
+              className={`text-2xl min-w-fit nav-item relative ${
+                pathname === navItems[1].link ? "active" : ""
+              }`}
+            >
+              <Link href={navItems[1].link} className="event-menu">
+                {navItems[1].hindiName}
+              </Link>
+            </li> */}
+
+            <div className="box">
+              <Link
+                href={navItems[1].link}
+                className=" font-medium text-2xl sm:-mb-1"
+              >
+                {navItems[1].hindiName}
+              </Link>
+            </div>
+            {navItems.splice(2).map((item, index) => (
               <li
                 key={index}
                 className={`text-2xl min-w-fit nav-item ${
                   pathname === item.link ? "active" : ""
-                }`}
+                } ${item.event ? "event-menu" : ""}`}
               >
                 <Link href={item.link}>{item.hindiName}</Link>
               </li>

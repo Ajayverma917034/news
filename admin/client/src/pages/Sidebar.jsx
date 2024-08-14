@@ -12,6 +12,7 @@ import { PiNewspaper } from "react-icons/pi";
 import { RiDraftLine } from "react-icons/ri";
 import { MdAutoGraph } from "react-icons/md";
 import { GiNewspaper } from "react-icons/gi";
+import { BsCalendar2Event } from "react-icons/bs";
 
 const SideBar = () => {
   let page = location.pathname.split("/")[2];
@@ -167,6 +168,16 @@ const SideBar = () => {
                 <span>Breaking News</span>
               </NavLink>
             )}
+
+            <NavLink
+              className="flex items-center gap-2 text-gray hover:bg-blue mt-1 hover:text-white p-2 rounded w-full sidebar-link"
+              to="/dashboard/event-news"
+              onClick={() => setShowSideNav(false)}
+            >
+              <BsCalendar2Event size={25} />
+              <span>Event News</span>
+            </NavLink>
+
             <hr className="text-gray w-full mt-1" />
 
             {user?.role === "reporter" && (
@@ -187,6 +198,26 @@ const SideBar = () => {
               >
                 <GiNewspaper size={25} />
                 <span>All News</span>
+              </NavLink>
+            )}
+            {user?.role === "reporter" && (
+              <NavLink
+                className="flex items-center gap-2 text-gray hover:bg-blue mt-1 hover:text-white p-2 rounded w-full sidebar-link"
+                to="/dashboard/all-event-news"
+                onClick={() => setShowSideNav(false)}
+              >
+                <GiNewspaper size={25} />
+                <span>All Event News</span>
+              </NavLink>
+            )}
+            {user?.role === "admin" && (
+              <NavLink
+                className="flex items-center gap-2 text-gray hover:bg-blue mt-1 hover:text-white p-2 rounded w-full sidebar-link"
+                to="/dashboard/all-admin-event-news"
+                onClick={() => setShowSideNav(false)}
+              >
+                <GiNewspaper size={25} />
+                <span>All Event News</span>
               </NavLink>
             )}
             <NavLink

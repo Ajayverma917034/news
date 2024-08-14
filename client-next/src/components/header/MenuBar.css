@@ -100,3 +100,108 @@
 .submenu-open {
     display: block;
 }
+
+
+.event-main {
+    position: relative;
+}
+
+.event-menu {
+    padding: 10px;
+    background: #000;
+    text-align: center;
+    border-radius: 10px;
+    color: #fff;
+    position: absolute;
+    z-index: 2;
+    top: 50%;
+    left: 49.9%;
+    translate: -50% -50%;
+}
+
+@property --angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+
+.event-main::after, .event-main::before {
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    top: 50%;
+    left: 49.9%;
+    background-image: conic-gradient(from var(--angle), transparent 70%, orange, white, green);
+    translate: -50% -50%;
+    z-index: 100;
+    padding: 3px;
+    border-radius: 10px;
+    animation: 3s spin linear infinite;
+}
+
+.event-main::before {
+    filter: blur(1.5rem);
+    opacity: 0.5;
+    /* use to control glow effect */
+}
+
+@keyframes spin {
+    from {
+        --angle: 0deg;
+    }
+
+    to {
+        --angle: 360deg;
+    }
+
+}
+
+
+
+.box {
+    /* width: ; */
+    /* height: 50vmin; */
+    min-width: fit-content;
+    display: grid;
+    place-content: center;
+    color: white;
+    text-shadow: 0 1px 0 #000;
+    padding: 5px 10px;
+    --border-angle: 0turn;
+    --main-bg: conic-gradient(from var(--border-angle),
+            #000068,
+            #000068 5%,
+            #000068 60%,
+            #000068 95%);
+
+    border: solid 3px transparent;
+    border-radius: 10px;
+    --gradient-border: conic-gradient(from var(--border-angle), transparent 50%, green, white, orange 99%, transparent);
+
+    background:
+        var(--main-bg) padding-box,
+        var(--gradient-border) border-box,
+        var(--main-bg) border-box;
+
+    background-position: center center;
+
+    animation: bg-spin 3s linear infinite;
+}
+
+@keyframes bg-spin {
+    to {
+        --border-angle: 1turn;
+    }
+}
+
+.box:hover {
+    animation-play-state: paused;
+}
+
+@property --border-angle {
+    syntax: "<angle>";
+    inherits: true;
+    initial-value: 0turn;
+}
