@@ -30,7 +30,7 @@ export async function fetchAds() {
     `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/get-advertisement`,
     {
       next: {
-        revalidate: 300,
+        revalidate: 30,
       },
     }
   );
