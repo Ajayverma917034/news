@@ -4,6 +4,8 @@ import NewsSection from "@/components/news-section/news.section.component";
 import NewsVideo from "@/components/news-video/news.video.section.component";
 import RajyaMain from "@/components/RajyaMain";
 import SideNews from "@/components/side-news/SideNews";
+import Image from "next/image";
+import wish_independence_day from '../assets/wish_independence_day.png'
 
 export default async function Page() {
     const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/news/home`, {
@@ -66,6 +68,23 @@ export default async function Page() {
                             <NewsSection adInd={1} data={news.data[0].data} title={news?.data[0]?.title} />
 
                         }
+                        <div className=" flex items-center justify-center">
+
+                            <div className="max-sm:h-[320px] max-sm:w-[320px] w-[420px] h-[420px]">
+
+                                <Image
+                                    src={wish_independence_day}
+                                    width={320}
+                                    height={320}
+                                    alt="Independence Day"
+                                    sizes={{
+                                        maxWidth: "100%",
+                                        height: "auto",
+                                    }}
+                                />
+                            </div>
+                        </div>
+
                         {
                             Ytnews &&
                             <NewsVideo data={Ytnews} title={'Top Videos'} />

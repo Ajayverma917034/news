@@ -21,7 +21,7 @@ export async function generateMetadata({ params }) {
     )} समाचार, समाचार, ${findHindi(title)} न्यूज़ आज, जनपद न्यूज़`,
     openGraph: {
       type: "article",
-      url: "https://notemyword.online",
+      url: "https://janpadnewslive.com",
       title: "Janpad News Live ",
       description:
         "`Latest News (लेटेस्ट खबरें), Breaking News (ब्रेकिंग न्यूज़), ${title} News (${findHindi(title)} समाचार), ${title} (${findHindi(title)} प्रदेश), District News (राज्य समाचार)`",

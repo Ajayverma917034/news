@@ -334,3 +334,42 @@
 .news_card_2:hover {
     animation-play-state: paused;
 }
+
+
+.news_card_3 {
+    /* min-width: fit-content; */
+    /* display: grid; */
+    /* place-content: center; */
+    /* color: white; */
+    /* text-shadow: 0 1px 0 #000; */
+    /* padding: 5px 10px; */
+    --border-angle: 0turn;
+    --main-bg: conic-gradient(from var(--border-angle),
+            transparent,
+            transparent 5%,
+            transparent 60%,
+            transpa 95%);
+
+    border: solid 3px transparent;
+    border-radius: 10px;
+    --gradient-border: conic-gradient(from var(--border-angle), #ffffff 10%, green, white, orange 99%, transparent);
+
+    background:
+        var(--main-bg) padding-box,
+        var(--gradient-border) border-box,
+        var(--main-bg) border-box;
+
+    background-position: center center;
+
+    animation: bg-spin 5s linear infinite;
+}
+
+@keyframes bg-spin {
+    to {
+        --border-angle: 1turn;
+    }
+}
+
+.news_card_3:hover {
+    animation-play-state: paused;
+}

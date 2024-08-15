@@ -17,10 +17,10 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
   },
-  metadataBase: new URL("https://notemyword.online"),
+  metadataBase: new URL("https://janpadnewslive.com"),
   openGraph: {
     type: "article",
-    url: "https://notemyword.online",
+    url: "https://janpadnewslive.com",
     title: "Uttar Pradesh News - Janpad News Live",
     description:
       "Latest News (लेटेस्ट खबरें), Breaking News (ब्रेकिंग न्यूज़), UP News (यूपी समाचार), Uttar Pradesh (उत्तर प्रदेश), State News (राज्य समाचार)",
@@ -34,7 +34,7 @@ export const metadata = {
     ],
   },
   alternates: {
-    canonical: "https://notemyword.online",
+    canonical: "https://janpadnewslive.com",
   },
 };
 

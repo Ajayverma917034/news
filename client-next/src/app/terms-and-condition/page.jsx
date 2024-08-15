@@ -7,10 +7,10 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
   },
-  metadataBase: new URL("https://notemyword.online"),
+  metadataBase: new URL("https://janpadnewslive.com"),
   openGraph: {
     type: "article",
-    url: "https://notemyword.online",
+    url: "https://janpadnewslive.com",
     title: "Terms And Condition",
     description: "",
     images: [
@@ -23,7 +23,7 @@ export const metadata = {
     ],
   },
   alternates: {
-    canonical: "https://notemyword.online",
+    canonical: "https://janpadnewslive.com",
   },
 };
 const page = () => {

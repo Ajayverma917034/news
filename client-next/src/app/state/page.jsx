@@ -14,10 +14,10 @@ export const metadata = {
   twitter: {
     card: "summary_large_image",
   },
-  metadataBase: new URL("https://notemyword.online"),
+  metadataBase: new URL("https://janpadnewslive.com"),
   openGraph: {
     type: "article",
-    url: "https://notemyword.online",
+    url: "https://janpadnewslive.com",
     title: "Janpad News Live",
     description:
       "Latest News (लेटेस्ट खबरें), Breaking News (ब्रेकिंग न्यूज़), State News (राज्य समाचार), World (विश्व), Sports (खेल), Business, Entertainment (मनोरंजन), State News (राज्य समाचार)",
@@ -31,7 +31,7 @@ export const metadata = {
     ],
   },
   alternates: {
-    canonical: "https://notemyword.online",
+    canonical: "https://janpadnewslive.com",
   },
 };
 const StateNewsUnknown = async () => {

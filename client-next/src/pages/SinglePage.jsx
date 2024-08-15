@@ -102,7 +102,6 @@ const SinglePage = ({ news_id, ads }) => {
       if (response.ok) {
         const data = await response.json();
 
-        console.log(data?.news);
         setRandomEventNews(data?.news);
       }
     } catch (err) {

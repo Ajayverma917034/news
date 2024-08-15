@@ -27,7 +27,12 @@ const fetchNews = async (news_id) => {
 
 export async function fetchAds() {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/get-advertisement`
+    `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/get-advertisement`,
+    {
+      next: {
+        revalidate: 300,
+      },
+    }
   );
   if (response.ok) {
     return await response.json();

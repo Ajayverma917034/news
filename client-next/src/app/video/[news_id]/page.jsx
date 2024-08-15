@@ -50,14 +50,14 @@ export async function generateMetadata({ params: { news_id } }) {
     keywords: `${keywords}janpad news, janpad news live, latest news, today news`,
     openGraph: {
       type: "article",
-      url: `https://notemyword.online/video/${news_id}`,
+      url: `https://janpadnewslive.com/video/${news_id}`,
       title: news?.title,
       description: news?.description,
       images: [{ url: thumbnail }],
     },
-    metadataBase: new URL("https://notemyword.online"),
+    metadataBase: new URL("https://janpadnewslive.com"),
     alternates: {
-      canonical: `https://notemyword.online/video/${news_id}`,
+      canonical: `https://janpadnewslive.com/video/${news_id}`,
     },
   };
 }
