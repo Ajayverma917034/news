@@ -2,13 +2,13 @@
 import React, { useEffect } from "react";
 
 const GoogleAds = ({ adClient, adSlot, style, format }) => {
-  try {
-    useEffect(() => {
+  useEffect(() => {
+    try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
-    }, []);
-  } catch (error) {
-    console.log(error.message);
-  }
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, []);
 
   return (
     <div className="adsense-ad" style={style}>

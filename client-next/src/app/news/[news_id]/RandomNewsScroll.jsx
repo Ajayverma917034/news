@@ -8,6 +8,7 @@ import CustomeAndGoogleAdd1 from "@/components/ads/CustomeAndGoogleAdd1";
 const RandomNewsScroll = ({ initialNewsId }) => {
   const [randomNews, setRandomNews] = useState([]);
   const [hasMore, setHasMore] = useState(true);
+  const [isBottom, setIsBottom] = useState(false);
   const [page, setPage] = useState(1);
 
   const fetchRandomNews = async () => {
@@ -24,6 +25,7 @@ const RandomNewsScroll = ({ initialNewsId }) => {
       );
       const { news } = await response.json();
       setRandomNews((prevNews) => [...prevNews, news]);
+      setIsBottom(false);
       if (news) {
         setHasMore(true);
       }
@@ -36,21 +38,68 @@ const RandomNewsScroll = ({ initialNewsId }) => {
     fetchRandomNews();
   }, [page]);
 
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     console.log("scrolling");
+  //     if (
+  //       window.innerHeight + window.scrollY >=
+  //       document.body.offsetHeight - 8000
+  //     ) {
+  //       if (hasMore) {
+  //         setPage((prevPage) => prevPage + 1);
+  //       }
+  //     }
+  //   };
+
+  //   window.addEventListener("scroll", handleScroll);
+  //   return () => window.removeEventListener("scroll", handleScroll);
+  // }, [hasMore, fetchRandomNews]);
+
   useEffect(() => {
-    const handleScroll = () => {
-      if (
-        window.innerHeight + window.scrollY >=
-        document.body.offsetHeight - 500
+    let isFetching = false;
+
+    const getScrollOffset = () => {
+      if (window.matchMedia("(max-width: 767px)").matches) {
+        // Mobile screens
+        return 3000;
+      } else if (
+        window.matchMedia("(min-width: 768px) and (max-width: 1024px)").matches
       ) {
-        if (hasMore) {
-          setPage((prevPage) => prevPage + 1);
-        }
+        // Tablet screens
+        return 1500;
+      } else {
+        // Desktop screens
+        return 1500;
+      }
+    };
+
+    const handleScroll = () => {
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+
+      const scrollOffset = getScrollOffset();
+
+      if (
+        scrollTop >= documentHeight - windowHeight - scrollOffset &&
+        !isBottom &&
+        !isFetching
+      ) {
+        setIsBottom(true);
+        isFetching = true;
+        fetchRandomNews().finally(() => {
+          isFetching = false;
+        });
       }
     };
 
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [hasMore, fetchRandomNews]);
+
+    // Cleanup event listener on component unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [isBottom]);
 
   return (
     <div className="w-full">

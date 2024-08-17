@@ -1,3 +1,4 @@
+import EventNews from "../model/event.news.model.js";
 import News from "../model/news.models.js"
 import MonthNewsCount from "../model/news.read.model.js";
 import monthNewsCount from "../model/news.read.model.js";
@@ -73,6 +74,9 @@ const formateEmptyArray = (year, month) => {
 
     return data
 }
+
+
+
 export const getNewsMonthlyClickAnalytics = tryCatch(async (req, res, next) => {
     try {
         let { year, month } = req.body;
@@ -203,26 +207,10 @@ export const getNewsViewCountToday = tryCatch(async (req, res, next) => {
 
 // for news reads
 
-cron.schedule('1 0 * * *', async () => {
+cron.schedule('0 2 * * *', async () => {
 
-    // export const store = async () => {
     const yesterday = new Date();
     yesterday.setDate(yesterday.getDate() - 1);
-
-    // const specificDate = '2024-01-01'; // YYYY-MM-DD format
-    // const previousDate = getPreviousDate(specificDate);
-    // console.log(previousDate)
-    // console.log(yesterday)
-    // yesterday.setDate(yesterday.getDate() - 1);
-    // const startOfDay = new Date(yesterday);
-
-    // startOfDay.setHours(0, s0, 0, 0);
-    // console.log(startOfDay)
-
-    // const month = startOfDay.getMonth() + 1; // Months are 0-indexed
-    // const year = startOfDay.getFullYear();
-    // const date = startOfDay.getDate();
-
     const month = yesterday.getMonth() + 1;
     const year = yesterday.getFullYear();
     const date = yesterday.getDate();
@@ -237,7 +225,29 @@ cron.schedule('1 0 * * *', async () => {
             }
         ]);
 
-        const count = totalTodayCount[0]?.total || 0;
+        const totalTodayEventNewsCount = await EventNews.aggregate([
+            {
+                $group: {
+                    _id: null,
+                    total: { $sum: "$activity.total_today_count" }
+                }
+            }
+        ])
+
+        const totalTodayYtCount = await YtNews.aggregate([
+            {
+                $group: {
+                    _id: null,
+                    total: { $sum: "$activity.total_today_count" }
+                }
+            }
+        ])
+
+        const newsCount = totalTodayCount[0]?.total || 0;
+        const eventNewsCount = totalTodayEventNewsCount[0]?.total || 0;
+        const ytCount = totalTodayYtCount[0]?.total || 0;
+
+        const count = newsCount + eventNewsCount + ytCount;
 
         let monthData = await monthNewsCount.findOne({ month, year });
 
@@ -249,11 +259,15 @@ cron.schedule('1 0 * * *', async () => {
         await monthData.save();
 
         await News.updateMany({}, { $set: { "activity.total_today_count": 0 } });
+        await EventNews.updateMany({}, { $set: { "activity.total_today_count": 0 } });
+        await YtNews.updateMany({}, { $set: { "activity.total_today_count": 0 } });
 
         // console.log(`Stored count ${count} for date ${startOfDay.toISOString().substring(0, 10)}`);
     } catch (err) {
         console.error(err);
     }
+}, {
+    timezone: "Asia/Kolkata" // Set the timezone to IST
 });
 
 

@@ -27,7 +27,7 @@ const categories = [
 const EventNewsHandler = () => {
   const navigate = useNavigate();
 
-  const itemsPerPage = 6;
+  const itemsPerPage = 1;
   const [news, setNews] = useState(null);
 
   const fetchNews = ({ page = 1 }) => {

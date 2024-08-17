@@ -34,6 +34,9 @@ module.exports = {
         'white': 'white',
         'transparent': 'transparent',
       },
+      screens: {
+        'xxs': '330px'
+      }
     },
   },
   plugins: [],

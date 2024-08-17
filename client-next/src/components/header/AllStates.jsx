@@ -98,7 +98,7 @@ const AllState = ({ isMenuOpen, setIsMenuOpen }) => {
               key={index}
               className="capitalize w-full"
               onClick={() => {
-                router.push(`state/${district.state}/${district.english}`);
+                router.push(`/state/${district.state}/${district.english}`);
                 setIsMenuOpen(false);
               }}
             >

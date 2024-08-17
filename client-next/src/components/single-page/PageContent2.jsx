@@ -97,9 +97,14 @@ const PageContent2 = ({ item, ads }) => {
             </button>
           </div>
         </div>
-        <div className="py-2 my-2 border-[3px] border-green-600 rounded-md flex justify-center items-center font-semibold text-green-700 w-full hover:text-white hover:bg-green-700 cursor-pointer transition-all delay-75">
+        <a
+          href="https://www.whatsapp.com/channel/0029VaCW5oSI1rcoWIaACL1j"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="py-2 my-2 border-[3px] border-green-600 rounded-md flex justify-center items-center font-semibold text-green-700 w-full hover:text-white hover:bg-green-700 cursor-pointer transition-all delay-75"
+        >
           Whatsapp चैनल फॉलो करे !
-        </div>
+        </a>
         <div className="py-4 w-full">
           <div className="bg-gray h-[200px] flex justify-center items-center w-full relative">
             <DetailAds ads={ads} />

@@ -18,6 +18,7 @@ import adminRoutes from "./router/admin.routes.js";
 import BreakinNewsRouter from "./router/breakingNews.routes.js";
 import analyticsRouter from "./router/analytics.routes.js";
 import eventNewsRouter from "./router/event.news.routes.js";
+import TitleAdvertisementRoutes from "./router/advertisement.title.routes.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -106,6 +107,7 @@ app.use("/api/v1", adminRoutes);
 app.use("/api/v1", BreakinNewsRouter);
 app.use("/api/v1", analyticsRouter);
 app.use("/api/v1", eventNewsRouter);
+app.use("/api/v1", TitleAdvertisementRoutes);
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/dist/index.html"));

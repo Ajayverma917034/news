@@ -25,6 +25,7 @@ import TotalViewsAnalytics from "./pages/admin/TotalViewsAnalytics";
 import CreateEventNews from "./pages/CreateEventNews";
 import AdminEventNewsHandler from "./pages/AdminEventNewsHandler";
 import EventNewsHandler from "./pages/EventNewsHandler";
+import TitleAdvertisementNews from "./pages/admin/TitleAdvertisementNews";
 
 export const UserContext = createContext({});
 
@@ -76,7 +77,11 @@ const App = () => {
             />
             <Route
               path="breaking-news"
-              element={<ProtectedRoute component={BreakingNews} />}
+              element={<ProtectedRoute component={BreakingNews} isAdmin={true} />}
+            />
+            <Route
+              path="advertisement-news"
+              element={<ProtectedRoute component={TitleAdvertisementNews} isAdmin={true}/>}
             />
             <Route
               path="event-news"

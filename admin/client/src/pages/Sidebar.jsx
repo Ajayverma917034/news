@@ -173,10 +173,20 @@ const SideBar = () => {
               className="flex items-center gap-2 text-gray hover:bg-blue mt-1 hover:text-white p-2 rounded w-full sidebar-link"
               to="/dashboard/event-news"
               onClick={() => setShowSideNav(false)}
-            >
+              >
               <BsCalendar2Event size={25} />
               <span>Event News</span>
             </NavLink>
+              {user?.role === "admin" && (
+                <NavLink
+                  className="flex items-center gap-2 text-gray hover:bg-blue mt-1 hover:text-white p-2 rounded w-full sidebar-link"
+                  to="/dashboard/advertisement-news"
+                  onClick={() => setShowSideNav(false)}
+                >
+                  <PiNewspaper size={25} />
+                  <span>Advertisement News</span>
+                </NavLink>
+              )}
 
             <hr className="text-gray w-full mt-1" />
 

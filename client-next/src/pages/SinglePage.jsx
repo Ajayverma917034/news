@@ -26,10 +26,8 @@ const SinglePage = ({ news_id, ads }) => {
   const fetchNews = async () => {
     let incrementVal = 0;
 
-    // Parse session storage or initialize an empty array if it doesn't exist
     let viewedNews = JSON.parse(sessionStorage.getItem("viewedNews") || "[]");
 
-    // // Check if the news_id is not already viewed
     if (!viewedNews.includes(news_id)) {
       viewedNews.push(news_id); // Add the news_id to the array
       sessionStorage.setItem("viewedNews", JSON.stringify(viewedNews)); // Store the updated array

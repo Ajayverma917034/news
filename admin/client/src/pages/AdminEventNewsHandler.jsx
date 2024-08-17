@@ -29,7 +29,7 @@ const AdminEventNewsHandler = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [id, setId] = useState(null);
 
-  const itemsPerPage = 100;
+  const itemsPerPage = 10;
   const [news, setNews] = useState(null);
 
   const fetchNews = ({ page = 1 }) => {
@@ -186,17 +186,19 @@ const AdminEventNewsHandler = () => {
         >
           Prev
         </button>
+
         <span className="font-semibold">
-          Page {news?.page} of {Math.floor(news?.totalDocs / itemsPerPage)}
+          Page {news?.page} of {Math.ceil(news?.totalDocs / itemsPerPage)}
         </span>
+
         <button
           onClick={() => fetchNews({ page: news?.page + 1 })}
           className={`${
-            news?.page === Math.floor(news?.totalDocs / itemsPerPage)
+            news?.page === Math.ceil(news?.totalDocs / itemsPerPage)
               ? "bg-gray pointer-events-none cursor-not-allowed"
               : "bg-blue"
           } text-white px-4 py-2 rounded`}
-          disabled={news?.page === Math.floor(news?.totalDocs / itemsPerPage)}
+          disabled={news?.page === Math.ceil(news?.totalDocs / itemsPerPage)}
         >
           Next
         </button>

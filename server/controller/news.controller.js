@@ -629,6 +629,60 @@ export const searchNews = tryCatch(async (req, res, next) => {
     return res.status(200).json({ success: true, news })
 })
 
+// export const fetchRandomNews = tryCatch(async (req, res, next) => {
+//     try {
+//         const { news_id } = req.body;
+
+//         // Use aggregation to find the latest 50 news articles, excluding the one with the provided news_id, and then randomly select one
+//         const news = await News.aggregate([
+//             { $match: { news_id: { $ne: news_id } } }, // Exclude the specified news_id
+//             { $sort: { createdAt: -1 } }, // Sort by createdAt in descending order (latest first)
+//             { $limit: 50 }, // Limit to the latest 50 news articles
+//             { $sample: { size: 1 } }, // Randomly sample 1 news article from the 50
+//             {
+//                 $project: {
+//                     news_id: 1,
+//                     title: 1,
+//                     description: 1,
+//                     content: 1,
+//                     tags: 1,
+//                     state: 1,
+//                     district: 1,
+//                     banner: 1,
+//                     location: 1,
+//                     "activity.total_reads": 1,
+//                     news_section_type: 1,
+//                     createdAt: 1
+//                 }
+//             }
+//         ]);
+
+//         // If no news is found, return a null response
+//         if (!news || news.length === 0) {
+//             return res.status(404).json({ success: false, message: "No news available" });
+//         }
+
+//         const randomNews = news[0];
+
+//         // Optionally, you can also update the total reads count for the selected news here if needed
+//         await News.findOneAndUpdate(
+//             { news_id: randomNews.news_id },
+//             { $inc: { "activity.total_reads": 1, "activity.total_today_count": 1 } }
+//         );
+
+//         // Return the randomly selected news
+//         return res.status(200).json({ success: true, news: randomNews });
+
+//     } catch (err) {
+//         return next(new ErrorHandler(500, err.message));
+//     }
+// });
+
+
+
+
+
+
 export const fetchRandomNews = tryCatch(async (req, res, next) => {
     const { news_id } = req.body;
     const news = await News.find({ news_id: { $ne: news_id } }, { createdAt: -1 }).limit(50).sort({ createdAt: -1 }).select('news_id title description content tags state district banner location activity.total_reads news_section_type tags createdAt -_id').exec();
@@ -636,8 +690,14 @@ export const fetchRandomNews = tryCatch(async (req, res, next) => {
     const randomIndex = Math.floor(Math.random() * news.length);
     const randomNews = news[randomIndex];
 
+    // Update the total reads count for the selected news
+    await News.findOneAndUpdate(
+        { news_id: randomNews.news_id },
+        { $inc: { "activity.total_reads": 1, "activity.total_today_count": 1 } }
+    );
+
     res.status(200).json({ success: true, news: randomNews });
 
-    // get 1 random news 
+    // get 1 random news
 
 })
