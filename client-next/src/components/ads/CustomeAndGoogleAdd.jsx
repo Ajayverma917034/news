@@ -47,7 +47,7 @@ const CustomeAndGoogleAdd = () => {
                       <Image
                         src={ad.banner.url}
                         alt="sliderimg"
-                        className="w-full h-full object-contain rounded-md"
+                        className="w-full h-full object-fill rounded-md"
                         width={1200}
                         height={400}
                         sizes={{
