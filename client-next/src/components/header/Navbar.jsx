@@ -9,7 +9,7 @@ import "./Navbar.css";
 import AllState from "./AllStates";
 import Search from "./Search";
 import logoimg from "../../assets/logoimg.png";
-import eventLogo from "../../assets/independence_day_logo.gif";
+import eventLogo from "../../assets/rakshabandhan_logo.gif";
 import { useDispatch } from "react-redux";
 import {
   getAds,
