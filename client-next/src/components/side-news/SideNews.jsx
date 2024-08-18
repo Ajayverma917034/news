@@ -19,6 +19,7 @@ const SideNews = ({ title = "", limit = "5" }) => {
         body: JSON.stringify({
           limit: limit,
           news_section_type: [title],
+          draft: false,
         }),
       }
     );

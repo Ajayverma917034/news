@@ -31,6 +31,7 @@ const RajyaMain = () => {
         },
         body: JSON.stringify({
           state: currentStateIndex === 0 ? "rajya" : states[currentStateIndex],
+          draft: false,
         }),
       }
     );

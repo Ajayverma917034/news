@@ -167,6 +167,7 @@ export const getHomeNews = tryCatch(async (req, res, next) => {
             let query = {};
 
             query.news_section_type = { $in: entity.toLocaleLowerCase() };
+            query.draft = false;
 
             const news = await News.find(query).limit(5).sort({ createdAt: -1 }).select('news_id title location createdAt banner -_id').exec();
 
@@ -189,7 +190,7 @@ export const getHomeNews = tryCatch(async (req, res, next) => {
 
 
 export const getNewses = tryCatch((req, res, next) => {
-    let { page, limit, state, district, location, tags, breaking_news, draft, news_section_type } = req.body;
+    let { page, limit, state, district, location, tags, breaking_news, draft = false, news_section_type } = req.body;
     let query = {};
 
 

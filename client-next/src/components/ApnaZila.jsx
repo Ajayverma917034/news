@@ -39,6 +39,7 @@ const ApnaZila = () => {
             currentDistrictIndex === 0
               ? "apna zila"
               : districts[currentDistrictIndex],
+          draft: false,
         }),
       }
     );
