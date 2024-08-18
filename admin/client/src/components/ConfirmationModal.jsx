@@ -5,7 +5,7 @@ const ConfirmationModal = ({
   onClose,
   onConfirm = null,
   title = "Are you sure you want to delete this item? This action cannot be undone.",
-  bg = "red",
+  bg = "bg-red",
   button = "Delete",
 }) => {
   const modalRef = useRef(null);
