@@ -29,7 +29,6 @@ export const createNews = tryCatch(async (req, res, next) => {
         let { id, title, description, content, state, district, location, news_section_type, banner, tags, draft } = req.body;
 
 
-
         if (!title?.length) {
             return res.status(403).json({ error: `You must provide a title to ${draft === true ? "Publish" : "Save"} a news` })
         }
@@ -101,6 +100,7 @@ export const createNews = tryCatch(async (req, res, next) => {
 
                 newUrlTitle = res;
             }).catch(err => {
+                console.log(err)
                 return res.status(500).json({ success: false, error: err.message })
             });
 
@@ -125,14 +125,17 @@ export const createNews = tryCatch(async (req, res, next) => {
                 }).then(user => {
                     return res.status(200).json({ id: news.news_id })
                 }).catch(err => {
+                    console.log(err)
                     return next(new ErrorHandler(500, "Failed to update total posts number"))
                 })
             }).catch(err => {
+                console.log(err)
                 return next(new ErrorHandler(500, err.message))
 
             })
         }
     } catch (error) {
+        console.log(error)
         return next(new ErrorHandler(500, error.message))
     }
 })

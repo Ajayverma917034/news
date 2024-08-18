@@ -50,7 +50,6 @@ app.use(
       process.env.ADMIN_URL,
       process.env.FRONTEND_URL_PROD,
       process.env.FRONTEND_URL_PROD2,
-      "https://dbna77cozgkszynkgimjj4jk2m.srv.us"
     ],
     credentials: true,
   })
@@ -61,7 +60,6 @@ const allowedOrigins = [
   process.env.ADMIN_URL,
   process.env.FRONTEND_URL_PROD,
   process.env.FRONTEND_URL_PROD2,
-  "https://dbna77cozgkszynkgimjj4jk2m.srv.us"
 ];
 
 console.log(allowedOrigins);
