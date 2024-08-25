@@ -102,8 +102,8 @@ const NewsSection = ({ data, title, adInd }) => {
                   })}
               </div>
               <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-0 flex justify-center bg-[#eaeaea] mb-1">
-                <div>
-                  <p className=" uppercase mb-1">Advertisement</p>
+                <div className="w-full flex flex-col justify-center">
+                  <p className=" uppercase mb-1 text-center">Advertisement</p>
                   <HorizontalAds
                     adClient="ca-pub-5839947415375117"
                     adSlot={horizontalAdSlotId[adInd].adSlotId}

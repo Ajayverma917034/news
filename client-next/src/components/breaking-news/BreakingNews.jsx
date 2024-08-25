@@ -19,7 +19,7 @@ const BreakingNews = () => {
 
   return (
     <div
-      className="flex bg-[#ff3130] border-[#138808] border-r-0 items-center mt-0"
+      className="flex bg-[#ff3130] border-1 border-[#ff3130] border-r-0 items-center mt-0"
       style={{
         borderImage: ``,
         borderStyle: `solid`,
