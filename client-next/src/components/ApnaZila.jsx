@@ -46,7 +46,7 @@ const ApnaZila = () => {
 
     if (!response.ok) {
       setData(null);
-      console.log(response);
+      // console.log(response);
       throw new Error("Failed to fetch data");
     }
     const data = await response.json();

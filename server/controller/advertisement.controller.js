@@ -100,7 +100,7 @@ export const getSideAdvertisement = tryCatch(async (req, res, next) => {
     try {
         const { type, index } = req.query;
         const docCount = await Advertisement.countDocuments({ type });
-        console.log(docCount)
+        // console.log(docCount)
 
         const data = await Advertisement.find({ type }).select('banner.url link -_id').exec();
         if (index >= docCount) {

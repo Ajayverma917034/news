@@ -193,7 +193,7 @@ export const resetPassword = tryCatch(async (req, res, next) => {
     const incomingOtp = otp.toString();
 
     // Compare the incoming OTP with the stored OTP
-    console.log(incomingOtp, Gotp);
+    // console.log(incomingOtp, Gotp);
     if (incomingOtp !== Gotp) {
         return res.status(400).json({ success: false, message: "Invalid OTP" });
     }
@@ -202,7 +202,7 @@ export const resetPassword = tryCatch(async (req, res, next) => {
     const hashPassword = await bcrypt.hash(password, 10);
 
     // Find the user and update the password
-    console.log(username)
+    // console.log(username)
     User.findOneAndUpdate({ username }, { password: hashPassword }, { new: true })
         .then(user => {
             if (!user) {

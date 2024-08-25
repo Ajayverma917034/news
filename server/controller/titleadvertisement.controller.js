@@ -153,7 +153,7 @@ export const updateExpiredAdvertisement = tryCatch(async (req, res, next) => {
     // Save the updated document
     const updatedAd = await ad.save();
 
-    console.log(updatedAd);
+    // console.log(updatedAd);
 
     res.json({
         message: "Advertisement updated successfully",

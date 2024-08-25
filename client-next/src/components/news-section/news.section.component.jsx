@@ -9,7 +9,6 @@ import HorizontalAds from "../../../components/HorizontalAds";
 import { horizontalAdSlotId } from "@/assets/google-ads-data";
 
 const NewsSection = ({ data, title, adInd }) => {
-  console.log(adInd);
   return (
     <>
       {data ? (

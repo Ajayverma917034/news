@@ -57,7 +57,7 @@ const AdminEventNewsHandler = () => {
     try {
       if (!id) return;
       let loadingToast = toast.loading("Deleting...");
-      console.log(id);
+      // console.log(id);
       const { data } = await httpClient.delete(
         `/admin/delete-event-news/${id}`
       );
