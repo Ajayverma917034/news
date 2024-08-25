@@ -69,6 +69,9 @@ export default async function Page() {
                             <NewsSection adInd={1} data={news.data[0].data} title={news?.data[0]?.title} />
 
                         }
+
+
+
                         {/* <div className=" flex items-center justify-center">
 
                             <div className="max-sm:h-[320px] max-sm:w-[320px] w-[420px] h-[420px]">

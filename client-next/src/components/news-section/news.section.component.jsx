@@ -5,8 +5,6 @@ import { CollectionNewsSkeleton } from "@/skeleton/HomeSkeleton";
 import { formatDate } from "@/lib/formatDate";
 import Image from "next/image";
 import Heading from "@/lib/Heading";
-import HorizontalAds from "../../../components/HorizontalAds";
-import { horizontalAdSlotId } from "@/assets/google-ads-data";
 
 const NewsSection = ({ data, title, adInd }) => {
   return (
@@ -101,7 +99,7 @@ const NewsSection = ({ data, title, adInd }) => {
                     );
                   })}
               </div>
-              <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-0 flex justify-center bg-[#eaeaea] mb-1">
+              {/* <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-0 flex justify-center bg-[#eaeaea] mb-1">
                 <div className="w-full flex flex-col justify-center">
                   <p className=" uppercase mb-1 text-center">Advertisement</p>
                   <HorizontalAds
@@ -111,7 +109,7 @@ const NewsSection = ({ data, title, adInd }) => {
                     format="auto"
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
           )}
         </>

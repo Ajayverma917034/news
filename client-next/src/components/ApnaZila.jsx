@@ -57,7 +57,7 @@ const ApnaZila = () => {
   }, [currentDistrictIndex]);
 
   return (
-    <div className="flex max-sm:px-1 spacing mt-5 md:mt-8">
+    <div className="flex flex-col max-sm:px-1 spacing mt-5 md:mt-8">
       <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full gap-x-5">
         <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden w-full ">
           <Heading title={"अपना जिला"} />
