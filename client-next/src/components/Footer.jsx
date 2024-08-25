@@ -6,12 +6,12 @@ import { ImFacebook2 } from "react-icons/im";
 import { FaSquareXTwitter, FaSquareInstagram } from "react-icons/fa6";
 import Link from "next/link";
 import Image from "next/image";
-import FooterAds from "../../components/FooterAds";
+// import FooterAds from "../../components/FooterAds";
 
 const Footer = () => {
   return (
     <>
-      <FooterAds />
+      {/* <FooterAds /> */}
       <div className="bg-black text-white opacity-90 pt-10">
         <div className="px-6 sm:px-12 xl:px-16">
           <div className="grid justify-center grid-rows-2 md:grid-rows-1 grid-cols-1  md:grid-cols-12 lg:grid-cols-11 gap-8 border-b-2 pb-8 w-full">

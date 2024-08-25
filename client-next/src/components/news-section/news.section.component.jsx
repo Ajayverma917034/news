@@ -9,6 +9,7 @@ import HorizontalAds from "../../../components/HorizontalAds";
 import { horizontalAdSlotId } from "@/assets/google-ads-data";
 
 const NewsSection = ({ data, title, adInd }) => {
+  console.log(adInd);
   return (
     <>
       {data ? (
@@ -19,7 +20,8 @@ const NewsSection = ({ data, title, adInd }) => {
               {data[0]?.news_id && (
                 <Link
                   href={`/news/${data[0]?.news_id}`}
-                  className="flex md:flex-row flex-col justify-between w-full shadow-card max-sm:mb-2 rounded-md -mt-1 md:-mt-3 news_card"
+                  className="flex md:flex-row flex-col justify-between w-full shadow-card max-sm:mb-2 rounded-md -mt-1 md:-mt-3
+                  "
                 >
                   <div className="md:w-[50%] w-full h-[200px] sm:h-[250px] p-1">
                     <Image
@@ -100,13 +102,16 @@ const NewsSection = ({ data, title, adInd }) => {
                     );
                   })}
               </div>
-              <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center">
-                <HorizontalAds
-                  adClient="ca-pub-5839947415375117"
-                  adSlot="8542991653"
-                  style={{ display: "block", width: "100%", height: 90 }}
-                  format="auto"
-                />
+              <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-0 flex justify-center bg-[#eaeaea] mb-1">
+                <div>
+                  <p className=" uppercase mb-1">Advertisement</p>
+                  <HorizontalAds
+                    adClient="ca-pub-5839947415375117"
+                    adSlot={horizontalAdSlotId[adInd].adSlotId}
+                    style={{ display: "block", width: "100%", height: "100%" }}
+                    format="auto"
+                  />
+                </div>
               </div>
             </div>
           )}

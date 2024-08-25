@@ -18,7 +18,7 @@ const NewsVideo = ({ data, title }) => {
             {/* Main Section  */}
             <Link
               href={`/video/${data[0]?.news_id}`}
-              className="flex md:flex-row flex-col justify-between w-full shadow-card max-sm:mb-2 rounded-md p-1 news_card"
+              className="flex md:flex-row flex-col justify-between w-full shadow-card max-sm:mb-2 rounded-md p-1"
             >
               <div className="md:w-[50%] w-full h-auto max-h-[16rem] rounded-md relative">
                 <Image

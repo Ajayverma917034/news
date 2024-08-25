@@ -6,6 +6,7 @@ import RajyaMain from "@/components/RajyaMain";
 import SideNews from "@/components/side-news/SideNews";
 import Image from "next/image";
 import wish_independence_day from '../assets/wish_independence_day.png'
+import HorizontalAds from "../../components/HorizontalAds";
 
 export default async function Page() {
     const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/news/home`, {
@@ -68,7 +69,7 @@ export default async function Page() {
                             <NewsSection adInd={1} data={news.data[0].data} title={news?.data[0]?.title} />
 
                         }
-                        <div className=" flex items-center justify-center">
+                        {/* <div className=" flex items-center justify-center">
 
                             <div className="max-sm:h-[320px] max-sm:w-[320px] w-[420px] h-[420px]">
 
@@ -83,8 +84,7 @@ export default async function Page() {
                                     }}
                                 />
                             </div>
-                        </div>
-
+                        </div> */}
                         {
                             Ytnews &&
                             <NewsVideo data={Ytnews} title={'Top Videos'} />
@@ -124,7 +124,7 @@ export default async function Page() {
                     <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full">
                         <div className="flex flex-col flex-wrap  md:col-span-4 overflow-hidden">
                             {news.data.slice(4).map((news, index) => (
-                                <NewsSection dInd={3 + index} key={index} data={news.data} title={news.title} />
+                                <NewsSection adInd={4 + index} key={index} data={news.data} title={news.title} />
                             ))}
                         </div>
                         <div className="col-span-2 w-full">
