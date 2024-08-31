@@ -685,4 +685,4 @@ const convertStateAndDistrictToArray = async () => {
     }
 };
 
-convertStateAndDistrictToArray();
+// convertStateAndDistrictToArray();
