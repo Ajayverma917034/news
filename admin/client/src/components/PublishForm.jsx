@@ -457,12 +457,12 @@ const PublishForm = () => {
                 Publish
               </button>
             )}
-            <button
+            {/* <button
               onClick={() => setPopUpOpen(true)}
               className="btn-dark px-8 my-4"
             >
               Schedule Post
-            </button>
+            </button> */}
           </div>
         </div>
         <SchedulePopUp
