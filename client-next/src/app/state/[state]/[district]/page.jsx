@@ -1,6 +1,7 @@
 import React from "react";
 import Client from "./Client";
 import { findHindi } from "@/assets/data";
+// import DistrictNews from "@/pages/DistrictNews";
 
 export async function generateMetadata({ params }) {
   // read route params

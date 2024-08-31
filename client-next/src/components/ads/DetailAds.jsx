@@ -12,10 +12,14 @@ import { AdvertisementSkelton1 } from "../../skeleton/Advertisement.skeltons";
 import { useSelector } from "react-redux";
 import Image from "next/image";
 import banner from "../../assets/errorimg1.png";
+import { useContext } from "react";
+import { CustomeAdsContext } from "@/lib/CustomeAdsContext";
 
 export default function DetailAds() {
   // Always call useSelector at the top level
-  const { error, loading, detailAds } = useSelector((state) => state.ads);
+  // const { error, loading, detailAds } = useSelector((state) => state.ads);
+  const { ads } = useContext(CustomeAdsContext);
+  const detailAds = ads.detailAds;
 
   return (
     <Swiper

@@ -87,6 +87,35 @@ export const CollectionNewsSkeleton = () => {
   );
 };
 
+export const MorePageSkeleton = () => {
+  return (
+    <>
+      <div className="w-full px-2">
+        <div className="h-[25px] bg-[#dddbdd] animate-pulse my-5"></div>
+        <div className="flex flex-col justify-between w-full ">
+          <div className="w-full !bg-[#dddbdd] animate-pulse h-[180px] md:h-[400px]"></div>
+        </div>
+        <div className="flex w-full flex-col flex-wrap gap-y-2 md:gap-y-6 md:py-6 p-1 mt-1">
+          {[1, 1, 1, 1].map((card, index) => (
+            <div
+              key={index}
+              className="grid grid-cols-6 md:grid-cols-7 gap-2 md:gap-4 lg:h-[150px] p-1 shadow-card rounded-md "
+            >
+              <div className="col-span-2 md:col-span-2 h-[95px] sm:h-[140px] w-full bg-[#dddbdd] animate-pulse">
+                {/* <div className="h-[90px] w-full bg-[#dddbdd] animate-pulse col-span-1 rounded-lg"></div> */}
+              </div>
+              <div className="flex flex-col col-span-4  md:col-span-5 ml-2 gap-1">
+                <div className="h-[25px] bg-[#dddbdd] animate-pulse my-2"></div>
+                <div className="h-[25px] bg-[#dddbdd] animate-pulse my-3"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </>
+  );
+};
+
 export const VideoCardSkeleton = () => {
   return (
     <>
@@ -116,7 +145,7 @@ export const YtCollectionSkeleton = () => {
         {
           <div className="flex gap-5 flex-col md:flex-row justify-between">
             {[1, 1, 1].map((item, index) => (
-              <VideoCardSkeleton key={index}/>
+              <VideoCardSkeleton key={index} />
             ))}
           </div>
         }

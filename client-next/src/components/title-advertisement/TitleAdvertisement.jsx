@@ -19,14 +19,14 @@ const TitleAdvertisement = () => {
   }, []);
   return breakingNews && breakingNews.length ? (
     <div
-      className="flex border-2 border-[#138808] border-r-0 items-center mt-2"
+      className="flex bg-[#ff3130] border border-[#ff3130] border-r-0 items-center mt-0"
       style={{
-        borderImage: `linear-gradient(to right, #e85600 0%, #fff 50%, #138808 100%) 1`,
+        borderImage: ``,
         borderStyle: `solid`,
-        backgroundImage: "linear-gradient(to right, #e85600, #FFFFFF, #138808)",
+        backgroundImage: "",
       }}
     >
-      <div className="py-1 px-3 font-semibold text-white text-nowrap lg:text-3xl md:text-sm md:px-10 sm:text-xs min-w-fit">
+      <div className="py-1 pt-2 px-3 font-semibold text-white text-nowrap lg:text-3xl md:text-sm md:px-10 sm:text-xs min-w-fit">
         विज्ञापन{" "}
       </div>
       <marquee className=" rounded-l-full bg-white w-full py-1.5 px-4 font-lg lg:text-sm sm:text-xs">

@@ -24,9 +24,9 @@ const ApnaNews = ({ data, navItems, currentIndex, hint }) => {
           href={`/news/${data[0]?.news_id}`}
           className="flex md:flex-row flex-col justify-between w-full shadow-card max-sm:mb-2 rounded-md"
         >
-          <div className="md:w-[50%] w-full h-auto max-h-[16rem] p-1">
+          <div className="md:w-[50%] w-full h-auto min-h-[10rem] max-h-[16rem] p-1">
             <Image
-              className="max-h-[16rem] rounded-md"
+              className="max-h-[12rem] xs:max-h-[16rem] min-h-[10rem] xs:min-h-[15rem] rounded-md object-cover"
               src={data[0]?.banner}
               width={1200}
               height={400}

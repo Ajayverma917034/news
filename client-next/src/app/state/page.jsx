@@ -36,7 +36,12 @@ export const metadata = {
 };
 const StateNewsUnknown = async () => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/fetch-all-state-news`
+    `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/fetch-all-state-news`,
+    {
+      next: {
+        revalidate: 10,
+      },
+    }
   );
 
   const { data: news } = await response.json();
@@ -68,9 +73,14 @@ const StateNewsUnknown = async () => {
           </div>
 
           {/* Right advertisement section */}
-          <div className="flex flex-col md:gap-y-10 gap-y-2 md:col-span-2 ">
-            {/* <CustomeAndGoogleAdd /> */}
-            {/* <SideNews title="read also" /> */}
+          <div className="col-span-2 w-full">
+            {news ? (
+              <div className="sticky top-44 max-md:hidden">
+                <CustomeAndGoogleAdd />
+              </div>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
 
@@ -87,8 +97,10 @@ const StateNewsUnknown = async () => {
               ))}
             </div>
 
-            <div className="flex flex-col md:gap-y-10 gap-y-2  md:col-span-2 mt-10">
-              {/* <CustomeAndGoogleAdd /> */}
+            <div className="col-span-2 w-full">
+              <div className="sticky top-44 max-md:hidden">
+                <CustomeAndGoogleAdd />
+              </div>
             </div>
           </div>
         )}
@@ -104,6 +116,11 @@ const StateNewsUnknown = async () => {
                   adInd={4 + index}
                 />
               ))}
+            </div>
+            <div className="col-span-2 w-full">
+              <div className="sticky top-44 max-md:hidden">
+                <CustomeAndGoogleAdd />
+              </div>
             </div>
           </div>
         )}

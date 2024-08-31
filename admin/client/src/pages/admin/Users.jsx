@@ -98,7 +98,7 @@ const UserList = () => {
       <div className="flex-1 p-2 sm:p-6 bg-gray-100">
         <div className="table-container bg-white shadow-md rounded-lg overflow-x-auto">
           <table className="table-auto w-full">
-            <thead>
+            <thead className="bg-red text-white">
               <tr>
                 <th className="px-4 py-2">Email</th>
                 <th className="px-4 py-2">Name</th>

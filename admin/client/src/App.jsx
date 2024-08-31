@@ -26,6 +26,7 @@ import CreateEventNews from "./pages/CreateEventNews";
 import AdminEventNewsHandler from "./pages/AdminEventNewsHandler";
 import EventNewsHandler from "./pages/EventNewsHandler";
 import TitleAdvertisementNews from "./pages/admin/TitleAdvertisementNews";
+import ScheduleNews from "./pages/admin/ScheduleNews";
 
 export const UserContext = createContext({});
 
@@ -76,12 +77,23 @@ const App = () => {
               element={<ProtectedRoute component={DraftNewsHandler} />}
             />
             <Route
+              path="schedule-news"
+              element={<ProtectedRoute component={ScheduleNews} />}
+            />
+            <Route
               path="breaking-news"
-              element={<ProtectedRoute component={BreakingNews} isAdmin={true} />}
+              element={
+                <ProtectedRoute component={BreakingNews} isAdmin={true} />
+              }
             />
             <Route
               path="advertisement-news"
-              element={<ProtectedRoute component={TitleAdvertisementNews} isAdmin={true}/>}
+              element={
+                <ProtectedRoute
+                  component={TitleAdvertisementNews}
+                  isAdmin={true}
+                />
+              }
             />
             <Route
               path="event-news"

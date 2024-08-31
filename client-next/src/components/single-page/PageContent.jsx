@@ -38,12 +38,12 @@ const PageContent = ({ item }) => {
 
   return (
     item && (
-      <div className="py-4 flex flex-col flex-wrap w-full max-sm:px-1">
+      <div className="py-4 flex flex-col flex-wrap w-full max-sm:px-2">
         <h1 className="font-semibold text-[20px] md:text-[25px]">
           {item.title}
         </h1>
         <p className="date-lg text-wrap">{item.description}</p>
-        <div className="w-full h-[240px] sm:h-[350px] mt-3 news_card p-1 bg-white">
+        <div className="w-full h-[240px] sm:h-[350px] mt-3 p-1 bg-white">
           <Image
             src={item.banner}
             width={1200}

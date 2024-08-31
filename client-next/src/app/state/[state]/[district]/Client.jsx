@@ -1,48 +1,58 @@
 "use client";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { HiOutlineExclamationCircle } from "react-icons/hi2";
 import Link from "next/link";
 import axios from "axios";
-import useInfiniteScroll from "@/lib/useInfiniteScroll";
-import { findHindi } from "@/assets/data";
-import Heading from "@/lib/Heading";
 import Image from "next/image";
 import MorePageCard from "@/components/news-section/morepage.news.card";
-import { CollectionNewsSkeleton } from "@/skeleton/HomeSkeleton";
+import {
+  CollectionNewsSkeleton,
+  MorePageSkeleton,
+} from "@/skeleton/HomeSkeleton";
+import { handleImageError } from "@/lib/errorImg";
 import DetailAds from "@/components/ads/DetailAds";
-// import SideNews from "@/components/side-news/SideNews";
+import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
+import CustomePagination from "@/lib/CustomePagination";
+import Heading from "@/lib/Heading";
+import { findHindi } from "@/assets/data";
+import {
+  SquareAds1,
+  SquareAds2,
+  SquareAds3,
+  SquareAds4,
+  SquareAds5,
+  SquareAds6,
+  SquareAds7,
+  SquareAds8,
+  SquareAds9,
+  SquareAds10,
+} from "../../../../../components/SquareAds";
 
 const Client = ({ params }) => {
   const [data, setData] = useState(null);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
+  const [totalNews, setTotalNews] = useState(50);
   const [isLoading, setIsLoading] = useState(false);
+  const [page, setPage] = useState(1);
   let { state, district } = params;
   state = state.split("%20").join(" ");
   district = district.split("%20").join(" ");
+  const pageSize = 10;
+
+  let prod = process.env.NEXT_NODE_ENV === "production";
 
   const fetchNews = async (page) => {
     try {
       setIsLoading(true);
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/get-news-query`,
-        { limit: 10, district: district, page }
+        {
+          limit: pageSize, // Adjust the limit based on the number of items per page
+          district: district,
+          page,
+        }
       );
       const newData = response.data;
-
-      // Avoid appending if data is already loaded
-      if (newData.length > 0) {
-        setData((prevData) => {
-          const ids = prevData.map((item) => item.news_id);
-          const filteredData = newData.filter(
-            (item) => !ids.includes(item.news_id)
-          );
-          return [...prevData, ...filteredData];
-        });
-        setHasMore(newData.length > 0);
-      } else {
-        setHasMore(false);
-      }
+      setData(newData);
     } catch (err) {
       console.log(err);
     } finally {
@@ -50,27 +60,44 @@ const Client = ({ params }) => {
     }
   };
 
-  useEffect(() => {
-    setData([]);
-    setPage(1);
-    fetchNews(1);
-  }, [state]);
+  const fetchNewsDocCount = async () => {
+    try {
+      const { data } = await axios.post(
+        `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/get-news-query-docCount`,
+        {
+          district: district,
+        }
+      );
+      setTotalNews(data.DocCount);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  const handlePageChange = (newPage) => {
+    fetchNews(newPage);
+  };
 
-  const loadMore = () => {
-    setPage((prevPage) => prevPage + 1);
+  const getRandomSquareAd = () => {
+    const ads = [
+      SquareAds1,
+      SquareAds2,
+      SquareAds3,
+      SquareAds4,
+      SquareAds5,
+      SquareAds6,
+      SquareAds7,
+      SquareAds8,
+      SquareAds9,
+      SquareAds10,
+    ];
+    return ads[Math.floor(Math.random() * ads.length)];
   };
 
   useEffect(() => {
-    if (page > 1) {
-      fetchNews(page);
-    }
-  }, [page]);
-
-  const [lastElementRef] = useInfiniteScroll(loadMore, hasMore && !isLoading);
+    fetchNews(page);
+    fetchNewsDocCount();
+  }, [page, district]);
 
   return (
     <div className="flex spacing mt-2 sm:mt-8">
@@ -82,7 +109,7 @@ const Client = ({ params }) => {
                 <Heading title={findHindi(district)} />
                 {data.length > 0 && (
                   <Link href={`/news/${data[0]?.news_id}`}>
-                    <div className="h-[180px] md:h-[400px] w-full mt-2 relative p-1">
+                    <div className="h-[180px] md:h-[400px] w-full mt-0 relative p-1">
                       <Image
                         src={data[0]?.banner}
                         alt="News Image"
@@ -92,8 +119,8 @@ const Client = ({ params }) => {
                           maxWidth: "100%",
                           height: "auto",
                         }}
-                        // onError={handleImageError}
-                        className="z-0 h-full w-full  object-cover rounded-md"
+                        onError={handleImageError}
+                        className="z-0 h-full w-full object-cover rounded-md"
                       />
                       <div className="absolute top-0 left-0 right-0 bottom-0 bg-black opacity-5"></div>
                       <div className="absolute bottom-0 text-center w-full">
@@ -111,45 +138,66 @@ const Client = ({ params }) => {
                       className="flex w-full flex-col gap-y-1 md:gap-y-6"
                     >
                       <MorePageCard data={item} />
-                      {(index + 1) % 5 === 0 && (
-                        <div className="flex w-full">
-                          <div className="bg-gray h-[200px] flex justify-center items-center w-full relative">
-                            <DetailAds />
-                            <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
-                              <Link
-                                href={"/advertisement-us"}
-                                className="text-[#f9f9f9] text-[12px] "
-                              >
-                                <HiOutlineExclamationCircle
-                                  size={18}
-                                  className="text-[#f9f9f9] font-sans"
-                                />
-                              </Link>
-                              <span className="text-[#f9f9f9] text-[12px]">
-                                Sponsored
-                              </span>
+                      {(index + 1) % 3 === 0 && (
+                        <>
+                          <div className="flex w-full">
+                            <div className="bg-gray h-[200px] flex justify-center items-center w-full relative">
+                              <DetailAds />
+                              <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
+                                <Link
+                                  href={"/advertisement-us"}
+                                  className="text-[#f9f9f9] text-[12px] "
+                                >
+                                  <HiOutlineExclamationCircle
+                                    size={18}
+                                    className="text-[#f9f9f9] font-sans"
+                                  />
+                                </Link>
+                                <span className="text-[#f9f9f9] text-[12px]">
+                                  Sponsored
+                                </span>
+                              </div>
                             </div>
                           </div>
-                        </div>
+                          <div className="flex gap-y-4 gap-x-5 justify-center max-lg:flex-col">
+                            <>
+                              <div className="flex bg-[#f0f0f0] justify-center flex-col !h-full">
+                                <p className="text-[16px] md:text-[18px] lg:text-[18px] text-center">
+                                  Advertisement
+                                </p>
+                                {prod &&
+                                  React.createElement(getRandomSquareAd())}
+                              </div>
+                              <CustomeAndGoogleAdd />
+                            </>
+                          </div>
+                        </>
                       )}
                     </div>
                   ))}
-                  <div ref={lastElementRef}></div>
-                  {isLoading && <div>Loading more...</div>}
+                </div>
+
+                <div className="max-md:my-5 mb-4 flex justify-center w-full">
+                  <CustomePagination
+                    current={page}
+                    totalItems={totalNews}
+                    defaultCurrent={1}
+                    itemsPerPage={pageSize}
+                    onChange={handlePageChange}
+                  />
                 </div>
               </div>
             ) : (
               <p>No news available</p>
             )
           ) : (
-            <>
-              <CollectionNewsSkeleton />
-              <CollectionNewsSkeleton />
-            </>
+            <MorePageSkeleton />
           )}
         </div>
         <div className="flex flex-col gap-y-2 md:gap-y-10 md:col-span-2 md:mt-10">
-          {/* <CustomeAndGoogleAdd /> */}
+          <div className="sticky top-36 max-md:hidden">
+            <CustomeAndGoogleAdd />
+          </div>
           {/* <SideNews title={"education"} /> */}
         </div>
       </div>

@@ -11,10 +11,14 @@ const blogStructure = {
   banner: "",
   content: [],
   tags: [],
-  desription: "",
-  state: "",
-  district: "",
+  description: "",
+  state: [],
+  district: [],
   location: "",
+  post_time: {
+    date: Date,
+    time: "",
+  },
   news_section_type: [],
   breaking_news: false,
   author: { personal_info: {} },
@@ -34,8 +38,18 @@ const Editor = () => {
     if (!news_id) {
       return setLoading(false);
     }
+
+    const query = new URLSearchParams(window.location.search);
+    const type = query.get("type");
+
+    let fetchUrl = "/";
+    if (type === "schedule_news") {
+      fetchUrl = "/get-schedule-news";
+    } else {
+      fetchUrl = "/get-news";
+    }
     axios
-      .post(import.meta.env.VITE_SERVER_DOMAIN + "/get-news", {
+      .post(import.meta.env.VITE_SERVER_DOMAIN + fetchUrl, {
         news_id,
         mode: "edit",
       })

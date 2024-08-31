@@ -1,4 +1,5 @@
 import { findDistrict } from "@/assets/data";
+import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 // import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 import NewsSection from "@/components/news-section/news.section.component";
 // import SideNews from "@/components/side-news/SideNews";
@@ -88,9 +89,10 @@ const page = async () => {
           </div>
 
           {/* Right advertisement section */}
-          <div className="flex flex-col md:gap-y-10 gap-y-2  md:col-span-2 ">
-            {/* <CustomeAndGoogleAdd /> */}
-            {/* <SideNews title="read also" /> */}
+          <div className="col-span-2 w-full">
+            <div className="sticky top-44 max-md:hidden">
+              <CustomeAndGoogleAdd />
+            </div>
           </div>
         </div>
       </div>

@@ -4,9 +4,6 @@ import NewsSection from "@/components/news-section/news.section.component";
 import NewsVideo from "@/components/news-video/news.video.section.component";
 import RajyaMain from "@/components/RajyaMain";
 import SideNews from "@/components/side-news/SideNews";
-import Image from "next/image";
-import wish_independence_day from '../assets/wish_independence_day.png'
-import HorizontalAds from "../../components/HorizontalAds";
 
 export default async function Page() {
     const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/news/home`, {
@@ -93,20 +90,20 @@ export default async function Page() {
                             <NewsVideo data={Ytnews} title={'Top Videos'} />
                         }
                     </div>
-                    <div className="flex flex-col md:gap-y-10 gap-y-2 mt-10 md:col-span-2">
-                        <CustomeAndGoogleAdd />
-                        <SideNews title={"education"} />
+                    <div className="col-span-2 w-full">
+                        <div className="sticky top-44 max-md:hidden">
+                            <CustomeAndGoogleAdd />
+                            <SideNews title={"education"} />
+                        </div>
                     </div>
                 </div>
             </div>
-
-
 
             <ApnaZila />
             <RajyaMain />
             {news && news.data && news.data.length > 1 && (
                 <div className="flex spacing mt-2">
-                    <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full">
+                    <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full gap-x-5">
                         <div className="flex flex-col flex-wrap  md:col-span-4 overflow-hidden">
                             {news.data.slice(1, 3).map((news, index) => (
                                 <NewsSection key={index} data={news.data} title={news.title}
@@ -114,7 +111,7 @@ export default async function Page() {
                             ))}
                         </div>
                         <div className="col-span-2 w-full">
-                            <div className="sticky top-32 max-md:hidden">
+                            <div className="sticky top-44 max-md:hidden">
                                 <CustomeAndGoogleAdd />
                             </div>
                         </div>
@@ -124,14 +121,14 @@ export default async function Page() {
 
             {news && news.data && news.data.length > 3 && (
                 <div className="flex spacing mt-2">
-                    <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full">
+                    <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full gap-x-5">
                         <div className="flex flex-col flex-wrap  md:col-span-4 overflow-hidden">
                             {news.data.slice(4).map((news, index) => (
                                 <NewsSection adInd={4 + index} key={index} data={news.data} title={news.title} />
                             ))}
                         </div>
                         <div className="col-span-2 w-full">
-                            <div className="sticky top-32 max-md:hidden">
+                            <div className="sticky top-44 max-md:hidden">
                                 <CustomeAndGoogleAdd />
                             </div>
                         </div>

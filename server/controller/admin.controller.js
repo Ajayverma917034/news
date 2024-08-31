@@ -16,9 +16,9 @@ export const getNews = tryCatch(async (req, res, next) => {
     let query = {}
 
 
-    if (state) query.state = state;
     query.draft = draft ? draft : false;
-    if (district) query.district = district;
+    if (state && state.length) query.state = { $in: state };
+    if (district && district.length) query.district = { $in: district };
     if (location) query.location = location;
     if (news_section_type && news_section_type.length) query.news_section_type = { $in: news_section_type };
     if (createdAt) {
@@ -57,9 +57,8 @@ export const getNews = tryCatch(async (req, res, next) => {
 export const getAdminNewsCount = tryCatch(async (req, res, next) => {
     let { page, limit, state, district, location, news_section_type, draft, createdAt, search } = req.body;
     const query = {}
-
-    if (state) query.state = state;
-    if (district) query.district = district;
+    if (state && state.length) query.state = { $in: state };
+    if (district && district.length) query.district = { $in: district };
     if (location) query.location = location;
     if (news_section_type && news_section_type.length) query.news_section_type = { $in: news_section_type };
     if (createdAt) {
@@ -79,6 +78,7 @@ export const getAdminNewsCount = tryCatch(async (req, res, next) => {
         ];
     }
 
+    console.log(query)
     const count = await News.countDocuments(query).exec();
     return res.status(200).json({ totalDocs: count });
 });

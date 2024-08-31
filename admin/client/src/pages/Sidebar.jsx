@@ -13,6 +13,7 @@ import { RiDraftLine } from "react-icons/ri";
 import { MdAutoGraph } from "react-icons/md";
 import { GiNewspaper } from "react-icons/gi";
 import { BsCalendar2Event } from "react-icons/bs";
+import { RiCalendarScheduleLine } from "react-icons/ri";
 
 const SideBar = () => {
   let page = location.pathname.split("/")[2];
@@ -87,7 +88,7 @@ const SideBar = () => {
           <div
             ref={sidebarRef}
             className={
-              "min-w-[200px] pt-3 px-5 min-h-[calc(100vh-85px)] max-md:pb-4  bg-white md:bg-white md:h-cover md:sticky overflow-y-auto z-[150] md:border-gray-light md:border-r absolute max-md:top-[37px] max-md:px-16 max-md:-ml-7 duration-500 sidebar md:min-h-[calc(100vh-64px)] lg:min-h-[calc(100vh-64px)] xl:min-h-[calc(100vh-80px)]" +
+              "min-w-[200px] pt-3 px-5 max-h-[calc(100vh-85px)] max-md:pb-4  bg-white md:bg-white md:h-cover md:sticky overflow-y-auto z-[150] md:border-gray-light md:border-r absolute max-md:top-[37px] max-md:px-16 max-md:-ml-7 duration-500 sidebar md:max-h-[calc(100vh-64px)] lg:max-h-[calc(100vh-64px)] xl:max-h-[calc(100vh-80px)] pb-10" +
               (!showSideNav
                 ? " max-md:opacity-0 max-md:pointer-events-none"
                 : "")
@@ -173,20 +174,20 @@ const SideBar = () => {
               className="flex items-center gap-2 text-gray hover:bg-blue mt-1 hover:text-white p-2 rounded w-full sidebar-link"
               to="/dashboard/event-news"
               onClick={() => setShowSideNav(false)}
-              >
+            >
               <BsCalendar2Event size={25} />
               <span>Event News</span>
             </NavLink>
-              {user?.role === "admin" && (
-                <NavLink
-                  className="flex items-center gap-2 text-gray hover:bg-blue mt-1 hover:text-white p-2 rounded w-full sidebar-link"
-                  to="/dashboard/advertisement-news"
-                  onClick={() => setShowSideNav(false)}
-                >
-                  <PiNewspaper size={25} />
-                  <span>Advertisement News</span>
-                </NavLink>
-              )}
+            {user?.role === "admin" && (
+              <NavLink
+                className="flex items-center gap-2 text-gray hover:bg-blue mt-1 hover:text-white p-2 rounded w-full sidebar-link"
+                to="/dashboard/advertisement-news"
+                onClick={() => setShowSideNav(false)}
+              >
+                <PiNewspaper size={25} />
+                <span>Advertisement News</span>
+              </NavLink>
+            )}
 
             <hr className="text-gray w-full mt-1" />
 
@@ -237,6 +238,14 @@ const SideBar = () => {
             >
               <RiDraftLine size={25} />
               <span>Draft News</span>
+            </NavLink>
+            <NavLink
+              className="flex items-center gap-2 text-gray hover:bg-blue mt-1 hover:text-white p-2 rounded w-full sidebar-link"
+              to="/dashboard/schedule-news"
+              onClick={() => setShowSideNav(false)}
+            >
+              <RiCalendarScheduleLine size={25} />
+              <span>Schedule News</span>
             </NavLink>
             {user?.role === "admin" && (
               <NavLink

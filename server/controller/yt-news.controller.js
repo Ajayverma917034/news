@@ -89,7 +89,7 @@ export const getYtNewses = tryCatch(async (req, res, next) => {
     try {
 
         let { page, limit } = req.body;
-        // console.log(req.body)
+
         // let query = {};
         // if (state) query.state = state;
         // if (district) query.district = district;

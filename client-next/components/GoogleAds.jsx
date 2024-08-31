@@ -3,10 +3,13 @@ import React, { useEffect } from "react";
 
 const GoogleAds = ({ adClient, adSlot, style, format }) => {
   useEffect(() => {
+    if (window.adsbygoogle && window.adsbygoogle.loaded) {
+      window.adsbygoogle = [];
+    }
     try {
       (window.adsbygoogle = window.adsbygoogle || []).push({});
-    } catch (error) {
-      console.log(error.message);
+    } catch (e) {
+      console.error("AdSense error", e);
     }
   }, []);
 

@@ -24,10 +24,12 @@ const newsSchema = new mongoose.Schema({
     },
     state: {
         type: [String],
+        default: [],
         // required: true,
     },
     district: {
         type: [String],
+        default: [],
         // required: true,
     },
     location: {
@@ -48,29 +50,20 @@ const newsSchema = new mongoose.Schema({
         required: true,
         ref: 'User'
     },
-    post_time: {
-        type: Date,
-        default: '',
-    },
-    activity: {
-        total_reads: {
-            type: Number,
-            default: 0,
+    post_time:
+    {
+        date: {
+            type: Date,
         },
-        total_today_count: {
-            type: Number,
-            default: 0,
-        },
+        time: {
+            type: String,
+        }
     },
-    draft: {
-        type: Boolean,
-        default: false,
-    }
 }, {
     timestamps: true,
 });
 
 
-const News = mongoose.model('News', newsSchema);
+const ScheduleNews = mongoose.model('scheduleNews', newsSchema);
 
-export default News
+export default ScheduleNews

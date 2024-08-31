@@ -19,14 +19,14 @@ const BreakingNews = () => {
 
   return (
     <div
-      className="flex bg-[#ff3130] border-1 border-[#ff3130] border-r-0 items-center mt-0"
+      className="flex bg-[#ff3130] border-2 border-[#ff3130] border-r-0 items-center mt-0"
       style={{
         borderImage: ``,
         borderStyle: `solid`,
         backgroundImage: "",
       }}
     >
-      <div className="py-1 px-3 font-semibold text-white text-nowrap lg:text-3xl md:text-sm md:px-10 sm:text-xs min-w-fit">
+      <div className="py-1 pt-2 px-3 font-semibold text-white text-nowrap lg:text-3xl md:text-sm md:px-10 sm:text-xs min-w-fit">
         ब्रेकिंग न्यूज़
       </div>
       <marquee className=" rounded-l-full bg-white w-full py-1.5 px-4 font-lg lg:text-sm sm:text-xs">

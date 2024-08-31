@@ -121,7 +121,9 @@ const engToHindi = {
     'madhya pradesh': 'मध्य प्रदेश',
     'madhyapradesh': 'मध्य प्रदेश',
     'jharkhand': 'झारखंड',
-
+    'lakhimpur kheri': 'लखीमपुर खीरी',
+    'pilibhit': 'पीलीभीत',
+    'singrauli': 'सिंगरौली',
 
 
     // categorydata

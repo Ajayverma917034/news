@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
@@ -17,9 +17,13 @@ import { HiOutlineExclamationCircle } from "react-icons/hi2";
 import Link from "next/link";
 import Image from "next/image";
 import banner from "../../assets/errorimg1.png";
+import { CustomeAdsContext } from "@/lib/CustomeAdsContext";
 
 export default function SliderAds() {
-  const { loading, error, bannerAds } = useSelector((state) => state.ads);
+  // const { loading, error, bannerAds } = useSelector((state) => state.ads);
+  // const [bannerAds, setBannerAds] = useState(null);
+  const { ads } = useContext(CustomeAdsContext);
+  let bannerAds = ads.bannerAds;
 
   // const [bannerAds, setBannerAds] = useState(null);
 

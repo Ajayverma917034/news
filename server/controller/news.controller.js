@@ -40,7 +40,7 @@ export const createNews = tryCatch(async (req, res, next) => {
                 return res.status(403).json({ error: 'You must provide some content for the news' })
             }
 
-            if (!state && !news_section_type.length && !district) {
+            if (!state.length && !news_section_type.length && !district.length) {
                 return res.status(403).json({ error: 'You must provide either State or News Section tags or districts' })
             }
             // Check if state is provided and not empty
@@ -75,10 +75,12 @@ export const createNews = tryCatch(async (req, res, next) => {
             // }
 
             location = location.trim().toLowerCase();
-            if (state)
-                state = state.trim().toLowerCase();
-            if (district)
-                district = district.trim().toLowerCase();
+            for (let i = 0; i < state.length; i++) {
+                state[i] = state[i].trim().toLowerCase();
+            }
+            for (let i = 0; i < district.length; i++) {
+                district[i] = district[i].trim().toLowerCase();
+            }
             for (let i = 0; i < news_section_type.length; i++) {
                 news_section_type[i] = news_section_type[i].trim().toLowerCase();
             }
@@ -196,9 +198,14 @@ export const getNewses = tryCatch((req, res, next) => {
     let { page, limit, state, district, location, tags, breaking_news, draft = false, news_section_type } = req.body;
     let query = {};
 
-
-    if (state) query.state = state;
-    if (district) query.district = district;
+    if (state) {
+        // state = state.map(type => type.trim().toLowerCase());
+        query.state = { $in: state };
+    }
+    if (district) {
+        // district = district.map(type => type.trim().toLowerCase());
+        query.district = { $in: district };
+    }
     if (location) query.location = location;
     if (tags) query.tags = tags;
     if (breaking_news) query.breaking_news = breaking_news;
@@ -212,29 +219,12 @@ export const getNewses = tryCatch((req, res, next) => {
     page = page ? parseInt(page) : 1;
 
     News.find(query)
-        // .populate('author', 'name')
         .sort({ "createdAt": -1 })
         .skip(limit * (page - 1))
         .limit(limit)
-        // .populate("author", "username profile")
         .select('news_id title banner location createdAt -_id')
         .then(news => {
-            // if (!news.length) {
-            //     News.find().sort({ "activity.total_reads": -1, "createdAt": -1 })
-            //         .skip(limit * (page - 1))
-            //         .limit(limit)
-            //         .populate("author", "username profile")
-            //         .select('news_id title description content tags state banner district location tags breaking_news draft createdAt -_id')
-            //         .then(news => {
             return res.status(200).json(news)
-            //         }).catch(err => {
-            //             return next(new ErrorHandler(500, err.message))
-            //         })
-            // }
-            // else {
-
-            //     return res.status(200).json(news)
-            // }
         }).catch(err => {
             return next(new ErrorHandler(500, err.message))
         })
@@ -270,25 +260,17 @@ export const getNews = tryCatch(async (req, res, next) => {
                 delete query.$or;
             }
 
-            // Add condition to exclude the given news_id
+
             if (news_id) {
                 query.news_id = { $ne: news_id };
             }
 
-
-            // Fetch related news
             News.find(query)
                 .limit(4)
                 .sort({ "createdAt": -1 })
                 .select('news_id title banner -_id')
                 .then(news => {
-                    // if (news.length === 0) {
-                    // News.aggregate([{ $sample: { size: 4 } }])
-                    // .then(news => {
                     return res.status(200).json({ news: article, relatedNews: news })
-                    // }).catch(err => {
-                    // return next(new ErrorHandler(500, err.message));
-                    // });
                 }
                 ).catch(err => {
                     return next(new ErrorHandler(500, err.message));
@@ -300,12 +282,47 @@ export const getNews = tryCatch(async (req, res, next) => {
         })
 })
 
+export const getQueryNewsCount = tryCatch(async (req, res, next) => {
+    let { news_section_type, state, district } = req.body;
+
+    let query = {};
+
+    if (news_section_type && news_section_type.length) {
+        news_section_type = news_section_type.map(type => type.trim().toLowerCase());
+        query.news_section_type = { $in: news_section_type };
+    }
+    if (state) {
+        query.state = { $in: state };
+    }
+    if (district) {
+        query.district = { $in: district };
+
+    }
+
+    News.countDocuments(query).then(count => {
+        return res.status(200).json({ DocCount: count })
+    }).catch(err => {
+        return next(new ErrorHandler(500, err.message))
+    })
+
+})
+
+
 export const getNewsCount = tryCatch(async (req, res, next) => {
     let { state, district, location, tags, breaking_news, draft } = req.body;
     let query = {};
 
-    if (state) query.state = state;
-    if (district) query.district = district;
+    // if (state) query.state = state;
+    // if (district) query.district = district;
+
+    if (state) {
+        // state = state.map(type => type.trim().toLowerCase());
+        query.state = { $in: state };
+    }
+    if (district) {
+        // district = district.map(type => type.trim().toLowerCase());
+        query.district = { $in: district };
+    }
     if (location) query.location = location;
     if (tags) query.tags = tags;
     if (breaking_news) query.breaking_news = breaking_news;
@@ -365,21 +382,6 @@ export const fetchRelatedNews = tryCatch(async (req, res, next) => {
     let { state, district, location, tags, news_id, news_section_type } = req.body;
     let query = { $or: [] };
 
-    // Trim and convert to lowercase if they exist
-    // if (state) {
-    //     state = state.trim().toLowerCase();
-    //     query.$or.push({ state: state });
-    // }
-    // if (district) {
-    //     district = district.trim().toLowerCase();
-    //     query.$or.push({ district: district });
-    // }
-    // if (location) {
-    //     location = location.trim().toLowerCase();
-    //     query.$or.push({ location: location });
-    // }
-
-    // Handle tags
     if (tags && tags.length) {
         tags = tags.map(tag => tag.trim().toLowerCase());
         query.$or.push({ tags: { $in: tags } });
@@ -398,8 +400,6 @@ export const fetchRelatedNews = tryCatch(async (req, res, next) => {
     if (news_id) {
         query.news_id = { $ne: news_id };
     }
-
-
 
     // Fetch related news
     News.find(query)
@@ -449,20 +449,6 @@ export const findNewsSectionTypeNews = tryCatch(async (req, res, next) => {
 
         // Return the randomly selected results
         return res.status(200).json({ news: selectedNews })
-        // if (selectedNews.length === 0) {
-        //     News.find().sort({ "activity.total_reads": -1, "createdAt": -1 })
-        //         .limit(limit)
-        //         .populate("author", "username profile")
-        //         .select('news_id title banner -_id')
-        //         .then(news => {
-        //         }).catch(err => {
-        //             return next(new ErrorHandler(500, err.message))
-        //         })
-        // }
-        // else {
-
-        //     res.status(200).json({ news: selectedNews });
-        // }
     } catch (err) {
         // Handle potential errors
         next(new ErrorHandler(500, err.message));
@@ -472,52 +458,63 @@ export const findNewsSectionTypeNews = tryCatch(async (req, res, next) => {
 export const fetchDataStateWise = tryCatch(async (req, res, next) => {
     const { state } = req.body;
     let promises = [];
-    const data =
-        [
-            'sonbhadra',
-            'chandauli',
-            'mirzapur',
-            'varanasi',
-            'gajipur',
-            'shahjhapur',
-            'prayagraj',
-            'deoria',
-            'bareilly',
-            'lakhimpur kheri',
-            'pilibhit',
-        ]
 
-
+    const data = [
+        'sonbhadra',
+        'chandauli',
+        'mirzapur',
+        'varanasi',
+        'gajipur',
+        'shahjhapur',
+        'prayagraj',
+        'deoria',
+        'bareilly',
+        'lakhimpur kheri',
+        'pilibhit',
+    ];
 
     if (state !== 'uttar pradesh') {
-        return res.status(404).json({ success: false, message: "State not found" })
+        return res.status(404).json({ success: false, message: "State not found" });
     }
-    const stateNews = await News.find({ state }).limit(5).sort({ createdAt: -1 }).populate("author", "username profile -_id").select('news_id title tags banner state district location createdAt -_id').exec();
+
+    // Query for state-wise news
+    const stateNews = News.find({ state: { $in: [state] } })
+        .limit(5)
+        .sort({ createdAt: -1 })
+        .populate("author", "username profile -_id")
+        .select('news_id title tags banner state district location createdAt -_id')
+        .exec();
 
     promises.push(stateNews);
 
-    // let districts = await State.findOne({ state }).populate("districts", "district -_id").select("districts -_id").exec();
-    // if (districts === null) {
-    //     return res.status(200).json({ success: true, data: promises, dataSequence: { state: state, districts: [] } });
-    // }
+    // Query for district-wise news
     for (let district of data) {
-        const districtNews = await News.find({ district: district }).limit(5).sort({ createdAt: -1 }).select('news_id title state district location tags createdAt banner -_id').exec();
+        const districtNews = News.find({ district: { $in: [district] } })
+            .limit(5)
+            .sort({ createdAt: -1 })
+            .select('news_id title state district location tags createdAt banner -_id')
+            .exec();
         promises.push(districtNews);
     }
+
+    // Await all promises and gather results
+    const results = await Promise.all(promises);
+
     const dataSequence = {
         state: state,
         districts: data
-    }
-    return res.status(200).json({ success: true, data: promises, dataSequence });
+    };
 
-})
+    return res.status(200).json({ success: true, data: results, dataSequence });
+});
+
 
 export const findStateDataWithOutDistrict = tryCatch(async (req, res, next) => {
     let { state, limit, page } = req.body;
     limit = limit ? parseInt(limit) : 5;
     page = page ? parseInt(page) : 1;
 
-    News.find({ state })
+    News.find({ state: { $in: [state] } })
         .sort({ "createdAt": -1 })
         .skip(limit * (page - 1))
         .limit(limit)
@@ -547,12 +544,15 @@ export const findStateNews = tryCatch(async (req, res, next) => {
     //     return res.status(200).json({ success: true, data: { state: [] } });
     // }
     for (let state of states) {
-        const stateNews = await News.find({ state: state })
+        const stateNews = await News.find({ state: { $in: [state] } })
             .sort({ createdAt: -1 })
             .limit(5)
             .select('news_id title location createdAt banner -_id')
             .exec();
-        promises.push({ state: state, data: stateNews });
+
+        // console.log(stateNews)
+        if (stateNews.length > 0)
+            promises.push({ state: state, data: stateNews });
     }
 
     return res.status(200).json({ success: true, data: promises });
@@ -585,8 +585,15 @@ export const getMyNewsCount = tryCatch(async (req, res, next) => {
     const authorId = req.user._id;
     let query = {}
     if (tags) query.tags = tags;
-    if (state) query.state = state;
-    if (district) query.district = district;
+    if (state) {
+        // state = state.map(type => type.trim().toLowerCase());
+        query.state = { $in: state };
+    }
+    if (district) {
+        // district = district.map(type => type.trim().toLowerCase());
+        query.district = { $in: district };
+    }
+    // if (district) query.district = district;
     if (location) query.location = location;
     if (draft) query.draft = draft;
     const count = await News.countDocuments({ author: authorId, ...query }).exec();
@@ -633,60 +640,6 @@ export const searchNews = tryCatch(async (req, res, next) => {
     return res.status(200).json({ success: true, news })
 })
 
-// export const fetchRandomNews = tryCatch(async (req, res, next) => {
-//     try {
-//         const { news_id } = req.body;
-
-//         // Use aggregation to find the latest 50 news articles, excluding the one with the provided news_id, and then randomly select one
-//         const news = await News.aggregate([
-//             { $match: { news_id: { $ne: news_id } } }, // Exclude the specified news_id
-//             { $sort: { createdAt: -1 } }, // Sort by createdAt in descending order (latest first)
-//             { $limit: 50 }, // Limit to the latest 50 news articles
-//             { $sample: { size: 1 } }, // Randomly sample 1 news article from the 50
-//             {
-//                 $project: {
-//                     news_id: 1,
-//                     title: 1,
-//                     description: 1,
-//                     content: 1,
-//                     tags: 1,
-//                     state: 1,
-//                     district: 1,
-//                     banner: 1,
-//                     location: 1,
-//                     "activity.total_reads": 1,
-//                     news_section_type: 1,
-//                     createdAt: 1
-//                 }
-//             }
-//         ]);
-
-//         // If no news is found, return a null response
-//         if (!news || news.length === 0) {
-//             return res.status(404).json({ success: false, message: "No news available" });
-//         }
-
-//         const randomNews = news[0];
-
-//         // Optionally, you can also update the total reads count for the selected news here if needed
-//         await News.findOneAndUpdate(
-//             { news_id: randomNews.news_id },
-//             { $inc: { "activity.total_reads": 1, "activity.total_today_count": 1 } }
-//         );
-
-//         // Return the randomly selected news
-//         return res.status(200).json({ success: true, news: randomNews });
-
-//     } catch (err) {
-//         return next(new ErrorHandler(500, err.message));
-//     }
-// });
-
-
-
-
-
-
 export const fetchRandomNews = tryCatch(async (req, res, next) => {
     const { news_id } = req.body;
     const news = await News.find({ news_id: { $ne: news_id } }, { createdAt: -1 }).limit(50).sort({ createdAt: -1 }).select('news_id title description content tags state district banner location activity.total_reads news_section_type tags createdAt -_id').exec();
@@ -705,3 +658,31 @@ export const fetchRandomNews = tryCatch(async (req, res, next) => {
     // get 1 random news
 
 })
+
+
+const convertStateAndDistrictToArray = async () => {
+    try {
+
+        const newsDocuments = await News.find({});
+
+        // Iterate over each document and update the fields
+        for (let news of newsDocuments) {
+            if (!Array.isArray(news.state)) {
+                news.state = [news.state].filter(Boolean); // Convert to array if it's a string
+            }
+
+            if (!Array.isArray(news.district)) {
+                news.district = [news.district].filter(Boolean); // Convert to array if it's a string
+            }
+
+            // Save the updated document
+            await news.save();
+        }
+
+        console.log("All documents have been updated.");
+    } catch (error) {
+        console.error("Error updating documents:", error);
+    }
+};
+
+convertStateAndDistrictToArray();

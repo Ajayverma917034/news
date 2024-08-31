@@ -225,14 +225,14 @@ cron.schedule('0 2 * * *', async () => {
             }
         ]);
 
-        const totalTodayEventNewsCount = await EventNews.aggregate([
-            {
-                $group: {
-                    _id: null,
-                    total: { $sum: "$activity.total_today_count" }
-                }
-            }
-        ])
+        // const totalTodayEventNewsCount = await EventNews.aggregate([
+        //     {
+        //         $group: {
+        //             _id: null,
+        //             total: { $sum: "$activity.total_today_count" }
+        //         }
+        //     }
+        // ])
 
         const totalTodayYtCount = await YtNews.aggregate([
             {
@@ -244,10 +244,10 @@ cron.schedule('0 2 * * *', async () => {
         ])
 
         const newsCount = totalTodayCount[0]?.total || 0;
-        const eventNewsCount = totalTodayEventNewsCount[0]?.total || 0;
+        // const eventNewsCount = totalTodayEventNewsCount[0]?.total || 0;
         const ytCount = totalTodayYtCount[0]?.total || 0;
 
-        const count = newsCount + eventNewsCount + ytCount;
+        const count = newsCount + ytCount;
 
         let monthData = await monthNewsCount.findOne({ month, year });
 

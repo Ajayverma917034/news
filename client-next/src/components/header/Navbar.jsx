@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Image from "next/image";
 import { CiLocationOn, CiSearch } from "react-icons/ci";
 import Link from "next/link";
@@ -10,40 +10,39 @@ import AllState from "./AllStates";
 import Search from "./Search";
 import logoimg from "../../assets/logoimg.png";
 // import eventLogo from "../../assets/rakshabandhan_logo.gif";
-import { useDispatch } from "react-redux";
-import {
-  getAds,
-  getAdsFail,
-  getAdsSuccess,
-} from "@/redux/advertisement/adsSlice";
+
+import { CustomeAdsContext } from "@/lib/CustomeAdsContext";
+import TitleAdvertisement from "../title-advertisement/TitleAdvertisement";
 
 const Navbar = () => {
-  const dispatch = useDispatch();
+  const { updateAds } = useContext(CustomeAdsContext);
+  // const dispatch = useDispatch();
   useEffect(() => {
     const fetchAds = async () => {
-      dispatch(getAds());
+      // dispatch(getAds());
       const response = await fetch(
         `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/get-advertisement`
       );
       if (response.ok) {
         const data = await response.json();
-        dispatch(getAdsSuccess(data));
+        updateAds(data);
+        // dispatch(getAdsSuccess(data));
         return;
       }
 
-      dispatch(getAdsFail());
+      // dispatch(getAdsFail());
     };
 
     fetchAds();
   }, []);
   const navItems = [
     { name: "Home", hindiName: "होम", link: "/" },
-    {
-      name: "independence day",
-      hindiName: "स्वतंत्रता दिवस",
-      link: "/independence-day",
-      event: true,
-    },
+    // {
+    //   name: "independence day",
+    //   hindiName: "स्वतंत्रता दिवस",
+    //   link: "/independence-day",
+    //   event: true,
+    // },
     { name: "Videos", hindiName: "वीडियो", event: false, link: "/videos" },
     { name: "State", hindiName: "राज्य", event: false, link: "/state" },
     { name: "Crime", hindiName: "क्राइम", event: false, link: "/crime" },
@@ -145,7 +144,7 @@ const Navbar = () => {
               </Link>
             </li> */}
 
-            <div className="box">
+            {/* <div className="box">
               <li className="min-w-fit">
                 <Link
                   href={navItems[1].link}
@@ -154,7 +153,7 @@ const Navbar = () => {
                   {navItems[1].hindiName}
                 </Link>
               </li>
-            </div>
+            </div> */}
             {navItems.splice(2).map((item, index) => (
               <li
                 key={index}
@@ -167,6 +166,7 @@ const Navbar = () => {
             ))}
           </ul>
         </div>
+        <TitleAdvertisement />
       </div>
       <AllState isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />
       <Search searchOpen={searchOpen} setSearchOpen={setSearchOpen} />

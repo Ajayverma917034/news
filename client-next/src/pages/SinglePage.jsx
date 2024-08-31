@@ -13,7 +13,8 @@ export const newsStructure = {
   des: "",
   content: [],
   tags: [],
-  banner: "",
+  banner:
+    "https://img.janpadnewslive.com/image/2024-08-29_16-26-31_janpad_news_live.png",
   createdAt: "",
   categories: [],
   location: "",
@@ -161,9 +162,9 @@ const SinglePage = ({ news_id, ads }) => {
             <></>
           )}
 
-          <div className="w-full max-md:mt-2 flex items-center justify-center mt-2">
+          {/* <div className="w-full max-md:mt-2 flex items-center justify-center mt-2">
             <RandomNewsPage news={randomEventNews} ads={ads} />
-          </div>
+          </div> */}
           <div className="w-full max-md:mt-2 flex items-center justify-center mt-2">
             {/* <HorizontalAdsGoogle /> */}
           </div>

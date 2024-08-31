@@ -1,5 +1,5 @@
 import express from 'express';
-import { adminNews, createNews, deleteDraftNews, deleteNews, fetchDataStateWise, fetchRandomNews, fetchRelatedNews, findNewsSectionTypeNews, findStateDataWithOutDistrict, findStateNews, getBreakingNews, getHomeNews, getMyNews, getMyNewsCount, getNews, getNewsCount, getNewses, searchNews } from '../controller/news.controller.js';
+import { adminNews, createNews, deleteDraftNews, deleteNews, fetchDataStateWise, fetchRandomNews, fetchRelatedNews, findNewsSectionTypeNews, findStateDataWithOutDistrict, findStateNews, getBreakingNews, getHomeNews, getMyNews, getMyNewsCount, getNews, getNewsCount, getNewses, getQueryNewsCount, searchNews } from '../controller/news.controller.js';
 import { authorizeroles, isAuthenticated } from '../middleware/Authentication.js';
 import { deleteNewsAdmin } from '../controller/admin.controller.js';
 
@@ -27,5 +27,9 @@ newsRouter.post('/search-news', searchNews)
 newsRouter.post('/get-my-news', isAuthenticated, authorizeroles("reporter", "admin"), getMyNews)
 newsRouter.post('/get-my-news-count', isAuthenticated, authorizeroles("reporter", "admin"), getMyNewsCount)
 newsRouter.delete('/delete-my-news/:id', isAuthenticated, authorizeroles("reporter", "admin"), deleteDraftNews)
+
+
+
+newsRouter.post('/get-news-query-docCount', getQueryNewsCount)
 
 export default newsRouter;

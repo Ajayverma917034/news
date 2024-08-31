@@ -1,24 +1,30 @@
 "use client";
-import React from "react";
-import "swiper/css";
 import { Swiper, SwiperSlide } from "swiper/react";
+// Import Swiper styles
+import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import { EffectFade, Navigation, Pagination, Autoplay } from "swiper/modules";
-import { useSelector } from "react-redux";
-import { HiOutlineExclamationCircle } from "react-icons/hi2";
-import Image from "next/image";
 
-import banner from "../../assets/rectangle-janpad-news-live.png";
-import { AdvertisementSkelton1 } from "@/skeleton/Advertisement.skeltons";
+// Import required modules
+import { EffectFade, Navigation, Pagination, Autoplay } from "swiper/modules";
+import { AdvertisementSkelton1 } from "../../skeleton/Advertisement.skeltons";
+import { useSelector } from "react-redux";
+import Image from "next/image";
+import banner from "../../assets/errorimg1.png";
+import { useContext } from "react";
+import { CustomeAdsContext } from "@/lib/CustomeAdsContext";
 import Link from "next/link";
-// import HorizontalAds from "../../../components/HorizontalAds";
-// import SquareAds from "../../../components/SquareAds";
-const CustomeAndGoogleAdd = () => {
-  const { loading, error, sideAds } = useSelector((state) => state.ads);
+import { HiOutlineExclamationCircle } from "react-icons/hi2";
+
+export default function CustomeAndGoogleAdd() {
+  // Always call useSelector at the top level
+  // const { error, loading, detailAds } = useSelector((state) => state.ads);
+  const { ads } = useContext(CustomeAdsContext);
+  const sideAds = ads.sideAds;
+
   return (
-    <div className="flex flex-wrap gap-y-3 gap-x-4 md:flex max-sm:items-center w-full lg:flex-col ">
+    <div className="flex flex-wrap gap-y-3 gap-x-4 md:flex max-sm:items-center w-[330px] lg:flex-col ">
       <Swiper
         spaceBetween={20}
         effect={"fade"}
@@ -48,8 +54,8 @@ const CustomeAndGoogleAdd = () => {
                         src={ad.banner.url}
                         alt="sliderimg"
                         className="w-full h-full object-fill rounded-md"
-                        width={1200}
-                        height={400}
+                        width={300}
+                        height={330}
                         sizes={{
                           maxWidth: "100%",
                           height: "auto",
@@ -92,11 +98,6 @@ const CustomeAndGoogleAdd = () => {
           <span className="text-[#f9f9f9] text-[12px]">Sponsored</span>
         </div>
       </Swiper>
-      {/* <div className="w-[330px] h-[330px] ml-auto mr-auto"> */}
-      {/* <SquareAds />
-      </div> */}
     </div>
   );
-};
-
-export default CustomeAndGoogleAdd;
+}
