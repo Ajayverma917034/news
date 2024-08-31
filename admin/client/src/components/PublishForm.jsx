@@ -255,8 +255,6 @@ const PublishForm = () => {
     setBlog((prev) => {
       const isSelected = prev[category].includes(value);
 
-      console.log(prev);
-
       return {
         ...prev,
         [category]: isSelected

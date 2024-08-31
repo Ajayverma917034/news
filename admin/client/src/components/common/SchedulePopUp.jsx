@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CustomDropdown from "./CustomeDropDown";
 
 const SchedulePopUp = ({
@@ -11,9 +11,26 @@ const SchedulePopUp = ({
   selectedTimeIndex,
   timeOptions,
 }) => {
-  if (!popupOpen) return null;
+  const [dateValue, setDateValue] = useState("");
+  const [timeIndex, setTimeIndex] = useState(selectedTimeIndex);
 
-  // Generate time options
+  useEffect(() => {
+    if (post_time?.date) {
+      // Extract the date in 'YYYY-MM-DD' format
+      const date = new Date(post_time.date).toISOString().split("T")[0];
+      setDateValue(date);
+    }
+
+    if (post_time?.time) {
+      // Find the index of the time in timeOptions
+      const index = timeOptions.findIndex(
+        (option) => option === post_time.time
+      );
+      setTimeIndex(index !== -1 ? index : 0); // Set to 0 or a fallback if not found
+    }
+  }, [post_time, timeOptions]);
+
+  if (!popupOpen) return null;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -23,7 +40,16 @@ const SchedulePopUp = ({
     e.target.classList.add("disable");
     handleSchedule();
     e.target.classList.remove("disable");
-    // setPopUpOpen(false);
+  };
+
+  const handleDateChangeInternal = (e) => {
+    setDateValue(e.target.value);
+    handleDateChange(e);
+  };
+
+  const handleTimeChangeInternal = (index) => {
+    setTimeIndex(index);
+    handleTimeChange(timeOptions[index]);
   };
 
   return (
@@ -44,8 +70,8 @@ const SchedulePopUp = ({
             <label className="block text-gray-700 mb-2">Date</label>
             <input
               type="date"
-              value={post_time?.date}
-              onChange={handleDateChange}
+              value={dateValue}
+              onChange={handleDateChangeInternal}
               className="w-full p-2 bg-gray-100 text-black rounded border border-gray-300"
             />
           </div>
@@ -54,8 +80,8 @@ const SchedulePopUp = ({
             <label className="block text-gray-700 mb-2">Time</label>
             <CustomDropdown
               options={timeOptions}
-              selectedOption={selectedTimeIndex}
-              onSelectOption={handleTimeChange}
+              selectedOption={timeIndex}
+              onSelectOption={handleTimeChangeInternal}
             />
           </div>
 

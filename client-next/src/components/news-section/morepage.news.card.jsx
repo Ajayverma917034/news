@@ -30,7 +30,7 @@ const MorePageCard = ({ data }) => {
           <h1 className="news-title-md md:news-title-lg !line-clamp-2 ">
             {data?.title}
           </h1>
-          <div className="flex items-center mt-[-15px]">
+          <div className="flex items-center mt-[5px]">
             <CiLocationOn className="location-lg" />
             <p className="location-title-md md:location-title-lg capitalize pt-1 md:pt-2 px-1 md:px-3">
               {data?.location}

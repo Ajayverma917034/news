@@ -18,8 +18,8 @@ const AdminNewsHandler = () => {
   const navigate = useNavigate();
   const [selectedOptions, setSelectedOptions] = useState({
     news_section_type: [],
-    district: "",
-    state: "",
+    district: [],
+    state: [],
     location: "",
     createdAt: "",
     search: "",
@@ -94,8 +94,8 @@ const AdminNewsHandler = () => {
   const handleResetFilter = () => {
     setSelectedOptions({
       news_section_type: [],
-      district: "",
-      state: "",
+      district: [],
+      state: [],
       location: "",
       createdAt: "",
       search: "",

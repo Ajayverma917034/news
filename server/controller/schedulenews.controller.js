@@ -247,10 +247,10 @@ cron.schedule('0,15,30,45 * * * *', async () => {
         // Find all scheduled news where the scheduled date and time are less than the current date and time
         const overdueNews = await ScheduleNews.find({
             $or: [
-                { 'post_time.date': { $lt: currentDate } }, // Date is before today
+                { 'post_time.date': { $lte: currentDate } }, // Date is before today
                 {
                     'post_time.date': currentDate,
-                    'post_time.time': { $lt: currentTime }
+                    'post_time.time': { $lte: currentTime }
                 } // Same date, but time is before now
             ]
         });

@@ -59,7 +59,7 @@ export default async function Page() {
     return (
         <main className="bg-red-200">
             <div className="flex spacing mt-2 ">
-                <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full gap-5 ">
+                <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full md:gap-5 ">
                     <div className="flex flex-col flex-wrap  md:col-span-4 overflow-hidden bg-white">
                         {
                             news && news.data &&

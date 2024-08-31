@@ -9,7 +9,7 @@ const HomeRightBar = ({ data, ytData }) => {
   return (
     <>
       <div className="flex spacing mt-2 ">
-        <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full gap-5 ">
+        <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full md:gap-5 ">
           <div className="flex flex-col flex-wrap  md:col-span-4 overflow-hidden">
             <NewsSection data={data[0]?.data} title={data[0]?.title} />
             {ytData ? (

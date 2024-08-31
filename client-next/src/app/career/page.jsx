@@ -31,7 +31,7 @@ export const metadata = {
   },
 };
 const page = () => {
-  return <MoreNews title={"career"} />;
+  return <MoreNews title={"carrier"} />;
 };
 
 export default page;
