@@ -48,7 +48,7 @@ const Navbar = () => {
     { name: "Crime", hindiName: "क्राइम", event: false, link: "/crime" },
     { name: "Country", hindiName: "देश", event: false, link: "/country" },
     { name: "Sports", hindiName: "खेल कूद", event: false, link: "/sports" },
-    { name: "Entertainment", hindiName: "मनोरंजन", link: "/entertainment" },
+    // { name: "Entertainment", hindiName: "मनोरंजन", link: "/entertainment" },
     {
       name: "Astrology",
       hindiName: "राशिफल",
@@ -134,7 +134,7 @@ const Navbar = () => {
               <Link href="/">{navItems[0].hindiName}</Link>
             </li>
 
-            {/* <li
+            <li
               className={`text-2xl min-w-fit nav-item relative ${
                 pathname === navItems[1].link ? "active" : ""
               }`}
@@ -142,7 +142,7 @@ const Navbar = () => {
               <Link href={navItems[1].link} className="event-menu">
                 {navItems[1].hindiName}
               </Link>
-            </li> */}
+            </li>
 
             {/* <div className="box">
               <li className="min-w-fit">
