@@ -5,7 +5,7 @@ import BlogEditor from "../components/BlogEditor.jsx";
 import axios from "axios";
 import Loader from "../components/Loader.jsx";
 import PublishForm from "../components/PublishForm.jsx";
-
+const Todaydate = new Date().toISOString().split("T")[0];
 const blogStructure = {
   title: "",
   banner: "",
@@ -16,7 +16,7 @@ const blogStructure = {
   district: [],
   location: "",
   post_time: {
-    date: Date,
+    date: Todaydate,
     time: "",
   },
   news_section_type: [],

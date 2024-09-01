@@ -53,7 +53,7 @@ const newsSchema = new mongoose.Schema({
     post_time:
     {
         date: {
-            type: Date,
+            type: String,
         },
         time: {
             type: String,

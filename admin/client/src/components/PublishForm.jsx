@@ -17,9 +17,10 @@ const timeOptions = [];
 for (let i = 0; i < 24; i++) {
   for (let j = 0; j < 60; j += 15) {
     const hour = i % 12 === 0 ? 12 : i % 12;
-    const minute = j === 0 ? "00" : j;
+    const paddedHour = hour.toString().padStart(2, "0"); // Ensures two-digit hour format
+    const minute = j === 0 ? "00" : j.toString().padStart(2, "0"); // Ensures two-digit minute format
     const period = i < 12 ? "AM" : "PM";
-    timeOptions.push(`${hour}:${minute} ${period}`);
+    timeOptions.push(`${paddedHour}:${minute} ${period}`);
   }
 }
 

@@ -234,8 +234,7 @@ export const deleteScheduleNews = tryCatch(async (req, res, next) => {
         })
 })
 
-console.log("Hello")
-cron.schedule('* * * * *', async () => {
+cron.schedule('*/15 * * * *', async () => {
     try {
         console.log("Cron running every minute");
 
@@ -246,20 +245,11 @@ cron.schedule('* * * * *', async () => {
         const currentDate = nowDate.toISOString().split('T')[0]; // Format: YYYY-MM-DD
         const currentTime = nowDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }); // Format: HH:MM AM/PM
 
-        console.log(currentDate, " ", currentTime);
-
         // Find all scheduled news where the scheduled date and time are less than the current date and time
         const overdueNews = await ScheduleNews.find({
-            $or: [
-                { 'post_time.date': { $lte: currentDate } }, // Date is before today
-                {
-                    'post_time.date': currentDate,
-                    'post_time.time': { $lte: currentTime }
-                } // Same date, but time is before now
-            ]
+            'post_time.date': currentDate, // Check if the date is today
+            'post_time.time': currentTime  // Check if the time is less than or equal to the current time
         });
-
-        console.log(overdueNews);
 
         if (overdueNews.length > 0) {
             for (let scheduledNews of overdueNews) {
