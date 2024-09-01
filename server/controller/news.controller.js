@@ -238,7 +238,7 @@ export const getNews = tryCatch(async (req, res, next) => {
         .select('news_id title description content tags state district banner location activity.total_reads news_section_type tags createdAt -_id')
         .then(article => {
 
-            if (article.draft && !draft) {
+            if (article?.draft && !draft) {
                 return next(new ErrorHandler(403, "This news is in draft mode"))
             }
             if (mode === 'edit') {

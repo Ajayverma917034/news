@@ -234,18 +234,19 @@ export const deleteScheduleNews = tryCatch(async (req, res, next) => {
         })
 })
 
-
-cron.schedule('0,15,30,45 * * * *', async () => {
+console.log("Hello")
+cron.schedule('* * * * *', async () => {
     try {
-        console.log("Crons running")
+        console.log("Cron running every minute");
+
         // Get the current date and time in India timezone
         const now = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
         const nowDate = new Date(now);
 
         const currentDate = nowDate.toISOString().split('T')[0]; // Format: YYYY-MM-DD
-        const currentTime = nowDate.toTimeString().split(' ')[0].substring(0, 5); // Format: HH:MM
+        const currentTime = nowDate.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true }); // Format: HH:MM AM/PM
 
-        console.log(currentDate, " ", currentTime)
+        console.log(currentDate, " ", currentTime);
 
         // Find all scheduled news where the scheduled date and time are less than the current date and time
         const overdueNews = await ScheduleNews.find({
@@ -254,23 +255,20 @@ cron.schedule('0,15,30,45 * * * *', async () => {
                 {
                     'post_time.date': currentDate,
                     'post_time.time': { $lte: currentTime }
-                } // Same date,( but time is before now
+                } // Same date, but time is before now
             ]
         });
 
-        console.log(overdueNews)
-        // )console.log(`Checking for overdue scheduled news at ${nowDate}`);
-        // console.log(overdueNews)
+        console.log(overdueNews);
 
         if (overdueNews.length > 0) {
             for (let scheduledNews of overdueNews) {
-                let newUrlTitle = ""
+                let newUrlTitle = "";
                 await translate(scheduledNews.title, { from: 'hi', to: 'en' }).then(res => {
-
                     newUrlTitle = res;
                 }).catch(err => {
-                    console.log(err)
-                    return res.status(500).json({ success: false, error: err.message })
+                    console.log(err);
+                    return res.status(500).json({ success: false, error: err.message });
                 });
 
                 let news_id = newUrlTitle
@@ -303,10 +301,10 @@ cron.schedule('0,15,30,45 * * * *', async () => {
                 // Remove the scheduled news after publishing
                 await ScheduleNews.deleteOne({ _id: scheduledNews._id });
 
-                // console.log(`Published overdue news with ID: ${scheduledNews.news_id} at ${nowDate}`);
+                console.log(`Published overdue news with ID: ${scheduledNews.news_id} at ${nowDate}`);
             }
         } else {
-            // console.log(`No overdue scheduled news found to publish at ${nowDate}`);
+            console.log(`No overdue scheduled news found to publish at ${nowDate}`);
         }
     } catch (error) {
         console.error('Error publishing scheduled news:', error);
