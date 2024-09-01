@@ -236,7 +236,7 @@ export const deleteScheduleNews = tryCatch(async (req, res, next) => {
 
 cron.schedule('*/15 * * * *', async () => {
     try {
-        console.log("Cron running every minute");
+        // console.log("Cron running every minute");
 
         // Get the current date and time in India timezone
         const now = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
@@ -291,10 +291,10 @@ cron.schedule('*/15 * * * *', async () => {
                 // Remove the scheduled news after publishing
                 await ScheduleNews.deleteOne({ _id: scheduledNews._id });
 
-                console.log(`Published overdue news with ID: ${scheduledNews.news_id} at ${nowDate}`);
+                // console.log(`Published overdue news with ID: ${scheduledNews.news_id} at ${nowDate}`);
             }
         } else {
-            console.log(`No overdue scheduled news found to publish at ${nowDate}`);
+            // console.log(`No overdue scheduled news found to publish at ${nowDate}`);
         }
     } catch (error) {
         console.error('Error publishing scheduled news:', error);
