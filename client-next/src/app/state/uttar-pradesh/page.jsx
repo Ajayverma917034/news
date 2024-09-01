@@ -64,7 +64,7 @@ const page = async () => {
     <>
       {/* <MetaDataSection title={"All State News"} /> */}
       <div className="flex spacing mt-8 flex-col">
-        <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto gap-5 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto md:gap-5 w-full">
           <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden">
             {/* Navbar for the states */}
             <DistrictNav state={"uttar pradesh"} navItems={navItems} />

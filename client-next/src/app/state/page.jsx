@@ -49,7 +49,7 @@ const StateNewsUnknown = async () => {
   return (
     <>
       <div className="flex spacing mt-4 md:mt-8 flex-col">
-        <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto gap-5 w-full">
+        <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto md:gap-5 w-full">
           <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden">
             <StateNav />
 
@@ -85,7 +85,7 @@ const StateNewsUnknown = async () => {
         </div>
 
         {news && news.length > 2 && (
-          <div className="w-full grid grid-cols-1 lg:grid-cols-6 mx-auto gap-5 ">
+          <div className="w-full grid grid-cols-1 lg:grid-cols-6 mx-auto md:gap-5 ">
             <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden">
               {news.slice(2, 4).map((newsItem, index) => (
                 <NewsSection
@@ -106,7 +106,7 @@ const StateNewsUnknown = async () => {
         )}
 
         {news && news.length > 4 && (
-          <div className="w-full grid grid-cols-1 lg:grid-cols-6 mx-auto gap-5">
+          <div className="w-full grid grid-cols-1 lg:grid-cols-6 mx-auto md:gap-5">
             <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden">
               {news.slice(4).map((newsItem, index) => (
                 <NewsSection
