@@ -50,7 +50,7 @@ const RajyaMain = () => {
   }, [currentStateIndex]);
 
   return (
-    <div className="flex spacing max-sm:px-1 mt-5 sm:mt-8">
+    <div className="flex flex-col spacing max-sm:px-1 mt-5 sm:mt-8">
       <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full gap-x-5">
         <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden w-full">
           <Heading title={"राज्य"} />

@@ -58,7 +58,7 @@ export default async function Page() {
 
     return (
         <main className="bg-red-200">
-            <div className="flex spacing mt-2 ">
+            <div className="flex flex-col spacing mt-2 w-full">
                 <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full md:gap-5 ">
                     <div className="flex flex-col flex-wrap  md:col-span-4 overflow-hidden bg-white">
                         {
@@ -98,12 +98,17 @@ export default async function Page() {
                     </div>
                 </div>
             </div>
+            <div className="flex flex-col w-full">
+                <ApnaZila />
+            </div>
+            <div className="flex flex-col w-full">
+                <RajyaMain />
 
-            <ApnaZila />
-            <RajyaMain />
+            </div>
+
             {news && news.data && news.data.length > 1 && (
-                <div className="flex spacing mt-2">
-                    <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full gap-x-5">
+                <div className="flex flex-col spacing mt-2 w-full">
+                    <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full md:gap-x-5">
                         <div className="flex flex-col flex-wrap  md:col-span-4 overflow-hidden">
                             {news.data.slice(1, 3).map((news, index) => (
                                 <NewsSection key={index} data={news.data} title={news.title}
@@ -120,8 +125,8 @@ export default async function Page() {
             )}
 
             {news && news.data && news.data.length > 3 && (
-                <div className="flex spacing mt-2">
-                    <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full gap-x-5">
+                <div className="flex flex-col spacing mt-2 w-full">
+                    <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full md:gap-x-5">
                         <div className="flex flex-col flex-wrap  md:col-span-4 overflow-hidden">
                             {news.data.slice(4).map((news, index) => (
                                 <NewsSection adInd={4 + index} key={index} data={news.data} title={news.title} />
