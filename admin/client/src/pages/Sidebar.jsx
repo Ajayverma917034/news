@@ -239,14 +239,14 @@ const SideBar = () => {
               <RiDraftLine size={25} />
               <span>Draft News</span>
             </NavLink>
-            {/* <NavLink
+            <NavLink
               className="flex items-center gap-2 text-gray hover:bg-blue mt-1 hover:text-white p-2 rounded w-full sidebar-link"
               to="/dashboard/schedule-news"
               onClick={() => setShowSideNav(false)}
             >
               <RiCalendarScheduleLine size={25} />
               <span>Schedule News</span>
-            </NavLink> */}
+            </NavLink>
             {user?.role === "admin" && (
               <NavLink
                 className="flex items-center gap-2 text-gray hover:bg-blue hover:text-white mt-1 p-2 rounded w-full sidebar-link"

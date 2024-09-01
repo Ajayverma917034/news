@@ -237,12 +237,15 @@ export const deleteScheduleNews = tryCatch(async (req, res, next) => {
 
 cron.schedule('0,15,30,45 * * * *', async () => {
     try {
+        console.log("Crons running")
         // Get the current date and time in India timezone
         const now = new Date().toLocaleString("en-US", { timeZone: "Asia/Kolkata" });
         const nowDate = new Date(now);
 
         const currentDate = nowDate.toISOString().split('T')[0]; // Format: YYYY-MM-DD
         const currentTime = nowDate.toTimeString().split(' ')[0].substring(0, 5); // Format: HH:MM
+
+        console.log(currentDate, " ", currentTime)
 
         // Find all scheduled news where the scheduled date and time are less than the current date and time
         const overdueNews = await ScheduleNews.find({
@@ -251,11 +254,12 @@ cron.schedule('0,15,30,45 * * * *', async () => {
                 {
                     'post_time.date': currentDate,
                     'post_time.time': { $lte: currentTime }
-                } // Same date, but time is before now
+                } // Same date,( but time is before now
             ]
         });
 
-        // console.log(`Checking for overdue scheduled news at ${nowDate}`);
+        console.log(overdueNews)
+        // )console.log(`Checking for overdue scheduled news at ${nowDate}`);
         // console.log(overdueNews)
 
         if (overdueNews.length > 0) {

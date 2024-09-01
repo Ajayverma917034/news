@@ -163,6 +163,7 @@ const PublishForm = () => {
     // if (e.target.className.includes("disable")) {
     //   return;
     // }
+
     if (!title.length) {
       return toast.error("Write News Title before publishing");
     }
@@ -181,10 +182,11 @@ const PublishForm = () => {
       );
     }
 
-    if (!post_time.date || !post_time.time) {
-      return toast.error(
-        "Please select the date and time to schedule the news"
-      );
+    if (!post_time.date) {
+      return toast.error("Please select the schedule date");
+    }
+    if (!post_time.time) {
+      return toast.error("Please select the schedule time");
     }
 
     let loadingToast = toast.loading("Scheduling News ...");
@@ -224,12 +226,12 @@ const PublishForm = () => {
       });
   };
 
-  const handleDateChange = (e) => {
+  const handleDateChange = (val) => {
     setBlog({
       ...blog,
       post_time: {
         ...blog.post_time,
-        date: e.target.value,
+        date: val,
       },
     });
     setHasChanges(true);
@@ -457,12 +459,12 @@ const PublishForm = () => {
                 Publish
               </button>
             )}
-            {/* <button
+            <button
               onClick={() => setPopUpOpen(true)}
               className="btn-dark px-8 my-4"
             >
               Schedule Post
-            </button> */}
+            </button>
           </div>
         </div>
         <SchedulePopUp
