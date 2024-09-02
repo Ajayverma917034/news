@@ -31,6 +31,10 @@ const BlogEditor = ({ blogContent }) => {
   let { news_id } = useParams();
   const [hasChanges, setHasChanges] = useState(false);
 
+  const query = new URLSearchParams(window.location.search);
+  const mode = query.get("mode");
+  const type = query.get("type");
+
   let {
     blog,
     blog: { title, banner, content, description },
@@ -218,12 +222,17 @@ const BlogEditor = ({ blogContent }) => {
             >
               Save Draft
             </button>
+            {
+              mode !== "edit" && (
+
             <button
               className="btn-light py-1 bg-red text-white"
               onClick={handleResetEditor}
             >
               Reset Editor
             </button>
+              )
+            }
           </div>
         </nav>
         <section>

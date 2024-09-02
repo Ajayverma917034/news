@@ -33,9 +33,7 @@ const PublishForm = () => {
   const query = new URLSearchParams(window.location.search);
   const mode = query.get("mode");
   const type = query.get("type");
-  console.log(type);
 
-  console.log(mode);
 
   const [popupOpen, setPopUpOpen] = useState(false);
   // const [scheduleData, setScheduleData] = useState({
