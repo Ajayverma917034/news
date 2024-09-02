@@ -31,9 +31,11 @@ const PublishForm = () => {
   const { news_id } = useParams();
 
   const query = new URLSearchParams(window.location.search);
+  const mode = query.get("mode");
   const type = query.get("type");
+  console.log(type);
 
-  // console.log(type);
+  console.log(mode);
 
   const [popupOpen, setPopUpOpen] = useState(false);
   // const [scheduleData, setScheduleData] = useState({
@@ -450,34 +452,39 @@ const PublishForm = () => {
             </div>
           </div>
           <div className="flex gap-x-5 items-center flex-wrap justify-center w-full">
-            {type !== "schedule_news" && (
+            
               <button
                 onClick={handlePublish}
-                className={`btn-dark px-8 my-4 ${
-                  type === "schedule_news" ? "disable" : ""
-                }`}
+                className={`btn-dark px-8 my-4 `}
               >
                 Publish
               </button>
-            )}
+
+            {
+              mode !== 'edit' ?
             <button
               onClick={() => setPopUpOpen(true)}
               className="btn-dark px-8 my-4"
             >
               Schedule Post
             </button>
+            : <> </>
+            }
           </div>
         </div>
-        <SchedulePopUp
-          popupOpen={popupOpen}
-          setPopUpOpen={setPopUpOpen}
-          post_time={post_time}
-          handleSchedule={ScheduleNews}
-          handleDateChange={handleDateChange}
-          handleTimeChange={handleTimeChange}
-          timeOptions={timeOptions}
-          selectedTimeIndex={selectedTimeIndex}
-        />
+        {
+          type !== 'edit' ?
+          <SchedulePopUp
+            popupOpen={popupOpen}
+            setPopUpOpen={setPopUpOpen}
+            post_time={post_time}
+            handleSchedule={ScheduleNews}
+            handleDateChange={handleDateChange}
+            handleTimeChange={handleTimeChange}
+            timeOptions={timeOptions}
+            selectedTimeIndex={selectedTimeIndex}
+          />  : <> </>
+        }
       </section>
     </>
   );

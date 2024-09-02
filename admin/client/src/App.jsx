@@ -27,6 +27,7 @@ import AdminEventNewsHandler from "./pages/AdminEventNewsHandler";
 import EventNewsHandler from "./pages/EventNewsHandler";
 import TitleAdvertisementNews from "./pages/admin/TitleAdvertisementNews";
 import ScheduleNews from "./pages/admin/ScheduleNews";
+import ScheduleEditor from "./pages/ScheduleEditor";
 
 export const UserContext = createContext({});
 
@@ -57,6 +58,10 @@ const App = () => {
             <Route
               path="create-news"
               element={<ProtectedRoute component={Editor} />}
+            />
+            <Route
+              path="edit-schedule-news/:news_id"
+              element={<ProtectedRoute component={ScheduleEditor} />}
             />
             <Route
               path="create-news/:news_id"

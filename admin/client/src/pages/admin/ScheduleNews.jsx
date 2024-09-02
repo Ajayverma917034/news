@@ -133,7 +133,7 @@ const ScheduleNews = () => {
                       className="bg-blue text-white px-3 py-1 rounded-lg text-base"
                       onClick={() =>
                         navigate(
-                          `/dashboard/create-news/${item?.news_id}?type=schedule_news`
+                          `/dashboard/edit-schedule-news/${item?.news_id}`
                         )
                       }
                     >

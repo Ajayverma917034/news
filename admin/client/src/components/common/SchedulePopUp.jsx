@@ -16,20 +16,21 @@ const SchedulePopUp = ({
     return acc;
   }, {});
 
+
   const [dateValue, setDateValue] = useState(
-    post_time.date || new Date().toISOString().split("T")[0]
+    post_time?.date || new Date().toISOString().split("T")[0]
   );
 
   const [timeIndex, setTimeIndex] = useState(selectedTimeIndex);
 
   useEffect(() => {
-    if (post_time.date) {
-      const date = new Date(post_time.date).toISOString().split("T")[0];
+    if (post_time?.date) {
+      const date = new Date(post_time?.date).toISOString().split("T")[0];
       setDateValue(date);
     }
     setTimeIndex(
-      timeToIndexMap[post_time.time] !== undefined
-        ? timeToIndexMap[post_time.time]
+      timeToIndexMap[post_time?.time] !== undefined
+        ? timeToIndexMap[post_time?.time]
         : selectedTimeIndex
     );
   }, [popupOpen]);

@@ -112,7 +112,7 @@ const NewsHandler = () => {
                     <button
                       className="bg-blue text-white px-3 py-1 rounded-lg text-base"
                       onClick={() =>
-                        navigate(`/dashboard/create-news/${item?.news_id}`)
+                        navigate(`/dashboard/create-news/${item?.news_id}?mode=edit`)
                       }
                     >
                       Edit

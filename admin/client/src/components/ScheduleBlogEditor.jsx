@@ -5,28 +5,10 @@ import { toast } from "react-hot-toast";
 import EditorJS from "@editorjs/editorjs";
 import { tools } from "./Tools.jsx";
 import axios from "axios";
-import { EditorContext } from "../pages/Editor.jsx";
 import { uploadImage } from "../common/imageUploader.js";
-const Todaydate = new Date().toISOString().split("T")[0];
-const blogStructure = {
-  title: "",
-  banner: "",
-  content: [],
-  tags: [],
-  description: "",
-  state: [],
-  district: [],
-  location: "",
-  post_time: {
-    date: Todaydate,
-    time: "",
-  },
-  news_section_type: [],
-  breaking_news: false,
-  author: { personal_info: {} },
-};
+import { ScheduleEditorContext } from "../pages/ScheduleEditor.jsx";
 
-const BlogEditor = ({ blogContent }) => {
+const ScheduleBlogEditor = ({ blogContent }) => {
   const navigate = useNavigate();
   let { news_id } = useParams();
   const [hasChanges, setHasChanges] = useState(false);
@@ -38,10 +20,10 @@ const BlogEditor = ({ blogContent }) => {
     textEditor,
     setTextEditor,
     setEditorState,
-  } = useContext(EditorContext);
+  } = useContext(ScheduleEditorContext);
 
   useEffect(() => {
-    const savedBlog = JSON.parse(localStorage.getItem("blog"));
+    const savedBlog = JSON.parse(localStorage.getItem("schedule-blog"));
     if (savedBlog) {
       setBlog(savedBlog);
     }
@@ -69,7 +51,7 @@ const BlogEditor = ({ blogContent }) => {
         textEditor.save().then((data) => {
           const updatedBlog = { ...blog, content: data };
           setBlog(updatedBlog);
-          localStorage.setItem("blog", JSON.stringify(updatedBlog));
+          localStorage.setItem("schedule-blog", JSON.stringify(updatedBlog));
 
           // Send auto-save request to server
           // axios.post(import.meta.env.VITE_SERVER_DOMAIN + "/create-news", {
@@ -99,7 +81,7 @@ const BlogEditor = ({ blogContent }) => {
 
           const updatedBlog = { ...blog, banner: url };
           setBlog(updatedBlog);
-          localStorage.setItem("blog", JSON.stringify(updatedBlog));
+          localStorage.setItem("schedule-blog", JSON.stringify(updatedBlog));
           setHasChanges(true);
         })
         .catch((err) => {
@@ -119,7 +101,7 @@ const BlogEditor = ({ blogContent }) => {
     input.style.height = input.scrollHeight + "px";
     const updatedBlog = { ...blog, title: input.value };
     setBlog(updatedBlog);
-    localStorage.setItem("blog", JSON.stringify(updatedBlog));
+    localStorage.setItem("schedule-blog", JSON.stringify(updatedBlog));
     setHasChanges(true);
   };
 
@@ -141,7 +123,7 @@ const BlogEditor = ({ blogContent }) => {
             const updatedBlog = { ...blog, content: data };
             setBlog(updatedBlog);
             setEditorState("publish");
-            localStorage.setItem("blog", JSON.stringify(updatedBlog));
+            localStorage.setItem("schedule-blog", JSON.stringify(updatedBlog));
           } else {
             return toast.error("Write Something in your news to publish it");
           }
@@ -181,7 +163,7 @@ const BlogEditor = ({ blogContent }) => {
             e.target.classList.remove("disable");
             toast.dismiss(loadingToast);
             toast.success("Saved successfully");
-            localStorage.removeItem("blog");
+            localStorage.removeItem("schedule-blog");
             navigate("/dashboard");
           })
           .catch(({ response }) => {
@@ -193,14 +175,6 @@ const BlogEditor = ({ blogContent }) => {
     }
   };
 
-  const handleResetEditor =(e) => {
-    e.preventDefault();
-    localStorage.removeItem("blog");
-    setBlog(blogStructure);
-    setHasChanges(false);
-    setEditorState("editor");
-    navigate("/dashboard");
-  }
   return (
     <>
       <div className="p-5 md:p-10 h-[calc(100vh-100px)] md:h-[calc(100vh-82px)] overflow-auto">
@@ -217,12 +191,6 @@ const BlogEditor = ({ blogContent }) => {
               onClick={handleSaveDraft}
             >
               Save Draft
-            </button>
-            <button
-              className="btn-light py-1 bg-red text-white"
-              onClick={handleResetEditor}
-            >
-              Reset Editor
             </button>
           </div>
         </nav>
@@ -262,4 +230,4 @@ const BlogEditor = ({ blogContent }) => {
   );
 };
 
-export default BlogEditor;
+export default ScheduleBlogEditor;
