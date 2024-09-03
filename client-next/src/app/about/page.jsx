@@ -34,6 +34,7 @@ const page = () => {
   return (
     <div>
       {" "}
+      <h1 className="text-2xl text-center">About Us</h1>
       <BottomPopUp />
     </div>
   );

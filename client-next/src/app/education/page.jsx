@@ -1,3 +1,4 @@
+import BottomPopUp from "@/components/BottomPopUp";
 import MoreNews from "@/pages/MoreNews";
 import React from "react";
 export const metadata = {
