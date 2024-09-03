@@ -44,7 +44,7 @@ const PageContent2 = ({ item, ads }) => {
         </h1>
         <p className="date-lg text-wrap">{item.description}</p>
         <div className="flex flex-col w-full max-h-[8rem]">
-
+          <div></div>
         </div>
         <div className="w-full h-[240px] sm:h-[350px] mt-3 p-1 bg-white">
           <Image
@@ -108,9 +108,7 @@ const PageContent2 = ({ item, ads }) => {
         >
           Whatsapp चैनल फॉलो करे !
         </a>
-        <div className="flex flex-col w-full max-h-[8rem]">
-
-        </div>
+        <div className="flex flex-col w-full max-h-[8rem]"></div>
         <div className="py-4 w-full">
           <div className="bg-gray h-[200px] flex justify-center items-center w-full relative">
             <DetailAds ads={ads} />

@@ -178,7 +178,7 @@ const SinglePage = ({ news_id, ads }) => {
   // console.log(relatedNews);
 
   return (
-    <div className="flex spacing mt-2 w-full max-sm:px-1">
+    <div className="flex flex-col spacing mt-2 w-full max-sm:px-1 relative">
       <div className="fixed right-0 top-3/2 transform -translate-y-3/2 z-[1000]">
         <button
           onClick={handleNextNews}
@@ -201,7 +201,7 @@ const SinglePage = ({ news_id, ads }) => {
             />
           </div>
           {relatedNews && relatedNews.length ? (
-            <div className="w-full">
+            <div className="w-full flex flex-col">
               <Heading title={"सम्बंधित खबर"} />
               <div className="flex max-lg:flex-col gap-2 w-full">
                 {relatedNews.map((item, index) => (
@@ -245,21 +245,35 @@ const SinglePage = ({ news_id, ads }) => {
             <CustomeAndGoogleAdd2 sideAds={ads?.sideAds} />
           </div>
 
-          <div className="flex mt-2 w-full">
+          <div className="flex flex-col mt-2 w-full">
             {/* Existing content */}
             <div className="flex flex-col w-full gap-4">
               <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-4">
-                <div className="flex w-full max-h-[12rem] "></div>
-                <div className="flex w-full max-h-[12rem] "></div>
+                <div className="flex w-full max-h-[12rem] ">
+                  <div></div>
+                </div>
+                <div className="flex w-full max-h-[12rem] ">
+                  <div></div>
+                </div>
               </div>
-              <div className="flex w-full max-h-[12rem] "></div>
-              <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-4">
-                <div className="flex w-full max-h-[12rem] "></div>
-                <div className="flex w-full max-h-[12rem] "></div>
+              <div className="flex w-full max-h-[12rem] ">
+                <div></div>
               </div>
-              <div className="flex w-full max-h-[12rem] "></div>
               <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-4">
-                <div className="flex w-full max-h-[12rem] "></div>
+                <div className="flex w-full max-h-[12rem] ">
+                  <div></div>
+                </div>
+                <div className="flex w-full max-h-[12rem] ">
+                  <div></div>
+                </div>
+              </div>
+              <div className="flex w-full max-h-[12rem] ">
+                <div></div>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-4">
+                <div className="flex w-full max-h-[12rem] ">
+                  <div></div>
+                </div>
                 <div className="flex w-full max-h-[12rem] "></div>
               </div>
               <div className="flex w-full max-h-[12rem] "></div>
