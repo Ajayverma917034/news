@@ -8,6 +8,7 @@ import { Toaster } from "react-hot-toast";
 import AdSense from "../../components/AdSense";
 import Footer from "@/components/Footer";
 import { CustomeAdsContextProvider } from "@/lib/CustomeAdsContext";
+import BottomPopUp from "@/components/BottomPopUp";
 
 // const aneka = Anek_Devanagari({ subsets: ["devanagari"] });
 const aneka = Anek_Devanagari({ subsets: ['devanagari'] });
@@ -58,6 +59,7 @@ export default function RootLayout({ children }) {
           <BreakingNews />
           {children}
           <Footer />
+
         </body>
       </html>
     </CustomeAdsContextProvider>

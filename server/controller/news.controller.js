@@ -237,6 +237,9 @@ export const getNews = tryCatch(async (req, res, next) => {
     News.findOneAndUpdate({ news_id }, { $inc: { "activity.total_reads": incrementVal, "activity.total_today_count": incrementVal } })
         .select('news_id title description content tags state district banner location activity.total_reads news_section_type tags createdAt -_id')
         .then(article => {
+            if (!article) {
+                return next(new ErrorHandler(404, "News not found"))
+            }
 
             if (article.draft && !draft) {
                 return next(new ErrorHandler(403, "This news is in draft mode"))
@@ -259,18 +262,32 @@ export const getNews = tryCatch(async (req, res, next) => {
             if (query.$or.length === 0) {
                 delete query.$or;
             }
-
-
             if (news_id) {
                 query.news_id = { $ne: news_id };
             }
+
 
             News.find(query)
                 .limit(4)
                 .sort({ "createdAt": -1 })
                 .select('news_id title banner -_id')
-                .then(news => {
-                    return res.status(200).json({ news: article, relatedNews: news })
+                .then(async (news) => {
+                    const randomNewsId = await News.aggregate([
+                        // Match documents that don't have the specified news_id
+                        { $match: { news_id: { $ne: news_id } } },
+                        // Sort documents by createdAt in descending order
+                        { $limit: 100 },
+                        // Sample one random document from the result
+                        { $sample: { size: 1 } },
+                        // Project only the news_id field
+                        {
+                            $project: {
+                                news_id: 1,
+                                _id: 0
+                            }
+                        }
+                    ]).exec();
+                    return res.status(200).json({ news: article, relatedNews: news, randomNewsId: randomNewsId })
                 }
                 ).catch(err => {
                     return next(new ErrorHandler(500, err.message));

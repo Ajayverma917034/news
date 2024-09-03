@@ -1,3 +1,4 @@
+import BottomPopUp from "@/components/BottomPopUp";
 import React from "react";
 export const metadata = {
   title: "About Us",
@@ -30,7 +31,12 @@ export const metadata = {
   },
 };
 const page = () => {
-  return <div>page</div>;
+  return (
+    <div>
+      {" "}
+      <BottomPopUp />
+    </div>
+  );
 };
 
 export default page;

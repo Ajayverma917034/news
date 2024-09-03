@@ -1,6 +1,7 @@
 import React from "react";
 import Client from "./Client";
 import { findHindi } from "@/assets/data";
+import BottomPopUp from "@/components/BottomPopUp";
 // import DistrictNews from "@/pages/DistrictNews";
 
 export async function generateMetadata({ params }) {
@@ -45,6 +46,8 @@ export async function generateMetadata({ params }) {
 const page = ({ params }) => {
   return (
     <div>
+      <BottomPopUp />
+
       <Client params={params} />
     </div>
   );

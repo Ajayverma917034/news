@@ -17,6 +17,7 @@ import { useEffect, useState } from "react";
 import { FaYoutube } from "react-icons/fa";
 import { HiOutlineExclamationCircle } from "react-icons/hi2";
 import axios from "axios";
+import BottomPopUp from "@/components/BottomPopUp";
 // import HorizontalAds from "../../../components/HorizontalAds";
 
 const MoreVideos = () => {
@@ -57,13 +58,21 @@ const MoreVideos = () => {
   };
 
   const handlePageChange = (newPage) => {
+    const isMobile = window.innerWidth <= 768; // Adjust the threshold as needed
+
+    // Set scroll position based on device type
+    if (isMobile) {
+      window.scrollTo(0, 230);
+    } else {
+      window.scrollTo(0, 400);
+    }
     fetchNews(newPage);
   };
 
-  const getRandomSquareAd = () => {
-    const ads = [SquareAds1, SquareAds2, SquareAds3, SquareAds4, SquareAds5];
-    return ads[Math.floor(Math.random() * ads.length)];
-  };
+  // const getRandomSquareAd = () => {
+  //   const ads = [SquareAds1, SquareAds2, SquareAds3, SquareAds4, SquareAds5];
+  //   return ads[Math.floor(Math.random() * ads.length)];
+  // };
 
   useEffect(() => {
     fetchNews(page);
@@ -134,10 +143,8 @@ const MoreVideos = () => {
                           </div>
                           <div className="flex gap-y-4 gap-x-5 items-center justify-center max-lg:flex-col">
                             <>
-                              <div className="flex bg-[#f0f0f0] justify-center flex-col !h-full w-[330px]">
-                                <p className="text-[16px] md:text-[18px] lg:text-[18px] text-center">
-                                  Advertisement
-                                </p>
+                              <div className="flex bg-[#f0f0f0] flex-col">
+                                <div className="flex flex-col max-h-[330px]"></div>
                                 {/* {React.createElement(getRandomSquareAd())} */}
                               </div>
                               <CustomeAndGoogleAdd />
@@ -148,6 +155,7 @@ const MoreVideos = () => {
                     </div>
                   ))}
                 </div>
+                <div className="flex flex-col w-full max-h-[10rem]"></div>
 
                 <div className="max-md:my-5 mb-4 flex justify-center w-full">
                   <CustomePagination
@@ -158,6 +166,7 @@ const MoreVideos = () => {
                     onChange={handlePageChange}
                   />
                 </div>
+                <div className="flex flex-col w-full max-h-[10rem]"></div>
               </div>
             ) : (
               <p>No news available</p>
@@ -173,6 +182,7 @@ const MoreVideos = () => {
           {/* <SideNews title={"education"} /> */}
         </div>
       </div>
+      <BottomPopUp />
     </div>
   );
 };

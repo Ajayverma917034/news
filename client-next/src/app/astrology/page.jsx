@@ -1,3 +1,4 @@
+import BottomPopUp from "@/components/BottomPopUp";
 import MoreNews from "@/pages/MoreNews";
 import React from "react";
 export const metadata = {
@@ -31,7 +32,12 @@ export const metadata = {
   },
 };
 const page = () => {
-  return <MoreNews title={"astrology"} />;
+  return (
+    <>
+      <MoreNews title={"astrology"} />
+      <BottomPopUp />
+    </>
+  );
 };
 
 export default page;

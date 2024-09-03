@@ -1,3 +1,4 @@
+import BottomPopUp from "@/components/BottomPopUp";
 import React from "react";
 export const metadata = {
   title: "Disclaimer Policy",
@@ -27,7 +28,11 @@ export const metadata = {
   },
 };
 const page = () => {
-  return <div>page</div>;
+  return (
+    <div>
+      page <BottomPopUp />
+    </div>
+  );
 };
 
 export default page;

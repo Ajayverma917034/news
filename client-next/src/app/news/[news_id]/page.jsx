@@ -1,3 +1,4 @@
+import BottomPopUp from "@/components/BottomPopUp";
 import SinglePage from "@/pages/SinglePage.jsx";
 
 const fetchNews = async (news_id) => {
@@ -71,5 +72,10 @@ export async function generateMetadata({ params: { news_id } }) {
 
 export default async function BlogPostPage({ params: { news_id } }) {
   const ads = await fetchAds();
-  return <SinglePage news_id={news_id} ads={ads} />;
+  return (
+    <>
+      <SinglePage news_id={news_id} ads={ads} />
+      <BottomPopUp />
+    </>
+  );
 }

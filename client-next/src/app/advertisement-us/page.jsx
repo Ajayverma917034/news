@@ -1,9 +1,13 @@
-import React from 'react'
+import BottomPopUp from "@/components/BottomPopUp";
+import React from "react";
 
 const page = () => {
   return (
-    <div>page</div>
-  )
-}
+    <div>
+      {" "}
+      <BottomPopUp />
+    </div>
+  );
+};
 
-export default page
+export default page;

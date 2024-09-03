@@ -5,31 +5,31 @@ import Heading from "@/lib/Heading";
 import PageContent from "@/components/single-page/PageContent";
 import CustomeAndGoogleAdd1 from "@/components/ads/CustomeAndGoogleAdd1";
 import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
-import {
-  SquareAds1,
-  SquareAds2,
-  SquareAds3,
-  SquareAds4,
-  SquareAds5,
-  SquareAds6,
-  SquareAds7,
-  SquareAds8,
-  SquareAds9,
-  SquareAds10,
-} from "../../../../components/SquareAds";
+// import {
+//   SquareAds1,
+//   SquareAds2,
+//   SquareAds3,
+//   SquareAds4,
+//   SquareAds5,
+//   SquareAds6,
+//   SquareAds7,
+//   SquareAds8,
+//   SquareAds9,
+//   SquareAds10,
+// } from "../../../../components/SquareAds";
 
-import {
-  HorizontalAds1,
-  HorizontalAds2,
-  HorizontalAds3,
-  HorizontalAds4,
-  HorizontalAds5,
-  HorizontalAds6,
-  HorizontalAds7,
-  HorizontalAds8,
-  HorizontalAds9,
-  HorizontalAds10,
-} from "../../../../components/HorizontalAds";
+// import {
+//   HorizontalAds1,
+//   HorizontalAds2,
+//   HorizontalAds3,
+//   HorizontalAds4,
+//   HorizontalAds5,
+//   HorizontalAds6,
+//   HorizontalAds7,
+//   HorizontalAds8,
+//   HorizontalAds9,
+//   HorizontalAds10,
+// } from "../../../../components/HorizontalAds";
 
 const RandomNewsScroll = ({ initialNewsId }) => {
   const [randomNews, setRandomNews] = useState([]);
@@ -40,30 +40,30 @@ const RandomNewsScroll = ({ initialNewsId }) => {
 
   const MAX_NEWS_COUNT = 9;
 
-  const adSequence = [
-    SquareAds1,
-    SquareAds2,
-    SquareAds3,
-    SquareAds4,
-    SquareAds5,
-    SquareAds6,
-    SquareAds7,
-    SquareAds8,
-    SquareAds9,
-    SquareAds10,
-  ];
-  const horizontalAdSequence = [
-    HorizontalAds1,
-    HorizontalAds2,
-    HorizontalAds3,
-    HorizontalAds4,
-    HorizontalAds5,
-    HorizontalAds6,
-    HorizontalAds7,
-    HorizontalAds8,
-    HorizontalAds9,
-    HorizontalAds10,
-  ];
+  // const adSequence = [
+  //   SquareAds1,
+  //   SquareAds2,
+  //   SquareAds3,
+  //   SquareAds4,
+  //   SquareAds5,
+  //   SquareAds6,
+  //   SquareAds7,
+  //   SquareAds8,
+  //   SquareAds9,
+  //   SquareAds10,
+  // ];
+  // const horizontalAdSequence = [
+  //   HorizontalAds1,
+  //   HorizontalAds2,
+  //   HorizontalAds3,
+  //   HorizontalAds4,
+  //   HorizontalAds5,
+  //   HorizontalAds6,
+  //   HorizontalAds7,
+  //   HorizontalAds8,
+  //   HorizontalAds9,
+  //   HorizontalAds10,
+  // ];
 
   const fetchRandomNews = async () => {
     if (totalFetchedNews >= MAX_NEWS_COUNT) {
@@ -157,9 +157,9 @@ const RandomNewsScroll = ({ initialNewsId }) => {
                       <p className="text-[16px] md:text-[18px] lg:text-[18px] text-center">
                         Advertisement
                       </p>
-                      {React.createElement(
+                      {/* {React.createElement(
                         adSequence[index % adSequence.length]
-                      )}
+                      )} */}
                     </div>
                     <CustomeAndGoogleAdd />
                   </>
@@ -169,9 +169,9 @@ const RandomNewsScroll = ({ initialNewsId }) => {
                   <p className="text-[16px] md:text-[18px] lg:text-[18px] text-center uppercase">
                     Advertisement
                   </p>
-                  {React.createElement(
+                  {/* {React.createElement(
                     horizontalAdSequence[index % horizontalAdSequence.length]
-                  )}
+                  )} */}
                 </div>
               </div>
             </div>

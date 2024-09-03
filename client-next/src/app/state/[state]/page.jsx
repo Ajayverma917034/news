@@ -1,6 +1,7 @@
 import React from "react";
 import { findHindi } from "@/assets/data";
 import StateClient from "./StateClient";
+import BottomPopUp from "@/components/BottomPopUp";
 
 export async function generateMetadata({ params }) {
   // read route params
@@ -43,6 +44,8 @@ export async function generateMetadata({ params }) {
 const page = ({ params }) => {
   return (
     <div>
+      <BottomPopUp />
+
       <StateClient params={params} />
     </div>
   );

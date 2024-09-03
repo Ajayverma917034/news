@@ -11,13 +11,13 @@ import {
 } from "@/skeleton/HomeSkeleton";
 import { handleImageError } from "@/lib/errorImg";
 import DetailAds from "@/components/ads/DetailAds";
-import {
-  SquareAds1,
-  SquareAds2,
-  SquareAds3,
-  SquareAds4,
-  SquareAds5,
-} from "../../components/SquareAds";
+// import {
+//   SquareAds1,
+//   SquareAds2,
+//   SquareAds3,
+//   SquareAds4,
+//   SquareAds5,
+// } from "../../components/SquareAds";
 import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 import CustomePagination from "@/lib/CustomePagination";
 import Heading from "@/lib/Heading";
@@ -67,13 +67,21 @@ const MoreNews = ({ title }) => {
   };
 
   const handlePageChange = (newPage) => {
+    const isMobile = window.innerWidth <= 768; // Adjust the threshold as needed
+
+    // Set scroll position based on device type
+    if (isMobile) {
+      window.scrollTo(0, 230);
+    } else {
+      window.scrollTo(0, 400);
+    }
     fetchNews(newPage);
   };
 
-  const getRandomSquareAd = () => {
-    const ads = [SquareAds1, SquareAds2, SquareAds3, SquareAds4, SquareAds5];
-    return ads[Math.floor(Math.random() * ads.length)];
-  };
+  // const getRandomSquareAd = () => {
+  //   const ads = [SquareAds1, SquareAds2, SquareAds3, SquareAds4, SquareAds5];
+  //   return ads[Math.floor(Math.random() * ads.length)];
+  // };
 
   useEffect(() => {
     fetchNews(page);
@@ -142,11 +150,9 @@ const MoreNews = ({ title }) => {
                           </div>
                           <div className="flex gap-y-4 gap-x-5 items-center justify-center max-lg:flex-col">
                             <>
-                              <div className="flex bg-[#f0f0f0] justify-center flex-col !h-full">
-                                <p className="text-[16px] md:text-[18px] lg:text-[18px] text-center">
-                                  Advertisement
-                                </p>
-                                {React.createElement(getRandomSquareAd())}
+                              <div className="flex bg-[#f0f0f0] flex-col">
+                                <div className="flex flex-col max-h-[330px]"></div>
+                                {/* {React.createElement(getRandomSquareAd())} */}
                               </div>
                               <CustomeAndGoogleAdd />
                             </>
@@ -156,6 +162,7 @@ const MoreNews = ({ title }) => {
                     </div>
                   ))}
                 </div>
+                <div className="flex flex-col w-full max-h-[10rem]"></div>
 
                 <div className="max-md:my-5 mb-4 flex justify-center w-full">
                   <CustomePagination
@@ -166,6 +173,7 @@ const MoreNews = ({ title }) => {
                     onChange={handlePageChange}
                   />
                 </div>
+                <div className="flex flex-col w-full max-h-[10rem]"></div>
               </div>
             ) : (
               <div className="px-2">

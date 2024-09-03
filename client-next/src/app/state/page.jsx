@@ -4,6 +4,7 @@ import NewsSection from "@/components/news-section/news.section.component";
 import { CollectionNewsSkeleton } from "@/skeleton/HomeSkeleton";
 import StateNav from "@/components/state-section/StateNav";
 import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
+import BottomPopUp from "@/components/BottomPopUp";
 export const metadata = {
   title: "State News",
   description:
@@ -124,6 +125,7 @@ const StateNewsUnknown = async () => {
             </div>
           </div>
         )}
+        <BottomPopUp />
       </div>
     </>
   );

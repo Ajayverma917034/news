@@ -1,3 +1,4 @@
+import BottomPopUp from "@/components/BottomPopUp";
 import React from "react";
 export const metadata = {
   title: "Terms And Condition",
@@ -27,7 +28,13 @@ export const metadata = {
   },
 };
 const page = () => {
-  return <div>page</div>;
+  return (
+    <div>
+      {" "}
+      <BottomPopUp />
+      page
+    </div>
+  );
 };
 
 export default page;

@@ -8,6 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import RandomNewsPage from "./RandomNewsPage";
+import GoogleAds from "../../components/GoogleAds";
 export const newsStructure = {
   title: "",
   des: "",
@@ -23,6 +24,9 @@ const SinglePage = ({ news_id, ads }) => {
   const [news, setNews] = useState(newsStructure);
   const [relatedNews, setRelatedNews] = useState([]);
   const [randomEventNews, setRandomEventNews] = useState(null);
+  const [randomNewsId, setRandomNewsId] = useState(null);
+
+  // let isProduction = process.env.NEXT_NODE_ENV;
 
   const fetchNews = async () => {
     let incrementVal = 0;
@@ -60,6 +64,7 @@ const SinglePage = ({ news_id, ads }) => {
         const data = await response.json();
         setNews(data?.news);
         setRelatedNews(data?.relatedNews);
+        setRandomNewsId(data?.randomNewsId[0]?.news_id);
       }
     } catch (err) {
       console.error(err);
@@ -109,10 +114,63 @@ const SinglePage = ({ news_id, ads }) => {
   };
 
   // Fetch news data when the component mounts
+
+  const handleNextNews = async () => {
+    const isMobile = window.innerWidth <= 768; // Adjust the threshold as needed
+
+    // Set scroll position based on device type
+    if (isMobile) {
+      window.scrollTo(0, 250);
+    } else {
+      window.scrollTo(0, 400);
+    }
+
+    let incrementVal = 0;
+
+    let viewedNews = JSON.parse(sessionStorage.getItem("viewedNews") || "[]");
+
+    if (!viewedNews.includes(randomNewsId)) {
+      viewedNews.push(randomNewsId); // Add the news_id to the array
+      sessionStorage.setItem("viewedNews", JSON.stringify(viewedNews)); // Store the updated array
+      incrementVal = 1;
+    } else {
+      incrementVal = 0;
+    }
+
+    try {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/get-news`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          cache: "no-cache",
+
+          body: JSON.stringify({
+            news_id: randomNewsId,
+            incrementVal,
+            mode: "read",
+            draft: false,
+          }),
+        }
+      );
+
+      if (response.ok) {
+        const data = await response.json();
+        setNews(data?.news);
+        setRelatedNews(data?.relatedNews);
+        setRandomNewsId(data?.randomNewsId[0]?.news_id);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (news_id && news_id !== "[object Object]") {
       fetchNews();
-      fetchRandomEventNews();
+      // fetchRandomEventNews();
     }
   }, []);
 
@@ -121,12 +179,27 @@ const SinglePage = ({ news_id, ads }) => {
 
   return (
     <div className="flex spacing mt-2 w-full max-sm:px-1">
+      <div className="fixed right-0 top-3/2 transform -translate-y-3/2 z-[1000]">
+        <button
+          onClick={handleNextNews}
+          className="bg-red text-white p-2 pt-3 sm:pt-4 sm:p-3 rounded-l-lg shadow-md hover:bg-red-700 transition"
+        >
+          अगली खबर
+        </button>
+      </div>
+
       <div className="grid max-sm:flex flex-col sm:grid-cols-6 sm:gap-6 w-full gap-x-2">
         <div className="col-span-6 md:col-span-4 w-full">
           <article className="">
             <PageContent2 item={news} ads={ads?.detailAds} />
           </article>
-
+          <div className="flex flex-col w-full max-h-[10rem]">
+            <GoogleAds
+              adClient="ca-pub-5839947415375117"
+              adSlot="8542991653"
+              style={{ display: "block", width: "100%", height: "100%" }}
+            />
+          </div>
           {relatedNews && relatedNews.length ? (
             <div className="w-full">
               <Heading title={"सम्बंधित खबर"} />
@@ -174,7 +247,38 @@ const SinglePage = ({ news_id, ads }) => {
 
           <div className="flex mt-2 w-full">
             {/* Existing content */}
-            <RandomNewsScroll initialNewsId={news_id} />
+            {/* <div className="flex flex-col w-full gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-4">
+                <div className="flex w-full min-h-[12rem] bg-red"></div>
+                <div className="flex w-full min-h-[12rem] bg-red"></div>
+              </div>
+              <div className="flex w-full min-h-[12rem] bg-red"></div>
+              <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-4">
+                <div className="flex w-full min-h-[12rem] bg-red"></div>
+                <div className="flex w-full min-h-[12rem] bg-red"></div>
+              </div>
+              <div className="flex w-full min-h-[12rem] bg-red"></div>
+              <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-4">
+                <div className="flex w-full min-h-[12rem] bg-red"></div>
+                <div className="flex w-full min-h-[12rem] bg-red"></div>
+              </div>
+              <div className="flex w-full min-h-[12rem] bg-red"></div>
+              <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-4">
+                <div className="flex w-full min-h-[12rem] bg-red"></div>
+                <div className="flex w-full min-h-[12rem] bg-red"></div>
+              </div>
+              <div className="flex w-full min-h-[12rem] bg-red"></div>
+              <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-4">
+                <div className="flex w-full min-h-[12rem] bg-red"></div>
+                <div className="flex w-full min-h-[12rem] bg-red"></div>
+              </div>
+              <div className="flex w-full min-h-[12rem] bg-red"></div>
+              <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-4">
+                <div className="flex w-full min-h-[12rem] bg-red"></div>
+                <div className="flex w-full min-h-[12rem] bg-red"></div>
+              </div>
+              <div className="flex w-full min-h-[12rem] bg-red"></div>
+            </div> */}
           </div>
         </div>
 

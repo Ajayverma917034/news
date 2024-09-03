@@ -1,0 +1,33 @@
+/* BottomPopUp.module.css */
+@keyframes slideUp {
+    from {
+        transform: translateY(0);
+    }
+
+    to {
+        transform: translateY(100%);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+.popup-container {
+    animation-duration: 0.5s;
+    animation-timing-function: ease-in-out;
+}
+
+.slide-up {
+    animation-name: slideUp;
+}
+
+.slide-down {
+    animation-name: slideDown;
+}

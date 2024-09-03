@@ -11,6 +11,7 @@ import Heading from "@/lib/Heading";
 import DetailAds from "@/components/ads/DetailAds";
 import { HiOutlineExclamationCircle } from "react-icons/hi2";
 import VideoPage from "@/components/single-page/VideoPage";
+import BottomPopUp from "@/components/BottomPopUp";
 // import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 
 const fetchNews = async (news_id) => {
@@ -68,7 +69,12 @@ export default async function BlogPostPage({ params: { news_id } }) {
 
   // const thumbnail = `https://img.youtube.com/vi/${news?.videoLinkId}/mqdefault.jpg`;
 
-  return <VideoPage news_id={news_id} />;
+  return (
+    <>
+      <VideoPage news_id={news_id} />
+      <BottomPopUp />
+    </>
+  );
 }
 
 // <div className="flex spacing mt-2 w-full max-sm:px-1">
