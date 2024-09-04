@@ -19,7 +19,7 @@ import { HiOutlineExclamationCircle } from "react-icons/hi2";
 import BlogContent from "./BlogContent";
 import Link from "next/link";
 import { handleImageError } from "@/lib/errorImg";
-import DetailAds from "../ads/DetailAds2";
+import DetailAds from "../ads/DetailAds";
 
 const PageContent2 = ({ item, ads }) => {
   const shareUrl =
@@ -109,34 +109,38 @@ const PageContent2 = ({ item, ads }) => {
           Whatsapp चैनल फॉलो करे !
         </a>
         <div className="flex flex-col w-full max-h-[8rem]"></div>
-        <div className="py-4 w-full">
-          <div className="bg-gray h-[200px] flex justify-center items-center w-full relative">
-            <DetailAds ads={ads} />
-            <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
-              <Link
-                href={"/advertisement-us"}
-                className="text-[#f9f9f9] text-[12px] "
-              >
-                <HiOutlineExclamationCircle
-                  size={18}
-                  className="text-[#f9f9f9] font-sans"
-                />
-              </Link>
-              <span className="text-[#f9f9f9] text-[12px]">Sponsored</span>
-            </div>
-          </div>
-
-          {item &&
-            item.content &&
-            item.content.length &&
-            item.content[0].blocks &&
-            item.content[0].blocks.length &&
-            item.content[0].blocks.map((block, i) => (
-              <div className="my-4 md:my-4" key={i}>
-                <BlogContent block={block} />
+        {item?.title?.length ? (
+          <div className="py-4 w-full">
+            <div className="bg-gray h-[200px] flex justify-center items-center w-full relative">
+              <DetailAds />
+              <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
+                <Link
+                  href={"/advertisement-us"}
+                  className="text-[#f9f9f9] text-[12px] "
+                >
+                  <HiOutlineExclamationCircle
+                    size={18}
+                    className="text-[#f9f9f9] font-sans"
+                  />
+                </Link>
+                <span className="text-[#f9f9f9] text-[12px]">Sponsored</span>
               </div>
-            ))}
-        </div>
+            </div>
+
+            {item &&
+              item.content &&
+              item.content.length &&
+              item.content[0].blocks &&
+              item.content[0].blocks.length &&
+              item.content[0].blocks.map((block, i) => (
+                <div className="my-4 md:my-4" key={i}>
+                  <BlogContent block={block} />
+                </div>
+              ))}
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     )
   );

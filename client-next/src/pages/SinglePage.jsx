@@ -9,6 +9,8 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import RandomNewsPage from "./RandomNewsPage";
 import GoogleAds from "../../components/GoogleAds";
+import { useRouter } from "next/navigation";
+import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 export const newsStructure = {
   title: "",
   des: "",
@@ -20,12 +22,13 @@ export const newsStructure = {
   categories: [],
   location: "",
 };
-const SinglePage = ({ news_id, ads }) => {
+const SinglePage = ({ news_id }) => {
   const [news, setNews] = useState(newsStructure);
   const [relatedNews, setRelatedNews] = useState([]);
   const [randomEventNews, setRandomEventNews] = useState(null);
   const [randomNewsId, setRandomNewsId] = useState(null);
 
+  const router = useRouter();
   // let isProduction = process.env.NEXT_NODE_ENV;
 
   const fetchNews = async () => {
@@ -116,6 +119,7 @@ const SinglePage = ({ news_id, ads }) => {
   // Fetch news data when the component mounts
 
   const handleNextNews = async () => {
+    router.push(`/news/${randomNewsId}`);
     const isMobile = window.innerWidth <= 768; // Adjust the threshold as needed
 
     // Set scroll position based on device type
@@ -172,7 +176,7 @@ const SinglePage = ({ news_id, ads }) => {
       fetchNews();
       // fetchRandomEventNews();
     }
-  }, []);
+  }, [news_id]);
 
   // console.log(news);
   // console.log(relatedNews);
@@ -191,14 +195,14 @@ const SinglePage = ({ news_id, ads }) => {
       <div className="grid max-sm:flex flex-col sm:grid-cols-6 sm:gap-6 w-full gap-x-2">
         <div className="col-span-6 md:col-span-4 w-full">
           <article className="">
-            <PageContent2 item={news} ads={ads?.detailAds} />
+            <PageContent2 item={news} />
           </article>
           <div className="flex flex-col w-full max-h-[10rem]">
-            <GoogleAds
+            {/* <GoogleAds
               adClient="ca-pub-5839947415375117"
               adSlot="8542991653"
               style={{ display: "block", width: "100%", height: "100%" }}
-            />
+            /> */}
           </div>
           {relatedNews && relatedNews.length ? (
             <div className="w-full flex flex-col">
@@ -242,7 +246,7 @@ const SinglePage = ({ news_id, ads }) => {
             {/* <HorizontalAdsGoogle /> */}
           </div>
           <div className="hidden max-sm:flex mt-3">
-            <CustomeAndGoogleAdd2 sideAds={ads?.sideAds} />
+            {randomNewsId ? <CustomeAndGoogleAdd /> : <></>}
           </div>
 
           <div className="flex flex-col mt-2 w-full">
@@ -298,7 +302,7 @@ const SinglePage = ({ news_id, ads }) => {
 
         <div className="flex flex-col gap-y-2 md:gap-y-10 md:col-span-2 md:mt-10">
           <div className="sticky top-36 max-md:hidden">
-            <CustomeAndGoogleAdd2 sideAds={ads?.sideAds} />
+            {randomNewsId && <CustomeAndGoogleAdd />}
           </div>
           {/* <SideNews title={"education"} /> */}
         </div>

@@ -26,20 +26,20 @@ const fetchNews = async (news_id) => {
   return await response.json();
 };
 
-export async function fetchAds() {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/get-advertisement`,
-    {
-      next: {
-        revalidate: 30,
-      },
-    }
-  );
-  if (response.ok) {
-    return await response.json();
-  }
-  return [];
-}
+// export async function fetchAds() {
+//   const response = await fetch(
+//     `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/get-advertisement`,
+//     {
+//       next: {
+//         revalidate: 30,
+//       },
+//     }
+//   );
+//   if (response.ok) {
+//     return await response.json();
+//   }
+//   return [];
+// }
 
 export async function generateMetadata({ params: { news_id } }) {
   const { news } = await fetchNews(news_id);
@@ -71,10 +71,9 @@ export async function generateMetadata({ params: { news_id } }) {
 }
 
 export default async function BlogPostPage({ params: { news_id } }) {
-  const ads = await fetchAds();
   return (
     <>
-      <SinglePage news_id={news_id} ads={ads} />
+      <SinglePage news_id={news_id} />
       <BottomPopUp />
     </>
   );

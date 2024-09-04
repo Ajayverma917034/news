@@ -276,7 +276,8 @@ export const getNews = tryCatch(async (req, res, next) => {
                         // Match documents that don't have the specified news_id
                         { $match: { news_id: { $ne: news_id } } },
                         // Sort documents by createdAt in descending order
-                        { $limit: 100 },
+                        { $sort: { createdAt: -1 } },
+                        { $limit: 50 },
                         // Sample one random document from the result
                         { $sample: { size: 1 } },
                         // Project only the news_id field

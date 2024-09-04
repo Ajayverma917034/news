@@ -58,6 +58,19 @@ const Navbar = () => {
     { name: "Career", hindiName: "करियर", event: false, link: "/career" },
     { name: "Religion", hindiName: "धर्म", event: false, link: "/religion" },
     { name: "World", hindiName: "विदेश", event: false, link: "/world" },
+    { name: "Health", hindiName: "स्वास्थ्य", event: false, link: "/health" },
+    {
+      name: "Bollywood",
+      hindiName: "बॉलीवुड",
+      event: false,
+      link: "/bollywood",
+    },
+    {
+      name: "Technology",
+      hindiName: "टैकनोलजी",
+      event: false,
+      link: "/technology",
+    },
   ];
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
