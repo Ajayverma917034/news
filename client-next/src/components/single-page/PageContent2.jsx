@@ -21,6 +21,7 @@ import Link from "next/link";
 import { handleImageError } from "@/lib/errorImg";
 import DetailAds from "../ads/DetailAds";
 import InArticalAds from "../../../components/InArticalAds";
+import GoogleAds from "../../../components/GoogleAds";
 
 const PageContent2 = ({ item, ads }) => {
   const shareUrl =
