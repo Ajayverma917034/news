@@ -20,6 +20,7 @@ import BlogContent from "./BlogContent";
 import Link from "next/link";
 import { handleImageError } from "@/lib/errorImg";
 import DetailAds from "../ads/DetailAds";
+import InArticalAds from "../../../components/InArticalAds";
 
 const PageContent2 = ({ item, ads }) => {
   const shareUrl =
@@ -60,6 +61,13 @@ const PageContent2 = ({ item, ads }) => {
             loading="lazy"
           />
         </div>
+        <GoogleAds
+          adClient="ca-pub-5839947415375117"
+          adSlot="4193247755"
+          style={{ display: "block", width: "100%", height: "100%" }}
+          format="auto"
+        />
+
         <div className="flex flex-wrap gap-y-2 sm:flex sm:flex-row items-center py-2 justify-between w-full">
           <div className="flex items-center">
             <CiLocationOn size={25} className="text-red" />
@@ -132,11 +140,26 @@ const PageContent2 = ({ item, ads }) => {
               item.content.length &&
               item.content[0].blocks &&
               item.content[0].blocks.length &&
-              item.content[0].blocks.map((block, i) => (
-                <div className="my-4 md:my-4" key={i}>
-                  <BlogContent block={block} />
-                </div>
-              ))}
+              item.content[0].blocks.map((block, i) => {
+                // Calculate the midpoint
+                const midpoint = Math.floor(item.content[0].blocks.length / 2);
+
+                return (
+                  <div key={i}>
+                    {/* Render the content block */}
+                    <div className="my-4 md:my-4">
+                      <BlogContent block={block} />
+                    </div>
+
+                    {/* Insert an ad at the midpoint */}
+                    {i === midpoint && (
+                      <div className="">
+                        <InArticalAds />
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
           </div>
         ) : (
           <></>

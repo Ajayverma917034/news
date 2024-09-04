@@ -4,9 +4,9 @@ import React from "react";
 export const metadata = {
   title: "Technology",
   description:
-    "Latest news and updates (ताज़ा समाचार और अपडेट) from technology (खेल), tech news today ( न्यूज़ आज), and Janpad news in Hindi (जनपद न्यूज़ हिंदी में).",
+    "Discover the latest technology news (प्रौद्योगिकी समाचार), updates (अपडेट्स), AI (आर्टिफिशियल इंटेलिजेंस), gadgets (गैजेट्स), and cybersecurity (साइबर सुरक्षा).",
   keywords:
-    "sports news, news, sports news today, janpad news, खेल समाचार, समाचार, खेल न्यूज़ आज, जनपद न्यूज़",
+    "technology news, tech updates, ai news, gadgets, cybersecurity, software development, tech trends, hindi tech news, प्रौद्योगिकी समाचार, टेक अपडेट्स, आर्टिफिशियल इंटेलिजेंस, गैजेट्स, साइबर सुरक्षा, सॉफ्टवेयर विकास, टेक रुझान",
   author: "Janpad News Team",
   twitter: {
     card: "summary_large_image",
@@ -17,7 +17,7 @@ export const metadata = {
     url: "https://janpadnewslive.com",
     title: "Sports - Janpad News Live",
     description:
-      "Latest news and updates (ताज़ा समाचार और अपडेट) from sports (खेल), including sports news today (खेल न्यूज़ आज), and Janpad news in Hindi (जनपद न्यूज़ हिंदी में).",
+      "technology news, tech updates, ai news, gadgets, cybersecurity, software development, tech trends, hindi tech news, प्रौद्योगिकी समाचार, टेक अपडेट्स, आर्टिफिशियल इंटेलिजेंस, गैजेट्स, साइबर सुरक्षा, सॉफ्टवेयर विकास, टेक रुझान",
     images: [
       {
         url: "../../assets/janpad_news_live.png",

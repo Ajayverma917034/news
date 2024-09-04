@@ -2,11 +2,11 @@ import BottomPopUp from "@/components/BottomPopUp";
 import MoreNews from "@/pages/MoreNews";
 import React from "react";
 export const metadata = {
-  title: "Sports",
+  title: "Health",
   description:
-    "Latest news and updates (ताज़ा समाचार और अपडेट) from sports (खेल), including sports news today (खेल न्यूज़ आज), and Janpad news in Hindi (जनपद न्यूज़ हिंदी में).",
+    "Get the latest health tips, wellness advice, fitness guides, and nutrition news in Hindi and English. Stay updated on medical research, healthy living, diet plans, and mental health.",
   keywords:
-    "sports news, news, sports news today, janpad news, खेल समाचार, समाचार, खेल न्यूज़ आज, जनपद न्यूज़",
+    "health tips, wellness advice, fitness guides, nutrition news, medical research, healthy living, diet plans, mental health, Hindi health news, स्वास्थ्य टिप्स, वेलनेस सलाह, फिटनेस गाइड्स, पोषण समाचार, चिकित्सा अनुसंधान, स्वस्थ जीवन, डाइट प्लान, मानसिक स्वास्थ्य",
   author: "Janpad News Team",
   twitter: {
     card: "summary_large_image",
@@ -17,7 +17,7 @@ export const metadata = {
     url: "https://janpadnewslive.com",
     title: "Sports - Janpad News Live",
     description:
-      "Latest news and updates (ताज़ा समाचार और अपडेट) from sports (खेल), including sports news today (खेल न्यूज़ आज), and Janpad news in Hindi (जनपद न्यूज़ हिंदी में).",
+      "health tips, wellness advice, fitness guides, nutrition news, medical research, healthy living, diet plans, mental health, Hindi health news, स्वास्थ्य टिप्स, वेलनेस सलाह, फिटनेस गाइड्स, पोषण समाचार, चिकित्सा अनुसंधान, स्वस्थ जीवन, डाइट प्लान, मानसिक स्वास्थ्य",
     images: [
       {
         url: "../../assets/janpad_news_live.png",

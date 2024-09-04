@@ -200,8 +200,9 @@ const SinglePage = ({ news_id }) => {
           <div className="flex flex-col w-full max-h-[10rem]">
             <GoogleAds
               adClient="ca-pub-5839947415375117"
-              adSlot="8542991653"
+              adSlot="9305973634"
               style={{ display: "block", width: "100%", height: "100%" }}
+              format={"auto"}
             />
           </div>
           {relatedNews && relatedNews.length ? (
@@ -245,12 +246,11 @@ const SinglePage = ({ news_id }) => {
           <div className="w-full max-md:mt-2 flex items-center justify-center mt-2">
             {/* <HorizontalAdsGoogle /> */}
           </div>
-          <div className="hidden max-sm:flex mt-3">
+          <div className="hidden max-sm:flex mt-3 items-center justify-center">
             {randomNewsId ? <CustomeAndGoogleAdd /> : <></>}
           </div>
 
-          <div className="flex flex-col mt-2 w-full">
-            {/* Existing content */}
+          {/* <div className="flex flex-col mt-2 w-full">
             <div className="flex flex-col w-full gap-4">
               <div className="grid grid-cols-1 md:grid-cols-2 w-full gap-4">
                 <div className="flex w-full max-h-[12rem] ">
@@ -297,11 +297,19 @@ const SinglePage = ({ news_id }) => {
               </div>
               <div className="flex w-full max-h-[12rem] "></div>
             </div>
-          </div>
-          <div className="flex flex-col max-h-[500px] overflow-x-auto w-full">
+          </div> */}
+          <div className="flex flex-col w-full">
             <GoogleAds
               adClient={"ca-pub-5839947415375117"}
               adSlot={"3540617420"}
+              style={{ display: "block" }}
+              format={"autorelaxed"}
+            />
+          </div>
+          <div className="flex flex-col w-full">
+            <GoogleAds
+              adClient={"ca-pub-5839947415375117"}
+              adSlot={"2064081310"}
               style={{ display: "block" }}
               format={"autorelaxed"}
             />
