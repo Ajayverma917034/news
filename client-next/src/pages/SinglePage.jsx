@@ -198,11 +198,11 @@ const SinglePage = ({ news_id }) => {
             <PageContent2 item={news} />
           </article>
           <div className="flex flex-col w-full max-h-[10rem]">
-            {/* <GoogleAds
+            <GoogleAds
               adClient="ca-pub-5839947415375117"
               adSlot="8542991653"
               style={{ display: "block", width: "100%", height: "100%" }}
-            /> */}
+            />
           </div>
           {relatedNews && relatedNews.length ? (
             <div className="w-full flex flex-col">
@@ -297,6 +297,21 @@ const SinglePage = ({ news_id }) => {
               </div>
               <div className="flex w-full max-h-[12rem] "></div>
             </div>
+          </div>
+          <div className="flex flex-col max-h-[500px] overflow-x-auto w-full">
+            <GoogleAds
+              adClient={"ca-pub-5839947415375117"}
+              adSlot={"3540617420"}
+              style={{ display: "block" }}
+              format={"autorelaxed"}
+            />
+          </div>
+          <div className="flex flex-col max-h-[10rem] w-full">
+            <GoogleAds
+              adClient="ca-pub-5839947415375117"
+              adSlot="7405940317"
+              style={{ display: "block", width: "100%", height: "100%" }}
+            />
           </div>
         </div>
 
