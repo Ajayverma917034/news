@@ -32,11 +32,11 @@ export default function DetailAds() {
       pagination={{
         clickable: true,
       }}
-      modules={[EffectFade, Navigation, Pagination, Autoplay]}
-      className="w-full p-0 h-[200px]"
+      modules={[EffectFade, Navigation, Autoplay]}
+      className="w-full p-0 h-[200px] md:h-[300px]"
       style={{
         width: "100%",
-        height: "200px",
+        // height: "200px",
         padding: "0 !important",
       }}
     >
@@ -44,7 +44,10 @@ export default function DetailAds() {
         ? detailAds.length > 0
           ? detailAds.map((ad, index) => {
               return (
-                <SwiperSlide key={index} className="w-full h-[200px]">
+                <SwiperSlide
+                  key={index}
+                  className="w-full h-[200px] md:h-[300px]"
+                >
                   <Image
                     src={ad.banner.url}
                     alt="sliderimg"
@@ -54,7 +57,7 @@ export default function DetailAds() {
                       maxWidth: "100%",
                       height: "auto",
                     }}
-                    className=" object-fill h-[200px] "
+                    className=" object-fill h-[200px] md:h-[300px]"
                   />
                 </SwiperSlide>
               );

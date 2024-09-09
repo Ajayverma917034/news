@@ -60,12 +60,14 @@ export default function RootLayout({ children }) {
           <BreakingNews />
           {children}
           <Footer />
-          <Script
-            id="clever-core"
-            type="text/javascript"
-            data-cfasync="false"
-            dangerouslySetInnerHTML={{
-              __html: `
+          {
+            process.env.NODE_ENV === "production" &&
+            < Script
+              id="clever-core"
+              type="text/javascript"
+              data-cfasync="false"
+              dangerouslySetInnerHTML={{
+                __html: `
             (function(document, window) {
               var a, c = document.createElement("script"), f = window.frameElement;
               c.id = "CleverCoreLoader84781";
@@ -85,8 +87,9 @@ export default function RootLayout({ children }) {
               a.parentNode.insertBefore(c, a);
             })(document, window);
           `,
-            }}
-          />
+              }}
+            />
+          }
         </body>
       </html>
     </CustomeAdsContextProvider>

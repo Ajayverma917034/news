@@ -6,7 +6,7 @@ import ApnaNews from "./apna-section/ApnaNews";
 import Heading from "@/lib/Heading";
 
 const districts = [
-  "all",
+  "all news",
   "sonbhadra",
   "chandauli",
   "mirzapur",
@@ -22,7 +22,7 @@ const districts = [
 ];
 
 const ApnaZila = () => {
-  const [currentDistrictIndex, setCurrentDistrictIndex] = useState(1);
+  const [currentDistrictIndex, setCurrentDistrictIndex] = useState(0);
   const [data, setData] = useState(null);
 
   const fetchNewsDistrictWise = async () => {
@@ -37,7 +37,7 @@ const ApnaZila = () => {
         body: JSON.stringify({
           district:
             currentDistrictIndex === 0
-              ? "apna zila"
+              ? "zila"
               : districts[currentDistrictIndex],
           draft: false,
         }),

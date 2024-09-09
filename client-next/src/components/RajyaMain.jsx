@@ -7,7 +7,7 @@ import ApnaNews from "./apna-section/ApnaNews";
 // import SideNews from "./side-news/SideNews";
 
 const states = [
-  "all",
+  "all news",
   "uttar pradesh",
   "madhyapradesh",
   "bihar",
@@ -17,7 +17,7 @@ const states = [
 ];
 
 const RajyaMain = () => {
-  const [currentStateIndex, setCurrentStateIndex] = useState(1);
+  const [currentStateIndex, setCurrentStateIndex] = useState(0);
   const [data, setData] = useState(null);
 
   const fetchNewsDistrictWise = async () => {

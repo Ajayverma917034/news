@@ -237,28 +237,33 @@ const Footer = () => {
                 </span>
               </p>
             </div>
-            <div className=" flex flex-col gap-8">
-              <div className="flex max-sm:flex-col max-sm:items-center max-sm:justify-center gap-8 pt-8 pb-4 gap-y-10">
+            <div className=" flex flex-col gap-4 md:gap-8">
+              <div className="flex max-sm:flex-col max-sm:items-center max-sm:justify-center gap-6 md:gap-8 pt-8 pb-4 md:gap-y-10">
                 <div className="flex items-center flex-col justify-center">
-                  <h2 className="max-sm:text-5xl text-3xl font-semibold">
+                  <h2 className="text-[25px] sm:text-5xl font-semibold">
                     Download App
                   </h2>
-                  <div className="w-36 mt-3">
-                    <Image
-                      width={150}
-                      height={50}
-                      src={google}
-                      alt="Google play store"
-                    />
-                  </div>
+                  <a
+                    target="_blank"
+                    href="https://play.google.com/store/apps/details?id=com.janpadnews.live&hl=en"
+                  >
+                    <div className="w-36 mt-1 md:mt-3">
+                      <Image
+                        width={150}
+                        height={50}
+                        src={google}
+                        alt="Google play store"
+                      />
+                    </div>
+                  </a>
                 </div>
                 <div className="flex items-center flex-col justify-center">
-                  <h2 className="max-sm:text-5xl text-3xl font-semibold">
+                  <h2 className="text-[25px] sm:text-5xl font-semibold max-sm:mt-2">
                     Subscribe Now
                   </h2>
                   <a
                     target="_blank"
-                    href="https://youtube.com/@themirror1122?si=uNLCLA9R9YBp_aWl"
+                    href="https://www.youtube.com/@JanpadMirrorNewsChannel"
                   >
                     <div className="flex justify-center items-center gap-2">
                       <div className="w-16">
@@ -269,7 +274,9 @@ const Footer = () => {
                           alt="Youtube"
                         />
                       </div>
-                      <p className="text-3xl mt-2 font-semibold">The Mirror</p>
+                      <p className="text-3xl mt-2 font-semibold">
+                        Janpad Mirror
+                      </p>
                     </div>
                   </a>
                 </div>
@@ -300,7 +307,7 @@ const Footer = () => {
         <a
           href="https://spriteera.com/"
           target="_blank"
-          className="flex items-center justify-center bg-gray p-2 text-2xl text-center w-full"
+          className="flex items-center justify-center bg-gray p-2 text-2xl text-center w-full max-sm:flex-col"
         >
           Developed By
           <span className="font-semibold">

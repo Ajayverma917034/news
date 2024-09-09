@@ -200,12 +200,26 @@ export const getNewses = tryCatch((req, res, next) => {
 
     if (state) {
         // state = state.map(type => type.trim().toLowerCase());
-        query.state = { $in: state };
+        if (state === 'rajya') {
+            query.state = { $in: ["uttar pradesh", "uttarakhand", "bihar", "jharkhand", "madhyapradesh", "chhattisgarh"] }
+        }
+        else {
+            query.state = { $in: state };
+
+        }
     }
     if (district) {
         // district = district.map(type => type.trim().toLowerCase());
-        query.district = { $in: district };
+        if (district === 'zila') {
+            query.district = { $in: ["sonbhadra", "chandauli", "mirzapur", "varanasi", "gajipur", "shahjhapur", "prayagraj", "deoria", "bareilly", "pilibhit", 'lakhimpur kheri', "singrauli"] }
+        }
+        else {
+            query.district = { $in: district };
+
+        }
     }
+
+
     if (location) query.location = location;
     if (tags) query.tags = tags;
     if (breaking_news) query.breaking_news = breaking_news;

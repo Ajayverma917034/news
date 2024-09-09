@@ -23,6 +23,7 @@ import DetailAds from "../ads/DetailAds";
 import InArticalAds from "../../../components/InArticalAds";
 import GoogleAds from "../../../components/GoogleAds";
 import YtNewsSkelton from "@/skeleton/YtNewsSkelton";
+import NewsContent from "./NewsContent";
 
 const PageContent2 = ({ item, ads }) => {
   const shareUrl =
@@ -43,7 +44,8 @@ const PageContent2 = ({ item, ads }) => {
     <div className="py-4 flex flex-col flex-wrap w-full">
       <h1 className="font-semibold text-[20px] md:text-[25px]">{item.title}</h1>
       <p className="date-lg text-wrap">{item.description}</p>
-      <div className="flex flex-col w-full max-h-[10rem]">
+      <div className="flex flex-col w-full h-[10rem] bg-[#f0f0f0] mb-1">
+        <p className="text-center">Advertisement</p>
         <GoogleAds
           adClient="ca-pub-5839947415375117"
           adSlot="6024106691"
@@ -63,14 +65,6 @@ const PageContent2 = ({ item, ads }) => {
           alt="news-img"
           className="w-full max-sm:max-w-screen-sm h-full object-cover"
           loading="lazy"
-        />
-      </div>
-      <div className="flex flex-col w-full max-h-[10rem]">
-        <GoogleAds
-          adClient="ca-pub-5839947415375117"
-          adSlot="4193247755"
-          style={{ display: "block", width: "100%", height: "100%" }}
-          format="auto"
         />
       </div>
 
@@ -122,52 +116,17 @@ const PageContent2 = ({ item, ads }) => {
       >
         Whatsapp चैनल फॉलो करे !
       </a>
+      <div className="flex flex-col w-full h-[10rem] bg-[#f0f0f0] mb-1 mt-2">
+        <p className="text-center">Advertisement</p>
+        <GoogleAds
+          adClient="ca-pub-5839947415375117"
+          adSlot="4193247755"
+          style={{ display: "block", width: "100%", height: "100%" }}
+          format="auto"
+        />
+      </div>
       <div className="flex flex-col w-full max-h-[8rem]"></div>
-      {item?.title?.length ? (
-        <div className="py-4 w-full">
-          <div className="bg-gray h-[200px] flex justify-center items-center w-full relative">
-            <DetailAds />
-            <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
-              <Link
-                href={"/advertisement-us"}
-                className="text-[#f9f9f9] text-[12px] "
-              >
-                <HiOutlineExclamationCircle
-                  size={18}
-                  className="text-[#f9f9f9] font-sans"
-                />
-              </Link>
-              <span className="text-[#f9f9f9] text-[12px]">Sponsored</span>
-            </div>
-          </div>
-
-          {item &&
-            item.content &&
-            item.content.length &&
-            item.content[0].blocks &&
-            item.content[0].blocks.length &&
-            item.content[0].blocks.map((block, i) => {
-              // Calculate the midpoint
-              const midpoint = Math.floor(item.content[0].blocks.length / 2);
-
-              return (
-                <div key={i}>
-                  {/* Render the content block */}
-                  <div className="my-4 md:my-4">
-                    <BlogContent block={block} />
-                  </div>
-
-                  {/* Insert an ad at the midpoint */}
-                  {/* {i === Math.floor(item?.content[0].blocks.length / 2) && (
-                    
-                  )} */}
-                </div>
-              );
-            })}
-        </div>
-      ) : (
-        <></>
-      )}
+      <NewsContent item={item} />
     </div>
   ) : (
     <div className="flex w-full flex-col flex-wrap sm:gap-2 md:gap-4 mt-5 mb-5">

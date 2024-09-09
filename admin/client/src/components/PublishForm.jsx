@@ -26,14 +26,13 @@ for (let i = 0; i < 24; i++) {
 
 const PublishForm = () => {
   const charLength = 200;
-  const tagLimit = 10;
+  const tagLimit = 15;
   const navigate = useNavigate();
   const { news_id } = useParams();
 
   const query = new URLSearchParams(window.location.search);
   const mode = query.get("mode");
   const type = query.get("type");
-
 
   const [popupOpen, setPopUpOpen] = useState(false);
   // const [scheduleData, setScheduleData] = useState({
@@ -354,14 +353,14 @@ const PublishForm = () => {
 
           <div className=" py-2 mt-5">
             <h2 className="!font-semibold required-text">
-              Topics - ( Helps in searching and ranking your news post )
+              Tags - ( Helps in searching and ranking your news post )
             </h2>
             <div className="flex flex-col w-[100%] rounded-md p-4 bg-[#fcfcfc] border border-gray">
               <div className="flex items-center">
                 <input
                   type="text"
                   value={tagdata}
-                  placeholder="Topics"
+                  placeholder="Tags"
                   onKeyDown={handleKeyDown}
                   onChange={(e) => {
                     setTagData(e.target.value);
@@ -450,28 +449,23 @@ const PublishForm = () => {
             </div>
           </div>
           <div className="flex gap-x-5 items-center flex-wrap justify-center w-full">
-            
-              <button
-                onClick={handlePublish}
-                className={`btn-dark px-8 my-4 `}
-              >
-                Publish
-              </button>
-
-            {
-              mode !== 'edit' ?
-            <button
-              onClick={() => setPopUpOpen(true)}
-              className="btn-dark px-8 my-4"
-            >
-              Schedule Post
+            <button onClick={handlePublish} className={`btn-dark px-8 my-4 `}>
+              Publish
             </button>
-            : <> </>
-            }
+
+            {mode !== "edit" ? (
+              <button
+                onClick={() => setPopUpOpen(true)}
+                className="btn-dark px-8 my-4"
+              >
+                Schedule Post
+              </button>
+            ) : (
+              <> </>
+            )}
           </div>
         </div>
-        {
-          type !== 'edit' ?
+        {type !== "edit" ? (
           <SchedulePopUp
             popupOpen={popupOpen}
             setPopUpOpen={setPopUpOpen}
@@ -481,8 +475,10 @@ const PublishForm = () => {
             handleTimeChange={handleTimeChange}
             timeOptions={timeOptions}
             selectedTimeIndex={selectedTimeIndex}
-          />  : <> </>
-        }
+          />
+        ) : (
+          <> </>
+        )}
       </section>
     </>
   );

@@ -112,7 +112,7 @@ const EventNews = () => {
                       <MoreEventPageCard data={item} />
                       {/* {(index + 1) % 5 === 0 && ( */}
                       <div className="flex w-full">
-                        <div className="bg-gray h-[200px] flex justify-center items-center w-full relative">
+                        <div className="bg-gray h-[200px] md:h-[300px] flex justify-center items-center w-full relative">
                           <DetailAds />
                           <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
                             <Link

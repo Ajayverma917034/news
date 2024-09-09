@@ -11,6 +11,8 @@ import RandomNewsPage from "./RandomNewsPage";
 import GoogleAds from "../../components/GoogleAds";
 import { useRouter } from "next/navigation";
 import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
+import DetailAds from "@/components/ads/DetailAds";
+import { HiOutlineExclamationCircle } from "react-icons/hi2";
 export const newsStructure = {
   title: "",
   des: "",
@@ -118,6 +120,10 @@ const SinglePage = ({ news_id }) => {
 
   // Fetch news data when the component mounts
 
+  const handleGoRelatedNews = (id) => {
+    window.location.href = `/news/${id}`;
+  };
+
   const handleNextNews = async () => {
     window.location.href = `/news/${randomNewsId}`;
     const isMobile = window.innerWidth <= 768; // Adjust the threshold as needed
@@ -200,7 +206,23 @@ const SinglePage = ({ news_id }) => {
           <article className="">
             <PageContent2 item={news} />
           </article>
-          <div className="flex flex-col w-full max-h-[10rem]">
+          <div className="bg-gray h-[200px] md:h-[300px] flex justify-center items-center w-full relative">
+            <DetailAds />
+            <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
+              <Link
+                href={"/advertisement-us"}
+                className="text-[#f9f9f9] text-[12px] "
+              >
+                <HiOutlineExclamationCircle
+                  size={18}
+                  className="text-[#f9f9f9] font-sans"
+                />
+              </Link>
+              <span className="text-[#f9f9f9] text-[12px]">Sponsored</span>
+            </div>
+          </div>
+          <div className="flex flex-col w-full h-[10rem] bg-[#f0f0f0] mb-2 mt-2">
+            <p className="text-center">Advertisement</p>
             <GoogleAds
               adClient="ca-pub-5839947415375117"
               adSlot="9305973634"
@@ -232,8 +254,8 @@ const SinglePage = ({ news_id }) => {
               <Heading title={"सम्बंधित खबर"} />
               <div className="flex max-lg:flex-col gap-2 w-full">
                 {relatedNews.map((item, index) => (
-                  <Link
-                    href={`/news/${item?.news_id}`}
+                  <div
+                    onClick={() => handleGoRelatedNews(item?.news_id)}
                     key={index}
                     className="grid grid-cols-3 gap-x-1 max-md:gap-x-1 lg:flex lg:flex-col lg:w-[200px] shadow-card p-1 rounded-md max-lg:gap-x-3"
                   >
@@ -254,7 +276,7 @@ const SinglePage = ({ news_id }) => {
                     <h3 className="col-span-2 mt-2 font-semibold line-clamp-2 text-xl md:hover:border-b hover:border-black">
                       {item?.title}
                     </h3>
-                  </Link>
+                  </div>
                 ))}
               </div>
             </div>
@@ -320,6 +342,7 @@ const SinglePage = ({ news_id }) => {
               <div className="flex w-full max-h-[12rem] "></div>
             </div>
           </div> */}
+          <div className="clever-core-ads"></div>
           <div className="flex flex-col w-full">
             <GoogleAds
               adClient={"ca-pub-5839947415375117"}
@@ -328,6 +351,7 @@ const SinglePage = ({ news_id }) => {
               format={"autorelaxed"}
             />
           </div>
+          <div className="clever-core-ads"></div>
           <div className="flex flex-col w-full">
             <GoogleAds
               adClient={"ca-pub-5839947415375117"}
@@ -336,7 +360,9 @@ const SinglePage = ({ news_id }) => {
               format={"autorelaxed"}
             />
           </div>
-          <div className="flex flex-col max-h-[10rem] w-full">
+          <div className="clever-core-ads"></div>
+          <div className="flex flex-col w-full h-[10rem] bg-[#f0f0f0] mb-2 mt-1">
+            <p className="text-center">Advertisement</p>
             <GoogleAds
               adClient="ca-pub-5839947415375117"
               adSlot="7405940317"
@@ -344,7 +370,7 @@ const SinglePage = ({ news_id }) => {
             />
           </div>
         </div>
-
+        <div className="clever-core-ads"></div>
         <div className="flex flex-col gap-y-2 md:gap-y-10 md:col-span-2 md:mt-10">
           <div className="sticky top-36 max-md:hidden">
             {randomNewsId && <CustomeAndGoogleAdd />}
