@@ -23,8 +23,8 @@ export const newsStructure = {
   location: "",
 };
 const SinglePage = ({ news_id }) => {
-  const [news, setNews] = useState(newsStructure);
-  const [relatedNews, setRelatedNews] = useState([]);
+  const [news, setNews] = useState(null);
+  const [relatedNews, setRelatedNews] = useState(null);
   const [randomEventNews, setRandomEventNews] = useState(null);
   const [randomNewsId, setRandomNewsId] = useState(null);
 
@@ -119,9 +119,9 @@ const SinglePage = ({ news_id }) => {
   // Fetch news data when the component mounts
 
   const handleNextNews = async () => {
-    router.push(`/news/${randomNewsId}`);
+    window.location.href = `/news/${randomNewsId}`;
     const isMobile = window.innerWidth <= 768; // Adjust the threshold as needed
-
+    // window.location.reload();
     // Set scroll position based on device type
     if (isMobile) {
       window.scrollTo(0, 250);
@@ -129,57 +129,60 @@ const SinglePage = ({ news_id }) => {
       window.scrollTo(0, 400);
     }
 
-    let incrementVal = 0;
+    // let incrementVal = 0;
 
-    let viewedNews = JSON.parse(sessionStorage.getItem("viewedNews") || "[]");
+    // let viewedNews = JSON.parse(sessionStorage.getItem("viewedNews") || "[]");
 
-    if (!viewedNews.includes(randomNewsId)) {
-      viewedNews.push(randomNewsId); // Add the news_id to the array
-      sessionStorage.setItem("viewedNews", JSON.stringify(viewedNews)); // Store the updated array
-      incrementVal = 1;
-    } else {
-      incrementVal = 0;
-    }
+    // if (!viewedNews.includes(randomNewsId)) {
+    //   viewedNews.push(randomNewsId); // Add the news_id to the array
+    //   sessionStorage.setItem("viewedNews", JSON.stringify(viewedNews)); // Store the updated array
+    //   incrementVal = 1;
+    // } else {
+    //   incrementVal = 0;
+    // }
 
-    try {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/get-news`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          cache: "no-cache",
+    // try {
+    //   const response = await fetch(
+    //     `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/get-news`,
+    //     {
+    //       method: "POST",
+    //       headers: {
+    //         "Content-Type": "application/json",
+    //       },
+    //       cache: "no-cache",
 
-          body: JSON.stringify({
-            news_id: randomNewsId,
-            incrementVal,
-            mode: "read",
-            draft: false,
-          }),
-        }
-      );
+    //       body: JSON.stringify({
+    //         news_id: randomNewsId,
+    //         incrementVal,
+    //         mode: "read",
+    //         draft: false,
+    //       }),
+    //     }
+    //   );
 
-      if (response.ok) {
-        const data = await response.json();
-        setNews(data?.news);
-        setRelatedNews(data?.relatedNews);
-        setRandomNewsId(data?.randomNewsId[0]?.news_id);
-      }
-    } catch (err) {
-      console.error(err);
-    }
+    //   if (response.ok) {
+    //     const data = await response.json();
+    //     setNews(data?.news);
+    //     setRelatedNews(data?.relatedNews);
+    //     setRandomNewsId(data?.randomNewsId[0]?.news_id);
+    //   }
+    // } catch (err) {
+    //   console.error(err);
+    // }
   };
   useEffect(() => {
-    window.scrollTo(0, 0);
     if (news_id && news_id !== "[object Object]") {
       fetchNews();
-      // fetchRandomEventNews();
+
+      // Adjust scroll position based on device type
+      const isMobile = window.innerWidth <= 768; // Adjust the threshold as needed
+      if (isMobile) {
+        window.scrollTo(0, 250);
+      } else {
+        window.scrollTo(0, 400);
+      }
     }
   }, [news_id]);
-
-  // console.log(news);
-  // console.log(relatedNews);
 
   return (
     <div className="flex flex-col spacing mt-2 w-full max-sm:px-1 relative">
@@ -202,10 +205,29 @@ const SinglePage = ({ news_id }) => {
               adClient="ca-pub-5839947415375117"
               adSlot="9305973634"
               style={{ display: "block", width: "100%", height: "100%" }}
-              format={"auto"}
             />
           </div>
-          {relatedNews && relatedNews.length ? (
+          {!relatedNews ? (
+            <>
+              <div className="flex flex-col gap-3 mt-10">
+                <div className="h-[25px] bg-[#dddbdd] animate-pulse"></div>
+
+                {
+                  <div className="flex gap-5 flex-col md:flex-row justify-between mb-4">
+                    {[1, 2, 3].map((item, index) => (
+                      <div
+                        className="w-full flex flex-col max-md:flex-row max-md:gap-5 max-md:grid max-md:grid-cols-5 rounded-lg"
+                        key={index}
+                      >
+                        <div className="max-w-[17rem] h-24 md:h-36 col-span-2 relative rounded-lg bg-[#dddbdd] animate-pulse"></div>
+                        <div className="bg-[#dddbdd] animate-pulse h-4 mt-3"></div>
+                      </div>
+                    ))}
+                  </div>
+                }
+              </div>
+            </>
+          ) : relatedNews.length ? (
             <div className="w-full flex flex-col">
               <Heading title={"सम्बंधित खबर"} />
               <div className="flex max-lg:flex-col gap-2 w-full">

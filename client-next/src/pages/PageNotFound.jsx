@@ -17,7 +17,13 @@ const PageNotFound = () => {
   }, [router]);
   return (
     <div className="flex items-center justify-center p-2">
-      <Image src={banner} alt="Page not found" className="w-full max-w-4xl" />
+      <Image
+        src={banner}
+        alt="Page not found"
+        height={1200}
+        width={500}
+        className="w-full max-w-4xl"
+      />
     </div>
   );
 };

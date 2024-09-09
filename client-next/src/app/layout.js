@@ -9,6 +9,7 @@ import AdSense from "../../components/AdSense";
 import Footer from "@/components/Footer";
 import { CustomeAdsContextProvider } from "@/lib/CustomeAdsContext";
 import BottomPopUp from "@/components/BottomPopUp";
+import Script from "next/script";
 
 // const aneka = Anek_Devanagari({ subsets: ["devanagari"] });
 const aneka = Anek_Devanagari({ subsets: ['devanagari'] });
@@ -59,7 +60,33 @@ export default function RootLayout({ children }) {
           <BreakingNews />
           {children}
           <Footer />
-
+          <Script
+            id="clever-core"
+            type="text/javascript"
+            data-cfasync="false"
+            dangerouslySetInnerHTML={{
+              __html: `
+            (function(document, window) {
+              var a, c = document.createElement("script"), f = window.frameElement;
+              c.id = "CleverCoreLoader84781";
+              c.src = "https://scripts.cleverwebserver.com/xyz.js";
+              c.async = true;
+              c.type = "text/javascript";
+              c.setAttribute("data-target", window.name || (f && f.getAttribute("id")));
+              c.setAttribute("data-callback", "put-your-callback-function");
+              c.setAttribute("data-callback-url-click", "put-your-click-macro-here");
+              c.setAttribute("data-callback-url-view", "put-your-view-macro-here");
+              try {
+                a = parent.document.getElementsByTagName("script")[0] || document.getElementsByTagName("script")[0];
+              } catch (e) {
+                a = false;
+              }
+              a || (a = document.getElementsByTagName("head")[0] || document.getElementsByTagName("body")[0]);
+              a.parentNode.insertBefore(c, a);
+            })(document, window);
+          `,
+            }}
+          />
         </body>
       </html>
     </CustomeAdsContextProvider>
