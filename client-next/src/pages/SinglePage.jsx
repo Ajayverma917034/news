@@ -206,21 +206,23 @@ const SinglePage = ({ news_id }) => {
           <article className="">
             <PageContent2 item={news} />
           </article>
-          <div className="bg-gray h-[200px] md:h-[300px] flex justify-center items-center w-full relative">
-            <DetailAds />
-            <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
-              <Link
-                href={"/advertisement-us"}
-                className="text-[#f9f9f9] text-[12px] "
-              >
-                <HiOutlineExclamationCircle
-                  size={18}
-                  className="text-[#f9f9f9] font-sans"
-                />
-              </Link>
-              <span className="text-[#f9f9f9] text-[12px]">Sponsored</span>
+          {randomNewsId && (
+            <div className="bg-gray h-[200px] md:h-[300px] flex justify-center items-center w-full relative">
+              <DetailAds />
+              <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
+                <Link
+                  href={"/advertisement-us"}
+                  className="text-[#f9f9f9] text-[12px] "
+                >
+                  <HiOutlineExclamationCircle
+                    size={18}
+                    className="text-[#f9f9f9] font-sans"
+                  />
+                </Link>
+                <span className="text-[#f9f9f9] text-[12px]">Sponsored</span>
+              </div>
             </div>
-          </div>
+          )}
           <div className="flex flex-col w-full h-[10rem] bg-[#f0f0f0] mb-2 mt-2">
             <p className="text-center">Advertisement</p>
             <GoogleAds
