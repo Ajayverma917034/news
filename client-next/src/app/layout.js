@@ -61,7 +61,7 @@ export default function RootLayout({ children }) {
           {children}
           <Footer />
           {
-            process.env.NODE_ENV === "production" &&
+            process.env.NEXT_NODE_ENV === "production" &&
             < Script
               id="clever-core"
               type="text/javascript"
