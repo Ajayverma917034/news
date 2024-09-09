@@ -158,9 +158,9 @@ const PageContent2 = ({ item, ads }) => {
                   </div>
 
                   {/* Insert an ad at the midpoint */}
-                  {i === Math.floor(item?.content[0].blocks.length / 2) && (
-                    <div className="">hello</div>
-                  )}
+                  {/* {i === Math.floor(item?.content[0].blocks.length / 2) && (
+                    
+                  )} */}
                 </div>
               );
             })}
