@@ -69,7 +69,7 @@ export default function RootLayout({ children }) {
             (function(document, window) {
               var a, c = document.createElement("script"), f = window.frameElement;
               c.id = "CleverCoreLoader84781";
-              c.src = "https://scripts.cleverwebserver.com/xyz.js";
+              c.src = "https://scripts.cleverwebserver.com/6abe2dc524aa837f52f47e46e9a1e795.js";
               c.async = true;
               c.type = "text/javascript";
               c.setAttribute("data-target", window.name || (f && f.getAttribute("id")));
