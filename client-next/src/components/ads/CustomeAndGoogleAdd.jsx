@@ -24,7 +24,7 @@ export default function CustomeAndGoogleAdd() {
   const sideAds = ads.sideAds;
 
   return (
-    <div className="flex flex-wrap gap-y-3 gap-x-4 md:flex max-sm:items-center w-[330px] lg:flex-col ">
+    <div className="flex flex-wrap gap-y-3 gap-x-4 md:flex max-sm:items-center w-full max-w-[330px] sm:w-[330px] lg:flex-col ">
       <Swiper
         spaceBetween={20}
         effect={"fade"}
@@ -37,7 +37,7 @@ export default function CustomeAndGoogleAdd() {
           clickable: true,
         }}
         modules={[EffectFade, Navigation, Pagination, Autoplay]}
-        className="mySwiper p-0 w-[330px] h-[330px]"
+        className="mySwiper p-0 w-full max-w-[330px] sm:w-[330px] h-[330px]"
         style={{
           width: "330px",
           height: "330px",
@@ -49,7 +49,7 @@ export default function CustomeAndGoogleAdd() {
             ? sideAds.map((ad, index) => {
                 return (
                   <SwiperSlide key={index} className="w-full h-full p-0">
-                    <div className="w-[330px] h-[330px] overflow-hidden ml-auto mr-auto rounded-md">
+                    <div className="w-full max-w-[330px] sm:w-[330px] h-[330px] overflow-hidden ml-auto mr-auto rounded-md">
                       <Image
                         src={ad.banner.url}
                         alt="sliderimg"

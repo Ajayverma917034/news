@@ -191,8 +191,8 @@ const SinglePage = ({ news_id }) => {
   }, [news_id]);
 
   return (
-    <div className="flex flex-col spacing mt-2 w-full max-sm:px-1 relative">
-      <div className="fixed right-0 top-3/2 transform -translate-y-3/2 z-[1000]">
+    <div className="flex flex-col spacing mt-2 w-full max-sm:px-2 relative">
+      <div className="fixed right-0 top-[400px] transform -translate-y-3/2 z-[1000]">
         <button
           onClick={handleNextNews}
           className="bg-red text-white p-2 pt-3 sm:pt-4 sm:p-3 rounded-l-lg shadow-md hover:bg-red-700 transition"
@@ -289,9 +289,7 @@ const SinglePage = ({ news_id }) => {
           {/* <div className="w-full max-md:mt-2 flex items-center justify-center mt-2">
             <RandomNewsPage news={randomEventNews} ads={ads} />
           </div> */}
-          <div className="w-full max-md:mt-2 flex items-center justify-center mt-2">
-            {/* <HorizontalAdsGoogle /> */}
-          </div>
+          <div className="w-full max-md:mt-2 flex items-center justify-center mt-2 bg-red"></div>
           <div className="hidden max-sm:flex mt-3 items-center justify-center">
             {randomNewsId ? <CustomeAndGoogleAdd /> : <></>}
           </div>
@@ -371,8 +369,8 @@ const SinglePage = ({ news_id }) => {
               style={{ display: "block", width: "100%", height: "100%" }}
             />
           </div>
+          <div className="clever-core-ads"></div>
         </div>
-        <div className="clever-core-ads"></div>
         <div className="flex flex-col gap-y-2 md:gap-y-10 md:col-span-2 md:mt-10">
           <div className="sticky top-36 max-md:hidden">
             {randomNewsId && <CustomeAndGoogleAdd />}

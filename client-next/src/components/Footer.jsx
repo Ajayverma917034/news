@@ -13,8 +13,8 @@ const Footer = () => {
     <>
       {/* <FooterAds /> */}
       <div className="bg-black text-white opacity-90 pt-10">
-        <div className="px-6 sm:px-12 xl:px-16">
-          <div className="grid justify-center grid-rows-2 md:grid-rows-1 grid-cols-1  md:grid-cols-12 lg:grid-cols-11 gap-8 border-b-2 pb-8 w-full">
+        <div className="px-4 sm:px-12 xl:px-16">
+          <div className="grid justify-center grid-rows-2 md:grid-rows-1 grid-cols-1  md:grid-cols-12 lg:grid-cols-11 gap-8 border-b-2 sm:pb-8 w-full">
             <div className="flex col-span-1 md:col-span-6 lg:col-span-5 justify-center gap-14 sm:gap-28 md:gap-14 lg:gap-20 xl:gap-28 w-full ">
               <div className="flex flex-col ">
                 <Link
@@ -149,7 +149,7 @@ const Footer = () => {
                 </Link>
               </div>
             </div>
-            <div className="md:col-span-6 flex flex-col w-full  lg:flex-row gap-8 lg:gap-16 ">
+            <div className="md:col-span-6 flex flex-col w-full lg:flex-row gap-8 lg:gap-16 ">
               <div className="flex justify-center gap-14 sm:gap-28 md:gap-10 lg:gap-16">
                 <div className="flex flex-col">
                   <h2 className="text-xl lg:text-2xl xl:text-3xl font-semibold border-b-2 mb-4 ">
@@ -210,31 +210,39 @@ const Footer = () => {
             </div>
           </div>
           <div className="flex flex-col md:flex-row justify-center items-center md:justify-between mb-8 sm:px-4 lg:px-8">
-            <div className="py-8">
+            <div className="pt-4 pb-2 sm:py-8 max-sm:mt-5">
               <div className="w-68 pb-8 mx-8">
                 <Image width={500} height={200} src={logo} alt="Logo" />
               </div>
               <p>
-                <span className="text-4xl sm:p-3 font-medium">
+                <span className="text-2xl sm:text-4xl sm:p-3 font-medium">
                   Office Address :
                 </span>
-                <span className="text-2xl sm:p-3 font-normal">
+                <span className="text-[15px] sm:text-2xl sm:p-3 font-normal ml-1">
                   सोनभद्र, उत्तरप्रदेश (231216)
                 </span>
               </p>
               <p>
-                <span className="text-4xl sm:p-3 font-medium">
+                <span className="text-2xl sm:text-4xl sm:p-3 font-medium">
                   Contact Us :
                 </span>
-                <span className="text-2xl sm:p-3 font-normal">
+                <a
+                  href="tel:+919415873885"
+                  className="text-[15px] sm:text-2xl sm:p-3 font-normal text-white ml-1"
+                >
                   +91 9415873885
-                </span>
+                </a>
               </p>
               <p>
-                <span className="text-4xl sm:p-3 font-medium">Email:</span>
-                <span className="text-2xl p-3 font-normal">
-                  info.janpadnewslive@gmail.com
+                <span className="text-2xl sm:text-4xl sm:p-3 font-medium text-white">
+                  Email:
                 </span>
+                <a
+                  href="mailto:info.janpadnewslive@gmail.com"
+                  className="text-[15px] sm:text-2xl sm:p-3 font-normal ml-1 text-white"
+                >
+                  info.janpadnewslive@gmail.com
+                </a>
               </p>
             </div>
             <div className=" flex flex-col gap-4 md:gap-8">
