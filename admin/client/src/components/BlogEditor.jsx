@@ -37,7 +37,7 @@ const BlogEditor = ({ blogContent }) => {
 
   let {
     blog,
-    blog: { title, banner, content, description },
+    blog: { title, banner, content, description, imageRef },
     setBlog,
     textEditor,
     setTextEditor,
@@ -126,6 +126,13 @@ const BlogEditor = ({ blogContent }) => {
     localStorage.setItem("blog", JSON.stringify(updatedBlog));
     setHasChanges(true);
   };
+  const handleImageCaptionChange = (e) => {
+    let input = e.target;
+    const updatedBlog = { ...blog, imageRef: input.value };
+    setBlog(updatedBlog);
+    localStorage.setItem("blog", JSON.stringify(updatedBlog));
+    setHasChanges(true);
+  };
 
   const handleError = (e) => {
     let img = e.target;
@@ -197,14 +204,14 @@ const BlogEditor = ({ blogContent }) => {
     }
   };
 
-  const handleResetEditor =(e) => {
+  const handleResetEditor = (e) => {
     e.preventDefault();
     localStorage.removeItem("blog");
     setBlog(blogStructure);
     setHasChanges(false);
     setEditorState("editor");
     navigate("/dashboard");
-  }
+  };
   return (
     <>
       <div className="p-5 md:p-10 h-[calc(100vh-100px)] md:h-[calc(100vh-82px)] overflow-auto">
@@ -222,17 +229,14 @@ const BlogEditor = ({ blogContent }) => {
             >
               Save Draft
             </button>
-            {
-              mode !== "edit" && (
-
-            <button
-              className="btn-light py-1 bg-red text-white"
-              onClick={handleResetEditor}
-            >
-              Reset Editor
-            </button>
-              )
-            }
+            {mode !== "edit" && (
+              <button
+                className="btn-light py-1 bg-red text-white"
+                onClick={handleResetEditor}
+              >
+                Reset Editor
+              </button>
+            )}
           </div>
         </nav>
         <section>
@@ -254,7 +258,16 @@ const BlogEditor = ({ blogContent }) => {
                 />
               </label>
             </div>
-
+            <div className="flex w-full flex-col mt-2">
+              <p>Image Caption</p>
+              <input
+                className="text-md font-medium w-full  outline-none  mt-1 leading-tight placeholder:opacity-40 bg-white border rounded-md px-1 py-1"
+                type="text"
+                onChange={handleImageCaptionChange}
+                value={imageRef}
+                placeholder="Image Caption"
+              />
+            </div>
             <textarea
               defaultValue={title}
               placeholder="News Title"

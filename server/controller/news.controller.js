@@ -4,6 +4,7 @@ import User from "../model/user.model.js";
 import tryCatch from "../utils/asyncFunction.js";
 import ErrorHandler from "../utils/errorHandler.js";
 import translate from "translate-google";
+import { sendNewsNotification } from "./pushnotification.controller.js";
 
 function generateNanoId(length = 5) {
     let result = '';
@@ -24,14 +25,13 @@ function getCurrentDate() {
 
 export const createNews = tryCatch(async (req, res, next) => {
     try {
-
         let authorId = req.user._id;
-        let { id, title, description, content, state, district, location, news_section_type, banner, tags, draft } = req.body;
-
+        let { id, title, description, content, state, district, location, news_section_type, banner, tags, draft, sendNotification, imageRef } = req.body;
 
         if (!title?.length) {
             return res.status(403).json({ error: `You must provide a title to ${draft === true ? "Publish" : "Save"} a news` })
         }
+
         if (!draft) {
             if (!description.length) {
                 return next(new ErrorHandler(403, 'You must provide some descrtiption for the news'))
@@ -39,40 +39,17 @@ export const createNews = tryCatch(async (req, res, next) => {
             if (!content) {
                 return res.status(403).json({ error: 'You must provide some content for the news' })
             }
-
             if (!state.length && !news_section_type.length && !district.length) {
                 return res.status(403).json({ error: 'You must provide either State or News Section tags or districts' })
             }
-            // Check if state is provided and not empty
-            // if (!state || state.trim() === '') {
-            //     return res.status(403).json({ error: 'You must provide a state for the news' })
-            // }
 
-            // // Check if district is provided and not empty
-            // if (!district || district.trim() === '') {
-            //     return res.status(403).json({ error: 'You must provide a district for the news' })
-            // }
-
-            // Check if location is provided and not empty
             if (!location || location.trim() === '') {
                 return res.status(403).json({ error: 'You must provide a location for the news' })
             }
 
-            // Check if tags is provided and not empty
             if (!tags || tags.length === 0) {
                 return res.status(403).json({ error: 'You must provide tags for the news' })
             }
-
-            // Check if tags is provided and not empty
-            // if (!news_section_type || news_section_type.length === 0) {
-
-            //     return res.status(403).json({ error: 'You must provide news_section_type for the news' })
-            // }
-
-            // Check if breaking_news is provided and is boolean
-            // if (breaking_news === undefined || typeof breaking_news !== 'boolean') {
-            //     return res.status(403).json({ error: 'You must provide breaking news status for the news' })
-            // }
 
             location = location.trim().toLowerCase();
             for (let i = 0; i < state.length; i++) {
@@ -86,23 +63,18 @@ export const createNews = tryCatch(async (req, res, next) => {
             }
         }
 
-        // tags = tags.map(tag => tag.trim().toLowerCase());
-
-
-        // tags = tags.map(tags => tags.trim().toLowerCase());
         if (id) {
-            News.findOneAndUpdate({ news_id: id }, { title, description, content, state, district, location, banner, tags, news_section_type, draft: draft ? draft : false }).then(news => {
-                return res.status(200).json({ id: news.news_id, message: 'update Successfully' })
-            })
-        }
-        else {
-
+            // Update existing news
+            News.findOneAndUpdate({ news_id: id }, { title, description, content, state, district, location, banner, tags, news_section_type, imageRef, draft: draft ? draft : false })
+                .then(news => {
+                    return res.status(200).json({ id: news.news_id, message: 'update Successfully' })
+                })
+        } else {
+            // Create new news
             let newUrlTitle = ""
             await translate(title, { from: 'hi', to: 'en' }).then(res => {
-
                 newUrlTitle = res;
             }).catch(err => {
-                console.log(err)
                 return res.status(500).json({ success: false, error: err.message })
             });
 
@@ -111,36 +83,45 @@ export const createNews = tryCatch(async (req, res, next) => {
                 .toLocaleLowerCase()
                 .replace(/[^a-z0-9]+/g, '-')
                 .replace(/-+/g, '-')
-                .replace(/^-|-$/g, ''); // Remove leading or trailing hyphens
+                .replace(/^-|-$/g, '');
 
             news_id += '-' + getCurrentDate() + '-' + generateNanoId();
 
             let news = new News({
-                title, description, content, state, district, location, tags, banner, news_section_type, draft: Boolean(draft), news_id, author: authorId
-            })
+                title, description, content, state, district, location, tags, banner, news_section_type, draft: Boolean(draft), news_id, author: authorId, imageRef
+            });
 
-            news.save().then(news => {
+            news.save().then(async (news) => {
 
                 let incrementVal = draft ? 0 : 1;
                 User.findOneAndUpdate({ _id: authorId }, {
                     $inc: { "account_info.total_news": incrementVal }, $push: { "news": news._id }
-                }).then(user => {
-                    return res.status(200).json({ id: news.news_id })
+                }).then(async (user) => {
+
+                    // Return response to frontend first
+                    res.status(200).json({ id: news.news_id });
+
+                    // Proceed to send notification in the background
+                    if (sendNotification) {
+                        try {
+                            await sendNewsNotification(news);
+                        } catch (err) {
+                            console.log("Notification sending failed: ", err);
+                        }
+                    }
+
                 }).catch(err => {
-                    console.log(err)
                     return next(new ErrorHandler(500, "Failed to update total posts number"))
                 })
-            }).catch(err => {
-                console.log(err)
-                return next(new ErrorHandler(500, err.message))
 
+            }).catch(err => {
+                return next(new ErrorHandler(500, err.message))
             })
         }
     } catch (error) {
-        console.log(error)
-        return next(new ErrorHandler(500, error.message))
+        return next(new ErrorHandler(500, error.message));
     }
-})
+});
 
 
 export const getHomeNews = tryCatch(async (req, res, next) => {
@@ -249,7 +230,7 @@ export const getNews = tryCatch(async (req, res, next) => {
 
     let incrementVal = mode !== 'edit' ? val : 0;
     News.findOneAndUpdate({ news_id }, { $inc: { "activity.total_reads": incrementVal, "activity.total_today_count": incrementVal } })
-        .select('news_id title description content tags state district banner location activity.total_reads news_section_type tags createdAt -_id')
+        .select('news_id title description content tags state district banner location activity.total_reads news_section_type tags createdAt updatedAt imageRef -_id')
         .then(article => {
             if (!article) {
                 return next(new ErrorHandler(404, "News not found"))
@@ -674,7 +655,7 @@ export const searchNews = tryCatch(async (req, res, next) => {
 
 export const fetchRandomNews = tryCatch(async (req, res, next) => {
     const { news_id } = req.body;
-    const news = await News.find({ news_id: { $ne: news_id } }, { createdAt: -1 }).limit(50).sort({ createdAt: -1 }).select('news_id title description content tags state district banner location activity.total_reads news_section_type tags createdAt -_id').exec();
+    const news = await News.find({ news_id: { $ne: news_id } }, { createdAt: -1 }).limit(50).sort({ createdAt: -1 }).select('news_id title description content tags state district banner location activity.total_reads news_section_type tags  createdAt -_id').exec();
 
     const randomIndex = Math.floor(Math.random() * news.length);
     const randomNews = news[randomIndex];

@@ -15,14 +15,7 @@ import { MdOutlineContentCopy } from "react-icons/md";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { RiWhatsappFill } from "react-icons/ri";
 import toast from "react-hot-toast";
-import { HiOutlineExclamationCircle } from "react-icons/hi2";
-import BlogContent from "./BlogContent";
-import Link from "next/link";
-import { handleImageError } from "@/lib/errorImg";
-import DetailAds from "../ads/DetailAds";
-import InArticalAds from "../../../components/InArticalAds";
 import GoogleAds from "../../../components/GoogleAds";
-import YtNewsSkelton from "@/skeleton/YtNewsSkelton";
 import NewsContent from "./NewsContent";
 
 const PageContent2 = ({ item, ads }) => {
@@ -67,6 +60,12 @@ const PageContent2 = ({ item, ads }) => {
           loading="lazy"
         />
       </div>
+      {item?.imageRef && (
+        <div className="flex gap-3 mt-2">
+          <p className="font-medium">File photo: </p>
+          <p>{item?.imageRef}</p>
+        </div>
+      )}
 
       <div className="flex flex-wrap gap-y-2 sm:flex sm:flex-row items-center py-2 justify-between w-full">
         <div className="flex items-center">

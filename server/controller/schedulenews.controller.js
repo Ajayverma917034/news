@@ -4,6 +4,7 @@ import tryCatch from "../utils/asyncFunction.js";
 import ErrorHandler from "../utils/errorHandler.js";
 import translate from "translate-google";
 import cron from 'node-cron'
+import { sendNewsNotification } from "./pushnotification.controller.js";
 function generateNanoId(length = 5) {
     let result = '';
     for (let i = 0; i < length; i++) {
@@ -25,7 +26,7 @@ export const createScheduleNews = tryCatch(async (req, res, next) => {
     try {
 
         let authorId = req.user._id;
-        let { id, title, description, content, state, district, location, news_section_type, banner, tags, draft, post_time } = req.body;
+        let { id, title, description, content, state, district, location, news_section_type, banner, tags, draft, post_time, sendNotification, imageRef } = req.body;
 
 
         if (!title?.length) {
@@ -73,7 +74,7 @@ export const createScheduleNews = tryCatch(async (req, res, next) => {
 
         if (id) {
             ScheduleNews.findOneAndUpdate({ news_id: id }, {
-                title, description, content, state, district, location, banner, tags, news_section_type, post_time,
+                title, description, content, state, district, location, banner, tags, news_section_type, post_time, imageRef,
             }).then(news => {
                 return res.status(200).json({ id: news.news_id, message: 'update Successfully' })
             })
@@ -99,7 +100,7 @@ export const createScheduleNews = tryCatch(async (req, res, next) => {
             news_id += '-' + getCurrentDate() + '-' + generateNanoId();
 
             let news = new ScheduleNews({
-                title, description, content, state, district, location, tags, banner, news_section_type, post_time, draft: Boolean(draft), news_id, author: authorId
+                title, description, content, state, district, location, tags, banner, news_section_type, post_time, draft: Boolean(draft), news_id, sendNotification, author: authorId, imageRef
             })
 
             news.save().then(news => {
@@ -120,7 +121,7 @@ export const getScheduleNews = tryCatch(async (req, res, next) => {
     let { news_id, draft = false, mode, incrementVal: val } = req.body;
 
     ScheduleNews.findOne({ news_id })
-        .select('news_id title description content tags state district banner location news_section_type post_time tags createdAt -_id')
+        .select('news_id title description content tags state district banner location news_section_type post_time tags createdAt -_id imageRef')
         .then(article => {
             return res.status(200).json({ news: article })
         }
@@ -174,6 +175,7 @@ export const publishScheduleNews = tryCatch(async (req, res, next) => {
         tags: scheduledNews.tags,
         news_section_type: scheduledNews.news_section_type,
         author: scheduledNews.author,
+        imageRef: scheduledNews.imageRef,
         post_time: new Date(), // Set the current date and time as the post time
         activity: {
             total_reads: 0,
@@ -283,13 +285,25 @@ cron.schedule('*/15 * * * *', async () => {
                     tags: scheduledNews.tags,
                     news_section_type: scheduledNews.news_section_type,
                     author: scheduledNews.author,
+                    imageRef: scheduledNews.imageRef,
                     post_time: nowDate // Set the publish time to now
+
                 });
 
                 await newNews.save();
 
                 // Remove the scheduled news after publishing
                 await ScheduleNews.deleteOne({ _id: scheduledNews._id });
+
+
+                if (scheduledNews.sendNotification) {
+                    try {
+                        await sendNewsNotification({ news_id, title: scheduledNews.title, });
+                    } catch (err) {
+                        console.log("Notification sending failed: ", err);
+                    }
+                }
+
 
                 // console.log(`Published overdue news with ID: ${scheduledNews.news_id} at ${nowDate}`);
             }

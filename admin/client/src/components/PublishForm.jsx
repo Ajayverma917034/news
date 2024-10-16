@@ -52,11 +52,31 @@ const PublishForm = () => {
       news_section_type,
       breaking_news,
       post_time,
+      sendNotification,
+      imageRef,
     },
     setEditorState,
     setBlog,
     blog,
   } = useContext(EditorContext);
+
+  console.log(sendNotification);
+
+  // const [isOn, setIsOn] = useState(() => {
+  //   // Retrieve the saved state from localStorage, default to false if not found
+  //   const savedState = localStorage.getItem('toggleState');
+  //   return savedState ? JSON.parse(savedState) : false;
+  // });
+
+  // // Toggle the switch state
+  const toggleSwitch = () => {
+    setBlog({ ...blog, sendNotification: !sendNotification });
+  };
+
+  // // Save the toggle state to localStorage whenever it changes
+  // useEffect(() => {
+  //   localStorage.setItem('toggleState', JSON.stringify(isOn));
+  // }, [isOn]);
 
   const [tagdata, setTagData] = useState("");
   const [hasChanges, setHasChanges] = useState(false);
@@ -136,7 +156,9 @@ const PublishForm = () => {
       location,
       news_section_type,
       breaking_news,
+      sendNotification,
       draft: false,
+      imageRef,
     };
     e.target.classList.add("disable");
 
@@ -204,6 +226,8 @@ const PublishForm = () => {
       breaking_news,
       draft: false,
       post_time,
+      sendNotification,
+      imageRef,
     };
     // e.target.classList.add("disable");
 
@@ -449,6 +473,26 @@ const PublishForm = () => {
             </div>
           </div>
           <div className="flex gap-x-5 items-center flex-wrap justify-center w-full">
+            <p>Send Notification</p>
+            <div
+              className={`relative w-20 h-10 flex items-center rounded-full p-1 cursor-pointer transition-colors duration-300 ease-in-out ${
+                sendNotification ? "bg-green-500" : "bg-gray"
+              }`}
+              onClick={toggleSwitch}
+            >
+              <span
+                className={`absolute left-10 right-1 text-white font-semibold text-sm transition-transform ${
+                  sendNotification ? "translate-x-6 -left-2" : "left-0"
+                }`}
+              >
+                {sendNotification ? "ON" : "OFF"}
+              </span>
+              <div
+                className={`w-8 h-8 bg-white rounded-full shadow-md transform transition-transform duration-300 ease-in-out ${
+                  sendNotification ? "translate-x-10" : ""
+                }`}
+              />
+            </div>
             <button onClick={handlePublish} className={`btn-dark px-8 my-4 `}>
               Publish
             </button>

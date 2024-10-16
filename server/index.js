@@ -20,6 +20,7 @@ import analyticsRouter from "./router/analytics.routes.js";
 import eventNewsRouter from "./router/event.news.routes.js";
 import TitleAdvertisementRoutes from "./router/advertisement.title.routes.js";
 import scheduleNewsRouter from "./router/scheduleNews.routes.js";
+import pushNotificationRouter from "./router/notification.routes.js";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -108,6 +109,7 @@ app.use("/api/v1", analyticsRouter);
 app.use("/api/v1", eventNewsRouter);
 app.use("/api/v1", TitleAdvertisementRoutes);
 app.use("/api/v1", scheduleNewsRouter);
+app.use("/api/v1", pushNotificationRouter);
 
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "./client/dist/index.html"));

@@ -19,6 +19,8 @@ const blogStructure = {
     date: Todaydate,
     time: "",
   },
+  imageRef: "",
+  sendNotification: false,
   news_section_type: [],
   breaking_news: false,
   author: { personal_info: {} },

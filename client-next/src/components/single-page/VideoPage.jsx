@@ -17,6 +17,7 @@ import {
 } from "react-share";
 import DetailAds from "../ads/DetailAds";
 import toast from "react-hot-toast";
+import LazyLoadAd from "../../../components/LazyLoadAds";
 
 const newsStructrue = {
   title: "",
@@ -233,6 +234,9 @@ const VideoPage = ({ news_id }) => {
             {/* <CustomeAndGoogleAdd1 /> */}
           </div>
           {/* <SideNews title={"education"} /> */}
+        </div>
+        <div className="w-full flex col-span-4 ">
+          <LazyLoadAd />
         </div>
       </div>
     </div>

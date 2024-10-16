@@ -1,13 +1,9 @@
 "use client";
-import RandomNewsScroll from "@/app/news/[news_id]/RandomNewsScroll";
-import CustomeAndGoogleAdd2 from "@/components/ads/CustomeAndGoogleAdd2";
-import EventPageContent from "@/components/single-page/EventPageContent";
 import PageContent2 from "@/components/single-page/PageContent2";
 import Heading from "@/lib/Heading";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
-import RandomNewsPage from "./RandomNewsPage";
 import GoogleAds from "../../components/GoogleAds";
 import { useRouter } from "next/navigation";
 import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";

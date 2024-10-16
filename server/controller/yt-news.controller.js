@@ -123,7 +123,7 @@ export const getYtNews = tryCatch(async (req, res, next) => {
     let incrementVal = mode !== 'edit' ? 1 : 0;
 
     YtNews.findOneAndUpdate({ news_id: video_id }, { $inc: { "activity.total_reads": incrementVal } })
-        .select('news_id title description tags location state district videoLinkId createdAt -_id')
+        .select('news_id title description tags location state district videoLinkId createdAt updatedAt -_id')
         .then((news) => {
             if (news.draft && !draft) {
                 return next(new ErrorHandler(400, 'This news is not published yet'))

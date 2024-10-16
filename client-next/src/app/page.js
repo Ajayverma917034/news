@@ -2,6 +2,7 @@ import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 import ApnaZila from "@/components/ApnaZila";
 import NewsSection from "@/components/news-section/news.section.component";
 import NewsVideo from "@/components/news-video/news.video.section.component";
+import Notification from "@/components/Notification";
 import RajyaMain from "@/components/RajyaMain";
 import SideNews from "@/components/side-news/SideNews";
 

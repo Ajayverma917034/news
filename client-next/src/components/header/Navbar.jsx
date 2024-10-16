@@ -13,6 +13,7 @@ import logoimg from "../../assets/logoimg.png";
 
 import { CustomeAdsContext } from "@/lib/CustomeAdsContext";
 import TitleAdvertisement from "../title-advertisement/TitleAdvertisement";
+import Notification from "../Notification";
 
 const Navbar = () => {
   const { updateAds } = useContext(CustomeAdsContext);
@@ -182,6 +183,7 @@ const Navbar = () => {
             ))}
           </ul>
         </div>
+        <Notification />
         <TitleAdvertisement />
       </div>
       <AllState isMenuOpen={isMenuOpen} setIsMenuOpen={setIsMenuOpen} />

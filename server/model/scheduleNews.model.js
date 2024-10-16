@@ -50,6 +50,14 @@ const newsSchema = new mongoose.Schema({
         required: true,
         ref: 'User'
     },
+    sendNotification: {
+        type: Boolean,
+        default: false,
+    },
+    imageRef: {
+        type: String,
+        default: '',
+    },
     post_time:
     {
         date: {

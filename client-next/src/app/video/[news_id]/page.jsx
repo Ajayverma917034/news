@@ -1,18 +1,17 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
-import Image from "next/image.js";
-import { CiLocationOn } from "react-icons/ci";
-import { formatDate } from "@/lib/formatDate";
-import Heading from "@/lib/Heading";
-// import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
-// import FooterAds from "../../../../components/FooterAds";
-// import CustomeAndGoogleAdd2 from "@/components/ads/CustomeAndGoogleAdd2";
-// import CustomeAndGoogleAdd1 from "@/components/ads/CustomeAndGoogleAdd1";
-import DetailAds from "@/components/ads/DetailAds";
-import { HiOutlineExclamationCircle } from "react-icons/hi2";
 import VideoPage from "@/components/single-page/VideoPage";
 import BottomPopUp from "@/components/BottomPopUp";
-// import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
+
+const formatToIST = (dateString) => {
+  const date = new Date(dateString);
+  const offset = "+05:30"; // IST offset
+  const localISOTime = new Date(
+    date.getTime() - date.getTimezoneOffset() * 60000
+  )
+    .toISOString()
+    .replace("Z", "");
+  return `${localISOTime}${offset}`;
+};
 
 const fetchNews = async (news_id) => {
   const response = await fetch(
@@ -51,11 +50,34 @@ export async function generateMetadata({ params: { news_id } }) {
     description: news?.description,
     keywords: `${keywords}janpad news, janpad news live, latest news, today news`,
     openGraph: {
-      type: "article",
-      url: `https://janpadnewslive.com/video/${news_id}`,
       title: news?.title,
       description: news?.description,
-      images: [{ url: thumbnail }],
+      url: thumbnail,
+      type: "article",
+      siteName: "Janpad News Live",
+      publishedTime: news?.createdAt ? formatToIST(news.createdAt) : null,
+      modifiedTime: news?.updatedAt ? formatToIST(news.updatedAt) : null,
+      author: ["Janpad News Live Team"],
+      images: [
+        {
+          url: thumbnail,
+          secureUrl: thumbnail,
+          width: 1200,
+          height: 630,
+          alt: `Preview image for news ${news?.title}`,
+        },
+      ],
+    },
+    twiter: {
+      card: "summary_large_image",
+      site: "@janpadnewslive",
+      title: news?.title,
+      description: news?.description,
+      creator: "@janpadNewsLive",
+      images: {
+        url: thumbnail,
+        alt: `Preview image for news ${news?.title}`,
+      },
     },
     metadataBase: new URL("https://janpadnewslive.com"),
     alternates: {
@@ -65,10 +87,6 @@ export async function generateMetadata({ params: { news_id } }) {
 }
 
 export default async function BlogPostPage({ params: { news_id } }) {
-  // const { news, relatedNews } = await fetchNews(news_id);
-
-  // const thumbnail = `https://img.youtube.com/vi/${news?.videoLinkId}/mqdefault.jpg`;
-
   return (
     <>
       <VideoPage news_id={news_id} />
@@ -76,147 +94,3 @@ export default async function BlogPostPage({ params: { news_id } }) {
     </>
   );
 }
-
-// <div className="flex spacing mt-2 w-full max-sm:px-1">
-//   <div className="grid max-sm:flex flex-col sm:grid-cols-6 sm:gap-6 w-full gap-x-2">
-//     <div className="col-span-6 md:col-span-4 w-full">
-//       <article className="">
-//         <div className="center w-full py-2 max-lg:px-[0vw] h-[300px] md:h-[500px] news_card p-1">
-//           <iframe
-//             style={{ overflow: "hidden", height: "100%", width: "100%" }}
-//             width="100%"
-//             height="100%"
-//             src={`https://www.youtube.com/embed/${news?.videoLinkId}`}
-//             allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-//             title="YouTube video player"
-//           ></iframe>
-//         </div>
-
-//         <div className="center w-full max-lg:px-[0vw] mt-1">
-//           <h2 className="text-4xl leading-normal font-bold max-md:text-3xl font-devNagri">
-//             {news?.title}
-//           </h2>
-//           <div className="flex flex-wrap gap-y-2 sm:flex sm:flex-row items-center py-2 justify-between w-full">
-//             <div className="flex items-center">
-//               <CiLocationOn size={25} className="text-red" />
-//               <h3 className="news-title-md mt-2 ml-1 capitalize">
-//                 {news?.location}
-//               </h3>
-//             </div>
-//             <div>
-//               <h3 className="date-lg">{formatDate(news?.createdAt)}</h3>
-//             </div>
-//             {/* <div className="flex gap-2 items-center">
-//               <WhatsappShareButton url={shareUrl} title={title}>
-//                 <RiWhatsappFill
-//                   className="text-green-600 hover:scale-[1.2]"
-//                   size={28}
-//                 />
-//               </WhatsappShareButton>
-//               <FacebookShareButton
-//                 hashtag={tags}
-//                 url={shareUrl}
-//                 title={title}
-//               >
-//                 <FaFacebook
-//                   size={24}
-//                   className="text-blue hover:scale-[1.2]"
-//                 />
-//               </FacebookShareButton>
-
-//               <TwitterShareButton
-//                 url={shareUrl}
-//                 title={title}
-//                 hashtags={tags}
-//               >
-//                 <FaSquareXTwitter
-//                   size={24}
-//                   className="text-pink-600 hover:scale-[1.2]"
-//                 />
-//               </TwitterShareButton>
-//               <button onClick={copyUrlToClipboard}>
-//                 <MdOutlineContentCopy
-//                   size={24}
-//                   className=" hover:scale-[1.2]"
-//                 />
-//               </button>
-//             </div> */}
-//           </div>
-
-//           <p className=" text-lg font-devNagri">{news?.description}</p>
-//         </div>
-//       </article>
-
-//       <div className="w-full mt-5 mb-3">
-//         {relatedNews && relatedNews.length > 0 ? (
-//           <>
-//             <Heading title={"सम्बंधित खबर"} />
-//             <div className="flex max-lg:flex-col gap-2 w-full">
-//               {relatedNews &&
-//                 relatedNews.length > 0 &&
-//                 relatedNews.map((item, index) => (
-//                   <>
-//                     <Link
-//                       href={`/video/${item?.news_id}`}
-//                       key={index}
-//                       className="grid grid-cols-3 max-md:gap-x-1 lg:flex lg:flex-col lg:w-[200px] shadow-card p-1 rounded-md max-lg:gap-x-3"
-//                     >
-//                       <div className="max-lg:col-span-1  h-[70px] max-h-[103px] lg:h-[120px] max-lg:max-w-36 rounded-md">
-//                         <Image
-//                           src={`https://img.youtube.com/vi/${item?.videoLinkId}/mqdefault.jpg`}
-//                           //   onError={handleImageError}
-//                           alt="Relative-news-image"
-//                           width={1200}
-//                           height={800}
-//                           sizes={{
-//                             maxWidth: "100%",
-//                             height: "auto",
-//                           }}
-//                           loading="lazy"
-//                           className="w-full h-full object-cover hover:scale-95 rounded-md"
-//                         />
-//                       </div>
-//                       <h3 className="col-span-2 mt-2 font-semibold line-clamp-2 text-xl md:hover:border-b hover:border-black">
-//                         {item?.title}
-//                       </h3>
-//                     </Link>
-//                   </>
-//                 ))}
-//             </div>
-//           </>
-//         ) : (
-//           <></>
-//         )}
-//       </div>
-//       <div className="flex w-full">
-//         <div className="bg-gray h-[200px] flex justify-center items-center w-full relative">
-//           <DetailAds />
-//           <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
-//             <Link
-//               href={"/advertisement-us"}
-//               className="text-[#f9f9f9] text-[12px] "
-//             >
-//               <HiOutlineExclamationCircle
-//                 size={18}
-//                 className="text-[#f9f9f9] font-sans"
-//               />
-//             </Link>
-//             <span className="text-[#f9f9f9] text-[12px]">Sponsored</span>
-//           </div>
-//         </div>
-//       </div>
-//       {/* <div className="w-full h-[5rem] md:h-[9rem] max-md:mt-2 flex items-center justify-center mt-2"> */}
-//       {/* <FooterAds /> */}
-//       {/* </div> */}
-//       <div className="hidden max-sm:flex mt-3">
-//         {/* <CustomeAndGoogleAdd1 /> */}
-//       </div>
-//     </div>
-//     <div className="flex flex-col gap-y-2 md:gap-y-10 md:col-span-2 md:mt-10">
-//       <div className="sticky top-36 max-md:hidden">
-//         {/* <CustomeAndGoogleAdd1 /> */}
-//       </div>
-//       {/* <SideNews title={"education"} /> */}
-//     </div>
-//   </div>
-// </div>
