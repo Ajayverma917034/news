@@ -61,9 +61,8 @@ const PageContent2 = ({ item, ads }) => {
         />
       </div>
       {item?.imageRef && (
-        <div className="flex gap-3 mt-2">
-          <p className="font-medium">File photo: </p>
-          <p>{item?.imageRef}</p>
+        <div className="flex gap-3 mt-1">
+          <p className="text-[16px]">{item?.imageRef}</p>
         </div>
       )}
 
