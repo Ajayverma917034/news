@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 import DetailAds from "@/components/ads/DetailAds";
 import { HiOutlineExclamationCircle } from "react-icons/hi2";
+import Head from "next/head";
 export const newsStructure = {
   title: "",
   des: "",
@@ -190,6 +191,7 @@ const SinglePage = ({ news_id }) => {
     }
   }, [news_id]);
 
+  // const keywords = news?.tags?.length > 0 ? tags.join(", ") + ", " : "";
   return (
     <div className="flex flex-col spacing mt-2 w-full max-sm:px-2 relative">
       <div className="fixed right-0 top-[400px] transform -translate-y-3/2 z-[1000]">
@@ -200,6 +202,44 @@ const SinglePage = ({ news_id }) => {
           अगली खबर
         </button>
       </div>
+
+      {news && (
+        <Head>
+          {/* <title>{news?.title}</title> */}
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{
+              __html: JSON.stringify({
+                "@context": "https://schema.org",
+                "@type": "NewsArticle",
+                headline: news?.title,
+                image: [news?.banner],
+                datePublished: news?.createdAt,
+                dateModified: news?.updatedAt,
+                author: {
+                  "@type": "Person",
+                  name: "Janpad News Live",
+                },
+                publisher: {
+                  "@type": "Organization",
+                  name: "Janpad News Live",
+                  logo: {
+                    "@type": "ImageObject",
+                    url: "https://img.janpadnewslive.com/image/2024-10-18_06-17-48_logoimg.png", // Replace with actual logo URL
+                  },
+                },
+                description: news?.description,
+                articleBody: news?.content[0]?.blocks[0]?.data?.text || "", // Assuming content has blocks
+                keywords: "keywords",
+                mainEntityOfPage: {
+                  "@type": "WebPage",
+                  "@id": `https://janpadnewslive.com/news/${news?.news_id}`, // Replace with actual news URL
+                },
+              }),
+            }}
+          />
+        </Head>
+      )}
 
       <div className="grid max-sm:flex flex-col sm:grid-cols-6 sm:gap-6 w-full gap-x-2">
         <div className="col-span-6 md:col-span-4 w-full">

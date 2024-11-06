@@ -17,6 +17,7 @@ import { RiWhatsappFill } from "react-icons/ri";
 import toast from "react-hot-toast";
 import GoogleAds from "../../../components/GoogleAds";
 import NewsContent from "./NewsContent";
+import GoogleAdUnit from "../../../components/GoogleAdUnit";
 
 const PageContent2 = ({ item, ads }) => {
   const shareUrl =
@@ -39,12 +40,16 @@ const PageContent2 = ({ item, ads }) => {
       <p className="date-lg text-wrap">{item.description}</p>
       <div className="flex flex-col w-full h-[10rem] bg-[#f0f0f0] mb-1">
         <p className="text-center">Advertisement</p>
-        <GoogleAds
-          adClient="ca-pub-5839947415375117"
-          adSlot="6024106691"
-          style={{ display: "block", width: "100%", height: "100%" }}
-          format="auto"
-        />
+        <GoogleAdUnit>
+          <ins
+            className="adsbygoogle"
+            style={{ display: "block" }}
+            data-ad-client="ca-pub-5839947415375117"
+            data-ad-slot="9305973634"
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+          ></ins>
+        </GoogleAdUnit>
       </div>
       <div className="w-full h-[240px] sm:h-[350px] mt-3 p-1 bg-white">
         <Image
@@ -74,7 +79,7 @@ const PageContent2 = ({ item, ads }) => {
           </h3>
         </div>
         <div>
-          <h3 className="date-lg">{formatDate(item.createdAt)}</h3>
+          <h3 className="date-lg">{formatDate(item.news_post_time)}</h3>
         </div>
         <div className="flex gap-2 items-center">
           <WhatsappShareButton url={shareUrl} title={item.title}>

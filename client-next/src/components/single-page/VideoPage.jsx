@@ -18,6 +18,7 @@ import {
 import DetailAds from "../ads/DetailAds";
 import toast from "react-hot-toast";
 import LazyLoadAd from "../../../components/LazyLoadAds";
+import GoogleAdUnit from "../../../components/GoogleAdUnit";
 
 const newsStructrue = {
   title: "",
@@ -236,7 +237,16 @@ const VideoPage = ({ news_id }) => {
           {/* <SideNews title={"education"} /> */}
         </div>
         <div className="w-full flex col-span-4 ">
-          <LazyLoadAd />
+          <GoogleAdUnit>
+            <ins
+              className="adsbygoogle"
+              style={{ display: "block" }}
+              data-ad-client="ca-pub-5839947415375117"
+              data-ad-slot="9305973634"
+              data-ad-format="auto"
+              data-full-width-responsive="true"
+            ></ins>
+          </GoogleAdUnit>
         </div>
       </div>
     </div>

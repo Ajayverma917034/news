@@ -224,24 +224,42 @@ export const getNewses = tryCatch((req, res, next) => {
             return next(new ErrorHandler(500, err.message))
         })
 })
-
 export const getNews = tryCatch(async (req, res, next) => {
     let { news_id, draft = false, mode, incrementVal: val } = req.body;
-
     let incrementVal = mode !== 'edit' ? val : 0;
-    News.findOneAndUpdate({ news_id }, { $inc: { "activity.total_reads": incrementVal, "activity.total_today_count": incrementVal } })
+
+    News.findOneAndUpdate(
+        { news_id },
+        { $inc: { "activity.total_reads": incrementVal, "activity.total_today_count": incrementVal } },
+        { new: true, timestamps: false } // Disable automatic `updatedAt` update
+    )
         .select('news_id title description content tags state district banner location activity.total_reads news_section_type tags createdAt updatedAt imageRef -_id')
         .then(article => {
             if (!article) {
-                return next(new ErrorHandler(404, "News not found"))
+                return next(new ErrorHandler(404, "News not found"));
             }
 
             if (article.draft && !draft) {
-                return next(new ErrorHandler(403, "This news is in draft mode"))
+                return next(new ErrorHandler(403, "This news is in draft mode"));
             }
+
+            // Convert createdAt and updatedAt to IST (UTC + 5:30) for display purposes
+            const convertToIST = (date) => new Date(new Date(date).getTime() + (5.5 * 60 * 60 * 1000));
+
+            // Assuming article is in UTC, now convert to IST for display
+            article = {
+                ...article._doc,
+                news_post_time: article.createdAt,
+                createdAt: convertToIST(article.createdAt),
+                updatedAt: convertToIST(article.updatedAt)
+            };
+
+            // console.log("Converted to IST createdAt:", article.createdAt);
+
             if (mode === 'edit') {
                 return res.status(200).json({ news: article });
             }
+
             let query = { $or: [] };
             let { state, district, location, tags, news_section_type, news_id } = article;
             if (tags && tags.length) {
@@ -249,51 +267,52 @@ export const getNews = tryCatch(async (req, res, next) => {
                 query.$or.push({ tags: { $in: tags } });
             }
 
-            // Handle news_section_type
             if (news_section_type && news_section_type.length) {
                 query.$or.push({ news_section_type: { $in: news_section_type } });
             }
-            // Check if $or array is empty, if so, remove it from the query
+
             if (query.$or.length === 0) {
                 delete query.$or;
             }
+
             if (news_id) {
                 query.news_id = { $ne: news_id };
             }
 
-
             News.find(query)
                 .limit(4)
                 .sort({ "createdAt": -1 })
-                .select('news_id title banner -_id')
+                .select('news_id title banner -_id createdAt updatedAt')
                 .then(async (news) => {
                     const randomNewsId = await News.aggregate([
-                        // Match documents that don't have the specified news_id
                         { $match: { news_id: { $ne: news_id } } },
-                        // Sort documents by createdAt in descending order
                         { $sort: { createdAt: -1 } },
                         { $limit: 50 },
-                        // Sample one random document from the result
                         { $sample: { size: 1 } },
-                        // Project only the news_id field
-                        {
-                            $project: {
-                                news_id: 1,
-                                _id: 0
-                            }
-                        }
+                        { $project: { news_id: 1, _id: 0 } }
                     ]).exec();
-                    return res.status(200).json({ news: article, relatedNews: news, randomNewsId: randomNewsId })
-                }
-                ).catch(err => {
+
+                    // Adjust createdAt and updatedAt for related news to IST for display
+                    news = news.map(n => ({
+                        ...n._doc,
+                        createdAt: convertToIST(n.createdAt),
+                        updatedAt: convertToIST(n.updatedAt)
+                    }));
+
+                    return res.status(200).json({ news: article, relatedNews: news, randomNewsId: randomNewsId });
+                })
+                .catch(err => {
                     return next(new ErrorHandler(500, err.message));
                 });
         })
         .catch(err => {
-            console.log(err)
-            return next(new ErrorHandler(500, err.message))
-        })
-})
+            console.log(err);
+            return next(new ErrorHandler(500, err.message));
+        });
+});
+
+
+
 
 export const getQueryNewsCount = tryCatch(async (req, res, next) => {
     let { news_section_type, state, district } = req.body;
@@ -692,7 +711,7 @@ const convertStateAndDistrictToArray = async () => {
             await news.save();
         }
 
-        console.log("All documents have been updated.");
+        // console.log("All documents have been updated.");
     } catch (error) {
         console.error("Error updating documents:", error);
     }

@@ -1,5 +1,6 @@
 import BottomPopUp from "@/components/BottomPopUp";
 import SinglePage from "@/pages/SinglePage.jsx";
+import Head from "next/head";
 
 // Fetch news article based on news_id
 const fetchNews = async (news_id) => {
@@ -34,17 +35,6 @@ const fetchNews = async (news_id) => {
   }
 };
 
-const formatToIST = (dateString) => {
-  const date = new Date(dateString);
-  const offset = "+05:30"; // IST offset
-  const localISOTime = new Date(
-    date.getTime() - date.getTimezoneOffset() * 60000
-  )
-    .toISOString()
-    .replace("Z", "");
-  return `${localISOTime}${offset}`;
-};
-
 // Generate metadata dynamically for each news article
 export async function generateMetadata({ params: { news_id } }) {
   const data = await fetchNews(news_id);
@@ -72,8 +62,8 @@ export async function generateMetadata({ params: { news_id } }) {
       url: `https://janpadnewslive.com/news/${news_id}`,
       type: "article",
       siteName: "Janpad News Live",
-      publishedTime: news?.createdAt ? formatToIST(news.createdAt) : null,
-      modifiedTime: news?.updatedAt ? formatToIST(news.updatedAt) : null,
+      publishedTime: news?.createdAt ? news.createdAt : null,
+      modifiedTime: news?.updatedAt ? news.updatedAt : null,
       // modifiedTime: new Date(news?.modified_at).toISOString(),/
       author: ["Janpad News Live Team"],
       images: [
