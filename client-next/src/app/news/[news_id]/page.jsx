@@ -1,6 +1,16 @@
 import BottomPopUp from "@/components/BottomPopUp";
 import SinglePage from "@/pages/SinglePage.jsx";
-import Head from "next/head";
+
+function convertToIST(dateStr) {
+  // Parse the date from the given UTC string
+  const date = new Date(dateStr);
+
+  // Offset IST time zone by adding 5 hours and 30 minutes
+  date.setHours(date.getUTCHours() + 5);
+  date.setMinutes(date.getUTCMinutes() + 30);
+
+  return date.toISOString().replace("Z", "+05:30");
+}
 
 // Fetch news article based on news_id
 const fetchNews = async (news_id) => {
@@ -62,8 +72,8 @@ export async function generateMetadata({ params: { news_id } }) {
       url: `https://janpadnewslive.com/news/${news_id}`,
       type: "article",
       siteName: "Janpad News Live",
-      publishedTime: news?.createdAt ? news.createdAt : null,
-      modifiedTime: news?.updatedAt ? news.updatedAt : null,
+      publishedTime: news?.createdAt ? convertToIST(news?.createdAt) : null,
+      modifiedTime: news?.updatedAt ? convertToIST(news?.updatedAt) : null,
       // modifiedTime: new Date(news?.modified_at).toISOString(),/
       author: ["Janpad News Live Team"],
       images: [

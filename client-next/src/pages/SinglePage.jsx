@@ -25,6 +25,18 @@ export const newsStructure = {
   categories: [],
   location: "",
 };
+
+function convertToIST(dateStr) {
+  // Parse the date from the given UTC string
+  const date = new Date(dateStr);
+
+  // Offset IST time zone by adding 5 hours and 30 minutes
+  date.setHours(date.getUTCHours() + 5);
+  date.setMinutes(date.getUTCMinutes() + 30);
+
+  return date.toISOString().replace("Z", "+05:30");
+}
+
 const SinglePage = ({ news_id }) => {
   const [news, setNews] = useState(null);
   const [relatedNews, setRelatedNews] = useState(null);
@@ -214,8 +226,8 @@ const SinglePage = ({ news_id }) => {
                 "@type": "NewsArticle",
                 headline: news?.title,
                 image: [news?.banner],
-                datePublished: news?.createdAt,
-                dateModified: news?.updatedAt,
+                datePublished: convertToIST(news?.createdAt),
+                dateModified: convertToIST(news?.updatedAt),
                 author: {
                   "@type": "Person",
                   name: "Janpad News Live",
