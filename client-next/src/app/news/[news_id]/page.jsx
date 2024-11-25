@@ -65,7 +65,7 @@ export async function generateMetadata({ params: { news_id } }) {
   return {
     title: news?.title,
     description: news?.description,
-    keywords: `${keywords}janpad news, janpad news live, latest news, today news`,
+    keywords: `${keywords}janpad news, janpad news live, latest news, today news, sonbhadra news, sonbhadra latest news, breaking news, सोनभद्र समाचार, सोनभद्र न्यूज़, जनपद न्यूज़, आज की खबर, ताजा खबरें, उत्तर प्रदेश समाचार, sonebhadra, sonebhadra news`, 
     openGraph: {
       title: news?.title,
       description: news?.description,
@@ -108,7 +108,7 @@ export async function generateMetadata({ params: { news_id } }) {
 export default async function BlogPostPage({ params: { news_id } }) {
   return (
     <>
-      <SinglePage news_id={news_id} />
+      <SinglePage news_id={news_id}/>
       <BottomPopUp />
     </>
   );

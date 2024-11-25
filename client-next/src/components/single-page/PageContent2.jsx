@@ -121,12 +121,17 @@ const PageContent2 = ({ item, ads }) => {
       </a>
       <div className="flex flex-col w-full h-[10rem] bg-[#f0f0f0] mb-1 mt-2">
         <p className="text-center">Advertisement</p>
-        <GoogleAds
-          adClient="ca-pub-5839947415375117"
-          adSlot="4193247755"
-          style={{ display: "block", width: "100%", height: "100%" }}
-          format="auto"
-        />
+        <GoogleAdUnit>
+          <ins
+            className="adsbygoogle"
+            style={{ display: "block" }}
+            data-ad-client="ca-pub-5839947415375117"
+            data-ad-slot="4193247755"
+            data-ad-format="auto"
+            data-full-width-responsive="true"
+          ></ins>
+        </GoogleAdUnit>
+        
       </div>
       <div className="flex flex-col w-full max-h-[8rem]"></div>
       <NewsContent item={item} />
