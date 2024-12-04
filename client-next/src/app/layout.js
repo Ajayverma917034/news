@@ -7,6 +7,7 @@ import { Toaster } from "react-hot-toast";
 import AdSense from "../../components/AdSense";
 import Footer from "@/components/Footer";
 import { CustomeAdsContextProvider } from "@/lib/CustomeAdsContext";
+import Script from "next/script";
 
 // const aneka = Anek_Devanagari({ subsets: ["devanagari"] });
 const aneka = Anek_Devanagari({ subsets: ['devanagari'] });
@@ -16,7 +17,7 @@ export const metadata = {
     template: "%s - Janpad News Live",
   },
   description: "Janpad News Live (जनपद न्यूज़ लाइव): Latest News (लेटेस्ट खबरें), Breaking News  (ब्रेकिंग न्यूज़), World (विश्व), Sports (खेल), Business, Entertainment (मनोरंजन).",
-  keywords: "janpad, janpad news, janpad news live, sonbhadra news, breaking news, aaj ki khabar, today news, latest news, uttar pradesh news",
+  keywords: "janpad, janpad news, janpad news live, sonbhadra news, breaking news, aaj ki khabar, today news, latest news, uttar pradesh news, up news, up samachar, up hindi news, सोनभद्र समाचार, सोनभद्र न्यूज़, जनपद न्यूज़, आज की खबर, ताजा खबरें, उत्तर प्रदेश समाचार, sonebhadra, sonebhadra news",
   author: "Janpad News Team",
   twitter: {
     card: "summary_large_image",
@@ -46,8 +47,12 @@ export default function RootLayout({ children }) {
     <CustomeAdsContextProvider>
       <html lang="en">
         <head>
-          {/* Add the AdSense script here */}
-          <AdSense />
+          <Script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5839947415375117"
+            crossOrigin="anonymous"
+            strategy="afterInteractive"
+          />
         </head>
         <body className={aneka.className}>
 
