@@ -5,7 +5,7 @@ import InArticalAds from "../../../components/InArticalAds";
 const NewsContent = ({ item }) => {
   const totalLength = item.content[0].blocks.length;
   return item?.title?.length ? (
-    <div className="py-4 w-full">
+    <div className="py-2 w-full">
       {item &&
         item.content &&
         item.content.length &&
@@ -23,12 +23,12 @@ const NewsContent = ({ item }) => {
               </div>
 
               {/* Insert an ad at the midpoint */}
-              {i === Math.floor(totalLength / 2) && (
+              {/* {i === Math.floor(totalLength / 2) && (
                 <div className="flex flex-col w-full min-h-[10rem] bg-[#f0f0f0] mb-1">
                   <p className="text-center">Advertisement</p>
                   <InArticalAds />
                 </div>
-              )}
+              )} */}
             </div>
           );
         })}

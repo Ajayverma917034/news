@@ -1,7 +1,4 @@
 "use client";
-// import RandomNewsScroll from "@/app/news/[news_id]/RandomNewsScroll";
-// import CustomeAndGoogleAdd2 from "@/components/ads/CustomeAndGoogleAdd2";
-// import EventPageContent from "@/components/single-page/EventPageContent";
 import PageContent2 from "@/components/single-page/PageContent2";
 import Heading from "@/lib/Heading";
 import Image from "next/image";
@@ -203,7 +200,11 @@ const SinglePage = ({ news_id }) => {
     }
   }, [news_id]);
 
-  const keywords = news?.tags?.length > 0 ? news?.tags?.join(", ") + ", janpad news, janpad news live, latest news, today news, sonbhadra news, sonbhadra latest news, breaking news, सोनभद्र समाचार, सोनभद्र न्यूज़, जनपद न्यूज़, आज की खबर, ताजा खबरें, उत्तर प्रदेश समाचार, sonebhadra, sonebhadra news " : "";
+  const keywords =
+    news?.tags?.length > 0
+      ? news?.tags?.join(", ") +
+        ", janpad news, janpad news live, latest news, today news, sonbhadra news, sonbhadra latest news, breaking news, सोनभद्र समाचार, सोनभद्र न्यूज़, जनपद न्यूज़, आज की खबर, ताजा खबरें, उत्तर प्रदेश समाचार, sonebhadra, sonebhadra news "
+      : "";
   return (
     <div className="flex flex-col spacing mt-2 w-full max-sm:px-2 relative">
       <div className="fixed right-0 top-[400px] transform -translate-y-3/2 z-[1000]">

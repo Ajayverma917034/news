@@ -6,6 +6,8 @@ import SliderAds from "@/components/ads/SliderAds";
 import { Toaster } from "react-hot-toast";
 import AdSense from "../../components/AdSense";
 import Footer from "@/components/Footer";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ReactQueryProvider } from "@/providers/ReactQueryProvider";
 import { CustomeAdsContextProvider } from "@/lib/CustomeAdsContext";
 import Script from "next/script";
 
@@ -55,13 +57,16 @@ export default function RootLayout({ children }) {
           />
         </head>
         <body className={aneka.className}>
+          <ReactQueryProvider>
+            <ReactQueryDevtools initialIsOpen={false} />
+            <Navbar />
+            <Toaster />
+            <SliderAds />
+            <BreakingNews />
+            {children}
+            <Footer />
 
-          <Navbar />
-          <Toaster />
-          <SliderAds />
-          <BreakingNews />
-          {children}
-          <Footer />
+          </ReactQueryProvider>
         </body>
       </html>
     </CustomeAdsContextProvider>

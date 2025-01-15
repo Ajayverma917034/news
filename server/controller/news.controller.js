@@ -411,7 +411,22 @@ export const adminNews = tryCatch(async (req, res, next) => {
 })
 
 export const fetchRelatedNews = tryCatch(async (req, res, next) => {
-    let { state, district, location, tags, news_id, news_section_type } = req.body;
+    let { news_id, incrementVal } = req.query;
+
+    if (!news_id) {
+        return next(new ErrorHandler(400, "News ID is required"));
+    }
+    incrementVal = incrementVal ? 1 : 0;
+    const news = await News.findOneAndUpdate({ news_id }, {
+        $inc: { "activity.total_reads": incrementVal }
+    }, { new: true, timestamps: false }).exec();
+
+    if (!news) {
+        return next(new ErrorHandler(404, "News not found"));
+    }
+
+    let { state, district, location, tags, news_section_type } = news;
+
     let query = { $or: [] };
 
     if (tags && tags.length) {
@@ -419,19 +434,50 @@ export const fetchRelatedNews = tryCatch(async (req, res, next) => {
         query.$or.push({ tags: { $in: tags } });
     }
 
-    // Handle news_section_type
     if (news_section_type && news_section_type.length) {
         query.$or.push({ news_section_type: { $in: news_section_type } });
     }
-    // Check if $or array is empty, if so, remove it from the query
+
     if (query.$or.length === 0) {
         delete query.$or;
     }
 
-    // Add condition to exclude the given news_id
     if (news_id) {
         query.news_id = { $ne: news_id };
     }
+
+    let relatedNews = await News.find(query)
+        .limit(4)
+        .sort({ "createdAt": -1 })
+        .select('news_id title banner -_id createdAt updatedAt')
+        .exec();
+
+    if (relatedNews.length === 0) {
+        relatedNews = await News.aggregate([{ $sample: { size: 4 } }]).exec();
+    }
+    return res.status(200).json(relatedNews);
+
+    // let { state, district, location, tags, news_id, news_section_type } = req.body;
+    // let query = { $or: [] };
+
+    // if (tags && tags.length) {
+    //     tags = tags.map(tag => tag.trim().toLowerCase());
+    //     query.$or.push({ tags: { $in: tags } });
+    // }
+
+    // // Handle news_section_type
+    // if (news_section_type && news_section_type.length) {
+    //     query.$or.push({ news_section_type: { $in: news_section_type } });
+    // }
+    // // Check if $or array is empty, if so, remove it from the query
+    // if (query.$or.length === 0) {
+    //     delete query.$or;
+    // }
+
+    // // Add condition to exclude the given news_id
+    // if (news_id) {
+    //     query.news_id = { $ne: news_id };
+    // }
 
     // Fetch related news
     News.find(query)
@@ -560,6 +606,8 @@ export const findStateDataWithOutDistrict = tryCatch(async (req, res, next) => {
         })
 
 })
+
+
 export const findStateNews = tryCatch(async (req, res, next) => {
     let promises = [];
     // let states = await State.find().select('state -_id').exec();
@@ -595,7 +643,6 @@ export const getBreakingNews = tryCatch(async (req, res, next) => {
 
     return res.status(200).json({ success: true, breakingNews })
 })
-
 
 
 export const getMyNews = tryCatch(async (req, res, next) => {

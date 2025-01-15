@@ -38,7 +38,7 @@ const PageContent2 = ({ item, ads }) => {
     <div className="py-4 flex flex-col flex-wrap w-full">
       <h1 className="font-semibold text-[20px] md:text-[25px]">{item.title}</h1>
       <p className="date-lg text-wrap">{item.description}</p>
-      <div className="flex flex-col w-full h-[10rem] bg-[#f0f0f0] mb-1">
+      <div className="flex flex-col w-full h-[10rem] bg-[rgb(240,240,240)] mb-1">
         <p className="text-center">Advertisement</p>
         <GoogleAdUnit>
           <ins
@@ -131,7 +131,6 @@ const PageContent2 = ({ item, ads }) => {
             data-full-width-responsive="true"
           ></ins>
         </GoogleAdUnit>
-        
       </div>
       <div className="flex flex-col w-full max-h-[8rem]"></div>
       <NewsContent item={item} />

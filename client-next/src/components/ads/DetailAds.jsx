@@ -9,17 +9,12 @@ import "swiper/css/pagination";
 // Import required modules
 import { EffectFade, Navigation, Pagination, Autoplay } from "swiper/modules";
 import { AdvertisementSkelton1 } from "../../skeleton/Advertisement.skeltons";
-import { useSelector } from "react-redux";
 import Image from "next/image";
 import banner from "../../assets/errorimg1.png";
-import { useContext } from "react";
-import { CustomeAdsContext } from "@/lib/CustomeAdsContext";
+import { useCustomeAds } from "@/hooks/ads";
 
 export default function DetailAds() {
-  // Always call useSelector at the top level
-  // const { error, loading, detailAds } = useSelector((state) => state.ads);
-  const { ads } = useContext(CustomeAdsContext);
-  const detailAds = ads.detailAds;
+  const { data, isPending, isError, error } = useCustomeAds();
 
   return (
     <Swiper
@@ -40,46 +35,46 @@ export default function DetailAds() {
         padding: "0 !important",
       }}
     >
-      {detailAds
-        ? detailAds.length > 0
-          ? detailAds.map((ad, index) => {
-              return (
-                <SwiperSlide
-                  key={index}
-                  className="w-full h-[200px] md:h-[300px]"
-                >
-                  <Image
-                    src={ad.banner.url}
-                    alt="sliderimg"
-                    width={20}
-                    height={10}
-                    sizes={{
-                      maxWidth: "100%",
-                      height: "auto",
-                    }}
-                    className=" object-fill h-[200px] md:h-[300px]"
-                  />
-                </SwiperSlide>
-              );
-            })
-          : [0, 0, 0].map((item, index) => (
-              <SwiperSlide key={index}>
+      {isPending
+        ? [0, 0, 0].map((item, index) => (
+            <SwiperSlide key={index}>
+              <AdvertisementSkelton1 />
+            </SwiperSlide>
+          ))
+        : data && data?.detailAds?.length
+        ? data?.detailAds?.map((ad, index) => {
+            return (
+              <SwiperSlide
+                key={index}
+                className="w-full h-[200px] md:h-[300px]"
+              >
                 <Image
-                  src={banner}
+                  src={ad.banner.url}
                   alt="sliderimg"
-                  width={1200}
-                  height={400}
+                  width={20}
+                  height={10}
                   sizes={{
                     maxWidth: "100%",
                     height: "auto",
                   }}
-                  className="w-full h-full max-sm:max-w-screen-sm"
+                  className=" object-fill h-[200px] md:h-[300px]"
                 />
               </SwiperSlide>
-            ))
+            );
+          })
         : [0, 0, 0].map((item, index) => (
             <SwiperSlide key={index}>
-              <AdvertisementSkelton1 />
+              <Image
+                src={banner}
+                alt="sliderimg"
+                width={1200}
+                height={400}
+                sizes={{
+                  maxWidth: "100%",
+                  height: "auto",
+                }}
+                className="w-full h-full max-sm:max-w-screen-sm"
+              />
             </SwiperSlide>
           ))}
     </Swiper>

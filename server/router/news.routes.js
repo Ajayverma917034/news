@@ -12,7 +12,7 @@ newsRouter.post('/get-news', getNews)
 newsRouter.post('/all-latest-news-count', getNewsCount)
 newsRouter.delete('/delete-news', isAuthenticated, authorizeroles("reporter"), deleteNews)
 newsRouter.post('/admin-news', adminNews)
-newsRouter.post('/fetch-related-news', fetchRelatedNews)
+newsRouter.get('/related-news', fetchRelatedNews)
 
 newsRouter.post("/fetch-state-news", fetchDataStateWise)
 newsRouter.get("/fetch-all-state-news", findStateNews)

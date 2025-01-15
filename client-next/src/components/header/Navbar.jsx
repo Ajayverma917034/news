@@ -16,26 +16,8 @@ import TitleAdvertisement from "../title-advertisement/TitleAdvertisement";
 import Notification from "../Notification";
 
 const Navbar = () => {
-  const { updateAds } = useContext(CustomeAdsContext);
   // const dispatch = useDispatch();
-  useEffect(() => {
-    const fetchAds = async () => {
-      // dispatch(getAds());
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/get-advertisement`
-      );
-      if (response.ok) {
-        const data = await response.json();
-        updateAds(data);
-        // dispatch(getAdsSuccess(data));
-        return;
-      }
 
-      // dispatch(getAdsFail());
-    };
-
-    fetchAds();
-  }, []);
   const navItems = [
     { name: "Home", hindiName: "होम", link: "/" },
     // {
