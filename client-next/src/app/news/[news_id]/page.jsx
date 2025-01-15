@@ -12,6 +12,7 @@ import DetailAds from "@/components/ads/DetailAds";
 import Link from "next/link";
 import NextNews from "@/components/single-page/NextNews";
 import Head from "next/head";
+import NewsShare from "@/components/single-page/NewsShare";
 
 function convertToIST(dateStr) {
   // Parse the date from the given UTC string
@@ -207,6 +208,8 @@ export default async function BlogPostPage({ params: { news_id } }) {
                     {formatDate(data.news.news_post_time)}
                   </h3>
                 </div>
+
+                <NewsShare item={data.news} />
               </div>
               <a
                 href="https://www.whatsapp.com/channel/0029VaCW5oSI1rcoWIaACL1j"

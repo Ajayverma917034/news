@@ -64,7 +64,6 @@ const allowedOrigins = [
   process.env.FRONTEND_URL_PROD2,
 ];
 
-console.log(allowedOrigins);
 
 app.use((req, res, next) => {
   const origin = req.headers.origin;
