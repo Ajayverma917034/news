@@ -119,10 +119,12 @@ export const getYtNewses = tryCatch(async (req, res, next) => {
 })
 
 export const getYtNews = tryCatch(async (req, res, next) => {
-    let { video_id, draft, mode } = req.body;
-    let incrementVal = mode !== 'edit' ? 1 : 0;
+    let { video_id, draft, mode, incrementVal } = req.body;
+    incrementVal = mode !== 'edit' ? parseInt(incrementVal) : 0;
 
-    YtNews.findOneAndUpdate({ news_id: video_id }, { $inc: { "activity.total_reads": incrementVal } })
+    YtNews.findOneAndUpdate({ news_id: video_id },
+        { $inc: { "activity.total_reads": incrementVal, "activity.total_today_count": incrementVal } },
+    )
         .select('news_id title description tags location state district videoLinkId createdAt updatedAt -_id')
         .then((news) => {
             if (news.draft && !draft) {
@@ -275,8 +277,6 @@ export const fetchRelatedNews = tryCatch(async (req, res, next) => {
     if (news_id) {
         query.news_id = { $ne: news_id };
     }
-
-
 
     // Fetch related news
     YtNews.find(query)

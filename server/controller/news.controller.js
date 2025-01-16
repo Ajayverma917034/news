@@ -416,10 +416,11 @@ export const fetchRelatedNews = tryCatch(async (req, res, next) => {
     if (!news_id) {
         return next(new ErrorHandler(400, "News ID is required"));
     }
-    incrementVal = incrementVal ? 1 : 0;
-    const news = await News.findOneAndUpdate({ news_id }, {
-        $inc: { "activity.total_reads": incrementVal }
-    }, { new: true, timestamps: false }).exec();
+    incrementVal = parseInt(incrementVal) ? 1 : 0;
+
+    const news = await News.findOneAndUpdate({ news_id },
+        { $inc: { "activity.total_reads": incrementVal, "activity.total_today_count": incrementVal } },
+        { new: true, timestamps: false }).exec();
 
     if (!news) {
         return next(new ErrorHandler(404, "News not found"));
