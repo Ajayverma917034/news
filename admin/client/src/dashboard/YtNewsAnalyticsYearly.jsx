@@ -5,7 +5,7 @@ import httpClient from "../services/httpClient";
 
 const YtNewsAnalyticsYearly = () => {
   const [selectedOption, setSelectedOption] = useState(0);
-  const options = ["Select Year", "2024", "2023"];
+  const options = ["Select Year", "2025", "2024", "2023"];
 
   let [data, setData] = useState(null);
 

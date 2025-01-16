@@ -115,40 +115,21 @@ const formatResultYearly = (result, year) => {
     const isCurrentYear = currentDate.getFullYear() === year;
     currentDate.setDate(currentDate.getDate() + 1);
 
+    if (isCurrentYear) {
+        for (let i = 0; i < 12; i++) {
+            let countRes = result.find(item => item.month === i + 1)
 
-    for (let i = 11; i >= 0; i--) {
-        const endDate = new Date(
-            year,
-            currentDate.getMonth() - i,
-            1
-        );
-
-        const startDate = new Date(
-            endDate.getFullYear(),
-            endDate.getMonth(),
-            1
-        );
-
-        // Adjust endDate to the last day of the month
-        endDate.setMonth(endDate.getMonth() + 1);
-        endDate.setDate(endDate.getDate() - 1);
-
-        const monthYear = endDate.toLocaleString('default', {
-            month: "short",
-            year: "numeric"
-        });
-
-        let countRes = result.find(item => item.month === endDate.getMonth() + 1)
-        // const count = await model.countDocuments({
-        //     createdAt: {
-        //         $gte: startDate,
-        //         $lt: endDate
-        //     }
-        // });
-
-        data.push({ label: monthYear, count: countRes ? countRes.totalCount : 0 });
+            data.push({ label: monthNames[i] + " " + year, count: countRes ? countRes.totalCount : 0 });
+        }
     }
+    else {
+        for (let i = 0; i < 12; i++) {
+            let countRes = result.find(item => item.month === i + 1)
 
+            data.push({ label: monthNames[i] + " " + year, count: countRes ? countRes.totalCount : 0 });
+        }
+
+    }
     return { data };
 
 }
@@ -175,6 +156,7 @@ export const getNewsYearlyClickAnalytics = tryCatch(async (req, res, next) => {
             { $sort: { month: 1 } }
         ]);
         const data = formatResultYearly(result, year)
+
 
 
         return res.status(200).json({ success: true, result: data?.data });

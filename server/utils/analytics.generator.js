@@ -2,37 +2,60 @@ export async function generateLast12MonthsData(model, year = new Date().getFullY
     const data = [];
     const currentDate = new Date();
     currentDate.setDate(currentDate.getDate() + 1);
+    const isCurrentYear = year.toString() === currentDate.getFullYear().toString();
 
-    for (let i = 11; i >= 0; i--) {
-        const endDate = new Date(
-            year,
-            currentDate.getMonth() - i,
+    if (isCurrentYear) {
+        for (let i = 11; i >= 0; i--) {
+            const endDate = new Date(
+                year,
+                currentDate.getMonth() - i,
 
-        );
+            );
 
-        const startDate = new Date(
-            endDate.getFullYear(),
-            endDate.getMonth(),
-            1
-        );
+            const startDate = new Date(
+                endDate.getFullYear(),
+                endDate.getMonth(),
+                1
+            );
 
-        // Adjust endDate to the last day of the month
-        endDate.setMonth(endDate.getMonth() + 1);
-        endDate.setDate(endDate.getDate() - 1);
+            // Adjust endDate to the last day of the month
+            endDate.setMonth(endDate.getMonth() + 1);
+            endDate.setDate(endDate.getDate() - 1);
 
-        const monthYear = endDate.toLocaleString('default', {
-            month: "short",
-            year: "numeric"
-        });
+            const monthYear = endDate.toLocaleString('default', {
+                month: "short",
+                year: "numeric"
+            });
 
-        const count = await model.countDocuments({
-            createdAt: {
-                $gte: startDate,
-                $lt: endDate
-            }
-        });
+            const count = await model.countDocuments({
+                createdAt: {
+                    $gte: startDate,
+                    $lt: endDate
+                }
+            });
 
-        data.push({ label: monthYear, count });
+            data.push({ label: monthYear, count });
+        }
+    }
+    else {
+        for (let i = 0; i < 12; i++) {
+            const startDate = new Date(year, i, 1);
+            const endDate = new Date(year, i + 1, 0);
+
+            const monthYear = startDate.toLocaleString('default', {
+                month: "short",
+                year: "numeric"
+            });
+
+            const count = await model.countDocuments({
+                createdAt: {
+                    $gte: startDate,
+                    $lt: endDate
+                }
+            });
+
+            data.push({ label: monthYear, count });
+        }
     }
 
     return { data };
