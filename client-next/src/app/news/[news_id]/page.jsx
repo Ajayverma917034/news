@@ -1,8 +1,6 @@
 import Error from "@/app/error";
 import NewsContent from "@/components/single-page/NewsContent";
-import PageContent2 from "@/components/single-page/PageContent2";
 import { formatDate } from "@/lib/formatDate";
-import SinglePage from "@/pages/SinglePage.jsx";
 import Image from "next/image";
 import { CiLocationOn } from "react-icons/ci";
 import RelatedNews from "../../../../components/RelatedNews";
@@ -11,7 +9,6 @@ import { HiOutlineExclamationCircle } from "react-icons/hi2";
 import DetailAds from "@/components/ads/DetailAds";
 import Link from "next/link";
 import NextNews from "@/components/single-page/NextNews";
-import Head from "next/head";
 import NewsShare from "@/components/single-page/NewsShare";
 
 function convertToIST(dateStr) {
@@ -124,7 +121,7 @@ export async function generateMetadata({ params: { news_id } }) {
           url: news?.banner,
           secureUrl: news?.banner,
           width: 1200,
-          height: 630,
+          height: 620,
           alt: `Preview image for news ${news?.title}`,
         },
       ],
@@ -159,69 +156,62 @@ export default async function BlogPostPage({ params: { news_id } }) {
     return <Error statusCode={404} />;
   }
 
-  const keywords =
-    data?.news?.tags?.length > 0
-      ? data?.news?.tags?.join(", ") +
-        ", janpad news, janpad news live, latest news, today news, sonbhadra news, sonbhadra latest news, breaking news, सोनभद्र समाचार, सोनभद्र न्यूज़, जनपद न्यूज़, आज की खबर, ताजा खबरें, उत्तर प्रदेश समाचार, sonebhadra, sonebhadra news "
-      : "";
-
   return (
     <div className="flex flex-col spacing mt-2 w-full max-sm:px-2 relative">
       <NextNews randomNewsId={data?.randomNewsId[0]?.news_id} />
-
       <div className="grid max-sm:flex flex-col sm:grid-cols-6 sm:gap-6 w-full gap-x-2">
-        <div className="col-span-6 md:col-span-4 w-full">
-          <article>
-            <div className="py-4 flex flex-col flex-wrap w-full">
+        <div className="col-span-6 md:col-span-4 w-full flex flex-col">
+          <article className="py-4 flex flex-col flex-wrap w-full">
+            <div className="flex flex-col">
               <h1 className="font-semibold text-[20px] md:text-[25px]">
                 {data.news.title}
               </h1>
               <p className="date-lg text-wrap">{data.news.description}</p>
-              <div className="w-full h-[240px] sm:h-[350px] mt-3 p-1 bg-white">
-                <Image
-                  src={data.news.banner}
-                  width={1200}
-                  height={600}
-                  sizes={{
-                    maxWidth: "100%",
-                    height: "auto",
-                  }}
-                  alt="news-img"
-                  className="w-full max-sm:max-w-screen-sm h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-              {data?.news?.imageRef && (
-                <div className="flex gap-3 mt-1">
-                  <p className="text-[16px]">{data?.news?.imageRef}</p>
-                </div>
-              )}
-              <div className="flex flex-wrap gap-y-2 sm:flex sm:flex-row items-center py-2 justify-between w-full">
-                <div className="flex items-center">
-                  <CiLocationOn size={25} className="text-red" />
-                  <h3 className="news-title-md mt-2 ml-1 capitalize">
-                    {data.news.location}
-                  </h3>
-                </div>
-                <div>
-                  <h3 className="date-lg">
-                    {formatDate(data.news.news_post_time)}
-                  </h3>
-                </div>
-
-                <NewsShare item={data.news} />
-              </div>
-              <a
-                href="https://www.whatsapp.com/channel/0029VaCW5oSI1rcoWIaACL1j"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="py-2 my-2 border-[3px] border-green-600 rounded-md flex justify-center items-center font-semibold text-green-700 w-full hover:text-white hover:bg-green-700 cursor-pointer transition-all delay-75"
-              >
-                Whatsapp चैनल फॉलो करे !
-              </a>
-              {/* google ads */}
-              <NewsContent item={data.news} />
             </div>
+            <div className="w-full h-[240px] sm:h-[350px] mt-3 p-1 bg-white">
+              <Image
+                src={data.news.banner}
+                width={1200}
+                height={600}
+                sizes={{
+                  maxWidth: "100%",
+                  height: "auto",
+                }}
+                alt="news-img"
+                className="w-full max-sm:max-w-screen-sm h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+            {data?.news?.imageRef && (
+              <div className="flex gap-3 mt-1">
+                <p className="text-[16px]">{data?.news?.imageRef}</p>
+              </div>
+            )}
+            <div className="flex flex-wrap gap-y-2 sm:flex sm:flex-row items-center py-2 justify-between w-full">
+              <div className="flex items-center">
+                <CiLocationOn size={25} className="text-red" />
+                <h3 className="news-title-md mt-2 ml-1 capitalize">
+                  {data.news.location}
+                </h3>
+              </div>
+              <div>
+                <h3 className="date-lg">
+                  {formatDate(data.news.news_post_time)}
+                </h3>
+              </div>
+
+              <NewsShare item={data.news} />
+            </div>
+            <a
+              href="https://www.whatsapp.com/channel/0029VaCW5oSI1rcoWIaACL1j"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="py-2 my-2 border-[3px] border-green-600 rounded-md flex justify-center items-center font-semibold text-green-700 w-full hover:text-white hover:bg-green-700 cursor-pointer transition-all delay-75"
+            >
+              Whatsapp चैनल फॉलो करे !
+            </a>
+            {/* google ads */}
+            <NewsContent item={data.news} />
           </article>
           <div className="bg-gray h-[200px] md:h-[300px] flex justify-center items-center w-full relative">
             <DetailAds />
