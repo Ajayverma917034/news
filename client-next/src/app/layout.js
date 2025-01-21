@@ -50,6 +50,18 @@ export default function RootLayout({ children }) {
       <html lang="en">
         <head>
           <Script
+            strategy="afterInteractive"
+            src="https://www.googletagmanager.com/gtag/js?id=G-MG6W0HG32D"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-MG6W0HG32D');
+          `}
+          </Script>
+          <Script
             async
             src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5839947415375117"
             crossOrigin="anonymous"
