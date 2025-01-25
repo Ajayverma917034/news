@@ -1,4 +1,6 @@
-import EventSinglePage from "@/pages/EventSinglePage";
+import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
+import EventPageContent from "@/components/single-page/EventPageContent";
+import LazyLoadAd from "../../../../components/LazyLoadAds";
 
 const fetchNews = async (news_id) => {
   const response = await fetch(
@@ -52,5 +54,35 @@ export async function generateMetadata({ params: { news_id } }) {
 }
 
 export default async function BlogPostPage({ params: { news_id } }) {
-  return <EventSinglePage news_id={news_id} />;
+  const { news } = await fetchNews(news_id);
+
+  if (!news) {
+    return <div>News not found</div>;
+  }
+
+  return (
+    <div className="flex spacing mt-2 w-full max-sm:px-1">
+      <div className="grid max-sm:flex flex-col sm:grid-cols-6 sm:gap-6 w-full gap-x-2">
+        <div className="col-span-6 md:col-span-4 w-full">
+          <article className="">
+            <EventPageContent item={news} />
+          </article>
+
+          <div className="w-full max-md:mt-2 flex items-center justify-center mt-2">
+            <LazyLoadAd />
+          </div>
+          <div className="hidden max-sm:flex mt-3">
+            <CustomeAndGoogleAdd />
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-y-2 md:gap-y-10 md:col-span-2 md:mt-10">
+          <div className="sticky top-36 max-md:hidden">
+            <CustomeAndGoogleAdd />
+          </div>
+          {/* <SideNews title={"education"} /> */}
+        </div>
+      </div>
+    </div>
+  );
 }

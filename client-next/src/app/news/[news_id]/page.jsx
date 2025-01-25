@@ -11,7 +11,6 @@ import Link from "next/link";
 import NextNews from "@/components/single-page/NextNews";
 import NewsShare from "@/components/single-page/NewsShare";
 import EventNews from "@/pages/EventNews";
-import EventSinglePage from "@/pages/EventSinglePage";
 import RandomNewsPage from "@/pages/RandomNewsPage";
 
 function convertToIST(dateStr) {
