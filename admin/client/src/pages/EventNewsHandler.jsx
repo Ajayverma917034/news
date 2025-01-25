@@ -27,7 +27,7 @@ const categories = [
 const EventNewsHandler = () => {
   const navigate = useNavigate();
 
-  const itemsPerPage = 1;
+  const itemsPerPage = 10;
   const [news, setNews] = useState(null);
 
   const fetchNews = ({ page = 1 }) => {
@@ -129,10 +129,10 @@ const EventNewsHandler = () => {
                         </span>{" "}
                         {formatDate(item.createdAt)}
                       </p>
-                      <p className="text-lg text-gray">
+                      {/* <p className="text-lg text-gray">
                         <span className="font-semibold text-black">Read:</span>{" "}
                         {item?.activity?.total_reads}
-                      </p>
+                      </p> */}
                     </div>
                   </div>
                   {/* <div className="flex gap-4 mt-2">

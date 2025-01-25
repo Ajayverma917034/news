@@ -130,12 +130,12 @@ const AdminEventNewsHandler = () => {
                           </span>{" "}
                           {formatDate(item.createdAt)}
                         </p>
-                        <p className="text-lg text-gray">
+                        {/* <p className="text-lg text-gray">
                           <span className="font-semibold text-black">
                             Read:
                           </span>{" "}
                           {item?.activity?.total_reads}
-                        </p>
+                        </p> */}
                       </div>
                       <p className="text-lg text-gray">
                         <span className="font-semibold text-black">
@@ -170,7 +170,9 @@ const AdminEventNewsHandler = () => {
               </div>
             ))
           ) : (
-            <h1>No News</h1>
+            <div className="flex justify-center items-center h-40">
+              <h2 className="text-2xl text-gray">No News</h2>
+            </div>
           )
         ) : (
           <Loader />

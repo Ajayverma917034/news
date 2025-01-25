@@ -1,5 +1,4 @@
 import EventSinglePage from "@/pages/EventSinglePage";
-import SinglePage from "@/pages/SinglePage.jsx";
 
 const fetchNews = async (news_id) => {
   const response = await fetch(
@@ -25,16 +24,6 @@ const fetchNews = async (news_id) => {
 
   return await response.json();
 };
-
-export async function fetchAds() {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/get-advertisement`
-  );
-  if (response.ok) {
-    return await response.json();
-  }
-  return [];
-}
 
 export async function generateMetadata({ params: { news_id } }) {
   const { news } = await fetchNews(news_id);
@@ -63,6 +52,5 @@ export async function generateMetadata({ params: { news_id } }) {
 }
 
 export default async function BlogPostPage({ params: { news_id } }) {
-  const ads = await fetchAds();
-  return <EventSinglePage news_id={news_id} ads={ads} />;
+  return <EventSinglePage news_id={news_id} />;
 }

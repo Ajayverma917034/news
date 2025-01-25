@@ -1,4 +1,5 @@
 "use client";
+import CustomeAndGoogleAdd from "@/components/ads/CustomeAndGoogleAdd";
 import CustomeAndGoogleAdd2 from "@/components/ads/CustomeAndGoogleAdd2";
 import EventPageContent from "@/components/single-page/EventPageContent";
 
@@ -9,7 +10,7 @@ export const newsStructure = {
   banner: "",
   createdAt: "",
 };
-const EventSinglePage = ({ news_id, ads }) => {
+const EventSinglePage = ({ news_id }) => {
   const [news, setNews] = useState(newsStructure);
 
   const fetchNews = async () => {
@@ -70,20 +71,20 @@ const EventSinglePage = ({ news_id, ads }) => {
       <div className="grid max-sm:flex flex-col sm:grid-cols-6 sm:gap-6 w-full gap-x-2">
         <div className="col-span-6 md:col-span-4 w-full">
           <article className="">
-            <EventPageContent item={news} ads={ads?.detailAds} />
+            <EventPageContent item={news} />
           </article>
 
           <div className="w-full max-md:mt-2 flex items-center justify-center mt-2">
             {/* <HorizontalAdsGoogle /> */}
           </div>
           <div className="hidden max-sm:flex mt-3">
-            <CustomeAndGoogleAdd2 sideAds={ads?.sideAds} />
+            <CustomeAndGoogleAdd />
           </div>
         </div>
 
         <div className="flex flex-col gap-y-2 md:gap-y-10 md:col-span-2 md:mt-10">
           <div className="sticky top-36 max-md:hidden">
-            <CustomeAndGoogleAdd2 sideAds={ads?.sideAds} />
+            <CustomeAndGoogleAdd />
           </div>
           {/* <SideNews title={"education"} /> */}
         </div>

@@ -20,12 +20,12 @@ const Navbar = () => {
 
   const navItems = [
     { name: "Home", hindiName: "होम", link: "/" },
-    // {
-    //   name: "independence day",
-    //   hindiName: "स्वतंत्रता दिवस",
-    //   link: "/independence-day",
-    //   event: true,
-    // },
+    {
+      name: "republic day",
+      hindiName: "गणतंत्र दिवस",
+      link: "/republic-day",
+      event: true,
+    },
     { name: "Videos", hindiName: "वीडियो", event: false, link: "/videos" },
     { name: "State", hindiName: "राज्य", event: false, link: "/state" },
     { name: "Crime", hindiName: "क्राइम", event: false, link: "/crime" },
@@ -133,7 +133,7 @@ const Navbar = () => {
               <Link href="/">{navItems[0].hindiName}</Link>
             </li>
 
-            <li
+            {/* <li
               className={`text-2xl min-w-fit nav-item relative ${
                 pathname === navItems[1].link ? "active" : ""
               }`}
@@ -141,9 +141,9 @@ const Navbar = () => {
               <Link href={navItems[1].link} className="event-menu">
                 {navItems[1].hindiName}
               </Link>
-            </li>
+            </li> */}
 
-            {/* <div className="box">
+            <div className="box">
               <li className="min-w-fit">
                 <Link
                   href={navItems[1].link}
@@ -152,7 +152,7 @@ const Navbar = () => {
                   {navItems[1].hindiName}
                 </Link>
               </li>
-            </div> */}
+            </div>
             {navItems.splice(2).map((item, index) => (
               <li
                 key={index}

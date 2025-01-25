@@ -11,7 +11,7 @@ eventNewsRouter.post('/get-event-news', getNews)
 eventNewsRouter.post('/all-event-latest-news-count', getNewsCount)
 eventNewsRouter.delete('/admin/delete-event-news/:id', isAuthenticated, authorizeroles("admin"), deleteNews)
 
-eventNewsRouter.post('/get-random-event-news', fetchRandomNews)
+eventNewsRouter.get('/random-event-news', fetchRandomNews)
 
 
 eventNewsRouter.post('/get-my-event-news', isAuthenticated, authorizeroles("reporter", "admin"), getMyNews)

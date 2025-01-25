@@ -10,6 +10,9 @@ import DetailAds from "@/components/ads/DetailAds";
 import Link from "next/link";
 import NextNews from "@/components/single-page/NextNews";
 import NewsShare from "@/components/single-page/NewsShare";
+import EventNews from "@/pages/EventNews";
+import EventSinglePage from "@/pages/EventSinglePage";
+import RandomNewsPage from "@/pages/RandomNewsPage";
 
 function convertToIST(dateStr) {
   // Parse the date from the given UTC string
@@ -229,6 +232,8 @@ export default async function BlogPostPage({ params: { news_id } }) {
             </div>
           </div>
           <RelatedNews news_id={news_id} />
+
+          <RandomNewsPage />
         </div>
         <div className="flex flex-col gap-y-2 md:gap-y-10 md:col-span-2 md:mt-10">
           <div className="sticky top-36 max-md:hidden">

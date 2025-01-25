@@ -38,6 +38,7 @@ const CreateEventNews = () => {
       title,
       banner,
       description,
+      event_type: "republic-day",
     };
     e.target.classList.add("disable");
     let loadingToast = toast.loading("Publishing Event News...");
@@ -76,6 +77,7 @@ const CreateEventNews = () => {
       banner,
       description,
       draft: true,
+      event_type: "republic-day",
     };
 
     axios

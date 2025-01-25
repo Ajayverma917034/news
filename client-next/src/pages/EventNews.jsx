@@ -11,7 +11,7 @@ import { CollectionNewsSkeleton } from "@/skeleton/HomeSkeleton";
 import MoreEventPageCard from "@/components/news-section/more.eventpage.news.card";
 import DetailAds from "@/components/ads/DetailAds";
 
-const EventNews = () => {
+const EventNews = ({ event_type = "" }) => {
   const [data, setData] = useState(null);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
@@ -25,6 +25,7 @@ const EventNews = () => {
         {
           limit: 10,
           page,
+          event_type,
         }
       );
       const newData = response.data;
@@ -73,12 +74,16 @@ const EventNews = () => {
 
   return (
     <div className="flex spacing mt-2 sm:mt-8">
-      <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full md:gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full">
         <div className="flex flex-col flex-wrap md:col-span-4 overflow-hidden w-full">
           {data ? (
             data.length ? (
-              <div className="flex w-full flex-col flex-wrap sm:gap-4">
-                <Heading title={findHindi("independence day")} />
+              <div className="flex w-full flex-col flex-wrap ">
+                <Heading
+                  title={findHindi(
+                    event_type ? event_type : "independence-day"
+                  )}
+                />
                 {/* {data.length > 0 && (
                   <Link href={`/news/${data[0]?.news_id}`}>
                     <div className="h-[180px] md:h-[400px] w-full mt-0 relative p-1">
@@ -138,7 +143,9 @@ const EventNews = () => {
                 </div>
               </div>
             ) : (
-              <p>No news available</p>
+              <div className="flex justify-center items-center h-40 w-full">
+                <h2 className="text-5xl text-gray">No News Found</h2>
+              </div>
             )
           ) : (
             <>

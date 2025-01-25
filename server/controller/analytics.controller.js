@@ -241,7 +241,7 @@ cron.schedule('0 2 * * *', async () => {
         await monthData.save();
 
         await News.updateMany({}, { $set: { "activity.total_today_count": 0 } });
-        await EventNews.updateMany({}, { $set: { "activity.total_today_count": 0 } });
+        // await EventNews.updateMany({}, { $set: { "activity.total_today_count": 0 } });
         await YtNews.updateMany({}, { $set: { "activity.total_today_count": 0 } });
 
         // console.log(`Stored count ${count} for date ${startOfDay.toISOString().substring(0, 10)}`);

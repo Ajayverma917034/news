@@ -157,7 +157,8 @@ const engToHindi = {
     "videos": "वीडियो",
     'read also': 'ये भी पढ़ें',
 
-    'independence day': 'स्वतंत्रता दिवस',
+    'independence-day': 'स्वतंत्रता दिवस',
+    'republic-day': 'गणतंत्र दिवस',
 };
 
 

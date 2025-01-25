@@ -3,6 +3,7 @@ import Heading from "@/lib/Heading";
 import axios from "axios";
 import Image from "next/image";
 import React, { useEffect } from "react";
+import LazyLoadAd from "./LazyLoadAds";
 
 const RelatedNews = ({ news_id }) => {
   const [relatedNews, setRelatedNews] = React.useState([]);
@@ -89,6 +90,7 @@ const RelatedNews = ({ news_id }) => {
           </>
         )}
       </div>
+      <LazyLoadAd />
     </div>
   );
 };

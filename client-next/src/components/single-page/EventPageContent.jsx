@@ -18,9 +18,9 @@ import { HiOutlineExclamationCircle } from "react-icons/hi2";
 import BlogContent from "./BlogContent";
 import Link from "next/link";
 import { handleImageError } from "@/lib/errorImg";
-import DetailAds from "../ads/DetailAds2";
+import DetailAds from "../ads/DetailAds";
 
-const EventPageContent = ({ item, ads }) => {
+const EventPageContent = ({ item }) => {
   const shareUrl =
     process.env.NEXT_PUBLIC_CURRENT_URL + `/event-news/${item?.news_id}`;
   const copyUrlToClipboard = async () => {
@@ -93,21 +93,19 @@ const EventPageContent = ({ item, ads }) => {
         <div className="py-2 my-2 border-[3px] border-green-600 rounded-md flex justify-center items-center font-semibold text-green-700 w-full hover:text-white hover:bg-green-700 cursor-pointer transition-all delay-75">
           Whatsapp चैनल फॉलो करे !
         </div>
-        <div className="py-4 w-full">
-          <div className="bg-gray h-[200px] md:h-[300px] flex justify-center items-center w-full relative">
-            <DetailAds ads={ads} />
-            <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
-              <Link
-                href={"/advertisement-us"}
-                className="text-[#f9f9f9] text-[12px] "
-              >
-                <HiOutlineExclamationCircle
-                  size={18}
-                  className="text-[#f9f9f9] font-sans"
-                />
-              </Link>
-              <span className="text-[#f9f9f9] text-[12px]">Sponsored</span>
-            </div>
+        <div className="bg-gray h-[200px] md:h-[300px] flex justify-center items-center w-full relative">
+          <DetailAds />
+          <div className="absolute bottom-0 right-0 bg-black bg-opacity-50 z-[100] flex gap-x-1 rounded-md p-1 font-sans items-center">
+            <Link
+              href={"/advertisement-us"}
+              className="text-[#f9f9f9] text-[12px] "
+            >
+              <HiOutlineExclamationCircle
+                size={18}
+                className="text-[#f9f9f9] font-sans"
+              />
+            </Link>
+            <span className="text-[#f9f9f9] text-[12px]">Sponsored</span>
           </div>
         </div>
         <p className="date-lg text-2xl text-wrap">{item?.description}</p>

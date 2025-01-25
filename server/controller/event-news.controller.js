@@ -177,38 +177,49 @@ export const deleteNews = tryCatch(async (req, res, next) => {
 
 
 export const fetchRandomNews = tryCatch(async (req, res, next) => {
-    const news = await EventNews.aggregate([{
-        $sample: {
-            size: 1
+    const news = await EventNews.aggregate([
+        {
+            $match: {
+                event_type: "republic-day"
+            }
+        },
+        {
+            $sample: {
+                size: 1
+            }
+        },
+        {
+            $project: {
+                news_id: 1,
+                title: 1,
+                description: 1,
+                banner: 1,
+                createdAt: 1,
+                _id: 0
+            }
         }
-    }])
+    ]);
+    let newsData = news[0];
 
     if (news) {
+        return res.status(200).json(newsData)
 
-        EventNews.findOneAndUpdate({ news_id: news[0].news_id }, { $inc: { "activity.total_reads": 1, "activity.total_today_count": 1 } }).select('news_id title description banner createdAt -_id')
-            .then(article => {
-                // console.log(article)
-                return res.status(200).json({ news: article })
-            })
-            .catch(err => {
-                return next(new ErrorHandler(500, err.message))
-            })
     }
     else {
-        return res.status(200).json({ news: null })
+        return res.status(200).json(null)
     }
 
 })
 
 
 export const getMyNews = tryCatch(async (req, res, next) => {
-    let { limit, page, event_type, draft } = req.body;
+    let { limit, page, event_type = 'republic-day', draft } = req.body;
     let query = {};
     if (draft) {
         query.draft = draft
     }
     if (event_type) {
-        query.event_type = event_type
+        query.event_type = 'republic-day'
     }
 
     const authorId = req.user._id;
