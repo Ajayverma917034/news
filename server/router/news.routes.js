@@ -1,5 +1,5 @@
 import express from 'express';
-import { adminNews, createNews, deleteDraftNews, deleteNews, fetchDataStateWise, fetchRandomNews, fetchRelatedNews, findNewsSectionTypeNews, findStateDataWithOutDistrict, findStateNews, getBreakingNews, getHomeNews, getMyNews, getMyNewsCount, getNews, getNewsCount, getNewses, getQueryNewsCount, searchNews } from '../controller/news.controller.js';
+import { adminNews, createNews, deleteDraftNews, deleteNews, fetchDataStateWise, fetchRandomNews, fetchRelatedNews, findNewsSectionTypeNews, findStateDataWithOutDistrict, findStateNews, getBreakingNews, getHomeNews, getMyNews, getMyNewsCount, getNews, getNewsCount, getNewses, getNewsXMLData, getQueryNewsCount, searchNews } from '../controller/news.controller.js';
 import { authorizeroles, isAuthenticated } from '../middleware/Authentication.js';
 import { deleteNewsAdmin } from '../controller/admin.controller.js';
 
@@ -20,6 +20,7 @@ newsRouter.post('/fetch-sidebar-news', findNewsSectionTypeNews)
 newsRouter.post('/get-random-news', fetchRandomNews)
 
 newsRouter.post('/fetch-state-news-without-districts', findStateDataWithOutDistrict)
+newsRouter.get('/sitemap-news', getNewsXMLData)
 
 newsRouter.post('/search-news', searchNews)
 // newsRouter.get('/breaking-news', getBreakingNews)

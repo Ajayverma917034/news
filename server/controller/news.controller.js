@@ -730,7 +730,8 @@ export const fetchRandomNews = tryCatch(async (req, res, next) => {
     // Update the total reads count for the selected news
     await News.findOneAndUpdate(
         { news_id: randomNews.news_id },
-        { $inc: { "activity.total_reads": 1, "activity.total_today_count": 1 } }
+        { $inc: { "activity.total_reads": 1, "activity.total_today_count": 1 } },
+        { new: true, timestamps: false }
     );
 
     res.status(200).json({ success: true, news: randomNews });
@@ -764,5 +765,58 @@ const convertStateAndDistrictToArray = async () => {
         console.error("Error updating documents:", error);
     }
 };
+
+export const getNewsXMLData = tryCatch(async (req, res, next) => {
+    // Fetch the news articles from your database
+    const news = await News.find({})
+        .sort({ createdAt: -1 })
+        .select('news_id title createdAt updatedAt -_id')
+        .limit(1000)
+        .exec();
+
+    return res.status(200).json(news)
+
+    // // Define your base URL (replace with your actual base URL)
+    // const baseUrl = process.env.FRONTEND_URL;
+    // const convertToIST = (date) => {
+    //     return new Date(date).toLocaleString('en-IN', {
+    //         timeZone: 'Asia/Kolkata',
+    //         year: 'numeric',
+    //         month: '2-digit',
+    //         day: '2-digit',
+    //         hour: '2-digit',
+    //         minute: '2-digit',
+    //         second: '2-digit',
+    //         hour12: true,
+    //     }).replace(",", ""); // Formatting the output for desired structure
+    // };
+    // // Generate the sitemap XML
+    // const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+    // <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+    //   ${news
+    //         .map(
+    //             (article) => `
+    //     <url>
+    //       <loc>${baseUrl}/news/${article.news_id}</loc>
+    //       <lastmod>${convertToIST(article.updatedAt)}</lastmod>
+    //       <news:news>
+    //         <news:publication>
+    //           <news:name>JanpadNews Live</news:name>
+    //           <news:language>hi</news:language>
+    //         </news:publication>
+    //         <news:publication_date>${convertToIST(article.createdAt)}</news:publication_date>
+    //         <news:title>${article.title}</news:title>
+    //       </news:news>
+    //     </url>
+    //   `
+    //         )
+    //         .join("")}
+    // </urlset>`;
+
+    // res.set('Content-Type', 'text/xml');
+
+    // res.send(sitemap);
+});
+
 
 // convertStateAndDistrictToArray();
