@@ -21,6 +21,7 @@ import eventNewsRouter from "./router/event.news.routes.js";
 import TitleAdvertisementRoutes from "./router/advertisement.title.routes.js";
 import scheduleNewsRouter from "./router/scheduleNews.routes.js";
 import pushNotificationRouter from "./router/notification.routes.js";
+import './controller/backup.controller.js';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 

@@ -4,7 +4,7 @@ import moment from 'moment-timezone';
 // Set default timezone to IST (Indian Standard Time)
 const getISTTime = () => moment.tz('Asia/Kolkata').toDate();
 
-const newsSchema = new mongoose.Schema({
+export const newsSchema = new mongoose.Schema({
     news_id: {
         type: String,
         required: true,

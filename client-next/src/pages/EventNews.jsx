@@ -81,7 +81,7 @@ const EventNews = ({ event_type = "" }) => {
               <div className="flex w-full flex-col flex-wrap ">
                 <Heading
                   title={findHindi(
-                    event_type ? event_type : "independence-day"
+                    event_type ? event_type : "holi"
                   )}
                 />
                 {/* {data.length > 0 && (

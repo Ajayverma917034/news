@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const newsSchema = new mongoose.Schema({
+export const newsSchema = new mongoose.Schema({
     news_id: {
         type: String,
         required: true,

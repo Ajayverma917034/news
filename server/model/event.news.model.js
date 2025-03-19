@@ -1,6 +1,6 @@
 import mongoose, { Schema } from "mongoose";
 
-const eventNewsSchema = new mongoose.Schema({
+export const eventNewsSchema = new mongoose.Schema({
     news_id: {
         type: String,
         required: true,
@@ -52,5 +52,4 @@ const eventNewsSchema = new mongoose.Schema({
 
 
 const EventNews = mongoose.model('EventNews', eventNewsSchema);
-
 export default EventNews

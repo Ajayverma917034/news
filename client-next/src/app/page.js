@@ -58,7 +58,7 @@ export default async function Page() {
 
 
     return (
-        <main className="bg-red-200">
+        <main>
             <div className="flex flex-col spacing mt-2 w-full">
                 <div className="grid grid-cols-1 lg:grid-cols-6 mx-auto w-full md:gap-5 ">
                     <div className="flex flex-col flex-wrap  md:col-span-4 overflow-hidden bg-white">

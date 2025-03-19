@@ -21,9 +21,9 @@ const Navbar = () => {
   const navItems = [
     { name: "Home", hindiName: "होम", link: "/" },
     {
-      name: "republic day",
-      hindiName: "गणतंत्र दिवस",
-      link: "/republic-day",
+      name: "holi",
+      hindiName: "होली",
+      link: "/holi",
       event: true,
     },
     { name: "Videos", hindiName: "वीडियो", event: false, link: "/videos" },

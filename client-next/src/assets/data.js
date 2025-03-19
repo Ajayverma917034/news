@@ -159,6 +159,7 @@ const engToHindi = {
 
     'independence-day': 'स्वतंत्रता दिवस',
     'republic-day': 'गणतंत्र दिवस',
+    'holi': 'होली',
 };
 
 

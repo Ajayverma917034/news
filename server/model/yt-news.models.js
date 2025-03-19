@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const ytNewsSchema = new mongoose.Schema({
+export const ytNewsSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true
