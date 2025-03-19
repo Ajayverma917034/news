@@ -64,7 +64,7 @@ export default async function Page() {
                     <div className="flex flex-col flex-wrap  md:col-span-4 overflow-hidden bg-white">
                         {
                             news && news.data &&
-                            <NewsSection adInd={1} data={news.data[0].data} title={news?.data[0]?.title} />
+                            <NewsSection title={news?.data[0]?.title} />
 
                         }
 

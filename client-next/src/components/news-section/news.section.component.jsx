@@ -6,7 +6,7 @@ import { formatDate } from "@/lib/formatDate";
 import Image from "next/image";
 import Heading from "@/lib/Heading";
 
-const NewsSection = ({ data, title, adInd }) => {
+const NewsSection = ({ data, title }) => {
   return (
     <>
       {data ? (

@@ -18,7 +18,7 @@ export async function GET() {
 
       return date.toISOString().replace("Z", "+05:30");
     }
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+    const baseUrl = process.env.NEXT_PUBLIC_CURRENT_URL;
 
     // Generate the sitemap XML
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
