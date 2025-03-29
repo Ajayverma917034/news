@@ -3,9 +3,9 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     // Fetch data from your backend (e.g., Express API) or database
-    const response = await fetch(
-      `https://api.janpadnewslive.com/api/v1/sitemap-news`
-    );
+    const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_DOMAIN}/sitemap-news`, {
+      cache: "no-store", // Force fresh data
+    });
     const news = await response.json();
 
     function convertToIST(dateStr) {
