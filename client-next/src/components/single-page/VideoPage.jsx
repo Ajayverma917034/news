@@ -19,7 +19,7 @@ import DetailAds from "../ads/DetailAds";
 import toast from "react-hot-toast";
 // import LazyLoadAd from "../../../components/LazyLoadAds";
 import GoogleAdUnit from "../../../components/GoogleAdUnit";
-// import LazyAdSenseAd from "../../../components/NewGoogleAds";
+import LazyAdSenseAd from "../../../components/NewGoogleAds";
 
 const newsStructrue = {
   title: "",
@@ -248,11 +248,11 @@ const VideoPage = ({ news_id }) => {
               data-full-width-responsive="true"
             ></ins>
           </GoogleAdUnit>
-          {/* <LazyAdSenseAd
+          <LazyAdSenseAd
             adClient={"ca-pub-5839947415375117"}
             data-ad-slot="9891237509"
             data-ad-format="auto"
-          /> */}
+          />
         </div>
       </div>
     </div>

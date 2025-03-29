@@ -45,6 +45,15 @@ const LazyAdSenseAd = ({
     loadAd();
   }, [pathname]); // This re-runs when the URL changes in Next.js
 
+  useEffect(() => {
+    const handleResize = () => {
+      loadAd();
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <ins
       ref={adRef}

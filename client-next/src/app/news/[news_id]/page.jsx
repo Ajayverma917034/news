@@ -12,7 +12,7 @@ import NextNews from "@/components/single-page/NextNews";
 import NewsShare from "@/components/single-page/NewsShare";
 import EventNews from "@/pages/EventNews";
 import RandomNewsPage from "@/pages/RandomNewsPage";
-// import LazyAdSenseAd from "../../../../components/NewGoogleAds";
+import LazyAdSenseAd from "../../../../components/NewGoogleAds";
 
 function convertToIST(dateStr) {
   // Parse the date from the given UTC string
@@ -214,13 +214,19 @@ export default async function BlogPostPage({ params: { news_id } }) {
               Whatsapp चैनल फॉलो करे !
             </a>
             {/* google ads */}
-            {/* <LazyAdSenseAd
+            <LazyAdSenseAd
               adClient={"ca-pub-5839947415375117"}
-              adSlot="9891237509"
+              adSlot="9042024417"
               adFormat="auto"
-            /> */}
+            />
 
             <NewsContent item={data.news} />
+
+            <LazyAdSenseAd
+              adClient={"ca-pub-5839947415375117"}
+              adSlot="7265074166"
+              adFormat="auto"
+            />
           </article>
           <div className="bg-gray h-[200px] md:h-[300px] flex justify-center items-center w-full relative">
             <DetailAds />
@@ -238,11 +244,11 @@ export default async function BlogPostPage({ params: { news_id } }) {
             </div>
           </div>
           <RelatedNews news_id={news_id} />
-          {/* <LazyAdSenseAd
+          <LazyAdSenseAd
             adClient={"ca-pub-5839947415375117"}
             adSlot="9891237509"
             adFormat="auto"
-          /> */}
+          />
 
           <RandomNewsPage />
         </div>
