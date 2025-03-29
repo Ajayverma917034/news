@@ -60,8 +60,6 @@ const PublishForm = () => {
     blog,
   } = useContext(EditorContext);
 
-  console.log(sendNotification);
-
   // const [isOn, setIsOn] = useState(() => {
   //   // Retrieve the saved state from localStorage, default to false if not found
   //   const savedState = localStorage.getItem('toggleState');

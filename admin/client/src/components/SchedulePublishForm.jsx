@@ -60,7 +60,6 @@ const SchedulePublishForm = () => {
     setBlog,
     blog,
   } = useContext(ScheduleEditorContext);
-  console.log(tags);
 
   const [tagdata, setTagData] = useState("");
   const [hasChanges, setHasChanges] = useState(false);
@@ -162,8 +161,6 @@ const SchedulePublishForm = () => {
         return toast.error(response?.data?.error);
       });
   };
-
-  
 
   const ScheduleNews = (e) => {
     // if (e.target.className.includes("disable")) {
@@ -381,7 +378,8 @@ const SchedulePublishForm = () => {
                 </button>
               </div>
               <div>
-                {tags && tags.length > 0 &&
+                {tags &&
+                  tags.length > 0 &&
                   tags.map((tag, i) => {
                     return <ScheduleTag key={i} tagIndex={i} tag={tag} />;
                   })}

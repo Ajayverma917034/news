@@ -35,8 +35,8 @@ export async function GET() {
               <news:language>hi</news:language>
             </news:publication>
             <news:publication_date>${convertToIST(
-              article.createdAt
-            )}</news:publication_date>
+            article.createdAt
+          )}</news:publication_date>
             <news:title>${article.title}</news:title>
           </news:news>
         </url>

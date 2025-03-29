@@ -23,7 +23,6 @@ export default async function Page() {
     let news = []
     if (response.ok) {
         news = await response.json();
-        console.log(news?.data[0]?.title)
     }
 
     if (news.success === false) {
