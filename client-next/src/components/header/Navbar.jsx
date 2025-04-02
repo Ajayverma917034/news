@@ -143,7 +143,8 @@ const Navbar = () => {
               </Link>
             </li> */}
 
-            <div className="box">
+            {/* uncomment the below to show the event  */}
+            {/* <div className="box">
               <li className="min-w-fit">
                 <Link
                   href={navItems[1].link}
@@ -152,7 +153,7 @@ const Navbar = () => {
                   {navItems[1].hindiName}
                 </Link>
               </li>
-            </div>
+            </div> */}
             {navItems.splice(2).map((item, index) => (
               <li
                 key={index}

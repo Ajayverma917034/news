@@ -27,7 +27,17 @@ const fetchNews = async (news_id) => {
   return await response.json();
 };
 
-export async function generateMetadata({ params: { news_id } }) {
+export async function generateMetadata({ params }) {
+  const resolvedParams = await params;
+
+  if (!resolvedParams?.news_id) {
+    return {
+      title: "News Not Found",
+      description: "The news article you are looking for is not available.",
+    };
+  }
+
+  const news_id = resolvedParams.news_id;
   const { news } = await fetchNews(news_id);
 
   let keywords =
@@ -53,7 +63,17 @@ export async function generateMetadata({ params: { news_id } }) {
   };
 }
 
-export default async function BlogPostPage({ params: { news_id } }) {
+export default async function BlogPostPage({ params }) {
+  const resolvedParams = await params;
+
+  if (!resolvedParams?.news_id) {
+    return {
+      title: "News Not Found",
+      description: "The news article you are looking for is not available.",
+    };
+  }
+
+  const news_id = resolvedParams.news_id;
   const { news } = await fetchNews(news_id);
 
   if (!news) {

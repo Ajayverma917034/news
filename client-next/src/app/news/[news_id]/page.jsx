@@ -13,6 +13,7 @@ import NewsShare from "@/components/single-page/NewsShare";
 import EventNews from "@/pages/EventNews";
 import RandomNewsPage from "@/pages/RandomNewsPage";
 import LazyAdSenseAd from "../../../../components/NewGoogleAds";
+import Head from "next/head";
 
 function convertToIST(dateStr) {
   // Parse the date from the given UTC string
@@ -59,7 +60,17 @@ const fetchNews = async (news_id) => {
 };
 
 // Generate metadata dynamically for each news article
-export async function generateMetadata({ params: { news_id } }) {
+export async function generateMetadata({ params }) {
+  const resolvedParams = await params;
+
+  if (!resolvedParams?.news_id) {
+    return {
+      title: "News Not Found",
+      description: "The news article you are looking for is not available.",
+    };
+  }
+
+  const news_id = resolvedParams.news_id;
   const data = await fetchNews(news_id);
 
   if (!data || !data.news) {
@@ -77,34 +88,6 @@ export async function generateMetadata({ params: { news_id } }) {
       ? tags?.join(", ") +
         ", janpad news, janpad news live, latest news, today news, sonbhadra news, sonbhadra latest news, breaking news, सोनभद्र समाचार, सोनभद्र न्यूज़, जनपद न्यूज़, आज की खबर, ताजा खबरें, उत्तर प्रदेश समाचार, sonebhadra, sonebhadra news "
       : "";
-
-  const jsonLd = {
-    "@context": "https://schema.org",
-    "@type": "NewsArticle",
-    headline: news.title,
-    image: [news.banner],
-    datePublished: convertToIST(news.createdAt),
-    dateModified: convertToIST(news.updatedAt),
-    author: {
-      "@type": "Person",
-      name: "Janpad News Live",
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "Janpad News Live",
-      logo: {
-        "@type": "ImageObject",
-        url: "https://img.janpadnewslive.com/image/2024-10-18_06-17-48_logoimg.png",
-      },
-    },
-    description: news.description,
-    articleBody: news.content?.[0]?.blocks?.[0]?.data?.data?.text || "",
-    keywords: keywords,
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": `https://janpadnewslive.com/news/${news.news_id}`,
-    },
-  };
 
   return {
     title: news?.title,
@@ -144,23 +127,67 @@ export async function generateMetadata({ params: { news_id } }) {
     alternates: {
       canonical: `https://janpadnewslive.com/news/${news_id}`,
     },
-    script: [
-      {
-        type: "application/ld+json",
-        content: JSON.stringify(jsonLd),
-      },
-    ],
   };
 }
 
-export default async function BlogPostPage({ params: { news_id } }) {
+export default async function BlogPostPage({ params }) {
+  const resolvedParams = await params;
+
+  if (!resolvedParams?.news_id) {
+    return {
+      title: "News Not Found",
+      description: "The news article you are looking for is not available.",
+    };
+  }
+
+  const news_id = resolvedParams.news_id;
   const data = await fetchNews(news_id);
+
   if (!data || !data.news) {
     return <Error statusCode={404} />;
   }
 
+  const { news } = data;
+  const keywords =
+    news?.tags?.length > 0
+      ? news?.tags?.join(", ") +
+        ", janpad news, janpad news live, latest news, today news, sonbhadra news, sonbhadra latest news, breaking news, सोनभद्र समाचार, सोनभद्र न्यूज़, जनपद न्यूज़, आज की खबर, ताजा खबरें, उत्तर प्रदेश समाचार, sonebhadra, sonebhadra news "
+      : "";
+
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    headline: news.title,
+    image: [news.banner],
+    datePublished: news.createdAt,
+    dateModified: news.updatedAt,
+    author: {
+      "@type": "Person",
+      name: "Janpad News Live",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Janpad News Live",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://img.janpadnewslive.com/image/2024-10-18_06-17-48_logoimg.png",
+      },
+    },
+    description: news.description,
+    articleBody: news.content?.[0]?.blocks?.[0]?.data?.data?.text || "",
+    keywords: keywords,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://janpadnewslive.com/news/${news.news_id}`,
+    },
+  };
+
   return (
     <div className="flex flex-col spacing mt-2 w-full max-sm:px-2 relative">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
       <NextNews randomNewsId={data?.randomNewsId[0]?.news_id} />
       <div className="grid max-sm:flex flex-col sm:grid-cols-6 sm:gap-6 w-full gap-x-2">
         <div className="col-span-6 md:col-span-4 w-full flex flex-col">
@@ -250,7 +277,7 @@ export default async function BlogPostPage({ params: { news_id } }) {
             adFormat="auto"
           />
 
-          <RandomNewsPage />
+          {/* <RandomNewsPage /> */}
         </div>
         <div className="flex flex-col gap-y-2 md:gap-y-10 md:col-span-2 md:mt-10">
           <div className="sticky top-36 max-md:hidden">

@@ -23,12 +23,12 @@ const NewsContent = ({ item }) => {
               </div>
 
               {/* Insert an ad at the midpoint */}
-              {/* {i === Math.floor(totalLength / 2) && (
-                <div className="flex flex-col w-full min-h-[10rem] bg-[#f0f0f0] mb-1">
+              {i === Math.floor(totalLength / 2) && (
+                <div className="flex flex-col w-full min-h-[10rem] bg-[#f0f0f0] bg-opacity-50 mb-1">
                   <p className="text-center">Advertisement</p>
                   <InArticalAds />
                 </div>
-              )} */}
+              )}
             </div>
           );
         })}
