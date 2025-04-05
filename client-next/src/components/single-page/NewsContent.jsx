@@ -1,6 +1,7 @@
 import React from "react";
 import BlogContent from "./BlogContent";
 import InArticalAds from "../../../components/InArticalAds";
+import CustomeAndGoogleAdd from "../ads/CustomeAndGoogleAdd";
 
 const NewsContent = ({ item }) => {
   const totalLength = item.content[0].blocks.length;
@@ -27,6 +28,7 @@ const NewsContent = ({ item }) => {
                 <div className="flex flex-col w-full min-h-[10rem] bg-[#f0f0f0] bg-opacity-50 mb-1">
                   <p className="text-center">Advertisement</p>
                   <InArticalAds />
+                  <CustomeAndGoogleAdd />
                 </div>
               )}
             </div>

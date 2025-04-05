@@ -92,7 +92,7 @@ export default async function Page() {
                         }
                     </div>
                     <div className="col-span-2 w-full">
-                        <div className="sticky top-44 max-md:hidden">
+                        <div className="sticky top-44">
                             <CustomeAndGoogleAdd />
                             <SideNews title={"education"} />
                         </div>
@@ -117,7 +117,7 @@ export default async function Page() {
                             ))}
                         </div>
                         <div className="col-span-2 w-full">
-                            <div className="sticky top-44 max-md:hidden">
+                            <div className="sticky top-44 ">
                                 <CustomeAndGoogleAdd />
                             </div>
                         </div>
@@ -134,7 +134,7 @@ export default async function Page() {
                             ))}
                         </div>
                         <div className="col-span-2 w-full">
-                            <div className="sticky top-44 max-md:hidden">
+                            <div className="sticky top-44">
                                 <CustomeAndGoogleAdd />
                             </div>
                         </div>

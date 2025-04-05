@@ -19,7 +19,7 @@ export default function CustomeAndGoogleAdd() {
   const { data, isPending, isError, error } = useCustomeAds();
 
   return (
-    <div className="flex flex-wrap gap-y-3 gap-x-4 md:flex max-sm:items-center w-full max-w-[330px] sm:w-[330px] lg:flex-col ">
+    <div className="flex flex-wrap gap-y-3 gap-x-4 md:flex max-sm:items-center w-full max-w-[330px] sm:w-[330px] lg:flex-col max-md:mx-auto">
       <Swiper
         spaceBetween={20}
         effect={"fade"}
