@@ -78,7 +78,6 @@ export const getAdminNewsCount = tryCatch(async (req, res, next) => {
         ];
     }
 
-    console.log(query)
     const count = await News.countDocuments(query).exec();
     return res.status(200).json({ totalDocs: count });
 });

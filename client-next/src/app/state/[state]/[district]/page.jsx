@@ -5,10 +5,11 @@ import BottomPopUp from "@/components/BottomPopUp";
 // import DistrictNews from "@/pages/DistrictNews";
 
 export async function generateMetadata({ params }) {
-  // read route params
-  let { state, district } = params;
-  state = state.split("%20").join(" ");
-  district = district.split("%20").join(" ");
+  const awaitedParams = await params;
+  let { state, district } = awaitedParams;
+
+  state = decodeURIComponent(state);
+  district = decodeURIComponent(district);
 
   let title = district.charAt(0).toUpperCase() + district.slice(1);
   return {
@@ -43,12 +44,13 @@ export async function generateMetadata({ params }) {
   };
 }
 
-const page = ({ params }) => {
+const page = async ({ params }) => {
+  const awaitedParams = await params;
+  let { state, district } = awaitedParams;
   return (
     <div>
       <BottomPopUp />
-
-      <Client params={params} />
+      <Client state={state} district={district} />
     </div>
   );
 };

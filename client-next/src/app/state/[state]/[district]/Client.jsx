@@ -28,12 +28,13 @@ import {
   SquareAds10,
 } from "../../../../../components/SquareAds";
 
-const Client = ({ params }) => {
+const Client = ({ state, district }) => {
   const [data, setData] = useState(null);
   const [totalNews, setTotalNews] = useState(50);
   const [isLoading, setIsLoading] = useState(false);
+
   const [page, setPage] = useState(1);
-  let { state, district } = params;
+  // let { state, district } = params;
   state = state.split("%20").join(" ");
   district = district.split("%20").join(" ");
   const pageSize = 10;
@@ -188,7 +189,7 @@ const Client = ({ params }) => {
                 </div>
               </div>
             ) : (
-              <p>No news available</p>
+              <p className="text_20"> No news available</p>
             )
           ) : (
             <MorePageSkeleton />

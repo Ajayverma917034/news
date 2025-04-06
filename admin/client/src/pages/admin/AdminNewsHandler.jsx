@@ -13,6 +13,7 @@ import { MdOutlineManageSearch } from "react-icons/md";
 import FilterNewsSection from "./FilterNewsSection";
 import { GrPowerReset } from "react-icons/gr";
 import { GiNewspaper } from "react-icons/gi";
+import SocialShare from "../../components/SocialShare";
 
 const AdminNewsHandler = () => {
   const navigate = useNavigate();
@@ -198,11 +199,16 @@ const AdminNewsHandler = () => {
                     <button
                       className="bg-blue text-white px-3 py-1 rounded-lg text-base"
                       onClick={() =>
-                        navigate(`/dashboard/create-news/${item?.news_id}?mode=edit`)
+                        navigate(
+                          `/dashboard/create-news/${item?.news_id}?mode=edit`
+                        )
                       }
                     >
                       Edit
                     </button>
+
+                    <SocialShare item={item} />
+
                     <button
                       className="bg-red text-white px-3 py-1 rounded-lg text-base"
                       onClick={() => {

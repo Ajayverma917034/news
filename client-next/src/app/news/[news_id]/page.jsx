@@ -10,10 +10,8 @@ import DetailAds from "@/components/ads/DetailAds";
 import Link from "next/link";
 import NextNews from "@/components/single-page/NextNews";
 import NewsShare from "@/components/single-page/NewsShare";
-import EventNews from "@/pages/EventNews";
-import RandomNewsPage from "@/pages/RandomNewsPage";
 import LazyAdSenseAd from "../../../../components/NewGoogleAds";
-import Head from "next/head";
+import RandomNewsScroll from "./RandomNewsScroll";
 
 function convertToIST(dateStr) {
   // Parse the date from the given UTC string
@@ -277,7 +275,7 @@ export default async function BlogPostPage({ params }) {
             adFormat="auto"
           />
 
-          {/* <RandomNewsPage /> */}
+          <RandomNewsScroll />
         </div>
         <div className="flex flex-col gap-y-2 md:gap-y-10 md:col-span-2 md:mt-10">
           <div className="sticky top-36 max-md:hidden">
