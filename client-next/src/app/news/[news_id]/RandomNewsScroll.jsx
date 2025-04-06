@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useInView } from "react-intersection-observer";
 import Heading from "@/lib/Heading";
@@ -7,22 +7,22 @@ import { formatDate } from "@/lib/formatDate";
 import { HiOutlineExclamationCircle } from "react-icons/hi2";
 import { CiLocationOn } from "react-icons/ci";
 import Image from "next/image";
-import PageContent from "@/components/single-page/PageContent";
 import NewsShare from "@/components/single-page/NewsShare";
 import LazyAdSenseAd from "../../../../components/NewGoogleAds";
 import NewsContent from "@/components/single-page/NewsContent";
 import DetailAds from "@/components/ads/DetailAds";
 import Link from "next/link";
-import RelatedNews from "../../../../components/RelatedNews";
 import { useRouter } from "next/navigation";
 
 const NewsBlock = ({ news, index }) => {
   const { ref, inView } = useInView({ threshold: 0.5 });
   const router = useRouter();
 
+  const hasNavigated = useRef(false);
+
   useEffect(() => {
-    if (inView) {
-      console.log("In view:", news.news_id);
+    if (inView && !hasNavigated.current) {
+      hasNavigated.current = true;
       router.replace(`/news/${news.news_id}`, { scroll: false });
     }
   }, [inView, news.news_id, router]);

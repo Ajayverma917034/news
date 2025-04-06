@@ -728,11 +728,11 @@ export const fetchRandomNews = tryCatch(async (req, res, next) => {
     const randomNews = news[randomIndex];
 
     // Update the total reads count for the selected news
-    await News.findOneAndUpdate(
-        { news_id: randomNews.news_id },
-        { $inc: { "activity.total_reads": 1, "activity.total_today_count": 1 } },
-        { new: true, timestamps: false }
-    );
+    // await News.findOneAndUpdate(
+    //     { news_id: randomNews.news_id },
+    //     { $inc: { "activity.total_reads": 1, "activity.total_today_count": 1 } },
+    //     { new: true, timestamps: false }
+    // );
 
     res.status(200).json({ success: true, news: randomNews });
 
