@@ -27,7 +27,7 @@ export async function GET() {
         .map(
           (article) => `
         <url>
-          <loc>${baseUrl}/news/${article.title}</loc>
+          <loc>${baseUrl}/news/${article.news_id}</loc>
           <lastmod>${convertToIST(article.updatedAt)}</lastmod>
           <news:news>
             <news:publication>
