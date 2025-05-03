@@ -226,6 +226,7 @@ export const getNewses = tryCatch((req, res, next) => {
 })
 export const getNewsForAll = tryCatch(async(req, res, next) => {
     let {page, limit} = req.query;
+    
     let { state, district, location, tags, breaking_news, draft = false, news_section_type } = req.body;
     let query = {};
 
@@ -261,6 +262,7 @@ export const getNewsForAll = tryCatch(async(req, res, next) => {
     }
 
     limit = limit ? parseInt(limit) : 5;
+    limit = Math.min(limit, 100);
     page = page ? parseInt(page) : 1;
 
     const news = await News.find(query)
@@ -271,7 +273,7 @@ export const getNewsForAll = tryCatch(async(req, res, next) => {
 
     const totalDocs = await News.countDocuments(query)
 
-    return res.status(200).json({news, total_page: totalDocs, current_page: page})
+    return res.status(200).json({news, total_pages: Math.ceil(totalDocs / limit), current_page: page})
 })
 export const getNews = tryCatch(async (req, res, next) => {
     let { news_id, draft = false, mode, incrementVal: val } = req.body;
