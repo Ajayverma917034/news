@@ -224,6 +224,54 @@ export const getNewses = tryCatch((req, res, next) => {
             return next(new ErrorHandler(500, err.message))
         })
 })
+export const getNewsForAll = tryCatch(async(req, res, next) => {
+    let { page, limit, state, district, location, tags, breaking_news, draft = false, news_section_type } = req.body;
+    let query = {};
+
+    if (state) {
+        // state = state.map(type => type.trim().toLowerCase());
+        if (state === 'rajya') {
+            query.state = { $in: ["uttar pradesh", "uttarakhand", "bihar", "jharkhand", "madhyapradesh", "chhattisgarh"] }
+        }
+        else {
+            query.state = { $in: state };
+
+        }
+    }
+    if (district) {
+        // district = district.map(type => type.trim().toLowerCase());
+        if (district === 'zila') {
+            query.district = { $in: ["sonbhadra", "chandauli", "mirzapur", "varanasi", "gajipur", "shahjhapur", "prayagraj", "deoria", "bareilly", "pilibhit", 'lakhimpur kheri', "singrauli"] }
+        }
+        else {
+            query.district = { $in: district };
+
+        }
+    }
+
+
+    if (location) query.location = location;
+    if (tags) query.tags = tags;
+    if (breaking_news) query.breaking_news = breaking_news;
+    if (draft) query.draft = draft;
+    if (news_section_type && news_section_type.length) {
+        news_section_type = news_section_type.map(type => type.trim().toLowerCase());
+        query.news_section_type = { $in: news_section_type };
+    }
+
+    limit = limit ? parseInt(limit) : 5;
+    page = page ? parseInt(page) : 1;
+
+    const news = await News.find(query)
+        .sort({ "createdAt": -1 })
+        .skip(limit * (page - 1))
+        .limit(limit)
+        .select('news_id title banner location createdAt -_id')
+
+    const totalDocs = await News.countDocuments(query)
+
+    return res.status(200).json({news, total_page: totalDocs, current_page: page})
+})
 export const getNews = tryCatch(async (req, res, next) => {
     let { news_id, draft = false, mode, incrementVal: val } = req.body;
     let incrementVal = mode !== 'edit' ? val : 0;
