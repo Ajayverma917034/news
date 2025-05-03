@@ -225,7 +225,8 @@ export const getNewses = tryCatch((req, res, next) => {
         })
 })
 export const getNewsForAll = tryCatch(async(req, res, next) => {
-    let { page, limit, state, district, location, tags, breaking_news, draft = false, news_section_type } = req.body;
+    let {page, limit} = req.query;
+    let { state, district, location, tags, breaking_news, draft = false, news_section_type } = req.body;
     let query = {};
 
     if (state) {
