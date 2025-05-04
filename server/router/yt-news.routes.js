@@ -9,7 +9,7 @@ const YtRouter = express.Router();
 
 YtRouter.post('/create-yt-news', isAuthenticated, authorizeroles('admin'), createYtNews)
 YtRouter.post('/news/youtube', getYtNewses)
-YtRouter.post('/news/video-news', getVideoNews)
+YtRouter.get('/news/video-news', getVideoNews)
 YtRouter.post('/get-youtube-news', getYtNews)
 YtRouter.post('/get-yt-news-count', getYtNewsCount)
 
