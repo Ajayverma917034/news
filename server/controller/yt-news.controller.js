@@ -117,6 +117,34 @@ export const getYtNewses = tryCatch(async (req, res, next) => {
         return next(new ErrorHandler(500, error.message))
     }
 })
+export const getVideoNews = tryCatch(async (req, res, next) => {
+    try {
+
+        let { page, limit } = req.query;
+
+        // let query = {};
+        // if (state) query.state = state;
+        // if (district) query.district = district;
+        // if (location) query.location = location;
+        // if (tags) query.tags = tags;
+        // if (draft !== undefined) query.draft = draft;
+
+        limit = limit ? limit : 4;
+        page = page ? page : 1;
+
+
+        const ytnews = await YtNews.find({})
+            .sort({ "createdAt": -1 })
+            .skip((page - 1) * limit)
+            .limit(limit)
+            .select('news_id title location videoLinkId createdAt -_id')
+        const ytnewsCount = await YtNews.countDocuments({})
+        return res.status(200).json({news: ytnews, total_pages: Math.ceil(ytnewsCount / limit), current_page: page})
+
+    } catch (error) {
+        return next(new ErrorHandler(500, error.message))
+    }
+})
 
 export const getYtNews = tryCatch(async (req, res, next) => {
     let { video_id, draft, mode, incrementVal } = req.body;

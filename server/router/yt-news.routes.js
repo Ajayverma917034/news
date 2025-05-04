@@ -2,13 +2,14 @@
 
 import express from "express";
 
-import { createYtNews, deleteYtNews, fetchRelatedNews, getMyNewsCountYt, getMyNewsYt, getYtNews, getYtNewsCount, getYtNewses } from '../controller/yt-news.controller.js'
+import { createYtNews, deleteYtNews, fetchRelatedNews, getMyNewsCountYt, getMyNewsYt, getVideoNews, getYtNews, getYtNewsCount, getYtNewses } from '../controller/yt-news.controller.js'
 import { authorizeroles, isAuthenticated } from "../middleware/Authentication.js";
 
 const YtRouter = express.Router();
 
 YtRouter.post('/create-yt-news', isAuthenticated, authorizeroles('admin'), createYtNews)
 YtRouter.post('/news/youtube', getYtNewses)
+YtRouter.post('/news/video-news', getVideoNews)
 YtRouter.post('/get-youtube-news', getYtNews)
 YtRouter.post('/get-yt-news-count', getYtNewsCount)
 
