@@ -59,6 +59,28 @@ export const getAdvertisement = tryCatch(async (req, res, next) => {
         return res.status(500).json({ success: false, message: err.message })
     }
 })
+export const getAdvertisementByCategory = tryCatch(async (req, res, next) => {
+    try {
+
+        let select = 'banner.url link -_id';
+        const {category} = req.query;
+
+        // const detailAds = await Advertisement.find({ type: "detail" }).sort({ 'order': 1 }).select(select).exec();
+
+        // const sideAds = await Advertisement.find({ type: 'square' }).sort({ 'order': 1 }).select(select).exec();
+        // const bannerAds = await Advertisement.find({ type: 'rectangle' }).sort({ 'order': 1 }).select(select).exec();
+
+        const ads = await Advertisement.find({type: category}).sort({ 'order': 1 }).select(select).exec()
+
+        res.status(200).json(ads)
+
+
+
+    }
+    catch (err) {
+        return res.status(500).json({ success: false, message: err.message })
+    }
+})
 export const getAdminAdvertisement = tryCatch(async (req, res, next) => {
     try {
         const { type } = req.query;
