@@ -224,9 +224,9 @@ export const getNewses = tryCatch((req, res, next) => {
             return next(new ErrorHandler(500, err.message))
         })
 })
-export const getNewsForAll = tryCatch(async(req, res, next) => {
-    let {page, limit} = req.query;
-    
+export const getNewsForAll = tryCatch(async (req, res, next) => {
+    let { page, limit } = req.query;
+
     let { state, district, location, tags, breaking_news, draft = false, news_section_type } = req.body;
     let query = {};
 
@@ -273,7 +273,7 @@ export const getNewsForAll = tryCatch(async(req, res, next) => {
 
     const totalDocs = await News.countDocuments(query)
 
-    return res.status(200).json({news, total_pages: Math.ceil(totalDocs / limit), current_page: page})
+    return res.status(200).json({ news, total_pages: Math.ceil(totalDocs / limit), current_page: page })
 })
 export const getNews = tryCatch(async (req, res, next) => {
     let { news_id, draft = false, mode, incrementVal: val } = req.body;
@@ -301,8 +301,8 @@ export const getNews = tryCatch(async (req, res, next) => {
             article = {
                 ...article._doc,
                 news_post_time: article.createdAt,
-                createdAt: convertToIST(article.createdAt),
-                updatedAt: convertToIST(article.updatedAt)
+                createdAt: article.createdAt,
+                updatedAt: article.updatedAt
             };
 
             // console.log("Converted to IST createdAt:", article.createdAt);
@@ -346,8 +346,8 @@ export const getNews = tryCatch(async (req, res, next) => {
                     // Adjust createdAt and updatedAt for related news to IST for display
                     news = news.map(n => ({
                         ...n._doc,
-                        createdAt: convertToIST(n.createdAt),
-                        updatedAt: convertToIST(n.updatedAt)
+                        createdAt: n.createdAt,
+                        updatedAt: n.updatedAt
                     }));
 
                     return res.status(200).json({ news: article, relatedNews: news, randomNewsId: randomNewsId });
