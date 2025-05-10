@@ -5,6 +5,7 @@ import tryCatch from "../utils/asyncFunction.js";
 import ErrorHandler from "../utils/errorHandler.js";
 import translate from "translate-google";
 import { sendNewsNotification } from "./pushnotification.controller.js";
+import axios from "axios";
 
 function generateNanoId(length = 5) {
     let result = '';
@@ -22,6 +23,18 @@ function getCurrentDate() {
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}${month}${day}`;
 }
+
+
+const SITEMAP_API_URL = "https://janpadnewslive.com/sitemap-generator.php";
+
+const updateSitemap = async () => {
+    try {
+        const res = await axios.post(SITEMAP_API_URL);
+        // console.log("Sitemap updated:", res.data);
+    } catch (err) {
+        console.log("Failed to update sitemap:", err.message);
+    }
+};
 
 export const createNews = tryCatch(async (req, res, next) => {
     try {
@@ -67,7 +80,9 @@ export const createNews = tryCatch(async (req, res, next) => {
             // Update existing news
             News.findOneAndUpdate({ news_id: id }, { title, description, content, state, district, location, banner, tags, news_section_type, imageRef, draft: draft ? draft : false })
                 .then(news => {
-                    return res.status(200).json({ id: news.news_id, message: 'update Successfully' })
+                    // return res.status(200).json({ id: news.news_id, message: 'update Successfully' })
+                    res.status(200).json({ id: news.news_id, message: 'Updated Successfully' });
+                    updateSitemap();
                 })
         } else {
             // Create new news
@@ -100,7 +115,7 @@ export const createNews = tryCatch(async (req, res, next) => {
 
                     // Return response to frontend first
                     res.status(200).json({ id: news.news_id });
-
+                    updateSitemap();
                     // Proceed to send notification in the background
                     if (sendNotification) {
                         try {
@@ -425,7 +440,10 @@ export const deleteNews = tryCatch(async (req, res, next) => {
         .then(news => {
             User.findOneAndUpdate({ _id: authorId }, { $inc: { "account_info.total_news": -1 }, $pull: { "news": news._id } })
                 .then(user => {
-                    return res.status(200).json({ message: "News deleted successfully" })
+                    res.status(200).json({ message: "News deleted successfully" });
+
+                    // Call sitemap generator in the background
+                    updateSitemap();
 
                 })
                 .catch(err => {
